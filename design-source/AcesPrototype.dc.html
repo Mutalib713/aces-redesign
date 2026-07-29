@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:'Public Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#0B5FFF;text-decoration:none}
+a:hover{color:#0940B8}
+button{font-family:inherit}
+.acsc::-webkit-scrollbar{width:0;height:0}
+.acsc{scrollbar-width:none}
+@keyframes acFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes acSheet{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes acPop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
+@keyframes acShimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes acPulse{0%,100%{opacity:.5}50%{opacity:1}}
+@keyframes acRise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes acLine{from{transform:translateY(115%);opacity:.15}to{transform:none;opacity:1}}
+@keyframes acCount{to{--acn:600}}
+@property --acn{syntax:'<integer>';initial-value:0;inherits:false}
+[data-stg]>*{animation:acRise .62s cubic-bezier(.16,1,.3,1) both}
+[data-stg]>*:nth-child(1){animation-delay:.04s}
+[data-stg]>*:nth-child(2){animation-delay:.09s}
+[data-stg]>*:nth-child(3){animation-delay:.14s}
+[data-stg]>*:nth-child(4){animation-delay:.19s}
+[data-stg]>*:nth-child(5){animation-delay:.24s}
+[data-stg]>*:nth-child(6){animation-delay:.29s}
+[data-stg]>*:nth-child(7){animation-delay:.34s}
+[data-stg]>*:nth-child(8){animation-delay:.39s}
+[data-stg]>*:nth-child(n+9){animation-delay:.44s}
+[data-ln]{display:block;animation:acLine .8s cubic-bezier(.16,1,.3,1) both}
+[data-ln="2"]{animation-delay:.09s}
+[data-ln="3"]{animation-delay:.18s}
+[data-cnt]{counter-reset:acn var(--acn);animation:acCount 1.6s cubic-bezier(.2,.9,.2,1) .3s both}
+[data-cnt]::after{content:counter(acn) "+"}
+@media (prefers-reduced-motion: reduce){
+  [data-stg]>*,[data-ln],[data-cnt],.acsc>div{animation:none!important}
+}
+</style>
+</helmet>
+<div style="display:flex;justify-content:center;padding:0;width:100%">
+<div style="{{ themeVars }}position:relative;width:390px;height:844px;border-radius:44px;overflow:hidden;background:var(--bg);box-shadow:0 40px 90px -20px rgba(11,31,58,.45),0 0 0 11px #0B1F3A,0 0 0 12px #33415A;font-family:'Public Sans',sans-serif;color:var(--text);display:flex;flex-direction:column">
+
+  <div style="height:50px;flex:0 0 50px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 26px 6px;background:var(--surface);font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;color:var(--text);letter-spacing:.02em;position:relative;z-index:30">
+    <span>9:41</span>
+    <span style="display:flex;gap:5px;align-items:center;font-size:11px">
+      <span>5G</span>
+      <span style="display:inline-block;width:22px;height:11px;border:1.5px solid var(--text);border-radius:3px;position:relative"><span style="position:absolute;inset:1.5px;right:5px;background:var(--text);border-radius:1px;display:block"></span></span>
+    </span>
+  </div>
+
+  <div style="flex:0 0 auto;background:var(--surface);border-bottom:1px solid var(--line);position:relative;z-index:20">
+    <div style="display:flex;align-items:center;gap:10px;padding:8px 14px 12px;min-height:56px">
+      <sc-if value="{{ canBack }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ back }}" aria-label="Go back" style="width:44px;height:44px;min-width:44px;display:grid;place-items:center;border:none;background:none;cursor:pointer;color:var(--text);border-radius:14px" style-hover="background:var(--surface2)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"></path></svg>
+        </button>
+      </sc-if>
+      <sc-if value="{{ showBrand }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;align-items:center;gap:9px;flex:1;min-width:0">
+          <div style="width:36px;height:36px;min-width:36px;border-radius:11px;background:linear-gradient(145deg,#0B5FFF,#0B1F3A);display:grid;place-items:center;font-family:'Space Grotesk',sans-serif;font-weight:700;color:#fff;font-size:15px;letter-spacing:-.02em">A</div>
+          <div style="min-width:0">
+            <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;line-height:1.1;letter-spacing:-.02em;color:var(--text)">ACES</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;line-height:1.3">KNUST</div>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ pageTitle }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:1;min-width:0;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;letter-spacing:-.02em;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ pageTitle }}</div>
+      </sc-if>
+      <div style="display:flex;align-items:center;gap:2px">
+        <button onClick="{{ openSearch }}" aria-label="Search the site" style="width:44px;height:44px;display:grid;place-items:center;border:none;background:none;cursor:pointer;color:var(--text);border-radius:14px" style-hover="background:var(--surface2)">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+        </button>
+        <button onClick="{{ toggleDark }}" aria-label="Toggle dark mode" style="width:44px;height:44px;display:grid;place-items:center;border:none;background:none;cursor:pointer;color:var(--text);border-radius:14px" style-hover="background:var(--surface2)">
+          <sc-if value="{{ light }}" hint-placeholder-val="{{ true }}">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.5 14.5A8.5 8.5 0 019.5 3.5a8.5 8.5 0 1011 11z"></path></svg>
+          </sc-if>
+          <sc-if value="{{ dark }}" hint-placeholder-val="{{ false }}">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"></circle><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"></path></svg>
+          </sc-if>
+        </button>
+        <button onClick="{{ goCart }}" aria-label="Open cart" style="width:44px;height:44px;display:grid;place-items:center;border:none;background:none;cursor:pointer;color:var(--text);border-radius:14px;position:relative" style-hover="background:var(--surface2)">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h2.2l2 11h10L21 8H7"></path><circle cx="9.5" cy="20" r="1.4"></circle><circle cx="18" cy="20" r="1.4"></circle></svg>
+          <sc-if value="{{ cartCount }}" hint-placeholder-val="{{ false }}">
+            <span style="position:absolute;top:5px;right:4px;min-width:17px;height:17px;padding:0 4px;border-radius:9px;background:#E5484D;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;display:grid;place-items:center;border:2px solid var(--surface)">{{ cartCount }}</span>
+          </sc-if>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="acsc" style="flex:1;overflow-y:auto;overflow-x:hidden;position:relative;background:var(--bg);-webkit-overflow-scrolling:touch">
+    <div style="animation:acFade .28s ease both"><sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<div>
+  <div style="position:relative;margin:0;padding:26px 18px 22px;background:linear-gradient(155deg,#0B1F3A 0%,#0B2E63 55%,#0B5FFF 130%);overflow:hidden">
+    <img src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756508620/aces-group-photo_zoxsvy.png" alt="ACES members at a departmental gathering" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.26;mix-blend-mode:luminosity" />
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,31,58,.55),rgba(11,47,105,.82))"></div>
+    <div style="position:relative">
+      <div style="display:inline-flex;align-items:center;gap:7px;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.14);backdrop-filter:blur(6px);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#EAF4FF;font-weight:600;margin-bottom:14px">
+        <span style="width:6px;height:6px;border-radius:3px;background:#5BE9B9;animation:acPulse 1.8s infinite"></span>
+        Technology for our age
+      </div>
+      <h1 style="margin:0 0 10px;font-family:'Space Grotesk',sans-serif;font-size:31px;line-height:1.14;letter-spacing:-.03em;font-weight:700;color:#fff;text-wrap:pretty">
+        <span style="display:block;overflow:hidden;padding-bottom:.04em"><span data-ln="1">The home base for</span></span>
+        <span style="display:block;overflow:hidden;padding-bottom:.04em"><span data-ln="2">Computer Engineering</span></span>
+        <span style="display:block;overflow:hidden;padding-bottom:.04em"><span data-ln="3">at KNUST.</span></span>
+      </h1>
+      <p style="margin:0 0 18px;font-size:14.5px;line-height:1.55;color:rgba(234,244,255,.86);max-width:31ch;text-wrap:pretty">ACES is the student body for all Computer Engineering students. Get your course materials, buy and sell on campus, and never miss an event.</p>
+      <div style="display:flex;gap:9px;flex-wrap:wrap">
+        <button onClick="{{ goCourses }}" style="min-height:48px;padding:0 18px;border-radius:14px;border:none;background:#fff;color:#0B1F3A;font-weight:700;font-size:14.5px;cursor:pointer;display:inline-flex;align-items:center;gap:7px;box-shadow:0 8px 20px -6px rgba(0,0,0,.4)" style-hover="background:#EAF4FF">
+          Get course materials
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"></path></svg>
+        </button>
+        <button onClick="{{ goAbout }}" style="min-height:48px;padding:0 18px;border-radius:14px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#fff;font-weight:600;font-size:14.5px;cursor:pointer" style-hover="background:rgba(255,255,255,.18)">What is ACES?</button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:22px;padding-top:18px;border-top:1px solid rgba(255,255,255,.16)">
+        <div><div data-cnt="" style="font-family:'Space Grotesk',sans-serif;font-size:21px;font-weight:700;color:#fff;letter-spacing:-.02em"></div><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;color:rgba(234,244,255,.62);margin-top:2px">Members</div></div>
+        <div><div style="font-family:'Space Grotesk',sans-serif;font-size:21px;font-weight:700;color:#fff;letter-spacing:-.02em">3</div><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;color:rgba(234,244,255,.62);margin-top:2px">Clubs</div></div>
+        <div><div style="font-family:'Space Grotesk',sans-serif;font-size:21px;font-weight:700;color:#fff;letter-spacing:-.02em">8</div><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;color:rgba(234,244,255,.62);margin-top:2px">Courses filed</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding:18px 14px 4px">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);margin-bottom:11px;font-weight:600">Jump straight in</div>
+    <div data-stg="" style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
+      <button onClick="{{ goCourses }}" style="min-height:92px;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;padding:13px;border-radius:18px;border:1px solid var(--line);background:var(--surface);cursor:pointer;text-align:left;box-shadow:var(--shadow);transition:transform .16s" style-hover="transform:translateY(-2px)">
+        <span style="width:34px;height:34px;border-radius:11px;background:var(--brandSoft);display:grid;place-items:center;color:var(--brand)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h7v15H4zM13 5h7v15h-7z"></path></svg></span>
+        <span><span style="display:block;font-weight:700;font-size:14px;color:var(--text);font-family:'Space Grotesk',sans-serif">Course materials</span><span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);margin-top:2px">Slides · past papers</span></span>
+      </button>
+      <button onClick="{{ goMarket }}" style="min-height:92px;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;padding:13px;border-radius:18px;border:1px solid var(--line);background:var(--surface);cursor:pointer;text-align:left;box-shadow:var(--shadow);transition:transform .16s" style-hover="transform:translateY(-2px)">
+        <span style="width:34px;height:34px;border-radius:11px;background:#FEF3C7;display:grid;place-items:center;color:#B45309"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h2.2l2 11h10L21 8H7"></path><circle cx="9.5" cy="20" r="1.4"></circle><circle cx="18" cy="20" r="1.4"></circle></svg></span>
+        <span><span style="display:block;font-weight:700;font-size:14px;color:var(--text);font-family:'Space Grotesk',sans-serif">Marketplace</span><span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);margin-top:2px">Student vendors</span></span>
+      </button>
+      <button onClick="{{ goGallery }}" style="min-height:92px;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;padding:13px;border-radius:18px;border:1px solid var(--line);background:var(--surface);cursor:pointer;text-align:left;box-shadow:var(--shadow);transition:transform .16s" style-hover="transform:translateY(-2px)">
+        <span style="width:34px;height:34px;border-radius:11px;background:#F3E8FF;display:grid;place-items:center;color:#7C3AED"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2.5"></rect><circle cx="9" cy="10" r="1.8"></circle><path d="M3 17l5-4 4 3 3-2.5 6 5"></path></svg></span>
+        <span><span style="display:block;font-weight:700;font-size:14px;color:var(--text);font-family:'Space Grotesk',sans-serif">Gallery</span><span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);margin-top:2px">9 albums</span></span>
+      </button>
+      <button onClick="{{ openMenu }}" style="min-height:92px;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;padding:13px;border-radius:18px;border:1px solid var(--line);background:var(--surface);cursor:pointer;text-align:left;box-shadow:var(--shadow);transition:transform .16s" style-hover="transform:translateY(-2px)">
+        <span style="width:34px;height:34px;border-radius:11px;background:#DCFCE7;display:grid;place-items:center;color:#047857"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="6" r="2"></circle><circle cx="18" cy="6" r="2"></circle><circle cx="6" cy="18" r="2"></circle><circle cx="18" cy="18" r="2"></circle></svg></span>
+        <span><span style="display:block;font-weight:700;font-size:14px;color:var(--text);font-family:'Space Grotesk',sans-serif">Everything else</span><span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);margin-top:2px">Execs · staff · shop</span></span>
+      </button>
+    </div>
+  </div>
+
+  <div style="padding:22px 14px 4px">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:11px">
+      <h2 style="margin:0;font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:700;letter-spacing:-.02em;color:var(--text)">Next up</h2>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);letter-spacing:.05em">3 upcoming</span>
+    </div>
+    <button onClick="{{ featured.open }}" style="width:100%;padding:0;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--surface);cursor:pointer;text-align:left;box-shadow:var(--shadow);display:block">
+      <span style="display:block;position:relative;height:158px">
+        <img src="{{ featured.img }}" alt="{{ featured.name }}" style="width:100%;height:100%;object-fit:cover;display:block" />
+        <span style="position:absolute;top:11px;left:11px;display:flex;flex-direction:column;align-items:center;justify-content:center;width:50px;height:54px;border-radius:13px;background:rgba(255,255,255,.94);backdrop-filter:blur(4px);box-shadow:0 4px 12px rgba(0,0,0,.2)">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.09em;color:#E5484D;font-weight:700">{{ featured.mon }}</span>
+          <span style="font-family:'Space Grotesk',sans-serif;font-size:21px;font-weight:700;color:#0B1F3A;line-height:1;letter-spacing:-.02em">{{ featured.day }}</span>
+        </span>
+        <span style="position:absolute;top:13px;right:11px;{{ featured.pillStyle }}">{{ featured.pillText }}</span>
+      </span>
+      <span style="display:block;padding:14px">
+        <span style="display:block;font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;letter-spacing:-.02em;color:var(--text);margin-bottom:5px">{{ featured.name }}</span>
+        <span style="display:block;font-size:13.5px;line-height:1.5;color:var(--muted);margin-bottom:11px;text-wrap:pretty">{{ featured.blurb }}</span>
+        <span style="display:flex;flex-wrap:wrap;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.02em">
+          <span>{{ featured.time }}</span><span>{{ featured.venue }}</span>
+        </span>
+      </span>
+    </button>
+  </div>
+
+  <div style="padding:18px 0 4px">
+    <div style="padding:0 14px 11px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);font-weight:600">Also happening</div>
+    <div class="acsc" style="display:flex;gap:10px;overflow-x:auto;padding:0 14px 6px;scroll-snap-type:x mandatory">
+      <sc-for list="{{ events }}" as="e" hint-placeholder-count="4">
+        <button onClick="{{ e.open }}" style="flex:0 0 210px;scroll-snap-align:start;padding:0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--surface);cursor:pointer;text-align:left;box-shadow:var(--shadow)">
+          <span style="display:block;position:relative;height:104px">
+            <img src="{{ e.img }}" alt="{{ e.name }}" style="width:100%;height:100%;object-fit:cover;display:block" />
+            <span style="position:absolute;bottom:8px;left:9px;{{ e.pillStyle }}">{{ e.pillText }}</span>
+          </span>
+          <span style="display:block;padding:11px 12px 13px">
+            <span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;color:var(--brand);font-weight:600;margin-bottom:4px">{{ e.dl }} · {{ e.time }}</span>
+            <span style="display:block;font-family:'Space Grotesk',sans-serif;font-size:14.5px;font-weight:700;letter-spacing:-.01em;color:var(--text);line-height:1.25">{{ e.name }}</span>
+          </span>
+        </button>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="padding:22px 0 4px">
+    <div style="padding:0 14px 11px"><h2 style="margin:0;font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:700;letter-spacing:-.02em;color:var(--text)">Our clubs</h2></div>
+    <div class="acsc" style="display:flex;gap:10px;overflow-x:auto;padding:0 14px 6px;scroll-snap-type:x mandatory">
+      <div style="flex:0 0 168px;scroll-snap-align:start;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow)">
+        <img src="https://www.acesknust.com/images/club_images/Arduino_image.avif" alt="Arduino club" style="width:100%;height:88px;object-fit:cover;display:block" />
+        <div style="padding:11px 12px 14px"><div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:var(--text);margin-bottom:4px">Arduino Club</div><div style="font-size:12px;line-height:1.45;color:var(--muted)">Electronics and embedded systems, real hardware.</div></div>
+      </div>
+      <div style="flex:0 0 168px;scroll-snap-align:start;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow)">
+        <img src="https://www.acesknust.com/images/club_images/coding.webp" alt="Coding club" style="width:100%;height:88px;object-fit:cover;display:block" />
+        <div style="padding:11px 12px 14px"><div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:var(--text);margin-bottom:4px">Coding Club</div><div style="font-size:12px;line-height:1.45;color:var(--muted)">Web apps with HTML, CSS, JS and modern frameworks.</div></div>
+      </div>
+      <div style="flex:0 0 168px;scroll-snap-align:start;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow)">
+        <img src="https://www.acesknust.com/images/club_images/robotics_image.webp" alt="Robotics club" style="width:100%;height:88px;object-fit:cover;display:block" />
+        <div style="padding:11px 12px 14px"><div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:var(--text);margin-bottom:4px">Robotics Club</div><div style="font-size:12px;line-height:1.45;color:var(--muted)">Build and program autonomous robots and arms.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin:22px 14px 0;padding:18px;border-radius:20px;background:var(--surface2);border:1px solid var(--line)">
+    <div style="font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:700;letter-spacing:-.02em;color:var(--ink);margin-bottom:5px">Stay in the loop</div>
+    <div style="font-size:13px;line-height:1.5;color:var(--muted);margin-bottom:13px">One email a month: events, opportunities and new course uploads.</div>
+    <div style="display:flex;gap:8px">
+      <input placeholder="your.name@st.knust.edu.gh" aria-label="Email address" style="flex:1;min-width:0;height:46px;padding:0 13px;border-radius:13px;border:1px solid var(--line);background:var(--surface);font-family:'Public Sans',sans-serif;font-size:13.5px;color:var(--text);outline:none" />
+      <button onClick="{{ sub }}" style="min-height:46px;padding:0 16px;border-radius:13px;border:none;background:var(--brand);color:var(--onBrand);font-weight:700;font-size:13.5px;cursor:pointer">Join</button>
+    </div>
+  </div>
+
+  <div style="margin-top:24px;padding:22px 16px 18px;background:var(--ink);color:#EAF4FF">
+    <div style="display:flex;align-items:center;gap:9px;margin-bottom:14px">
+      <div style="width:32px;height:32px;border-radius:10px;background:rgba(255,255,255,.14);display:grid;place-items:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:#fff">A</div>
+      <div><div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:#fff">ACES KNUST</div><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;opacity:.6">Technology for our age</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;font-size:12.5px;line-height:1.7;margin-bottom:16px">
+      <div><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;opacity:.55;margin-bottom:6px">Department office</div>KNUST-CoE<br />Vodafone Building<br />Ground Floor</div>
+      <div><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;opacity:.55;margin-bottom:6px">Contact</div>aces@knust.edu.gh<br />+233 32 206 0331<br />Mon–Fri, 9am–4pm</div>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:16px">
+      <a href="https://www.linkedin.com/company/aces-knust/" style="min-height:44px;flex:1;display:grid;place-items:center;border-radius:12px;background:rgba(255,255,255,.1);color:#EAF4FF;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600">LinkedIn</a>
+      <a href="https://www.instagram.com/aces_knust/" style="min-height:44px;flex:1;display:grid;place-items:center;border-radius:12px;background:rgba(255,255,255,.1);color:#EAF4FF;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600">Instagram</a>
+      <a href="https://x.com/aces_knust" style="min-height:44px;flex:1;display:grid;place-items:center;border-radius:12px;background:rgba(255,255,255,.1);color:#EAF4FF;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600">X</a>
+    </div>
+    <div style="padding-top:14px;border-top:1px solid rgba(255,255,255,.14);display:flex;flex-wrap:wrap;gap:10px 16px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;opacity:.65">
+      <span>© 2026 ACES KNUST</span><a href="#" style="color:#EAF4FF">Terms</a><a href="#" style="color:#EAF4FF">Privacy</a><a href="#" style="color:#EAF4FF">Refunds</a>
+    </div>
+  </div>
+</div>
+</sc-if>
+<sc-if value="{{ isEvent }}" hint-placeholder-val="{{ false }}">
+<div>
+  <div style="position:relative;height:210px">
+    <img src="{{ ev.img }}" alt="{{ ev.name }}" style="width:100%;height:100%;object-fit:cover;display:block" />
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,31,58,0) 30%,rgba(11,31,58,.88))"></div>
+    <div style="position:absolute;bottom:14px;left:16px;right:16px">
+      <div style="{{ evPillStyle }}margin-bottom:9px">{{ evPillText }}</div>
+      <h1 style="margin:0;font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;letter-spacing:-.03em;color:#fff;line-height:1.12;text-wrap:pretty">{{ ev.name }}</h1>
+    </div>
+  </div>
+  <div style="padding:16px 14px 0">
+    <div style="display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden">
+      <div style="display:flex;gap:11px;align-items:center;padding:13px 14px;background:var(--surface)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2" stroke-linecap="round" style="flex:0 0 18px"><rect x="3" y="5" width="18" height="16" rx="2.5"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>
+        <span><span style="display:block;font-weight:600;font-size:13.5px;color:var(--text)">{{ ev.dl }}, 2026 · {{ ev.time }}</span><span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);margin-top:1px">Add to your calendar</span></span>
+      </div>
+      <div style="display:flex;gap:11px;align-items:center;padding:13px 14px;background:var(--surface)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2" stroke-linecap="round" style="flex:0 0 18px"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"></path><circle cx="12" cy="10" r="2.4"></circle></svg>
+        <span><span style="display:block;font-weight:600;font-size:13.5px;color:var(--text)">{{ ev.venue }}</span><span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);margin-top:1px">KNUST campus</span></span>
+      </div>
+      <div style="display:flex;gap:11px;align-items:center;padding:13px 14px;background:var(--surface)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2" stroke-linecap="round" style="flex:0 0 18px"><circle cx="9" cy="8" r="3.4"></circle><path d="M2.5 20c0-3.4 3-5.5 6.5-5.5s6.5 2.1 6.5 5.5M17 11a3 3 0 100-6M18 20c0-2.4-.9-4.2-2.3-5.3"></path></svg>
+        <span><span style="display:block;font-weight:600;font-size:13.5px;color:var(--text)">{{ ev.spots }}</span><span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);margin-top:1px">{{ ev.tag }} event</span></span>
+      </div>
+    </div>
+  </div>
+  <div style="padding:18px 14px 0">
+    <h2 style="margin:0 0 8px;font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;letter-spacing:-.02em;color:var(--text)">About this event</h2>
+    <p style="margin:0;font-size:14px;line-height:1.62;color:var(--muted);text-wrap:pretty">{{ ev.detail }}</p>
+  </div>
+  <div style="padding:20px 14px 0">
+    <sc-if value="{{ evNotReg }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;gap:9px">
+        <button onClick="{{ evRegister }}" style="flex:1;min-height:52px;border-radius:15px;border:none;background:var(--brand);color:var(--onBrand);font-weight:700;font-size:15px;cursor:pointer;box-shadow:0 8px 20px -8px rgba(11,95,255,.6)">{{ ev.cta }}</button>
+        <button onClick="{{ evRemind }}" aria-label="Set a reminder" style="min-width:52px;min-height:52px;border-radius:15px;border:1px solid var(--line);background:var(--surface);cursor:pointer;color:var(--text);display:grid;place-items:center">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8a6 6 0 10-12 0c0 6-2 7-2 7h16s-2-1-2-7M10.5 20a2 2 0 003 0"></path></svg>
+        </button>
+      </div>
+    </sc-if>
+    <sc-if value="{{ evReg }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;align-items:center;gap:11px;padding:15px;border-radius:15px;background:#DCFCE7;border:1px solid #86EFAC;animation:acPop .24s ease both">
+        <span style="width:32px;height:32px;border-radius:16px;background:#047857;display:grid;place-items:center;flex:0 0 32px"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg></span>
+        <span><span style="display:block;font-weight:700;font-size:14px;color:#046C4E">You are on the list</span><span style="display:block;font-size:12.5px;color:#047857;margin-top:1px">A confirmation is on its way to your student mail.</span></span>
+      </div>
+    </sc-if>
+  </div>
+  <div style="padding:20px 14px 0">
+    <div style="padding:15px;border-radius:16px;border:1px dashed var(--line);background:var(--surface)">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:7px">Fixed from the old site</div>
+      <div style="font-size:13px;line-height:1.55;color:var(--text)">The live site showed a <strong>00:00</strong> countdown on every event and still listed 2025 events as “Upcoming”. Events now carry a real date, a status and one clear action.</div>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
+<div>
+  <div style="position:relative;height:190px">
+    <img src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756508620/aces-group-photo_zoxsvy.png" alt="ACES KNUST group photo" style="width:100%;height:100%;object-fit:cover;display:block" />
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,31,58,.15) 20%,rgba(11,31,58,.9))"></div>
+    <div style="position:absolute;bottom:14px;left:16px;right:16px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(234,244,255,.75);margin-bottom:7px">Est. at KNUST · College of Engineering</div>
+      <h1 style="margin:0;font-family:'Space Grotesk',sans-serif;font-size:25px;font-weight:700;letter-spacing:-.03em;color:#fff;line-height:1.15">Association of Computer<br />Engineering Students</h1>
+    </div>
+  </div>
+  <div style="padding:18px 14px 0">
+    <p style="margin:0 0 14px;font-size:15px;line-height:1.62;color:var(--text);text-wrap:pretty">ACES is the official student body representing every Computer Engineering student at KNUST — a platform to connect, learn and grow together.</p>
+    <p style="margin:0;font-size:14px;line-height:1.62;color:var(--muted);text-wrap:pretty">We run technical workshops, career programs, mentorship, industrial visits and community service, and we work to bridge the gap between classroom learning and real-world application.</p>
+  </div>
+  <div style="padding:20px 14px 0;display:grid;gap:10px">
+    <div style="padding:16px;border-radius:18px;background:var(--brandSoft);border:1px solid var(--line)">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--brand);font-weight:700;margin-bottom:7px">Mission</div>
+      <div style="font-size:14px;line-height:1.55;color:var(--ink);text-wrap:pretty">To equip Computer Engineering students with the skills, exposure and network they need to lead in technology.</div>
+    </div>
+    <div style="padding:16px;border-radius:18px;background:var(--surface);border:1px solid var(--line)">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:7px">Vision</div>
+      <div style="font-size:14px;line-height:1.55;color:var(--text);text-wrap:pretty">A community where innovation thrives, ideas are shared and every member is empowered to succeed.</div>
+    </div>
+  </div>
+  <div style="padding:22px 14px 0">
+    <h2 style="margin:0 0 4px;font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:700;letter-spacing:-.02em;color:var(--text)">The five pillars</h2>
+    <div style="font-size:13px;color:var(--muted);margin-bottom:13px">What the association commits to, every year.</div>
+    <div data-stg="" style="display:grid;gap:8px">
+      <sc-for list="{{ pillars }}" as="p" hint-placeholder-count="5">
+        <div style="display:flex;gap:12px;align-items:flex-start;padding:14px;border-radius:16px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow)">
+          <span style="width:34px;height:34px;flex:0 0 34px;border-radius:11px;background:var(--brandSoft);color:var(--brand);display:grid;place-items:center;font-size:14px">{{ p.ic }}</span>
+          <span><span style="display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14.5px;color:var(--text);margin-bottom:3px">{{ p.t }}</span><span style="display:block;font-size:13px;line-height:1.5;color:var(--muted);text-wrap:pretty">{{ p.d }}</span></span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  <div style="padding:22px 14px 0">
+    <div style="padding:18px;border-radius:20px;background:var(--ink);color:#EAF4FF">
+      <div style="display:flex;gap:14px;align-items:center;margin-bottom:14px">
+        <img src="https://www.acesknust.com/images/logo-white.png" alt="ACES logo" style="width:52px;height:52px;object-fit:contain;flex:0 0 52px" />
+        <div><div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;color:#fff">Our logo</div><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.07em;text-transform:uppercase;opacity:.6;margin-top:2px">Unchanged · brand guardrail</div></div>
+      </div>
+      <div style="font-size:13.5px;line-height:1.6;opacity:.85;text-wrap:pretty">The crest stays exactly as it is. The redesign refines shades, type and layout around it — the mark itself is untouched.</div>
+    </div>
+  </div>
+  <div style="padding:20px 14px 0;display:grid;gap:9px">
+    <button onClick="{{ goExec }}" style="min-height:60px;display:flex;align-items:center;gap:13px;padding:0 15px;border-radius:16px;border:1px solid var(--line);background:var(--surface);cursor:pointer;text-align:left" style-hover="background:var(--surface2)">
+      <span style="flex:1"><span style="display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14.5px;color:var(--text)">Meet the executives</span><span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);margin-top:2px">6 officers · 2025/26</span></span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg>
+    </button>
+    <button onClick="{{ goStaff }}" style="min-height:60px;display:flex;align-items:center;gap:13px;padding:0 15px;border-radius:16px;border:1px solid var(--line);background:var(--surface);cursor:pointer;text-align:left" style-hover="background:var(--surface2)">
+      <span style="flex:1"><span style="display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14.5px;color:var(--text)">Staff &amp; department</span><span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);margin-top:2px">Offices, research areas, contact</span></span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg>
+    </button>
+    <button onClick="{{ goGallery }}" style="min-height:60px;display:flex;align-items:center;gap:13px;padding:0 15px;border-radius:16px;border:1px solid var(--line);background:var(--surface);cursor:pointer;text-align:left" style-hover="background:var(--surface2)">
+      <span style="flex:1"><span style="display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14.5px;color:var(--text)">Gallery</span><span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);margin-top:2px">Trips, CodeFest, socials</span></span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg>
+    </button>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isExec }}" hint-placeholder-val="{{ false }}">
+<div style="padding:16px 14px 0">
+  <div style="padding:16px;border-radius:18px;background:linear-gradient(140deg,#0B1F3A,#0B2E63);color:#EAF4FF;margin-bottom:16px">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;opacity:.65;margin-bottom:6px">Session 2025/26</div>
+    <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;letter-spacing:-.02em;color:#fff;margin-bottom:5px">Your executive body</div>
+    <div style="font-size:13.5px;line-height:1.55;opacity:.85">Six elected officers. Tap any card to reach them directly — no more hunting for an email address.</div>
+  </div>
+  <div data-stg="" style="display:grid;gap:9px">
+    <sc-for list="{{ execs }}" as="e" hint-placeholder-count="6">
+      <div style="display:flex;gap:13px;align-items:center;padding:13px;border-radius:18px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow)">
+        <span style="width:54px;height:54px;flex:0 0 54px;border-radius:16px;background:var(--brandSoft);display:grid;place-items:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;color:var(--brand);letter-spacing:-.02em" aria-hidden="true">{{ e.i }}</span>
+        <span style="flex:1;min-width:0">
+          <span style="display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;letter-spacing:-.01em;color:var(--text);line-height:1.25;margin-bottom:3px">{{ e.n }}</span>
+          <span style="display:inline-flex;align-items:center;gap:6px;padding:3px 8px;border-radius:7px;background:var(--surface2);font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--brand)">{{ e.r }}</span>
+          <span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);margin-top:5px">{{ e.y }} · {{ e.dept }}</span>
+        </span>
+        <button onClick="{{ e.mail }}" aria-label="Contact {{ e.n }}" style="width:44px;height:44px;min-width:44px;border-radius:14px;border:1px solid var(--line);background:var(--bg);cursor:pointer;display:grid;place-items:center;color:var(--brand)" style-hover="background:var(--surface2)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2.5"></rect><path d="M3.5 7l8.5 6 8.5-6"></path></svg>
+        </button>
+      </div>
+    </sc-for>
+  </div>
+  <div style="margin-top:16px;padding:15px;border-radius:16px;border:1px dashed var(--line);background:var(--surface)">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:7px">Placeholder policy</div>
+    <div style="font-size:13px;line-height:1.55;color:var(--muted)">Where no photo has been submitted, initials render on brand rather than a broken image icon. The card never collapses.</div>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isStaff }}" hint-placeholder-val="{{ false }}">
+<div style="padding:16px 14px 0">
+  <div style="margin-bottom:16px">
+    <h1 style="margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;letter-spacing:-.025em;color:var(--text)">Staff &amp; Department</h1>
+    <p style="margin:0;font-size:13.5px;line-height:1.55;color:var(--muted)">Computer Engineering, KNUST College of Engineering. Office hours are Mon–Fri, 9am–4pm.</p>
+  </div>
+  <div data-stg="" style="display:grid;gap:9px">
+    <sc-for list="{{ staff }}" as="p" hint-placeholder-count="5">
+      <div style="padding:14px;border-radius:18px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow)">
+        <div style="display:flex;gap:13px;align-items:flex-start;margin-bottom:11px">
+          <span style="width:50px;height:50px;flex:0 0 50px;border-radius:15px;background:var(--ink);display:grid;place-items:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;color:#fff" aria-hidden="true">{{ p.i }}</span>
+          <span style="flex:1;min-width:0">
+            <span style="display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;color:var(--text);line-height:1.25">{{ p.n }}</span>
+            <span style="display:block;font-size:12.5px;color:var(--brand);font-weight:600;margin-top:3px">{{ p.r }}</span>
+            <span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);margin-top:4px">{{ p.area }}</span>
+          </span>
+        </div>
+        <div style="display:grid;gap:1px;background:var(--line);border-radius:12px;overflow:hidden;border:1px solid var(--line)">
+          <div style="display:flex;gap:9px;align-items:center;padding:10px 11px;background:var(--bg);font-size:12.5px;color:var(--text)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" style="flex:0 0 15px"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"></path></svg>
+            {{ p.o }}
+          </div>
+          <button onClick="{{ p.mail }}" style="display:flex;gap:9px;align-items:center;padding:10px 11px;background:var(--bg);border:none;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--brand);min-height:44px;text-align:left;width:100%">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="flex:0 0 15px"><rect x="3" y="5" width="18" height="14" rx="2.5"></rect><path d="M3.5 7l8.5 6 8.5-6"></path></svg>
+            {{ p.e }}
+          </button>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isGallery }}" hint-placeholder-val="{{ false }}">
+<div>
+  <div style="padding:16px 14px 0">
+    <h1 style="margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;letter-spacing:-.025em;color:var(--text)">Gallery</h1>
+    <p style="margin:0 0 14px;font-size:13.5px;line-height:1.55;color:var(--muted)">Every ACES moment, filterable. Tap a photo to open it full-screen.</p>
+  </div>
+  <div class="acsc" style="display:flex;gap:7px;overflow-x:auto;padding:0 14px 14px">
+    <sc-for list="{{ gtags }}" as="g" hint-placeholder-count="6">
+      <button onClick="{{ g.onClick }}" style="{{ g.style }}">{{ g.label }}</button>
+    </sc-for>
+  </div>
+  <div data-stg="" style="padding:0 14px;display:grid;grid-template-columns:1fr 1fr;gap:7px">
+    <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="6">
+      <button onClick="{{ g.open }}" aria-label="Open {{ g.cap }}" style="position:relative;padding:0;border:none;border-radius:14px;overflow:hidden;cursor:pointer;background:var(--surface2);aspect-ratio:1/1;display:block">
+        <img src="{{ g.img }}" alt="{{ g.cap }}" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s" style-hover="transform:scale(1.06)" />
+        <span style="position:absolute;inset:auto 0 0 0;padding:18px 9px 8px;background:linear-gradient(180deg,transparent,rgba(11,31,58,.85));text-align:left">
+          <span style="display:block;color:#fff;font-size:11.5px;font-weight:600;line-height:1.3">{{ g.cap }}</span>
+          <span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:9px;color:rgba(255,255,255,.7);letter-spacing:.06em;margin-top:2px">{{ g.year }}</span>
+        </span>
+      </button>
+    </sc-for>
+  </div>
+</div>
+</sc-if>
+<sc-if value="{{ isMarket }}" hint-placeholder-val="{{ false }}">
+<div>
+  <div style="padding:16px 14px 0">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:13px">
+      <div>
+        <h1 style="margin:0 0 5px;font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;letter-spacing:-.025em;color:var(--text)">Marketplace</h1>
+        <p style="margin:0;font-size:13.5px;line-height:1.5;color:var(--muted)">Buy from fellow KNUST students. Pay on delivery or by MoMo.</p>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:9px;height:48px;padding:0 14px;border-radius:15px;background:var(--surface);border:1px solid var(--line);margin-bottom:13px;box-shadow:var(--shadow)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2.2" stroke-linecap="round" style="flex:0 0 18px"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+      <input value="{{ q }}" onChange="{{ setQ }}" placeholder="Search jollof, jersey, arduino…" aria-label="Search the marketplace" style="flex:1;min-width:0;border:none;background:none;outline:none;font-family:'Public Sans',sans-serif;font-size:14px;color:var(--text)" />
+    </div>
+  </div>
+  <div class="acsc" style="display:flex;gap:7px;overflow-x:auto;padding:0 14px 14px">
+    <sc-for list="{{ cats }}" as="c" hint-placeholder-count="6">
+      <button onClick="{{ c.onClick }}" style="{{ c.style }}"><span style="font-size:9px;opacity:.8">{{ c.icon }}</span>{{ c.label }}</button>
+    </sc-for>
+  </div>
+  <div data-stg="" style="padding:0 14px;display:grid;grid-template-columns:1fr 1fr;gap:10px">
+    <sc-for list="{{ products }}" as="p" hint-placeholder-count="4">
+      <div style="border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow);display:flex;flex-direction:column">
+        <button onClick="{{ p.open }}" aria-label="View {{ p.name }}" style="padding:0;border:none;background:none;cursor:pointer;display:block;position:relative">
+          <img src="{{ p.img }}" alt="{{ p.name }}" style="width:100%;height:112px;object-fit:cover;display:block" />
+          <span style="position:absolute;top:8px;left:8px;padding:3px 8px;border-radius:7px;background:rgba(255,255,255,.94);font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:700;color:#0B1F3A;letter-spacing:.04em">★ {{ p.rating }}</span>
+        </button>
+        <div style="padding:10px 11px 11px;display:flex;flex-direction:column;gap:6px;flex:1">
+          <button onClick="{{ p.open }}" style="padding:0;border:none;background:none;cursor:pointer;text-align:left">
+            <span style="display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13.5px;line-height:1.3;color:var(--text)">{{ p.name }}</span>
+            <span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);margin-top:3px">{{ p.vendor }}</span>
+          </button>
+          <div style="margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:8px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;color:var(--text)">{{ p.priceStr }}</span>
+            <button onClick="{{ p.quickAdd }}" aria-label="Add {{ p.name }} to cart" style="width:36px;height:36px;min-width:36px;border-radius:11px;border:none;background:var(--brand);color:var(--onBrand);cursor:pointer;display:grid;place-items:center;transition:transform .14s" style-active="transform:scale(.9)">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+  <sc-if value="{{ noProducts }}" hint-placeholder-val="{{ false }}">
+    <div style="margin:0 14px;padding:36px 22px;text-align:center;border-radius:20px;border:1px dashed var(--line);background:var(--surface)">
+      <div style="width:52px;height:52px;margin:0 auto 14px;border-radius:16px;background:var(--surface2);display:grid;place-items:center;color:var(--muted)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg></div>
+      <div style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px">Nothing matched</div>
+      <div style="font-size:13.5px;line-height:1.55;color:var(--muted)">No seller has listed that yet. Try a different category — or list it yourself.</div>
+      <button onClick="{{ goSeller }}" style="margin-top:15px;min-height:46px;padding:0 18px;border-radius:14px;border:none;background:var(--brand);color:var(--onBrand);font-weight:700;font-size:14px;cursor:pointer">Become a seller</button>
+    </div>
+  </sc-if>
+  <div style="margin:20px 14px 0;padding:18px;border-radius:20px;background:linear-gradient(140deg,#0B1F3A,#0B2E63);color:#EAF4FF">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;opacity:.65;margin-bottom:7px">Selling on campus?</div>
+    <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;letter-spacing:-.02em;color:#fff;margin-bottom:6px">List your hustle in two steps</div>
+    <div style="font-size:13.5px;line-height:1.55;opacity:.85;margin-bottom:14px">Free for all ACES members. You keep 100% of what you make.</div>
+    <button onClick="{{ goSeller }}" style="min-height:46px;padding:0 18px;border-radius:14px;border:none;background:#fff;color:#0B1F3A;font-weight:700;font-size:14px;cursor:pointer">Open a shop</button>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isProduct }}" hint-placeholder-val="{{ false }}">
+<div>
+  <img src="{{ prod.img }}" alt="{{ prod.name }}" style="width:100%;height:250px;object-fit:cover;display:block" />
+  <div style="padding:16px 14px 0">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:9px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);letter-spacing:.04em">
+      <span style="color:#B45309;font-weight:700">★ {{ prod.rating }}</span><span>·</span><span>{{ prod.sold }} sold</span><span>·</span><span>{{ prod.hall }}</span>
+    </div>
+    <h1 style="margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-size:23px;font-weight:700;letter-spacing:-.025em;line-height:1.18;color:var(--text);text-wrap:pretty">{{ prod.name }}</h1>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:19px;font-weight:600;color:var(--brand);margin-bottom:14px">{{ prodPrice }}</div>
+    <div style="display:flex;align-items:center;gap:11px;padding:12px 13px;border-radius:15px;background:var(--surface);border:1px solid var(--line);margin-bottom:16px">
+      <span style="width:38px;height:38px;flex:0 0 38px;border-radius:12px;background:var(--surface2);display:grid;place-items:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:var(--brand)">V</span>
+      <span style="flex:1;min-width:0"><span style="display:block;font-weight:600;font-size:13.5px;color:var(--text)">{{ prod.vendor }}</span><span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#047857;margin-top:2px">✓ Verified ACES member</span></span>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted)">Chat</span>
+    </div>
+    <p style="margin:0 0 18px;font-size:14px;line-height:1.62;color:var(--muted);text-wrap:pretty">{{ prod.desc }}</p>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:9px">Choose an option</div>
+    <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px">
+      <sc-for list="{{ prodVariants }}" as="v" hint-placeholder-count="3">
+        <button onClick="{{ v.onClick }}" style="{{ v.style }}">{{ v.v }}</button>
+      </sc-for>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 13px;border-radius:15px;background:var(--surface);border:1px solid var(--line);margin-bottom:16px">
+      <span style="font-weight:600;font-size:13.5px;color:var(--text)">Quantity</span>
+      <span style="display:flex;align-items:center;gap:4px">
+        <button onClick="{{ qtyDec }}" aria-label="Decrease quantity" style="width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--bg);cursor:pointer;color:var(--text);font-size:18px;font-weight:600;display:grid;place-items:center">–</button>
+        <span style="min-width:38px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:600;color:var(--text)">{{ qty }}</span>
+        <button onClick="{{ qtyInc }}" aria-label="Increase quantity" style="width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--bg);cursor:pointer;color:var(--text);font-size:18px;font-weight:600;display:grid;place-items:center">+</button>
+      </span>
+    </div>
+    <button onClick="{{ addProd }}" style="width:100%;min-height:54px;border-radius:16px;border:none;background:var(--brand);color:var(--onBrand);font-weight:700;font-size:15.5px;cursor:pointer;box-shadow:0 10px 24px -8px rgba(11,95,255,.6);transition:transform .14s" style-active="transform:scale(.98)">Add to cart · {{ prodPrice }}</button>
+    <button onClick="{{ goCart }}" style="width:100%;min-height:50px;margin-top:9px;border-radius:16px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-weight:600;font-size:14.5px;cursor:pointer">Go to cart</button>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isCart }}" hint-placeholder-val="{{ false }}">
+<div style="padding:16px 14px 0">
+  <sc-if value="{{ emptyCart }}" hint-placeholder-val="{{ true }}">
+    <div style="padding:44px 22px;text-align:center;border-radius:22px;border:1px dashed var(--line);background:var(--surface)">
+      <div style="width:60px;height:60px;margin:0 auto 16px;border-radius:19px;background:var(--surface2);display:grid;place-items:center;color:var(--brand)"><svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h2.2l2 11h10L21 8H7"></path><circle cx="9.5" cy="20" r="1.4"></circle><circle cx="18" cy="20" r="1.4"></circle></svg></div>
+      <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:7px">Your cart is empty</div>
+      <div style="font-size:13.5px;line-height:1.55;color:var(--muted);margin-bottom:18px;max-width:26ch;margin-left:auto;margin-right:auto">Nothing here yet. Food, merch and lab kits are a tap away.</div>
+      <button onClick="{{ goMarket }}" style="min-height:48px;padding:0 20px;border-radius:15px;border:none;background:var(--brand);color:var(--onBrand);font-weight:700;font-size:14.5px;cursor:pointer">Browse the marketplace</button>
+    </div>
+  </sc-if>
+  <sc-if value="{{ hasCart }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <div style="display:grid;gap:9px;margin-bottom:16px">
+        <sc-for list="{{ cartLines }}" as="c" hint-placeholder-count="2">
+          <div style="display:flex;gap:12px;align-items:center;padding:11px;border-radius:16px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow)">
+            <img src="{{ c.img }}" alt="" style="width:56px;height:56px;flex:0 0 56px;border-radius:13px;object-fit:cover" />
+            <span style="flex:1;min-width:0">
+              <span style="display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13.5px;color:var(--text);line-height:1.3">{{ c.name }}</span>
+              <span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);margin-top:3px">{{ c.variant }}</span>
+              <span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:600;color:var(--brand);margin-top:4px">{{ c.lineStr }}</span>
+            </span>
+            <span style="display:flex;flex-direction:column;align-items:center;gap:2px">
+              <button onClick="{{ c.inc }}" aria-label="Add one" style="width:36px;height:36px;border-radius:11px;border:1px solid var(--line);background:var(--bg);cursor:pointer;color:var(--text);font-size:16px;font-weight:600">+</button>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;color:var(--text);min-height:20px;display:grid;place-items:center">{{ c.n }}</span>
+              <button onClick="{{ c.dec }}" aria-label="Remove one" style="width:36px;height:36px;border-radius:11px;border:1px solid var(--line);background:var(--bg);cursor:pointer;color:var(--text);font-size:16px;font-weight:600">–</button>
+            </span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="padding:15px;border-radius:18px;background:var(--surface);border:1px solid var(--line);margin-bottom:14px">
+        <div style="display:flex;justify-content:space-between;font-size:13.5px;color:var(--muted);margin-bottom:8px"><span>Subtotal</span><span style="font-family:'IBM Plex Mono',monospace;color:var(--text)">{{ subtotalStr }}</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:13.5px;color:var(--muted);margin-bottom:11px;padding-bottom:11px;border-bottom:1px solid var(--line)"><span>Campus delivery</span><span style="font-family:'IBM Plex Mono',monospace;color:var(--text)">{{ deliveryStr }}</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;color:var(--text)">Total</span><span style="font-family:'IBM Plex Mono',monospace;font-size:19px;font-weight:600;color:var(--brand)">{{ totalStr }}</span></div>
+      </div>
+      <button onClick="{{ goCheckout }}" style="width:100%;min-height:54px;border-radius:16px;border:none;background:var(--brand);color:var(--onBrand);font-weight:700;font-size:15.5px;cursor:pointer;box-shadow:0 10px 24px -8px rgba(11,95,255,.6)">Checkout · {{ totalStr }}</button>
+    </div>
+  </sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ isCheckout }}" hint-placeholder-val="{{ false }}">
+<div style="padding:16px 14px 0">
+  <div style="display:flex;gap:6px;margin-bottom:18px">
+    <div style="flex:1;height:4px;border-radius:2px;background:var(--brand)"></div>
+    <div style="flex:1;height:4px;border-radius:2px;background:var(--line)"></div>
+    <div style="flex:1;height:4px;border-radius:2px;background:var(--line)"></div>
+  </div>
+  <sc-if value="{{ ck0 }}" hint-placeholder-val="{{ true }}">
+    <div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Step 1 of 3</div>
+      <h1 style="margin:0 0 16px;font-family:'Space Grotesk',sans-serif;font-size:21px;font-weight:700;letter-spacing:-.025em;color:var(--text)">Where should we deliver?</h1>
+      <div style="display:grid;gap:10px;margin-bottom:18px">
+        <label style="display:block"><span style="display:block;font-size:12.5px;font-weight:600;color:var(--text);margin-bottom:6px">Full name</span><input placeholder="Kwame Mensah" style="width:100%;height:48px;padding:0 14px;border-radius:14px;border:1px solid var(--line);background:var(--surface);font-family:'Public Sans',sans-serif;font-size:14px;color:var(--text);outline:none" /></label>
+        <label style="display:block"><span style="display:block;font-size:12.5px;font-weight:600;color:var(--text);margin-bottom:6px">Hall or hostel</span><input placeholder="Unity Hall, Block C, Rm 214" style="width:100%;height:48px;padding:0 14px;border-radius:14px;border:1px solid var(--line);background:var(--surface);font-family:'Public Sans',sans-serif;font-size:14px;color:var(--text);outline:none" /></label>
+        <label style="display:block"><span style="display:block;font-size:12.5px;font-weight:600;color:var(--text);margin-bottom:6px">Phone (MoMo number)</span><input placeholder="024 000 0000" style="width:100%;height:48px;padding:0 14px;border-radius:14px;border:1px solid var(--line);background:var(--surface);font-family:'IBM Plex Mono',monospace;font-size:14px;color:var(--text);outline:none" /></label>
+      </div>
+      <button onClick="{{ ckNext }}" style="width:100%;min-height:54px;border-radius:16px;border:none;background:var(--brand);color:var(--onBrand);font-weight:700;font-size:15.5px;cursor:pointer">Continue to payment</button>
+    </div>
+  </sc-if>
+  <sc-if value="{{ ck1 }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Step 2 of 3</div>
+      <h1 style="margin:0 0 16px;font-family:'Space Grotesk',sans-serif;font-size:21px;font-weight:700;letter-spacing:-.025em;color:var(--text)">How would you like to pay?</h1>
+      <div style="display:grid;gap:9px;margin-bottom:18px">
+        <div style="display:flex;gap:12px;align-items:center;padding:15px;border-radius:16px;border:2px solid var(--brand);background:var(--brandSoft)">
+          <span style="width:20px;height:20px;border-radius:10px;border:6px solid var(--brand);background:var(--surface);flex:0 0 20px"></span>
+          <span><span style="display:block;font-weight:700;font-size:14px;color:var(--ink)">MTN Mobile Money</span><span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);margin-top:2px">Prompt sent to your phone</span></span>
+        </div>
+        <div style="display:flex;gap:12px;align-items:center;padding:15px;border-radius:16px;border:1px solid var(--line);background:var(--surface)">
+          <span style="width:20px;height:20px;border-radius:10px;border:1.5px solid var(--line);flex:0 0 20px"></span>
+          <span><span style="display:block;font-weight:700;font-size:14px;color:var(--text)">Telecel Cash</span><span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);margin-top:2px">Same-day settlement</span></span>
+        </div>
+        <div style="display:flex;gap:12px;align-items:center;padding:15px;border-radius:16px;border:1px solid var(--line);background:var(--surface)">
+          <span style="width:20px;height:20px;border-radius:10px;border:1.5px solid var(--line);flex:0 0 20px"></span>
+          <span><span style="display:block;font-weight:700;font-size:14px;color:var(--text)">Cash on delivery</span><span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);margin-top:2px">Pay the seller in person</span></span>
+        </div>
+      </div>
+      <button onClick="{{ ckPay }}" style="width:100%;min-height:54px;border-radius:16px;border:none;background:var(--brand);color:var(--onBrand);font-weight:700;font-size:15.5px;cursor:pointer">Pay {{ totalStr }}</button>
+    </div>
+  </sc-if>
+  <sc-if value="{{ ck2 }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:26px 4px;text-align:center;animation:acPop .3s ease both">
+      <div style="width:70px;height:70px;margin:0 auto 18px;border-radius:22px;background:#DCFCE7;display:grid;place-items:center"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg></div>
+      <h1 style="margin:0 0 8px;font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;letter-spacing:-.025em;color:var(--text)">Order placed</h1>
+      <p style="margin:0 0 6px;font-size:14px;line-height:1.6;color:var(--muted);max-width:28ch;margin-left:auto;margin-right:auto">The seller has been notified. You will get a call before delivery.</p>
+      <div style="display:inline-block;margin:10px 0 22px;padding:8px 14px;border-radius:11px;background:var(--surface2);font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;color:var(--brand);letter-spacing:.06em">ACES-2617</div>
+      <div style="display:grid;gap:9px">
+        <button onClick="{{ goMarket }}" style="width:100%;min-height:50px;border-radius:15px;border:none;background:var(--brand);color:var(--onBrand);font-weight:700;font-size:14.5px;cursor:pointer">Keep shopping</button>
+        <button onClick="{{ goHome }}" style="width:100%;min-height:50px;border-radius:15px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-weight:600;font-size:14.5px;cursor:pointer">Back to home</button>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ isSeller }}" hint-placeholder-val="{{ false }}">
+<div style="padding:16px 14px 0">
+  <sc-if value="{{ sl0 }}" hint-placeholder-val="{{ true }}">
+    <div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Step 1 of 2</div>
+      <h1 style="margin:0 0 7px;font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;letter-spacing:-.025em;color:var(--text)">Name your shop</h1>
+      <p style="margin:0 0 18px;font-size:13.5px;line-height:1.55;color:var(--muted)">Two fields, then you are live. Verification is automatic for @st.knust.edu.gh addresses.</p>
+      <label style="display:block;margin-bottom:14px"><span style="display:block;font-size:12.5px;font-weight:600;color:var(--text);margin-bottom:6px">Shop name</span><input value="{{ sellerName }}" onChange="{{ setSellerName }}" placeholder="e.g. Aunty Akos Kitchen" style="width:100%;height:48px;padding:0 14px;border-radius:14px;border:1px solid var(--line);background:var(--surface);font-family:'Public Sans',sans-serif;font-size:14px;color:var(--text);outline:none" /></label>
+      <div style="font-size:12.5px;font-weight:600;color:var(--text);margin-bottom:8px">What do you sell?</div>
+      <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:20px">
+        <sc-for list="{{ cats }}" as="c" hint-placeholder-count="6">
+          <button onClick="{{ c.onClick }}" style="{{ c.style }}">{{ c.label }}</button>
+        </sc-for>
+      </div>
+      <button onClick="{{ sellerNext }}" style="width:100%;min-height:54px;border-radius:16px;border:none;background:var(--brand);color:var(--onBrand);font-weight:700;font-size:15.5px;cursor:pointer">Continue</button>
+    </div>
+  </sc-if>
+  <sc-if value="{{ sl1 }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Step 2 of 2</div>
+      <h1 style="margin:0 0 7px;font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;letter-spacing:-.025em;color:var(--text)">Add your first listing</h1>
+      <p style="margin:0 0 18px;font-size:13.5px;line-height:1.55;color:var(--muted)">You can edit everything later from your dashboard.</p>
+      <div style="height:118px;border-radius:16px;border:1.5px dashed var(--line);background:var(--surface);display:grid;place-items:center;margin-bottom:12px;color:var(--muted)">
+        <div style="text-align:center"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M12 16V4M7 9l5-5 5 5"></path><path d="M4 16v3h16v-3"></path></svg><div style="font-size:12.5px;margin-top:7px;font-weight:600">Add a photo</div></div>
+      </div>
+      <div style="display:grid;gap:10px;margin-bottom:20px">
+        <input placeholder="Product name" style="width:100%;height:48px;padding:0 14px;border-radius:14px;border:1px solid var(--line);background:var(--surface);font-family:'Public Sans',sans-serif;font-size:14px;color:var(--text);outline:none" />
+        <input placeholder="Price in GH₵" style="width:100%;height:48px;padding:0 14px;border-radius:14px;border:1px solid var(--line);background:var(--surface);font-family:'IBM Plex Mono',monospace;font-size:14px;color:var(--text);outline:none" />
+      </div>
+      <button onClick="{{ sellerDone }}" style="width:100%;min-height:54px;border-radius:16px;border:none;background:var(--brand);color:var(--onBrand);font-weight:700;font-size:15.5px;cursor:pointer">Publish and open dashboard</button>
+    </div>
+  </sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ isVendor }}" hint-placeholder-val="{{ false }}">
+<div style="padding:16px 14px 0">
+  <div style="padding:17px;border-radius:20px;background:linear-gradient(140deg,#0B1F3A,#0B2E63);color:#EAF4FF;margin-bottom:14px">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;opacity:.65;margin-bottom:8px">This week</div>
+    <div style="font-family:'Space Grotesk',sans-serif;font-size:31px;font-weight:700;letter-spacing:-.03em;color:#fff;line-height:1">GH₵ 1,240</div>
+    <div style="font-size:12.5px;opacity:.75;margin-top:5px">+18% vs last week · 14 orders</div>
+    <div style="display:flex;gap:3px;align-items:flex-end;height:44px;margin-top:16px">
+      <span style="flex:1;height:38%;background:rgba(255,255,255,.28);border-radius:3px"></span>
+      <span style="flex:1;height:56%;background:rgba(255,255,255,.28);border-radius:3px"></span>
+      <span style="flex:1;height:30%;background:rgba(255,255,255,.28);border-radius:3px"></span>
+      <span style="flex:1;height:72%;background:rgba(255,255,255,.28);border-radius:3px"></span>
+      <span style="flex:1;height:48%;background:rgba(255,255,255,.28);border-radius:3px"></span>
+      <span style="flex:1;height:90%;background:#5BE9B9;border-radius:3px"></span>
+      <span style="flex:1;height:64%;background:rgba(255,255,255,.28);border-radius:3px"></span>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px">
+    <div style="padding:14px;border-radius:16px;background:var(--surface);border:1px solid var(--line)"><div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--text);letter-spacing:-.02em">3</div><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-top:3px">Pending</div></div>
+    <div style="padding:14px;border-radius:16px;background:var(--surface);border:1px solid var(--line)"><div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--text);letter-spacing:-.02em">4.9</div><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-top:3px">Rating</div></div>
+  </div>
+  <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:9px">Orders needing action</div>
+  <div style="display:grid;gap:8px;margin-bottom:16px">
+    <div style="display:flex;gap:11px;align-items:center;padding:13px;border-radius:15px;background:var(--surface);border:1px solid var(--line)">
+      <span style="width:9px;height:9px;border-radius:5px;background:#F59E0B;flex:0 0 9px"></span>
+      <span style="flex:1"><span style="display:block;font-weight:600;font-size:13.5px;color:var(--text)">ACES-2614 · 2 items</span><span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);margin-top:2px">Unity Hall · 12 min ago</span></span>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:600;color:var(--text)">GH₵ 70</span>
+    </div>
+    <div style="display:flex;gap:11px;align-items:center;padding:13px;border-radius:15px;background:var(--surface);border:1px solid var(--line)">
+      <span style="width:9px;height:9px;border-radius:5px;background:#F59E0B;flex:0 0 9px"></span>
+      <span style="flex:1"><span style="display:block;font-weight:600;font-size:13.5px;color:var(--text)">ACES-2611 · 1 item</span><span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);margin-top:2px">Brunei · 40 min ago</span></span>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:600;color:var(--text)">GH₵ 35</span>
+    </div>
+    <div style="display:flex;gap:11px;align-items:center;padding:13px;border-radius:15px;background:var(--surface);border:1px solid var(--line)">
+      <span style="width:9px;height:9px;border-radius:5px;background:#047857;flex:0 0 9px"></span>
+      <span style="flex:1"><span style="display:block;font-weight:600;font-size:13.5px;color:var(--text)">ACES-2609 · delivered</span><span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);margin-top:2px">Republic Hall · yesterday</span></span>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:600;color:var(--text)">GH₵ 120</span>
+    </div>
+  </div>
+  <button onClick="{{ goSeller }}" style="width:100%;min-height:52px;border-radius:16px;border:1px solid var(--line);background:var(--surface);color:var(--text);font-weight:600;font-size:14.5px;cursor:pointer">Add a new listing</button>
+</div>
+</sc-if>
+<sc-if value="{{ isCourses }}" hint-placeholder-val="{{ false }}">
+<div>
+  <div style="padding:16px 14px 0">
+    <h1 style="margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;letter-spacing:-.025em;color:var(--text)">Course Materials</h1>
+    <p style="margin:0 0 14px;font-size:13.5px;line-height:1.55;color:var(--muted)">Slides, past papers and notes, filed by year and semester. Uploaded by class reps.</p>
+    <div style="display:flex;align-items:center;gap:9px;height:48px;padding:0 14px;border-radius:15px;background:var(--surface);border:1px solid var(--line);margin-bottom:13px;box-shadow:var(--shadow)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2.2" stroke-linecap="round" style="flex:0 0 18px"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+      <input value="{{ cq }}" onChange="{{ setCq }}" placeholder="Course code or name, e.g. CE 353" aria-label="Search courses" style="flex:1;min-width:0;border:none;background:none;outline:none;font-family:'Public Sans',sans-serif;font-size:14px;color:var(--text)" />
+    </div>
+  </div>
+  <div class="acsc" style="display:flex;gap:6px;overflow-x:auto;padding:0 14px 8px">
+    <sc-for list="{{ years }}" as="y" hint-placeholder-count="5">
+      <button onClick="{{ y.onClick }}" style="{{ y.style }}">{{ y.label }}</button>
+    </sc-for>
+  </div>
+  <div class="acsc" style="display:flex;gap:6px;overflow-x:auto;padding:0 14px 14px">
+    <sc-for list="{{ sems }}" as="y" hint-placeholder-count="3">
+      <button onClick="{{ y.onClick }}" style="{{ y.style }}">{{ y.label }}</button>
+    </sc-for>
+  </div>
+  <div data-stg="" style="padding:0 14px;display:grid;gap:9px">
+    <sc-for list="{{ courses }}" as="c" hint-placeholder-count="4">
+      <div style="padding:14px;border-radius:18px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow)">
+        <div style="display:flex;align-items:flex-start;gap:11px;margin-bottom:11px">
+          <span style="display:inline-flex;align-items:center;padding:5px 9px;border-radius:9px;background:var(--brandSoft);font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:700;color:var(--brand);letter-spacing:.03em;flex:0 0 auto">{{ c.code }}</span>
+          <span style="flex:1;min-width:0">
+            <span style="display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14.5px;color:var(--text);line-height:1.3">{{ c.name }}</span>
+            <span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);margin-top:3px">{{ c.meta }}</span>
+          </span>
+        </div>
+        <sc-if value="{{ c.empty }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <div style="display:flex;gap:9px;align-items:flex-start;padding:12px;border-radius:13px;background:var(--bg);border:1px dashed var(--line);margin-bottom:10px">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" style="flex:0 0 16px;margin-top:1px"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v5M12 16.2v.1"></path></svg>
+              <span style="font-size:12.5px;line-height:1.5;color:var(--muted)">No materials uploaded yet. This course is taught in the second half of the year — request it and the class rep is notified.</span>
+            </div>
+            <button onClick="{{ c.request }}" style="width:100%;min-height:46px;border-radius:13px;border:1px solid var(--line);background:var(--bg);color:var(--brand);font-weight:700;font-size:13.5px;cursor:pointer">Request materials</button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ c.files }}" hint-placeholder-val="{{ true }}">
+          <div>
+            <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:11px">
+              <span style="display:inline-flex;align-items:center;gap:5px;padding:4px 9px;border-radius:8px;background:var(--bg);border:1px solid var(--line);font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted)">{{ c.slideStr }}</span>
+              <span style="display:inline-flex;align-items:center;gap:5px;padding:4px 9px;border-radius:8px;background:var(--bg);border:1px solid var(--line);font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted)">{{ c.pqStr }}</span>
+              <span style="display:inline-flex;align-items:center;gap:5px;padding:4px 9px;border-radius:8px;background:var(--bg);border:1px solid var(--line);font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted)">{{ c.fileStr }}</span>
+            </div>
+            <button onClick="{{ c.download }}" style="width:100%;min-height:46px;border-radius:13px;border:none;background:var(--brand);color:var(--onBrand);font-weight:700;font-size:13.5px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px" style-active="transform:scale(.985)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 11l5 5 5-5"></path><path d="M5 20h14"></path></svg>
+              Download pack · {{ c.size }}
+            </button>
+          </div>
+        </sc-if>
+      </div>
+    </sc-for>
+  </div>
+  <sc-if value="{{ noCourses }}" hint-placeholder-val="{{ false }}">
+    <div style="margin:0 14px;padding:36px 22px;text-align:center;border-radius:20px;border:1px dashed var(--line);background:var(--surface)">
+      <div style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px">Nothing filed here yet</div>
+      <div style="font-size:13.5px;line-height:1.55;color:var(--muted)">No course matches those filters. Clear a filter or search by course code.</div>
+    </div>
+  </sc-if>
+  <div style="margin:18px 14px 0;padding:16px;border-radius:18px;background:var(--surface2);border:1px solid var(--line)">
+    <div style="font-family:'Space Grotesk',sans-serif;font-size:15.5px;font-weight:700;color:var(--ink);margin-bottom:5px">Got a past paper we are missing?</div>
+    <div style="font-size:13px;line-height:1.5;color:var(--muted);margin-bottom:12px">Upload it once and the whole class benefits. Reviewed by the academic committee.</div>
+    <button onClick="{{ sub }}" style="min-height:46px;padding:0 17px;border-radius:13px;border:none;background:var(--brand);color:var(--onBrand);font-weight:700;font-size:13.5px;cursor:pointer">Contribute a file</button>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isSchol }}" hint-placeholder-val="{{ false }}">
+<div style="padding:16px 14px 0">
+  <h1 style="margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;letter-spacing:-.025em;color:var(--text)">Scholarships</h1>
+  <p style="margin:0 0 18px;font-size:13.5px;line-height:1.55;color:var(--muted)">Verified opportunities only. Read the eligibility criteria before you apply.</p>
+  <div style="padding:28px 20px;border-radius:22px;background:var(--surface);border:1px solid var(--line);text-align:center;box-shadow:var(--shadow);margin-bottom:14px">
+    <div style="width:60px;height:60px;margin:0 auto 16px;border-radius:19px;background:var(--surface2);display:grid;place-items:center;color:var(--brand)"><svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-5 9 5-9 5-9-5z"></path><path d="M7 11.5V17c0 1.2 2.2 2.5 5 2.5s5-1.3 5-2.5v-5.5"></path></svg></div>
+    <div style="font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:700;color:var(--text);margin-bottom:8px;letter-spacing:-.02em">No open scholarships right now</div>
+    <p style="margin:0 0 18px;font-size:13.5px;line-height:1.6;color:var(--muted);max-width:30ch;margin-left:auto;margin-right:auto;text-wrap:pretty">We only list opportunities we have verified with the department. The next round of MTN and GNPC awards usually opens in <strong style="color:var(--text)">September</strong>.</p>
+    <sc-if value="{{ noInterest }}" hint-placeholder-val="{{ true }}">
+      <button onClick="{{ setInterest }}" style="width:100%;min-height:52px;border-radius:15px;border:none;background:var(--brand);color:var(--onBrand);font-weight:700;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 8a6 6 0 10-12 0c0 6-2 7-2 7h16s-2-1-2-7M10.5 20a2 2 0 003 0"></path></svg>
+        Alert me when one opens
+      </button>
+    </sc-if>
+    <sc-if value="{{ interest }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;align-items:center;gap:10px;padding:14px;border-radius:15px;background:#DCFCE7;border:1px solid #86EFAC;text-align:left;animation:acPop .24s ease both">
+        <span style="width:30px;height:30px;border-radius:15px;background:#047857;display:grid;place-items:center;flex:0 0 30px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg></span>
+        <span><span style="display:block;font-weight:700;font-size:13.5px;color:#046C4E">You are on the alert list</span><span style="display:block;font-size:12.5px;color:#047857;margin-top:1px">We will email you the day one opens.</span></span>
+      </div>
+    </sc-if>
+  </div>
+  <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:9px">How an opportunity will appear</div>
+  <div style="padding:15px;border-radius:18px;background:var(--surface);border:1px solid var(--line);opacity:.62;margin-bottom:12px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px">
+      <div style="height:15px;width:62%;border-radius:5px;background:linear-gradient(90deg,var(--surface2),var(--line),var(--surface2));background-size:200% 100%;animation:acShimmer 2.2s infinite linear"></div>
+      <div style="height:20px;width:58px;border-radius:999px;background:var(--surface2)"></div>
+    </div>
+    <div style="height:10px;width:100%;border-radius:5px;background:var(--surface2);margin-bottom:6px"></div>
+    <div style="height:10px;width:78%;border-radius:5px;background:var(--surface2);margin-bottom:13px"></div>
+    <div style="display:flex;gap:7px">
+      <div style="height:26px;width:88px;border-radius:8px;background:var(--surface2)"></div>
+      <div style="height:26px;width:70px;border-radius:8px;background:var(--surface2)"></div>
+    </div>
+  </div>
+  <div style="padding:15px;border-radius:16px;border:1px dashed var(--line);background:var(--surface)">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:7px">Why this page is empty on purpose</div>
+    <div style="font-size:13px;line-height:1.55;color:var(--muted)">The brief forbids inventing fake scholarships. The layout is built and waiting — the card skeleton above shows exactly how a real listing will slot in.</div>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isShop }}" hint-placeholder-val="{{ false }}">
+<div>
+  <div style="margin:16px 14px 0;padding:20px 18px;border-radius:22px;background:linear-gradient(150deg,#0B1F3A,#0B2E63 60%,#0B5FFF 130%);color:#EAF4FF;position:relative;overflow:hidden">
+    <img src="https://www.acesknust.com/images/Gallery/Acesshirt.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.22;mix-blend-mode:luminosity" />
+    <div style="position:relative">
+      <div style="display:inline-flex;align-items:center;gap:7px;padding:5px 11px;border-radius:999px;background:rgba(91,233,185,.2);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#5BE9B9;font-weight:700;margin-bottom:13px">
+        <span style="width:6px;height:6px;border-radius:3px;background:#5BE9B9;animation:acPulse 1.8s infinite"></span>Drops 15 August
+      </div>
+      <div style="font-family:'Space Grotesk',sans-serif;font-size:25px;font-weight:700;letter-spacing:-.03em;color:#fff;line-height:1.12;margin-bottom:8px">The ’26 collection<br />is almost here</div>
+      <div style="font-size:13.5px;line-height:1.55;opacity:.85;margin-bottom:16px;max-width:30ch">Hoodies, the new class jersey and the crest cap. Reserve your size now — members get first pick.</div>
+      <button onClick="{{ sub }}" style="min-height:48px;padding:0 18px;border-radius:14px;border:none;background:#fff;color:#0B1F3A;font-weight:700;font-size:14.5px;cursor:pointer">Notify me on launch</button>
+    </div>
+  </div>
+  <div style="padding:20px 14px 0">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px">
+      <h2 style="margin:0;font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:700;letter-spacing:-.02em;color:var(--text)">Coming in the drop</h2>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted)">4 items</span>
+    </div>
+    <div data-stg="" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <sc-for list="{{ merch }}" as="m" hint-placeholder-count="4">
+        <div style="border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow)">
+          <button onClick="{{ m.open }}" aria-label="Preview {{ m.name }}" style="padding:0;border:none;background:none;cursor:pointer;display:block;position:relative;width:100%">
+            <img src="{{ m.img }}" alt="{{ m.name }}" style="width:100%;height:118px;object-fit:cover;display:block;filter:saturate(.85)" />
+            <span style="position:absolute;inset:0;background:rgba(11,31,58,.28)"></span>
+            <span style="position:absolute;top:8px;left:8px;padding:3px 8px;border-radius:7px;background:rgba(255,255,255,.94);font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;color:#0B1F3A;letter-spacing:.07em;text-transform:uppercase">Soon</span>
+          </button>
+          <div style="padding:10px 11px 11px">
+            <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13.5px;color:var(--text);line-height:1.3">{{ m.name }}</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:600;color:var(--muted)">{{ m.priceStr }}</span>
+              <button onClick="{{ m.notify }}" aria-label="Notify me about {{ m.name }}" style="width:36px;height:36px;min-width:36px;border-radius:11px;border:1px solid var(--line);background:var(--bg);cursor:pointer;color:var(--brand);display:grid;place-items:center">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M18 8a6 6 0 10-12 0c0 6-2 7-2 7h16s-2-1-2-7M10.5 20a2 2 0 003 0"></path></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  <div style="margin:18px 14px 0;padding:15px;border-radius:16px;border:1px dashed var(--line);background:var(--surface)">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:7px">Confident coming-soon</div>
+    <div style="font-size:13px;line-height:1.55;color:var(--muted)">A countdown, real prices, real sizes and a working notify action — so the page still does a job before there is stock to sell.</div>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isMerch }}" hint-placeholder-val="{{ false }}">
+<div>
+  <div style="position:relative">
+    <img src="{{ mProd.img }}" alt="{{ mProd.name }}" style="width:100%;height:250px;object-fit:cover;display:block;filter:saturate(.9)" />
+    <div style="position:absolute;inset:0;background:rgba(11,31,58,.2)"></div>
+  </div>
+  <div style="padding:16px 14px 0">
+    <div style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:#FEF3C7;color:#92400E;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-bottom:11px">Pre-launch</div>
+    <h1 style="margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-size:23px;font-weight:700;letter-spacing:-.025em;color:var(--text)">{{ mProd.name }}</h1>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:19px;font-weight:600;color:var(--brand);margin-bottom:18px">{{ mPrice }}</div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:9px">Reserve a size</div>
+    <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:20px">
+      <sc-for list="{{ mProd.variants }}" as="v" hint-placeholder-count="4">
+        <span style="display:inline-flex;align-items:center;justify-content:center;min-width:52px;height:44px;padding:0 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);font-size:13px;font-weight:600;color:var(--text)">{{ v }}</span>
+      </sc-for>
+    </div>
+    <button onClick="{{ sub }}" style="width:100%;min-height:54px;border-radius:16px;border:none;background:var(--brand);color:var(--onBrand);font-weight:700;font-size:15.5px;cursor:pointer">Reserve my size</button>
+    <p style="margin:12px 0 0;font-size:12.5px;line-height:1.55;color:var(--muted);text-align:center">No payment now. We hold your size for 48 hours after launch.</p>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isMe }}" hint-placeholder-val="{{ false }}">
+<div style="padding:16px 14px 0">
+  <div style="display:flex;gap:14px;align-items:center;padding:17px;border-radius:20px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);margin-bottom:14px">
+    <span style="width:58px;height:58px;flex:0 0 58px;border-radius:18px;background:linear-gradient(145deg,#0B5FFF,#0B1F3A);display:grid;place-items:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;color:#fff">KM</span>
+    <span style="flex:1;min-width:0">
+      <span style="display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;color:var(--text);letter-spacing:-.02em">Kwame Mensah</span>
+      <span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);margin-top:3px">Level 300 · Index 8524621</span>
+      <span style="display:inline-flex;align-items:center;gap:5px;margin-top:7px;padding:3px 8px;border-radius:7px;background:#DCFCE7;color:#046C4E;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase">✓ Dues paid 2025/26</span>
+    </span>
+  </div>
+  <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:9px">Your year</div>
+  <div style="padding:15px;border-radius:18px;background:var(--brandSoft);border:1px solid var(--line);margin-bottom:16px">
+    <div style="font-size:13.5px;line-height:1.55;color:var(--ink);margin-bottom:12px">Course materials are pre-filtered to <strong>Level 300, Semester 1</strong> — you never have to set the filters again.</div>
+    <button onClick="{{ goCourses }}" style="min-height:46px;padding:0 16px;border-radius:13px;border:none;background:var(--brand);color:var(--onBrand);font-weight:700;font-size:13.5px;cursor:pointer">Open my materials</button>
+  </div>
+  <div style="display:grid;gap:8px;margin-bottom:16px">
+    <button onClick="{{ goVendor }}" style="min-height:56px;display:flex;align-items:center;gap:12px;padding:0 15px;border-radius:16px;border:1px solid var(--line);background:var(--surface);cursor:pointer;text-align:left;font-weight:600;font-size:14px;color:var(--text)" style-hover="background:var(--surface2)"><span style="flex:1">Vendor dashboard</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></button>
+    <button onClick="{{ goCart }}" style="min-height:56px;display:flex;align-items:center;gap:12px;padding:0 15px;border-radius:16px;border:1px solid var(--line);background:var(--surface);cursor:pointer;text-align:left;font-weight:600;font-size:14px;color:var(--text)" style-hover="background:var(--surface2)"><span style="flex:1">Orders &amp; cart</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></button>
+    <button onClick="{{ goSchol }}" style="min-height:56px;display:flex;align-items:center;gap:12px;padding:0 15px;border-radius:16px;border:1px solid var(--line);background:var(--surface);cursor:pointer;text-align:left;font-weight:600;font-size:14px;color:var(--text)" style-hover="background:var(--surface2)"><span style="flex:1">Scholarship alerts</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></button>
+    <button onClick="{{ toggleDark }}" style="min-height:56px;display:flex;align-items:center;gap:12px;padding:0 15px;border-radius:16px;border:1px solid var(--line);background:var(--surface);cursor:pointer;text-align:left;font-weight:600;font-size:14px;color:var(--text)" style-hover="background:var(--surface2)"><span style="flex:1">Appearance</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted)">Tap to switch</span></button>
+  </div>
+  <div style="padding:15px;border-radius:16px;border:1px dashed var(--line);background:var(--surface)">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:7px">New in this redesign</div>
+    <div style="font-size:13px;line-height:1.55;color:var(--muted)">The old site scattered Login, Register and Vendor Dashboard across the footer. One “Me” tab now owns identity, orders and preferences.</div>
+  </div>
+</div>
+</sc-if></div>
+    <div style="height:26px"></div>
+  </div>
+
+  <nav aria-label="Primary" style="flex:0 0 auto;background:var(--surface);border-top:1px solid var(--line);padding:6px 6px 22px;display:grid;grid-template-columns:repeat(5,1fr);position:relative;z-index:20">
+    <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="5">
+      <button onClick="{{ t.onClick }}" aria-label="{{ t.label }}" style="{{ t.style }}">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="{{ t.d }}"></path></svg>
+        <span style="font-size:9.5px;font-family:'IBM Plex Mono',monospace;letter-spacing:.02em;font-weight:{{ t.weight }}">{{ t.label }}</span>
+      </button>
+    </sc-for>
+  </nav>
+
+  <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+    <div role="status" style="position:absolute;left:16px;right:16px;bottom:96px;z-index:60;background:var(--ink);color:var(--surface);padding:13px 16px;border-radius:14px;font-size:13.5px;font-weight:600;box-shadow:0 12px 30px -8px rgba(11,31,58,.5);animation:acRise .22s ease both;display:flex;align-items:center;gap:9px">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 17px"><path d="M20 6L9 17l-5-5"></path></svg>
+      <span>{{ toastMsg }}</span>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ searchOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;z-index:70;background:var(--bg);display:flex;flex-direction:column;animation:acFade .2s ease both">
+      <div style="padding:56px 14px 12px;background:var(--surface);border-bottom:1px solid var(--line);display:flex;gap:8px;align-items:center">
+        <div style="flex:1;display:flex;align-items:center;gap:9px;height:46px;padding:0 14px;border-radius:14px;background:var(--surface2);border:1px solid var(--line)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+          <input value="{{ q }}" onChange="{{ setQ }}" placeholder="Search products, courses, people" aria-label="Search" style="flex:1;border:none;background:none;outline:none;font-family:'Public Sans',sans-serif;font-size:14px;color:var(--text);min-width:0" />
+        </div>
+        <button onClick="{{ closeSheet }}" style="height:46px;min-width:44px;padding:0 12px;border:none;background:none;color:var(--brand);font-weight:700;font-size:14px;cursor:pointer">Done</button>
+      </div>
+      <div class="acsc" style="flex:1;overflow-y:auto;padding:16px 14px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Marketplace results</div>
+        <sc-for list="{{ products }}" as="p" hint-placeholder-count="3">
+          <button onClick="{{ p.open }}" style="width:100%;display:flex;gap:12px;align-items:center;padding:10px;margin-bottom:8px;background:var(--surface);border:1px solid var(--line);border-radius:14px;cursor:pointer;text-align:left;min-height:60px">
+            <img src="{{ p.img }}" alt="" style="width:46px;height:46px;border-radius:10px;object-fit:cover;flex:0 0 46px" />
+            <span style="flex:1;min-width:0">
+              <span style="display:block;font-weight:600;font-size:13.5px;color:var(--text)">{{ p.name }}</span>
+              <span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted)">{{ p.vendor }}</span>
+            </span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:600;color:var(--brand)">{{ p.priceStr }}</span>
+          </button>
+        </sc-for>
+        <sc-if value="{{ noProducts }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:32px 12px;text-align:center;color:var(--muted);font-size:13.5px;line-height:1.6">No products match that.<br />Try “jersey”, “jollof” or “arduino”.</div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ sheetOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeSheet }}" style="position:absolute;inset:0;z-index:65;background:rgba(11,31,58,.5);display:flex;align-items:flex-end;animation:acFade .18s ease both">
+      <div style="width:100%;background:var(--surface);border-radius:24px 24px 0 0;padding:10px 14px 26px;animation:acSheet .26s cubic-bezier(.2,.8,.2,1) both">
+        <div style="width:38px;height:4px;border-radius:2px;background:var(--line);margin:6px auto 16px"></div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:0 4px 10px">More from ACES</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <button onClick="{{ goExec }}" style="min-height:56px;display:flex;align-items:center;gap:9px;padding:0 13px;border-radius:14px;border:1px solid var(--line);background:var(--bg);cursor:pointer;font-weight:600;font-size:13.5px;color:var(--text);text-align:left">Executives</button>
+          <button onClick="{{ goStaff }}" style="min-height:56px;display:flex;align-items:center;gap:9px;padding:0 13px;border-radius:14px;border:1px solid var(--line);background:var(--bg);cursor:pointer;font-weight:600;font-size:13.5px;color:var(--text);text-align:left">Staff</button>
+          <button onClick="{{ goGallery }}" style="min-height:56px;display:flex;align-items:center;gap:9px;padding:0 13px;border-radius:14px;border:1px solid var(--line);background:var(--bg);cursor:pointer;font-weight:600;font-size:13.5px;color:var(--text);text-align:left">Gallery</button>
+          <button onClick="{{ goSchol }}" style="min-height:56px;display:flex;align-items:center;gap:9px;padding:0 13px;border-radius:14px;border:1px solid var(--line);background:var(--bg);cursor:pointer;font-weight:600;font-size:13.5px;color:var(--text);text-align:left">Scholarships</button>
+          <button onClick="{{ goShop }}" style="min-height:56px;display:flex;align-items:center;gap:9px;padding:0 13px;border-radius:14px;border:1px solid var(--line);background:var(--bg);cursor:pointer;font-weight:600;font-size:13.5px;color:var(--text);text-align:left">ACES Shop</button>
+          <button onClick="{{ goVendor }}" style="min-height:56px;display:flex;align-items:center;gap:9px;padding:0 13px;border-radius:14px;border:1px solid var(--line);background:var(--bg);cursor:pointer;font-weight:600;font-size:13.5px;color:var(--text);text-align:left">Vendor Hub</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ hasLb }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;z-index:80;background:#04101F;display:flex;flex-direction:column;animation:acFade .2s ease both">
+      <div style="padding:56px 14px 10px;display:flex;align-items:center;justify-content:space-between">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:rgba(255,255,255,.65);letter-spacing:.06em">{{ lb.pos }}</span>
+        <button onClick="{{ closeLb }}" aria-label="Close image" style="width:44px;height:44px;display:grid;place-items:center;border:none;background:rgba(255,255,255,.12);border-radius:14px;cursor:pointer;color:#fff">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+        </button>
+      </div>
+      <div style="flex:1;display:grid;place-items:center;padding:0 12px;min-height:0">
+        <img src="{{ lb.img }}" alt="{{ lb.cap }}" style="max-width:100%;max-height:100%;border-radius:16px;object-fit:contain;animation:acPop .24s ease both" />
+      </div>
+      <div style="padding:16px 18px 20px">
+        <div style="color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;margin-bottom:3px">{{ lb.cap }}</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,.55);letter-spacing:.06em;text-transform:uppercase">{{ lb.year }} · {{ lb.tag }}</div>
+      </div>
+      <div style="display:flex;gap:10px;padding:0 14px 30px">
+        <button onClick="{{ lbPrev }}" style="flex:1;min-height:48px;border-radius:14px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#fff;font-weight:600;font-size:14px;cursor:pointer">Previous</button>
+        <button onClick="{{ lbNext }}" style="flex:1;min-height:48px;border-radius:14px;border:none;background:#0B5FFF;color:#fff;font-weight:700;font-size:14px;cursor:pointer">Next</button>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:460,&quot;height&quot;:880}}">
+const IMG = {
+  group: 'https://res.cloudinary.com/dmgk37i6y/image/upload/v1756508620/aces-group-photo_zoxsvy.png',
+  codefest: 'https://res.cloudinary.com/dmgk37i6y/image/upload/v1756508481/codefest_erdhpl.jpg',
+  robotics: 'https://res.cloudinary.com/dmgk37i6y/image/upload/v1756390037/robotics_meeting_avcz53.jpg',
+  dinner: 'https://res.cloudinary.com/dmgk37i6y/image/upload/v1756562742/dinner_night_uicikj.jpg',
+  hangout: 'https://res.cloudinary.com/dmgk37i6y/image/upload/v1756508481/aces_hangout_eywxew.jpg',
+  trip: 'https://www.acesknust.com/images/Gallery/Trip.jpg',
+  shirt: 'https://www.acesknust.com/images/Gallery/Acesshirt.jpg',
+  cfest2: 'https://www.acesknust.com/images/Gallery/codefest.jpg',
+  jersey: 'https://www.acesknust.com/images/Gallery/Jersey.jpg',
+  arduino: 'https://www.acesknust.com/images/club_images/Arduino_image.avif',
+  coding: 'https://www.acesknust.com/images/club_images/coding.webp',
+  robotClub: 'https://www.acesknust.com/images/club_images/robotics_image.webp'
+};
+
+const LIGHT = {'--bg':'#F4F7FC','--surface':'#FFFFFF','--surface2':'#EAF4FF','--line':'#DDE6F2','--text':'#111827','--muted':'#5B6B7E','--brand':'#0B5FFF','--brandSoft':'#EAF4FF','--onBrand':'#FFFFFF','--ink':'#0B1F3A','--shadow':'0 2px 8px -2px rgba(11,31,58,.10)'};
+const DARK = {'--bg':'#070E1A','--surface':'#0E1A2B','--surface2':'#16283F','--line':'#22364F','--text':'#EDF3FA','--muted':'#95A9C0','--brand':'#4D8CFF','--brandSoft':'#132846','--onBrand':'#04101F','--ink':'#EDF3FA','--shadow':'0 2px 10px -2px rgba(0,0,0,.5)'};
+
+const TABS = [
+  {id:'home', label:'Home', d:'M3 10.5L12 3l9 7.5V21H3z'},
+  {id:'about', label:'Association', d:'M12 3l7 4v6c0 4-3 7-7 8-4-1-7-4-7-8V7z'},
+  {id:'marketplace', label:'Market', d:'M4 5h2.2l2 11h10L21 8H7'},
+  {id:'courses', label:'Resources', d:'M4 5h7v15H4zM13 5h7v15h-7z'},
+  {id:'me', label:'Me', d:'M12 11a4 4 0 100-8 4 4 0 000 8zM4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5'}
+];
+
+const EVENTS = [
+  {id:'codefest', name:'CodeFest 2026', img:IMG.codefest, date:'2026-08-14', dl:'AUG 14', time:'8:00 AM', venue:'Caesar Building, Auditorium', status:'open', tag:'Flagship',
+   blurb:'A thrilling day of coding challenges, workshops and networking with tech enthusiasts.',
+   detail:'CodeFest is ACES\u2019 flagship technical festival. Four tracks \u2014 UI/UX, Web, Embedded and Data \u2014 run across two weeks, closing with a live demo day and an industry panel.',
+   spots:'126 of 200 spots taken', cta:'Register free'},
+  {id:'robotics', name:'Robotics Build Night', img:IMG.robotics, date:'2026-08-02', dl:'AUG 02', time:'5:30 PM', venue:'Vodafone Building, Lab 2', status:'open', tag:'Club',
+   blurb:'Collaborate, build bots and automate solutions with fellow members.',
+   detail:'Weekly hands-on session with the ACES Robotics Club. Boards, sensors and chassis kits are provided \u2014 bring a laptop.',
+   spots:'Open to all levels', cta:'Add to calendar'},
+  {id:'dinner', name:'ACES Dinner Night', img:IMG.dinner, date:'2026-09-20', dl:'SEP 20', time:'7:00 PM', venue:'Great Hall Lawn', status:'soon', tag:'Social',
+   blurb:'A night of fun, food and fellowship over an elegant dinner.',
+   detail:'The annual ACES Dinner Night. Tickets go on sale two weeks before the event \u2014 turn on a reminder and we will notify you the moment they drop.',
+   spots:'Tickets not yet on sale', cta:'Notify me'},
+  {id:'hangout', name:'ACES Hangout', img:IMG.hangout, date:'2026-07-11', dl:'JUL 11', time:'4:00 PM', venue:'Engineering Courtyard', status:'past', tag:'Social',
+   blurb:'Games, conversations and chill vibes \u2014 member exclusive.',
+   detail:'A relaxed members-only hangout. Photos from this edition are in the gallery.',
+   spots:'42 members attended', cta:'See photos'}
+];
+
+const PRODUCTS = [
+  {id:'p1', name:'Jollof & Chicken Combo', vendor:'Aunty Akos Kitchen', cat:'food', price:35, rating:4.8, sold:210, img:IMG.trip, hall:'Unity Hall', tone:'#F59E0B',
+   desc:'Freshly cooked party jollof with grilled chicken, shito and salad. Delivered to your hall within 30 minutes of ordering.', variants:['Regular','Large','Extra chicken']},
+  {id:'p2', name:'ACES Class Jersey', vendor:'ACES Wear', cat:'fashion', price:120, rating:4.9, sold:86, img:IMG.jersey, hall:'Dept. Office', tone:'#0B5FFF',
+   desc:'The official ACES class jersey in navy and blue, with your name and index number printed on the back.', variants:['S','M','L','XL','XXL']},
+  {id:'p3', name:'Arduino Starter Kit', vendor:'Kwabena Electronics', cat:'tech', price:280, rating:4.7, sold:34, img:IMG.arduino, hall:'Republic Hall', tone:'#06A66B',
+   desc:'Uno R3 board, breadboard, jumper wires, sensors and an LCD \u2014 everything you need for the ELE 259 lab.', variants:['Basic','Full kit']},
+  {id:'p4', name:'Laptop Repair & Setup', vendor:'FixIt by Nana', cat:'services', price:60, rating:5.0, sold:53, img:IMG.coding, hall:'On campus', tone:'#7C5CFF',
+   desc:'Windows or Linux reinstall, driver setup, thermal paste and dev environment configuration. Same-day turnaround.', variants:['Diagnostics','Full service']},
+  {id:'p5', name:'ACES Departmental Tee', vendor:'ACES Wear', cat:'fashion', price:75, rating:4.6, sold:142, img:IMG.shirt, hall:'Dept. Office', tone:'#0B5FFF',
+   desc:'Cotton tee in ACES blue with the association crest on the chest and "Technology For Our Age" on the sleeve.', variants:['S','M','L','XL']},
+  {id:'p6', name:'Hair Braiding (Hostel Visit)', vendor:'Glow by Efua', cat:'beauty', price:90, rating:4.9, sold:67, img:IMG.hangout, hall:'Brunei', tone:'#EC4899',
+   desc:'Knotless braids, cornrows or twists. She comes to your hostel room \u2014 book a slot the evening before.', variants:['Cornrows','Knotless','Twists']}
+];
+
+const CATS = [
+  {id:'all', label:'All', icon:'\u25C6'}, {id:'food', label:'Food', icon:'\u25CF'},
+  {id:'fashion', label:'Fashion', icon:'\u25B2'}, {id:'tech', label:'Tech', icon:'\u25A0'},
+  {id:'services', label:'Services', icon:'\u2726'}, {id:'beauty', label:'Beauty', icon:'\u2739'}
+];
+
+const COURSES = [
+  {code:'CE 353', name:'Operating Systems', year:3, sem:1, files:14, slides:8, pq:6, size:'62 MB'},
+  {code:'CE 357', name:'Computer Architecture', year:3, sem:1, files:11, slides:7, pq:4, size:'48 MB'},
+  {code:'CE 361', name:'Software Engineering', year:3, sem:2, files:9, slides:6, pq:3, size:'31 MB'},
+  {code:'ELE 259', name:'Electronic Circuits', year:2, sem:1, files:16, slides:10, pq:6, size:'77 MB'},
+  {code:'CE 259', name:'Data Structures & Algorithms', year:2, sem:1, files:18, slides:11, pq:7, size:'54 MB'},
+  {code:'MATH 265', name:'Linear Algebra', year:2, sem:2, files:7, slides:4, pq:3, size:'19 MB'},
+  {code:'CE 155', name:'Intro to Programming', year:1, sem:1, files:12, slides:9, pq:3, size:'40 MB'},
+  {code:'CE 451', name:'Machine Learning', year:4, sem:1, files:0, slides:0, pq:0, size:'\u2014'}
+];
+
+const EXECS = [
+  {n:'Nana Kwame Boateng', r:'President', y:'2025/26', i:'NB', dept:'Level 400'},
+  {n:'Adwoa Serwaa Mensah', r:'Vice President', y:'2025/26', i:'AM', dept:'Level 300'},
+  {n:'Kofi Owusu Ansah', r:'General Secretary', y:'2025/26', i:'KA', dept:'Level 300'},
+  {n:'Abena Pokuaa Danso', r:'Financial Secretary', y:'2025/26', i:'AD', dept:'Level 400'},
+  {n:'Yaw Antwi Nyameky\u025b', r:'Organiser', y:'2025/26', i:'YN', dept:'Level 200'},
+  {n:'Akosua Frimpong', r:'PRO', y:'2025/26', i:'AF', dept:'Level 300'}
+];
+
+const STAFF = [
+  {n:'Dr. E. T. Tchao', r:'Head of Department', o:'Vodafone Bldg, Rm 12', e:'ettchao@knust.edu.gh', i:'ET', area:'Wireless Networks'},
+  {n:'Prof. J. J. Kponyo', r:'Professor', o:'Vodafone Bldg, Rm 8', e:'jjkponyo@knust.edu.gh', i:'JK', area:'Vehicular Networks'},
+  {n:'Dr. G. S. Klogo', r:'Senior Lecturer', o:'Vodafone Bldg, Rm 5', e:'gsklogo@knust.edu.gh', i:'GK', area:'Embedded Systems'},
+  {n:'Dr. A. S. Agbemenu', r:'Lecturer', o:'Vodafone Bldg, Rm 9', e:'asagbemenu@knust.edu.gh', i:'AA', area:'Signal Processing'},
+  {n:'Mrs. Comfort Adjei', r:'Administrative Officer', o:'Ground Floor, Front Desk', e:'coe.admin@knust.edu.gh', i:'CA', area:'Student Records'}
+];
+
+const GALLERY = [
+  {id:'g1', img:IMG.trip, cap:'ACES Industrial Trip', tag:'trips', year:'2025'},
+  {id:'g2', img:IMG.cfest2, cap:'CodeFest Demo Day', tag:'codefest', year:'2025'},
+  {id:'g3', img:IMG.shirt, cap:'Departmental Tee Launch', tag:'merch', year:'2025'},
+  {id:'g4', img:IMG.jersey, cap:'Class Jersey Reveal', tag:'merch', year:'2025'},
+  {id:'g5', img:IMG.dinner, cap:'ACES Dinner Night', tag:'social', year:'2025'},
+  {id:'g6', img:IMG.hangout, cap:'ACES Hangout', tag:'social', year:'2026'},
+  {id:'g7', img:IMG.robotics, cap:'Robotics Build Night', tag:'clubs', year:'2026'},
+  {id:'g8', img:IMG.group, cap:'ACES Group Photo', tag:'social', year:'2025'},
+  {id:'g9', img:IMG.arduino, cap:'Arduino Club Session', tag:'clubs', year:'2026'}
+];
+
+const GTAGS = [{id:'all',label:'All'},{id:'codefest',label:'CodeFest'},{id:'social',label:'Social'},{id:'clubs',label:'Clubs'},{id:'trips',label:'Trips'},{id:'merch',label:'Merch'}];
+
+const PILLARS = [
+  {t:'Internships', d:'Practical exposure through industrial attachments.', ic:'\u25A0'},
+  {t:'Skills', d:'Skills useful in the field of computer engineering.', ic:'\u25C6'},
+  {t:'Exchange', d:'Exchange programs with other CE institutions.', ic:'\u21C4'},
+  {t:'Outreach', d:'Make computer engineering attractive to second-cycle students.', ic:'\u25CE'},
+  {t:'Application', d:'Help students put acquired knowledge into practice.', ic:'\u2726'}
+];
+
+const MERCH = [
+  {id:'m1', name:'ACES Hoodie', price:220, img:IMG.shirt, variants:['S','M','L','XL'], colors:['Navy','Blue','Black']},
+  {id:'m2', name:'Class Jersey \u201926', price:120, img:IMG.jersey, variants:['S','M','L','XL','XXL'], colors:['Home','Away']},
+  {id:'m3', name:'Crest Cap', price:65, img:IMG.trip, variants:['One size'], colors:['Navy','White']},
+  {id:'m4', name:'Sticker Pack', price:15, img:IMG.cfest2, variants:['Pack of 8'], colors:['Assorted']}
+];
+
+class Component extends DCLogic {
+  state = {
+    dark: false, tab: 'home', screen: 'home', stack: [], param: null,
+    cart: [], cat: 'all', q: '', gtag: 'all', lightbox: -1,
+    year: 'all', sem: 'all', cq: '', sheet: null, toast: null,
+    reminders: {}, registered: {}, interest: false, variant: {}, qty: 1,
+    checkoutStep: 0, sellerStep: 0, sellerName: '', sellerCat: 'food'
+  };
+
+  // ---- navigation ----
+  go = (screen, param) => {
+    this.setState(s => {
+      const tabOf = {home:'home', about:'about', executives:'about', staff:'about', gallery:'about',
+        marketplace:'marketplace', product:'marketplace', cart:'marketplace', checkout:'marketplace',
+        seller:'marketplace', vendor:'marketplace', courses:'courses', scholarships:'courses',
+        shop:'courses', merch:'courses', me:'me', event:'home'};
+      return {screen, param: param === undefined ? null : param, tab: tabOf[screen] || s.tab,
+        stack: [...s.stack, {screen: s.screen, param: s.param}], sheet: null, lightbox: -1,
+        variant: {}, qty: 1, checkoutStep: screen === 'checkout' ? 0 : s.checkoutStep};
+    });
+  };
+  tabTo = (id) => this.setState({tab: id, screen: id, stack: [], sheet: null, lightbox: -1});
+  back = () => this.setState(s => {
+    if (!s.stack.length) return {screen:'home', tab:'home'};
+    const prev = s.stack[s.stack.length-1];
+    const tabOf = {home:'home',about:'about',executives:'about',staff:'about',gallery:'about',
+      marketplace:'marketplace',product:'marketplace',cart:'marketplace',checkout:'marketplace',
+      seller:'marketplace',vendor:'marketplace',courses:'courses',scholarships:'courses',shop:'courses',merch:'courses',me:'me',event:'home'};
+    return {screen: prev.screen, param: prev.param, tab: tabOf[prev.screen] || s.tab, stack: s.stack.slice(0,-1), lightbox:-1};
+  });
+
+  toast = (msg) => {
+    this.setState({toast: msg});
+    clearTimeout(this._t);
+    this._t = setTimeout(() => this.setState({toast: null}), 2200);
+  };
+
+  // ---- cart ----
+  add = (p, variant) => {
+    this.setState(s => {
+      const key = p.id + '|' + (variant || '\u2014');
+      const found = s.cart.find(c => c.key === key);
+      const cart = found
+        ? s.cart.map(c => c.key === key ? {...c, n: c.n + (s.qty||1)} : c)
+        : [...s.cart, {key, id:p.id, name:p.name, price:p.price, img:p.img, variant: variant || '\u2014', n: s.qty||1}];
+      return {cart};
+    });
+    this.toast(p.name + ' added to cart');
+  };
+  bump = (key, d) => this.setState(s => ({cart: s.cart.map(c => c.key===key ? {...c, n: Math.max(0, c.n+d)} : c).filter(c => c.n > 0)}));
+  clearCart = () => this.setState({cart: []});
+
+  componentDidMount() { document.title = 'ACES KNUST \u2014 Mobile Prototype'; }
+  componentWillUnmount() { clearTimeout(this._t); }
+
+  chip(active) {
+    return active
+      ? 'background:var(--brand);color:var(--onBrand);border-color:var(--brand)'
+      : 'background:var(--surface);color:var(--muted);border-color:var(--line)';
+  }
+
+  renderVals() {
+    const s = this.state;
+    const T = s.dark ? DARK : LIGHT;
+    const themeVars = Object.keys(T).map(k => k + ':' + T[k]).join(';') + ';';
+
+    const titles = {executives:'Executives', staff:'Staff & Department', gallery:'Gallery',
+      product:'Product', cart:'Your Cart', checkout:'Checkout', seller:'Become a Seller',
+      vendor:'Vendor Dashboard', scholarships:'Scholarships', courses:'Course Materials',
+      shop:'ACES Shop', merch:'Merch', event:'Event', about:'About ACES', me:'You'};
+
+    const cartCount = s.cart.reduce((a,c) => a + c.n, 0);
+    const subtotal = s.cart.reduce((a,c) => a + c.n * c.price, 0);
+    const delivery = s.cart.length ? 10 : 0;
+
+    const tabs = TABS.map(t => {
+      const active = s.tab === t.id;
+      return {...t, active,
+        style: 'display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:52px;border:none;background:none;cursor:pointer;border-radius:14px;padding:6px 2px;transition:color .18s,background .18s;color:' + (active ? 'var(--brand)' : 'var(--muted)') + ';' + (active ? 'background:var(--brandSoft)' : ''),
+        weight: active ? '600' : '500',
+        onClick: () => this.tabTo(t.id)};
+    });
+
+    const statusPill = {open:{bg:'#DCFCE7',fg:'#046C4E',t:'Registration open'},
+      soon:{bg:'#FEF3C7',fg:'#92400E',t:'Coming soon'},
+      past:{bg:'#E9EDF3',fg:'#5B6B7E',t:'Past event'}};
+
+    const events = EVENTS.map(e => {
+      const p = statusPill[e.status];
+      return {...e,
+        pillStyle:'display:inline-flex;align-items:center;gap:5px;padding:4px 9px;border-radius:999px;font-family:\'IBM Plex Mono\',monospace;font-size:9.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:' + p.bg + ';color:' + p.fg,
+        pillText: p.t,
+        day: e.dl.split(' ')[1], mon: e.dl.split(' ')[0],
+        open: () => this.go('event', e.id)};
+    });
+
+    const ev = EVENTS.find(e => e.id === s.param) || EVENTS[0];
+    const evP = statusPill[ev.status];
+    const evReg = !!s.registered[ev.id] || !!s.reminders[ev.id];
+
+    const cats = CATS.map(c => ({...c, style:'display:inline-flex;align-items:center;gap:6px;padding:0 14px;height:38px;border-radius:999px;border:1px solid;cursor:pointer;font-size:13px;font-weight:600;white-space:nowrap;transition:all .16s;' + this.chip(s.cat === c.id),
+      onClick: () => this.setState({cat: c.id})}));
+
+    const ql = s.q.trim().toLowerCase();
+    const products = PRODUCTS
+      .filter(p => s.cat === 'all' || p.cat === s.cat)
+      .filter(p => !ql || (p.name + ' ' + p.vendor + ' ' + p.cat).toLowerCase().includes(ql))
+      .map(p => ({...p, priceStr:'GH\u20B5 ' + p.price, open: () => this.go('product', p.id),
+        quickAdd: (e) => { e.stopPropagation(); this.add(p, p.variants[0]); }}));
+
+    const prod = PRODUCTS.find(p => p.id === s.param) || PRODUCTS[0];
+    const prodVariants = prod.variants.map(v => ({v, style:'padding:0 16px;height:44px;border-radius:12px;border:1px solid;cursor:pointer;font-size:13px;font-weight:600;transition:all .16s;' + this.chip((s.variant[prod.id] || prod.variants[0]) === v),
+      onClick: () => this.setState(st => ({variant: {...st.variant, [prod.id]: v}}))}));
+
+    const cartLines = s.cart.map(c => ({...c, lineStr:'GH\u20B5 ' + (c.price*c.n),
+      inc: () => this.bump(c.key, 1), dec: () => this.bump(c.key, -1)}));
+
+    const years = [{id:'all',label:'All years'},{id:1,label:'Year 1'},{id:2,label:'Year 2'},{id:3,label:'Year 3'},{id:4,label:'Year 4'}]
+      .map(y => ({...y, style:'padding:0 13px;height:36px;border-radius:10px;border:1px solid;cursor:pointer;font-size:12.5px;font-weight:600;white-space:nowrap;transition:all .16s;' + this.chip(s.year === y.id), onClick: () => this.setState({year: y.id})}));
+    const sems = [{id:'all',label:'Both'},{id:1,label:'Sem 1'},{id:2,label:'Sem 2'}]
+      .map(y => ({...y, style:'padding:0 13px;height:36px;border-radius:10px;border:1px solid;cursor:pointer;font-size:12.5px;font-weight:600;white-space:nowrap;transition:all .16s;' + this.chip(s.sem === y.id), onClick: () => this.setState({sem: y.id})}));
+
+    const cql = s.cq.trim().toLowerCase();
+    const courses = COURSES
+      .filter(c => s.year === 'all' || c.year === s.year)
+      .filter(c => s.sem === 'all' || c.sem === s.sem)
+      .filter(c => !cql || (c.code + ' ' + c.name).toLowerCase().includes(cql))
+      .map(c => ({...c, empty: c.files === 0, meta:'Y' + c.year + ' \u00B7 S' + c.sem + ' \u00B7 ' + c.size,
+        fileStr: c.files + ' files', slideStr: c.slides + ' slides', pqStr: c.pq + ' past papers',
+        download: () => this.toast(c.code + ' pack \u2014 download started (' + c.size + ')'),
+        request: () => this.toast('Request logged \u2014 we will alert the class rep')}));
+
+    const gtags = GTAGS.map(g => ({...g, style:'padding:0 14px;height:36px;border-radius:999px;border:1px solid;cursor:pointer;font-size:12.5px;font-weight:600;white-space:nowrap;transition:all .16s;' + this.chip(s.gtag === g.id), onClick: () => this.setState({gtag: g.id})}));
+    const gitems = GALLERY.filter(g => s.gtag === 'all' || g.tag === s.gtag);
+    const gallery = gitems.map((g, i) => ({...g, open: () => this.setState({lightbox: i})}));
+    const lbIdx = s.lightbox;
+    const lb = lbIdx >= 0 && gitems[lbIdx] ? {...gitems[lbIdx], pos: (lbIdx+1) + ' / ' + gitems.length} : null;
+
+    const execs = EXECS.map(e => ({...e, mail: () => this.toast('Opening mail to ' + e.n.split(' ')[0])}));
+    const staff = STAFF.map(e => ({...e, mail: () => this.toast('Opening mail to ' + e.n)}));
+    const merch = MERCH.map(m => ({...m, priceStr:'GH\u20B5 ' + m.price, open: () => this.go('merch', m.id),
+      notify: (e) => { e.stopPropagation(); this.toast('We will alert you when ' + m.name + ' drops'); }}));
+    const mProd = MERCH.find(m => m.id === s.param) || MERCH[0];
+
+    const ck = s.checkoutStep;
+
+    return {
+      themeVars,
+      canBack: s.stack.length > 0,
+      showBrand: !titles[s.screen],
+      pageTitle: titles[s.screen] || '',
+      cartCount: cartCount || 0,
+      dark: s.dark,
+      light: !s.dark,
+      tabs, events, cats, products, cartLines, years, sems, courses, gtags, gallery,
+      execs, staff, merch, pillars: PILLARS, prodVariants,
+      lb, hasLb: !!lb,
+      featured: events[0],
+      upcoming: events.filter(e => e.status !== 'past'),
+      // screens
+      isHome: s.screen === 'home', isAbout: s.screen === 'about', isExec: s.screen === 'executives',
+      isStaff: s.screen === 'staff', isGallery: s.screen === 'gallery', isMarket: s.screen === 'marketplace',
+      isProduct: s.screen === 'product', isCart: s.screen === 'cart', isCheckout: s.screen === 'checkout',
+      isSeller: s.screen === 'seller', isVendor: s.screen === 'vendor', isCourses: s.screen === 'courses',
+      isSchol: s.screen === 'scholarships', isShop: s.screen === 'shop', isMerch: s.screen === 'merch',
+      isMe: s.screen === 'me', isEvent: s.screen === 'event',
+      // event detail
+      ev, evPillStyle:'display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border-radius:999px;font-family:\'IBM Plex Mono\',monospace;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:' + evP.bg + ';color:' + evP.fg + ';',
+      evPillText: evP.t, evOpen: ev.status === 'open', evSoon: ev.status === 'soon', evPast: ev.status === 'past',
+      evReg, evNotReg: !evReg,
+      evRegister: () => { this.setState(st => ({registered: {...st.registered, [ev.id]: true}})); this.toast('You are registered for ' + ev.name); },
+      evRemind: () => { this.setState(st => ({reminders: {...st.reminders, [ev.id]: true}})); this.toast('Reminder set \u2014 we will notify you'); },
+      // product detail
+      prod, prodPrice:'GH\u20B5 ' + prod.price, qty: s.qty,
+      qtyInc: () => this.setState(st => ({qty: st.qty + 1})),
+      qtyDec: () => this.setState(st => ({qty: Math.max(1, st.qty - 1)})),
+      addProd: () => this.add(prod, s.variant[prod.id] || prod.variants[0]),
+      // cart
+      hasCart: s.cart.length > 0, emptyCart: s.cart.length === 0,
+      subtotalStr:'GH\u20B5 ' + subtotal, deliveryStr:'GH\u20B5 ' + delivery, totalStr:'GH\u20B5 ' + (subtotal + delivery),
+      goCheckout: () => this.go('checkout'),
+      ckStep: ck, ck0: ck === 0, ck1: ck === 1, ck2: ck === 2,
+      ckNext: () => this.setState(st => ({checkoutStep: Math.min(2, st.checkoutStep + 1)})),
+      ckPay: () => { this.setState({checkoutStep: 2, cart: []}); this.toast('Order placed \u2014 ACES-2617'); },
+      // seller
+      sellerStep: s.sellerStep, sl0: s.sellerStep === 0, sl1: s.sellerStep === 1,
+      sellerName: s.sellerName,
+      setSellerName: (e) => this.setState({sellerName: e.target.value}),
+      sellerNext: () => this.setState(st => ({sellerStep: st.sellerStep + 1})),
+      sellerDone: () => { this.setState({sellerStep: 0}); this.go('vendor'); this.toast('Shop created \u2014 welcome, seller'); },
+      // scholarships
+      interest: s.interest, noInterest: !s.interest,
+      setInterest: () => { this.setState({interest: true}); this.toast('You are on the alert list'); },
+      // merch
+      mProd, mPrice:'GH\u20B5 ' + mProd.price,
+      // search
+      q: s.q, cq: s.cq,
+      setQ: (e) => this.setState({q: e.target.value}),
+      setCq: (e) => this.setState({cq: e.target.value}),
+      noProducts: products.length === 0, hasProducts: products.length > 0,
+      noCourses: courses.length === 0,
+      // overlays
+      toastMsg: s.toast, hasToast: !!s.toast,
+      sheetOpen: s.sheet === 'menu', searchOpen: s.sheet === 'search',
+      openSearch: () => this.setState({sheet: 'search'}),
+      openMenu: () => this.setState({sheet: 'menu'}),
+      closeSheet: () => this.setState({sheet: null}),
+      closeLb: () => this.setState({lightbox: -1}),
+      lbNext: () => this.setState(st => ({lightbox: (st.lightbox + 1) % gitems.length})),
+      lbPrev: () => this.setState(st => ({lightbox: (st.lightbox - 1 + gitems.length) % gitems.length})),
+      toggleDark: () => this.setState(st => ({dark: !st.dark})),
+      goCart: () => this.go('cart'),
+      back: this.back,
+      // quick links
+      goAbout: () => this.go('about'), goExec: () => this.go('executives'),
+      goStaff: () => this.go('staff'), goGallery: () => this.go('gallery'),
+      goMarket: () => this.go('marketplace'), goCourses: () => this.go('courses'),
+      goSchol: () => this.go('scholarships'), goShop: () => this.go('shop'),
+      goSeller: () => this.go('seller'), goVendor: () => this.go('vendor'),
+      goHome: () => this.tabTo('home'),
+      sub: () => this.toast('Subscribed to the ACES newsletter')
+    };
+  }
+}
+
+</script>
+</body>
+</html>

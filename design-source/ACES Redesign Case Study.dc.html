@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#F4F7FC;font-family:'Public Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;color:#111827}
+a{color:#0B5FFF;text-decoration:none}
+a:hover{color:#0940B8;text-decoration:underline}
+@property --n1{syntax:'<integer>';initial-value:0;inherits:false}
+@property --n2{syntax:'<integer>';initial-value:0;inherits:false}
+@property --n3{syntax:'<integer>';initial-value:0;inherits:false}
+@keyframes csRise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+@keyframes csLine{from{transform:translateY(112%) rotate(2.5deg);opacity:.2}to{transform:none;opacity:1}}
+@keyframes csFade{from{opacity:0}to{opacity:1}}
+@keyframes csScaleIn{from{opacity:0;transform:scale(.94) translateY(22px)}to{opacity:1;transform:none}}
+@keyframes csWipe{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes csGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes csParallax{from{transform:scale(1.18) translateY(-4%)}to{transform:scale(1.18) translateY(6%)}}
+@keyframes csProgress{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes csMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes csSheen{0%{background-position:-140% 0}55%,100%{background-position:240% 0}}
+@keyframes csOrb{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(4%,-6%,0) scale(1.12)}}
+@keyframes csC1{to{--n1:600}}
+@keyframes csC2{to{--n2:9}}
+@keyframes csC3{to{--n3:17}}
+
+[data-marquee]{animation:csMarquee 26s linear infinite}
+[data-orb]{animation:csOrb 14s ease-in-out infinite}
+[data-sheen]{background:linear-gradient(100deg,#fff 20%,#9EC7FF 38%,#5BE9B9 50%,#fff 66%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:csSheen 6.5s ease-in-out 1.1s infinite}
+[data-count="1"]{counter-reset:n1 var(--n1);animation:csC1 1.9s cubic-bezier(.2,.9,.2,1) .35s both}
+[data-count="1"]::after{content:counter(n1) "+"}
+[data-count="2"]{counter-reset:n2 var(--n2);animation:csC2 1.5s cubic-bezier(.2,.9,.2,1) .45s both}
+[data-count="2"]::after{content:counter(n2)}
+[data-count="3"]{counter-reset:n3 var(--n3);animation:csC3 1.7s cubic-bezier(.2,.9,.2,1) .55s both}
+[data-count="3"]::after{content:counter(n3)}
+
+[data-line]{display:block;animation:csLine .95s cubic-bezier(.16,1,.3,1) both}
+[data-line="1"]{animation-delay:.05s}
+[data-line="2"]{animation-delay:.16s}
+[data-line="3"]{animation-delay:.27s}
+[data-line="4"]{animation-delay:.38s}
+
+@media (prefers-reduced-motion: no-preference){
+  @supports (animation-timeline: view()){
+    [data-anim]{animation-duration:1s;animation-timing-function:cubic-bezier(.16,1,.3,1);animation-fill-mode:both;animation-timeline:view();animation-range:entry 4% cover 30%}
+    [data-anim="rise"]{animation-name:csRise}
+    [data-anim="fade"]{animation-name:csFade}
+    [data-anim="scale"]{animation-name:csScaleIn}
+    [data-anim="wipe"]{animation-name:csWipe;animation-range:entry 10% cover 40%}
+    [data-anim="grow"]{animation-name:csGrow;transform-origin:left center;animation-range:entry 20% cover 45%}
+    [data-headline] [data-line]{animation-name:csLine;animation-delay:0s;animation-timeline:view();animation-range:entry 6% cover 34%}
+    [data-headline] [data-line="2"]{animation-range:entry 10% cover 40%}
+    [data-headline] [data-line="3"]{animation-range:entry 14% cover 46%}
+    [data-stagger] > *{animation:csRise 1s cubic-bezier(.16,1,.3,1) both;animation-timeline:view();animation-range:entry 2% cover 26%}
+    [data-stagger] > *:nth-child(2){animation-range:entry 4% cover 30%}
+    [data-stagger] > *:nth-child(3){animation-range:entry 6% cover 34%}
+    [data-stagger] > *:nth-child(4){animation-range:entry 8% cover 38%}
+    [data-stagger] > *:nth-child(5){animation-range:entry 10% cover 42%}
+    [data-stagger] > *:nth-child(6){animation-range:entry 12% cover 46%}
+    [data-stagger] > *:nth-child(7){animation-range:entry 14% cover 50%}
+    [data-stagger] > *:nth-child(n+8){animation-range:entry 16% cover 54%}
+    [data-parallax]{animation:csParallax linear both;animation-timeline:view(root);animation-range:cover}
+    [data-progress]{animation:csProgress linear both;animation-timeline:scroll(root);transform-origin:left center}
+  }
+}
+@media (prefers-reduced-motion: reduce){
+  [data-line],[data-marquee],[data-orb],[data-sheen],[data-count]{animation:none!important}
+  [data-sheen]{color:#fff!important;-webkit-text-fill-color:#fff}
+}
+</style>
+</helmet>
+<div style="width:100%;background:#F4F7FC">
+
+  <div style="position:fixed;top:0;left:0;right:0;height:3px;z-index:200;background:rgba(11,31,58,.10)">
+    <div data-progress="" style="height:100%;width:100%;background:linear-gradient(90deg,#0B5FFF,#5BE9B9)"></div>
+  </div>
+
+  <div style="position:relative;overflow:hidden;background:linear-gradient(160deg,#0B1F3A 0%,#0B2E63 50%,#0B5FFF 125%);color:#EAF4FF;padding:88px 40px 0">
+    <div style="position:absolute;inset:0;overflow:hidden">
+      <img data-parallax="" src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756508620/aces-group-photo_zoxsvy.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.17;mix-blend-mode:luminosity;will-change:transform" />
+      <div data-orb="" style="position:absolute;top:-18%;right:-8%;width:640px;height:640px;border-radius:50%;background:radial-gradient(circle,rgba(91,233,185,.30),rgba(91,233,185,0) 65%);filter:blur(28px);will-change:transform"></div>
+      <div data-orb="" style="position:absolute;bottom:-30%;left:-12%;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(11,95,255,.55),rgba(11,95,255,0) 68%);filter:blur(34px);animation-delay:-6s;will-change:transform"></div>
+    </div>
+    <div style="position:relative;max-width:1100px;margin:0 auto;padding-bottom:64px">
+      <div style="overflow:hidden;margin-bottom:26px"><div data-line="1" style="display:inline-flex;align-items:center;gap:9px;padding:6px 13px;border-radius:999px;background:rgba(255,255,255,.13);font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.11em;text-transform:uppercase;font-weight:600">CodeFest 2026 · UI/UX Challenge</div></div>
+      <h1 style="margin:0 0 22px;font-family:'Space Grotesk',sans-serif;font-size:62px;line-height:1.04;letter-spacing:-.035em;font-weight:700;color:#fff;max-width:23ch;text-wrap:pretty">
+        <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-line="1">A student website</span></span>
+        <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-line="2">that finally does</span></span>
+        <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-line="3" data-sheen="">the student's job.</span></span>
+      </h1>
+      <div style="overflow:hidden"><p data-line="4" style="margin:0 0 36px;font-size:19px;line-height:1.6;max-width:60ch;color:rgba(234,244,255,.85);text-wrap:pretty">A mobile-first redesign of acesknust.com. Nine pages rebuilt around four things students actually open the site to do — find course materials, buy from other students, catch an event, and know who to ask.</p></div>
+      <div style="display:flex;flex-wrap:wrap;gap:38px;padding-top:32px;border-top:1px solid rgba(255,255,255,.18)">
+        <div><div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:rgba(234,244,255,.55);margin-bottom:8px">Pages redesigned</div><div data-count="2" style="font-family:'Space Grotesk',sans-serif;font-size:38px;font-weight:700;color:#fff;letter-spacing:-.03em;line-height:1"></div></div>
+        <div><div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:rgba(234,244,255,.55);margin-bottom:8px">Screens built</div><div data-count="3" style="font-family:'Space Grotesk',sans-serif;font-size:38px;font-weight:700;color:#fff;letter-spacing:-.03em;line-height:1"></div></div>
+        <div><div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:rgba(234,244,255,.55);margin-bottom:8px">Students served</div><div data-count="1" style="font-family:'Space Grotesk',sans-serif;font-size:38px;font-weight:700;color:#fff;letter-spacing:-.03em;line-height:1"></div></div>
+        <div><div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:rgba(234,244,255,.55);margin-bottom:8px">Brand</div><div style="font-family:'Space Grotesk',sans-serif;font-size:38px;font-weight:700;color:#fff;letter-spacing:-.03em;line-height:1">Kept</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#0B1F3A;overflow:hidden;padding:15px 0;border-bottom:1px solid rgba(255,255,255,.1)">
+    <div data-marquee="" style="display:flex;gap:0;width:max-content;will-change:transform">
+      <div style="display:flex;gap:44px;padding-right:44px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:rgba(234,244,255,.5);white-space:nowrap">
+        <sc-for list="{{ ticker }}" as="t" hint-placeholder-count="11"><span>{{ t }}</span></sc-for>
+      </div>
+      <div aria-hidden="true" style="display:flex;gap:44px;padding-right:44px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:rgba(234,244,255,.5);white-space:nowrap">
+        <sc-for list="{{ ticker }}" as="t" hint-placeholder-count="11"><span>{{ t }}</span></sc-for>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:1100px;margin:0 auto;padding:72px 40px 0">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:#0B5FFF;font-weight:700;margin-bottom:14px" data-anim="fade">01 · Audit</div>
+    <h2 data-headline="" style="margin:0 0 14px;font-family:'Space Grotesk',sans-serif;font-size:38px;line-height:1.14;letter-spacing:-.03em;font-weight:700;color:#0B1F3A;max-width:26ch">
+      <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="1">What we found on</span></span>
+      <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="2">the live site</span></span>
+    </h2>
+    <p data-anim="rise" style="margin:0 0 38px;font-size:17px;line-height:1.65;color:#5B6B7E;max-width:68ch;text-wrap:pretty">Eight findings, each one traced to a real page. Every fix later in this document points back to a numbered finding here.</p>
+
+    <div data-stagger="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px">
+      <sc-for list="{{ findings }}" as="f" hint-placeholder-count="8">
+        <div style="padding:22px;border-radius:20px;background:#fff;border:1px solid #DDE6F2;box-shadow:0 2px 10px -3px rgba(11,31,58,.08);display:flex;flex-direction:column;gap:11px;transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s" style-hover="transform:translateY(-6px);box-shadow:0 18px 40px -14px rgba(11,31,58,.28)">
+          <div style="display:flex;align-items:center;gap:10px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;color:#0B5FFF;letter-spacing:.08em">{{ f.no }}</span>
+            <span style="{{ f.sevStyle }}">{{ f.sev }}</span>
+            <span style="margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#5B6B7E;letter-spacing:.04em">{{ f.page }}</span>
+          </div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:700;letter-spacing:-.02em;color:#0B1F3A;line-height:1.25">{{ f.title }}</div>
+          <div style="font-size:14.5px;line-height:1.6;color:#5B6B7E;text-wrap:pretty">{{ f.problem }}</div>
+          <div style="margin-top:auto;padding-top:13px;border-top:1px dashed #DDE6F2;display:flex;gap:9px;align-items:flex-start">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 16px;margin-top:2px"><path d="M20 6L9 17l-5-5"></path></svg>
+            <span style="font-size:14px;line-height:1.55;color:#111827;font-weight:500;text-wrap:pretty">{{ f.fix }}</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="max-width:1100px;margin:0 auto;padding:72px 40px 0">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:#0B5FFF;font-weight:700;margin-bottom:14px" data-anim="fade">02 · Information architecture</div>
+    <h2 data-headline="" style="margin:0 0 14px;font-family:'Space Grotesk',sans-serif;font-size:38px;line-height:1.14;letter-spacing:-.03em;font-weight:700;color:#0B1F3A;max-width:26ch">
+      <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="1">Fourteen flat links</span></span>
+      <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="2">became five tabs</span></span>
+    </h2>
+    <p data-anim="rise" style="margin:0 0 34px;font-size:17px;line-height:1.65;color:#5B6B7E;max-width:68ch;text-wrap:pretty">The old footer navigation grouped pages by how the site was built (Explore / Marketplace / Resources), not by what a student wants. We regrouped around intent, and gave the two commercial journeys their own tabs because they carry the most steps.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="padding:26px;border-radius:22px;background:#fff;border:1px solid #DDE6F2">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:#E5484D;font-weight:700;margin-bottom:16px">Before · 14 links, 3 groups</div>
+        <div data-stagger="" style="display:flex;flex-wrap:wrap;gap:7px">
+          <sc-for list="{{ oldNav }}" as="n" hint-placeholder-count="14">
+            <span style="padding:7px 12px;border-radius:9px;background:#F4F7FC;border:1px solid #DDE6F2;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#5B6B7E">{{ n }}</span>
+          </sc-for>
+        </div>
+        <div style="margin-top:18px;font-size:14px;line-height:1.6;color:#5B6B7E">No search. Login, Register and Vendor Dashboard sat inside a footer column beside product browsing.</div>
+      </div>
+      <div style="padding:26px;border-radius:22px;background:#0B1F3A;color:#EAF4FF">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:#5BE9B9;font-weight:700;margin-bottom:16px">After · 5 tabs + sheet</div>
+        <div data-stagger="" style="display:grid;gap:9px">
+          <sc-for list="{{ newNav }}" as="n" hint-placeholder-count="5">
+            <div style="display:flex;gap:13px;align-items:baseline;padding:12px 14px;border-radius:13px;background:rgba(255,255,255,.07)">
+              <span style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;color:#fff;min-width:96px">{{ n.tab }}</span>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:rgba(234,244,255,.7);line-height:1.5">{{ n.holds }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="margin-top:18px;font-size:14px;line-height:1.6;color:rgba(234,244,255,.8)">Search sits in the header on every screen. Overflow pages live in one bottom sheet reachable from Home.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:1300px;margin:0 auto;padding:72px 40px 0">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:#0B5FFF;font-weight:700;margin-bottom:14px" data-anim="fade">03 · Live prototype</div>
+    <h2 data-headline="" style="margin:0 0 14px;font-family:'Space Grotesk',sans-serif;font-size:38px;line-height:1.14;letter-spacing:-.03em;font-weight:700;color:#0B1F3A;max-width:26ch">
+      <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="1">Try it —</span></span>
+      <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="2">everything works</span></span>
+    </h2>
+    <p data-anim="rise" style="margin:0 0 34px;font-size:17px;line-height:1.65;color:#5B6B7E;max-width:68ch;text-wrap:pretty">Not a static mockup. Tabs, search, category filters, the cart, checkout, the gallery lightbox and dark mode are all real. Follow a journey below, or just wander.</p>
+    <div style="display:flex;gap:34px;align-items:flex-start;flex-wrap:wrap">
+      <div data-anim="scale" style="flex:0 0 auto;position:sticky;top:36px">
+        <dc-import name="AcesPrototype" hint-size="460px,880px"></dc-import>
+      </div>
+      <div data-stagger="" style="flex:1;min-width:300px;display:grid;gap:12px">
+        <sc-for list="{{ journeys }}" as="j" hint-placeholder-count="4">
+          <div style="padding:20px 22px;border-radius:20px;background:#fff;border:1px solid #DDE6F2;box-shadow:0 2px 10px -3px rgba(11,31,58,.08);transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s,border-color .3s" style-hover="transform:translateX(6px);border-color:#0B5FFF;box-shadow:0 18px 40px -16px rgba(11,95,255,.35)">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:11px">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;color:#0B5FFF;letter-spacing:.08em">{{ j.no }}</span>
+              <span style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;letter-spacing:-.02em;color:#0B1F3A">{{ j.name }}</span>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:7px;align-items:center">
+              <sc-for list="{{ j.steps }}" as="st" hint-placeholder-count="4">
+                <span style="padding:6px 11px;border-radius:9px;background:#EAF4FF;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#0B5FFF;font-weight:500">{{ st }}</span>
+              </sc-for>
+            </div>
+            <div style="margin-top:12px;font-size:14px;line-height:1.6;color:#5B6B7E;text-wrap:pretty">{{ j.why }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:1100px;margin:0 auto;padding:72px 40px 0">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:#0B5FFF;font-weight:700;margin-bottom:14px" data-anim="fade">04 · Design system</div>
+    <h2 data-headline="" style="margin:0 0 14px;font-family:'Space Grotesk',sans-serif;font-size:38px;line-height:1.14;letter-spacing:-.03em;font-weight:700;color:#0B1F3A;max-width:26ch">
+      <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="1">Tokens the web</span></span>
+      <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="2">team can ship</span></span>
+    </h2>
+    <p data-anim="rise" style="margin:0 0 34px;font-size:17px;line-height:1.65;color:#5B6B7E;max-width:68ch;text-wrap:pretty">The brand palette is the brief's, unchanged. We added the semantic and neutral steps the palette was missing, plus one dark surface ramp — nothing here needs a designer to interpret it.</p>
+
+    <div data-stagger="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px">
+      <sc-for list="{{ colors }}" as="c" hint-placeholder-count="7">
+        <div style="border-radius:18px;overflow:hidden;background:#fff;border:1px solid #DDE6F2;transition:transform .3s cubic-bezier(.16,1,.3,1)" style-hover="transform:translateY(-5px) scale(1.02)">
+          <div data-anim="wipe" style="height:78px;{{ c.swatch }}"></div>
+          <div style="padding:13px 14px 15px">
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#0B1F3A">{{ c.name }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#5B6B7E;margin-top:4px">{{ c.hex }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#0B5FFF;margin-top:6px">{{ c.token }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1.15fr 1fr;gap:16px;margin-bottom:16px">
+      <div style="padding:26px;border-radius:22px;background:#fff;border:1px solid #DDE6F2">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:#5B6B7E;font-weight:700;margin-bottom:20px">Type scale</div>
+        <div style="display:grid;gap:18px">
+          <div><div style="font-family:'Space Grotesk',sans-serif;font-size:31px;font-weight:700;letter-spacing:-.03em;color:#0B1F3A;line-height:1.1">Space Grotesk 700</div><div style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#5B6B7E;margin-top:6px">Display · 31/25/22/19/15 · tracking −3%</div></div>
+          <div><div style="font-size:16px;line-height:1.6;color:#111827">Public Sans 400 — body copy set at 14–15px on mobile with 1.6 line height, never below 12.5px for metadata.</div><div style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#5B6B7E;margin-top:6px">Body · 15/14/13.5/12.5</div></div>
+          <div><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#0B5FFF;letter-spacing:.06em">IBM PLEX MONO · CE 353 · GH₵ 120 · AUG 14</div><div style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#5B6B7E;margin-top:6px">Labels, course codes, prices, dates, IDs</div></div>
+        </div>
+      </div>
+      <div style="padding:26px;border-radius:22px;background:#0B1F3A;color:#EAF4FF">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:#5BE9B9;font-weight:700;margin-bottom:20px">Accessibility floor</div>
+        <div data-stagger="" style="display:grid;gap:14px">
+          <sc-for list="{{ a11y }}" as="a" hint-placeholder-count="5">
+            <div style="display:flex;gap:12px;align-items:flex-start">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;color:#5BE9B9;min-width:62px">{{ a.v }}</span>
+              <span style="font-size:14px;line-height:1.55;color:rgba(234,244,255,.85);text-wrap:pretty">{{ a.t }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding:26px;border-radius:22px;background:#fff;border:1px solid #DDE6F2">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:#5B6B7E;font-weight:700;margin-bottom:20px">Components &amp; the states each one ships with</div>
+      <div data-stagger="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px">
+        <sc-for list="{{ components }}" as="c" hint-placeholder-count="6">
+          <div style="padding:17px;border-radius:16px;background:#F4F7FC;border:1px solid #DDE6F2">
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:15.5px;font-weight:700;color:#0B1F3A;margin-bottom:8px">{{ c.name }}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px">
+              <sc-for list="{{ c.states }}" as="s" hint-placeholder-count="3">
+                <span style="padding:4px 9px;border-radius:7px;background:#fff;border:1px solid #DDE6F2;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#5B6B7E">{{ s }}</span>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:1100px;margin:0 auto;padding:72px 40px 0">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:#0B5FFF;font-weight:700;margin-bottom:14px" data-anim="fade">05 · Responsive scaling</div>
+    <h2 data-headline="" style="margin:0 0 14px;font-family:'Space Grotesk',sans-serif;font-size:38px;line-height:1.14;letter-spacing:-.03em;font-weight:700;color:#0B1F3A;max-width:26ch">
+      <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="1">How the mobile system</span></span>
+      <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="2">grows to desktop</span></span>
+    </h2>
+    <p data-anim="rise" style="margin:0 0 34px;font-size:17px;line-height:1.65;color:#5B6B7E;max-width:68ch;text-wrap:pretty">Optional per the brief, included to prove the tokens hold. The bottom tab bar becomes a horizontal nav, cards keep their radius and spacing, and the grid goes from 2 to 4 columns.</p>
+    <div style="display:grid;gap:20px">
+      <div data-anim="scale" style="border-radius:20px;overflow:hidden;border:1px solid #DDE6F2;background:#fff;box-shadow:0 8px 30px -12px rgba(11,31,58,.2)">
+        <div style="height:38px;display:flex;align-items:center;gap:7px;padding:0 15px;background:#EDF2F8;border-bottom:1px solid #DDE6F2">
+          <span style="width:11px;height:11px;border-radius:6px;background:#E5484D"></span><span style="width:11px;height:11px;border-radius:6px;background:#F59E0B"></span><span style="width:11px;height:11px;border-radius:6px;background:#22C55E"></span>
+          <span style="margin-left:14px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#5B6B7E">acesknust.com</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:26px;padding:16px 26px;border-bottom:1px solid #DDE6F2">
+          <div style="display:flex;align-items:center;gap:9px"><span style="width:30px;height:30px;border-radius:9px;background:linear-gradient(145deg,#0B5FFF,#0B1F3A);display:grid;place-items:center;font-family:'Space Grotesk',sans-serif;font-weight:700;color:#fff;font-size:13px">A</span><span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;color:#0B1F3A">ACES KNUST</span></div>
+          <div style="display:flex;gap:20px;font-size:13.5px;font-weight:600;color:#5B6B7E"><span style="color:#0B5FFF">Home</span><span>Association</span><span>Marketplace</span><span>Resources</span></div>
+          <div style="margin-left:auto;display:flex;gap:9px;align-items:center"><span style="padding:8px 14px;border-radius:10px;background:#F4F7FC;border:1px solid #DDE6F2;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#5B6B7E">Search…</span><span style="padding:9px 16px;border-radius:10px;background:#0B5FFF;color:#fff;font-size:13px;font-weight:700">Join ACES</span></div>
+        </div>
+        <div style="position:relative;padding:52px 26px;background:linear-gradient(150deg,#0B1F3A,#0B2E63 60%,#0B5FFF 130%);overflow:hidden">
+          <img src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756508620/aces-group-photo_zoxsvy.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.2;mix-blend-mode:luminosity" />
+          <div style="position:relative;max-width:52ch">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:rgba(234,244,255,.7);margin-bottom:14px">Technology for our age</div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:42px;line-height:1.05;letter-spacing:-.035em;font-weight:700;color:#fff;margin-bottom:14px">The home base for Computer Engineering at KNUST.</div>
+            <div style="font-size:16px;line-height:1.6;color:rgba(234,244,255,.85);margin-bottom:22px;max-width:46ch">Course materials, a student marketplace and every ACES event — in one place.</div>
+            <div style="display:flex;gap:10px"><span style="padding:13px 20px;border-radius:12px;background:#fff;color:#0B1F3A;font-weight:700;font-size:14.5px">Get course materials</span><span style="padding:13px 20px;border-radius:12px;border:1px solid rgba(255,255,255,.35);color:#fff;font-weight:600;font-size:14.5px">What is ACES?</span></div>
+          </div>
+        </div>
+        <div style="padding:26px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:#5B6B7E;font-weight:700;margin-bottom:14px">Marketplace · 4-up grid</div>
+          <div data-stagger="" style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px">
+            <sc-for list="{{ deskCards }}" as="d" hint-placeholder-count="4">
+              <div style="border:1px solid #DDE6F2;border-radius:16px;overflow:hidden;background:#fff">
+                <img src="{{ d.img }}" alt="{{ d.name }}" style="width:100%;height:104px;object-fit:cover;display:block" />
+                <div style="padding:12px 13px 14px">
+                  <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13.5px;color:#0B1F3A;line-height:1.3">{{ d.name }}</div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#5B6B7E;margin-top:4px">{{ d.vendor }}</div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:600;color:#0B5FFF;margin-top:8px">{{ d.priceStr }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:1100px;margin:0 auto;padding:72px 40px 0">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:#0B5FFF;font-weight:700;margin-bottom:14px" data-anim="fade">06 · Coverage</div>
+    <h2 data-headline="" style="margin:0 0 34px;font-family:'Space Grotesk',sans-serif;font-size:38px;line-height:1.14;letter-spacing:-.03em;font-weight:700;color:#0B1F3A;max-width:26ch">
+      <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="1">All nine pages, and</span></span>
+      <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="2">what each one now does</span></span>
+    </h2>
+    <div data-stagger="" style="border-radius:22px;overflow:hidden;border:1px solid #DDE6F2;background:#fff">
+      <sc-for list="{{ pages }}" as="p" hint-placeholder-count="9">
+        <div style="display:flex;gap:20px;align-items:flex-start;padding:20px 24px;border-bottom:1px solid #EDF2F8;transition:background .25s,padding-left .25s" style-hover="background:#F7FAFE;padding-left:32px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:700;color:#0B5FFF;min-width:26px;padding-top:3px">{{ p.no }}</span>
+          <span style="min-width:150px;font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:700;letter-spacing:-.02em;color:#0B1F3A">{{ p.name }}</span>
+          <span style="flex:1;font-size:14.5px;line-height:1.6;color:#5B6B7E;text-wrap:pretty">{{ p.what }}</span>
+          <span style="{{ p.stateStyle }}">{{ p.state }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="max-width:1100px;margin:0 auto;padding:72px 40px 0">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:#0B5FFF;font-weight:700;margin-bottom:14px" data-anim="fade">07 · Motion</div>
+    <h2 data-headline="" style="margin:0 0 14px;font-family:'Space Grotesk',sans-serif;font-size:38px;line-height:1.14;letter-spacing:-.03em;font-weight:700;color:#0B1F3A;max-width:26ch">
+      <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="1">Motion that does</span></span>
+      <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="2">a job</span></span>
+    </h2>
+    <p data-anim="rise" style="margin:0 0 34px;font-size:17px;line-height:1.65;color:#5B6B7E;max-width:68ch;text-wrap:pretty">Every animation here is CSS-only — scroll-driven timelines (<span style="font-family:'IBM Plex Mono',monospace;font-size:15px;color:#0B5FFF">animation-timeline: view()</span>) rather than scroll listeners, so nothing costs a frame on a mid-range Android. All of it collapses under <span style="font-family:'IBM Plex Mono',monospace;font-size:15px;color:#0B5FFF">prefers-reduced-motion</span>.</p>
+    <div data-stagger="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px">
+      <sc-for list="{{ motion }}" as="m" hint-placeholder-count="6">
+        <div style="padding:20px;border-radius:18px;background:#fff;border:1px solid #DDE6F2;transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s" style-hover="transform:translateY(-6px);box-shadow:0 18px 40px -14px rgba(11,31,58,.24)">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#0B5FFF;font-weight:700;margin-bottom:9px">{{ m.dur }}</div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:16.5px;font-weight:700;color:#0B1F3A;margin-bottom:7px;letter-spacing:-.02em">{{ m.name }}</div>
+          <div style="font-size:14px;line-height:1.6;color:#5B6B7E;text-wrap:pretty">{{ m.what }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="max-width:1100px;margin:0 auto;padding:72px 40px 90px">
+    <div style="padding:44px;border-radius:26px;background:linear-gradient(150deg,#0B1F3A,#0B2E63 70%,#0B5FFF 140%);color:#EAF4FF">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:#5BE9B9;font-weight:700;margin-bottom:16px">Against the rubric</div>
+      <h2 data-headline="" style="margin:0 0 30px;font-family:'Space Grotesk',sans-serif;font-size:34px;line-height:1.14;letter-spacing:-.03em;font-weight:700;color:#fff;max-width:24ch">
+        <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="1">Where to find</span></span>
+        <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="2">each scored item</span></span>
+      </h2>
+      <div data-stagger="" style="display:grid;gap:12px">
+        <sc-for list="{{ rubric }}" as="r" hint-placeholder-count="5">
+          <div style="display:flex;gap:20px;align-items:baseline;padding:17px 20px;border-radius:15px;background:rgba(255,255,255,.07)">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:600;color:#5BE9B9;min-width:52px">{{ r.pts }}</span>
+            <span style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;color:#fff;min-width:280px">{{ r.item }}</span>
+            <span style="flex:1;font-size:14.5px;line-height:1.55;color:rgba(234,244,255,.78);text-wrap:pretty">{{ r.where }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="margin-top:30px;padding-top:26px;border-top:1px solid rgba(255,255,255,.18);font-size:14.5px;line-height:1.65;color:rgba(234,244,255,.72);max-width:74ch;text-wrap:pretty">Brand guardrails honoured: the ACES name and crest are untouched, the palette stays blue-and-white with the brief's exact hex values as its base, and every screen is built from plain HTML and CSS the ACES web team can ship on their existing Next.js stack.</div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const SEV = {
+  high: 'display:inline-flex;padding:3px 9px;border-radius:7px;background:#FEE2E2;color:#B91C1C;font-family:\'IBM Plex Mono\',monospace;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;',
+  med: 'display:inline-flex;padding:3px 9px;border-radius:7px;background:#FEF3C7;color:#92400E;font-family:\'IBM Plex Mono\',monospace;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;'
+};
+const ST = {
+  live: 'display:inline-flex;padding:4px 10px;border-radius:8px;background:#DCFCE7;color:#046C4E;font-family:\'IBM Plex Mono\',monospace;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;',
+  empty: 'display:inline-flex;padding:4px 10px;border-radius:8px;background:#EAF4FF;color:#0B5FFF;font-family:\'IBM Plex Mono\',monospace;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;',
+  soon: 'display:inline-flex;padding:4px 10px;border-radius:8px;background:#FEF3C7;color:#92400E;font-family:\'IBM Plex Mono\',monospace;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;'
+};
+
+class Component extends DCLogic {
+  renderVals() {
+    const f = (no, sev, page, title, problem, fix) => ({no, sev: sev === 'high' ? 'Blocker' : 'Friction', sevStyle: SEV[sev], page, title, problem, fix});
+    return {
+      motion: [
+        {dur:'0.95s · cubic-bezier(.16,1,.3,1)', name:'Masked line reveal', what:'Headlines rise out of a clip mask line by line, staggered 110ms. Used once per section so it reads as punctuation, not decoration.'},
+        {dur:'entry 4% → cover 30%', name:'Scroll-driven reveal', what:'Cards and rows fade up as they enter the viewport, tied to scroll position rather than a timer — so the motion tracks the reader, not the clock.'},
+        {dur:'50ms per item', name:'Staggered lists', what:'Grids cascade in reading order. Capped at eight steps so a long list never feels like it is loading slowly.'},
+        {dur:'scroll(root)', name:'Parallax & progress', what:'The hero photograph drifts at a different rate to the text, and a 3px gradient bar reports reading progress across the whole document.'},
+        {dur:'1.6–1.9s ease-out', name:'Count-up figures', what:'Stat numbers tick up from zero using @property and a CSS counter — no JavaScript, and it degrades to the final number.'},
+        {dur:'220ms · 2.2s hold', name:'In-app feedback', what:'Every action in the prototype answers back: toasts slide up and auto-dismiss, buttons scale to 0.98 on press, confirmation blocks pop in place of the button that caused them.'}
+      ],
+      ticker: ['Home','About','Executives','Staff','Gallery','Marketplace','Scholarships','Courses','ACES Shop','Technology for our age','9 pages · mobile first'],
+      findings: [
+        f('F1','high','Home','The hero never says what ACES is','“Welcome To The Land of ACES” with a single “Explore” button. A first-year landing from a shared link learns nothing about the association or what the site can do for them.','A hero that states the purpose in one sentence and offers the two most-wanted actions directly.'),
+        f('F2','high','Home','Every event countdown reads 00:00','All four event cards show a dead 00:00 timer, and 2025 events sit under the heading “Upcoming Events”. The most time-sensitive content on the site is the least trustworthy.','Real dates, a status pill per event (open / coming soon / past) and exactly one action each.'),
+        f('F3','high','Marketplace','Products never load','The category chips render, then the grid stops at “Loading…”. There is no skeleton, no error state and no way to tell whether the shop is empty or broken.','Skeletons while loading, a populated grid, and an empty state that offers “become a seller” as the next step.'),
+        f('F4','high','Scholarships · Courses','Two pages are a heading and nothing else','Both pages ship an intro paragraph and then stop. No list, no empty state, no explanation — the page looks broken rather than pending.','Purposeful empty states that explain the wait, capture interest, and show a skeleton of the future layout.'),
+        f('F5','med','All pages','Testimonials belong to a different product','The homepage quotes “this platform helped me study” and “used our platform” — generic SaaS boilerplate about a study app, not about ACES.','Cut entirely. Replaced with the clubs and the events students actually asked about.'),
+        f('F6','med','All pages','A cart drawer opens on every page','The shopping cart mounts on About, Scholarships and Courses. Commerce chrome follows you through purely informational reading.','Cart moves into the Marketplace tab and the header badge; it only appears when there is something in it.'),
+        f('F7','med','Footer','Fourteen flat links and dead policy pages','Explore / Marketplace / Resources is a sitemap, not a menu. Terms and Policy both point at href="#".','Five intent-based tabs, an overflow sheet, and real footer sections with address, hours and working policy links.'),
+        f('F8','med','All pages','No search, anywhere','With a marketplace, a course library and a gallery, there is no way to search any of them. Everything is browse-only.','Persistent header search with live filtering across products, plus dedicated in-page filters for courses and gallery.')
+      ],
+      oldNav: ['Home','About Us','Executives','Staff','Gallery','Events','Browse Products','Register','Login','Vendor Dashboard','Scholarships','Courses','ACES Shop','Track Order'],
+      newNav: [
+        {tab:'Home', holds:'Hero · next event · quick actions · clubs · footer'},
+        {tab:'Association', holds:'About · five pillars · executives · staff · gallery'},
+        {tab:'Market', holds:'Browse · search · product · cart · checkout · seller · vendor hub'},
+        {tab:'Resources', holds:'Course materials · scholarships · ACES shop'},
+        {tab:'Me', holds:'Identity · dues · orders · alerts · appearance'}
+      ],
+      journeys: [
+        {no:'J1', name:'Discover an event and register', steps:['Home','Next up card','Event detail','Register free','Confirmed'], why:'Fixes F2. The card carries a real date, a status pill and one action; registering swaps the button for a confirmation block in place — no page change, no lost context.'},
+        {no:'J2', name:'Filter the gallery and open a photo', steps:['Association','Gallery','Tap “Clubs”','Tap a photo','Swipe next'], why:'Chip filters re-flow the grid instantly. The lightbox is full-bleed with a position counter and 48pt prev/next targets rather than tiny arrows.'},
+        {no:'J3', name:'Find a course pack and download it', steps:['Resources','Year 3','Sem 1','CE 353','Download'], why:'Fixes F4 and F8. Filters by year and semester, searchable by course code, and CE 451 demonstrates the per-course empty state with a “request materials” action.'},
+        {no:'J4', name:'Buy from a student vendor', steps:['Market','Filter “Food”','Product','Add to cart','Checkout','MoMo','Placed'], why:'Fixes F3 and F6. Real quantity control, MoMo-first payment because that is how campus pays, and an order ID on the confirmation.'}
+      ],
+      colors: [
+        {name:'ACES Blue', hex:'#0B5FFF', token:'--brand', swatch:'background:#0B5FFF;'},
+        {name:'Deep Navy', hex:'#0B1F3A', token:'--ink', swatch:'background:#0B1F3A;'},
+        {name:'Light Blue', hex:'#EAF4FF', token:'--brand-soft', swatch:'background:#EAF4FF;'},
+        {name:'Page', hex:'#F4F7FC', token:'--bg', swatch:'background:#F4F7FC;'},
+        {name:'Text', hex:'#111827', token:'--text', swatch:'background:#111827;'},
+        {name:'Muted', hex:'#5B6B7E', token:'--muted', swatch:'background:#5B6B7E;'},
+        {name:'Success', hex:'#047857', token:'--ok', swatch:'background:#047857;'},
+        {name:'Warning', hex:'#B45309', token:'--warn', swatch:'background:#B45309;'},
+        {name:'Danger', hex:'#B91C1C', token:'--danger', swatch:'background:#B91C1C;'},
+        {name:'Dark surface', hex:'#0E1A2B', token:'--surface (dark)', swatch:'background:#0E1A2B;'},
+        {name:'Dark accent', hex:'#4D8CFF', token:'--brand (dark)', swatch:'background:#4D8CFF;'},
+        {name:'Accent mint', hex:'#5BE9B9', token:'--accent', swatch:'background:#5BE9B9;'}
+      ],
+      a11y: [
+        {v:'44 × 44', t:'Minimum touch target on every interactive element, including the quantity steppers and lightbox arrows.'},
+        {v:'4.5 : 1', t:'Body and label contrast. #5B6B7E on #FFFFFF clears AA; #0B5FFF is only ever used on white or #EAF4FF.'},
+        {v:'12.5 px', t:'Absolute smallest type, reserved for mono metadata. Body never drops below 13.5px.'},
+        {v:'Labelled', t:'Every icon-only button carries an aria-label; the tab bar is a labelled nav landmark.'},
+        {v:'Dark mode', t:'A full second surface ramp, not an inverted filter — brand blue lightens to #4D8CFF to hold contrast on dark.'},
+        {v:'No colour-only', t:'Event status uses a pill with text, never colour alone. Empty states always carry a sentence.'}
+      ],
+      components: [
+        {name:'Event card', states:['Open','Coming soon','Past','Registered','Featured']},
+        {name:'Product card', states:['Default','Quick-add pressed','Out of stock','Skeleton']},
+        {name:'Filter chip', states:['Rest','Selected','Scrolled overflow']},
+        {name:'Person card', states:['With photo','Initials fallback','With contact row']},
+        {name:'Empty state', states:['Explained','With primary action','With layout skeleton']},
+        {name:'Button', states:['Primary','Secondary','Icon-only 44pt','Pressed','Disabled']},
+        {name:'Toast', states:['Confirmation','Enter animation','Auto-dismiss 2.2s']},
+        {name:'Bottom sheet', states:['Grabber','Scrim tap-to-close','Slide-up 260ms']}
+      ],
+      deskCards: [
+        {name:'Jollof & Chicken Combo', vendor:'Aunty Akos Kitchen', priceStr:'GH₵ 35', img:'https://www.acesknust.com/images/Gallery/Trip.jpg'},
+        {name:'ACES Class Jersey', vendor:'ACES Wear', priceStr:'GH₵ 120', img:'https://www.acesknust.com/images/Gallery/Jersey.jpg'},
+        {name:'Arduino Starter Kit', vendor:'Kwabena Electronics', priceStr:'GH₵ 280', img:'https://www.acesknust.com/images/club_images/Arduino_image.avif'},
+        {name:'Departmental Tee', vendor:'ACES Wear', priceStr:'GH₵ 75', img:'https://www.acesknust.com/images/Gallery/Acesshirt.jpg'}
+      ],
+      pages: [
+        {no:'01', name:'Home', what:'Purpose-first hero, four quick actions, a real “Next up” event, club rail, newsletter and a complete footer with address, hours and live policy links.', state:'Live', stateStyle:ST.live},
+        {no:'02', name:'About', what:'Mission and vision as separate cards, the five pillars as a scannable list, and the logo section stating explicitly that the mark is unchanged.', state:'Live', stateStyle:ST.live},
+        {no:'03', name:'Executives', what:'Six profile cards with role pill, session year, level and a 44pt contact button. Initials render where no photo exists.', state:'Live', stateStyle:ST.live},
+        {no:'04', name:'Staff / Department', what:'Role, research area, office room and a tappable email row per person, plus stated office hours.', state:'Live', stateStyle:ST.live},
+        {no:'05', name:'Gallery', what:'Six filter chips, a square 2-up grid with captions, and a full-screen lightbox with position counter and large prev/next.', state:'Live', stateStyle:ST.live},
+        {no:'06', name:'Marketplace', what:'Search, six category chips, product grid with quick-add, product detail with variants and quantity, cart, 3-step checkout, seller onboarding and a vendor dashboard.', state:'Live', stateStyle:ST.live},
+        {no:'07', name:'Scholarships', what:'A designed empty state: what is happening, when to expect the next round, a working alert sign-up, and a skeleton of the future card.', state:'Empty by design', stateStyle:ST.empty},
+        {no:'08', name:'Courses', what:'Filter by year and semester, search by course code, per-course file counts and a download action. CE 451 shows the per-item empty state.', state:'Live', stateStyle:ST.live},
+        {no:'09', name:'ACES Shop', what:'A confident coming-soon: launch date, real prices and sizes, per-item notify actions and a size-reservation flow.', state:'Coming soon', stateStyle:ST.soon}
+      ],
+      rubric: [
+        {pts:'15 pts', item:'Website analysis & problem framing', where:'Section 01 — eight findings, each traced to a live page and severity-rated, each linked to its fix.'},
+        {pts:'30 pts', item:'Mobile-first UX & information architecture', where:'Section 02 — the 14-link footer regrouped into five intent-based tabs, plus the four journeys in section 03.'},
+        {pts:'20 pts', item:'Visual design & ACES brand alignment', where:'Section 04 — the brief\u2019s exact palette as the base, crest and name untouched, blue-and-white direction held in light and dark.'},
+        {pts:'20 pts', item:'Prototype quality & interaction flow', where:'Section 03 — a working prototype: real search, filters, cart, checkout, lightbox, toasts and dark mode.'},
+        {pts:'15 pts', item:'Creativity, feasibility & completeness', where:'Section 06 — all nine pages plus eight sub-screens, built in plain HTML and CSS on the team\u2019s existing stack.'}
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

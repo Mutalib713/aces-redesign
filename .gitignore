@@ -1,0 +1,8 @@
+node_modules/
+_probe/
+.DS_Store
+Thumbs.db
+*.log
+.env
+.env.local
+.vercel
