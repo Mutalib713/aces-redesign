@@ -36,6 +36,12 @@ for (const p of PAGES) {
 
   check(html.length > 20000, `${p} is non-trivial (${Math.round(html.length / 1024)} KB)`);
 
+  // A pasted link has to render a card — this gets shared in WhatsApp, not crawled.
+  const title = /<title>([^<]+)<\/title>/.exec(html);
+  check(!!title, `${p} has a <title>${title ? ` — "${title[1].slice(0, 46)}"` : ''}`);
+  check(/property="og:image"/.test(html), `${p} has an og:image`);
+  check(/name="description"/.test(html), `${p} has a meta description`);
+
   const react = html.indexOf('vendor/react.production.min.js');
   const support = html.indexOf('support.js');
   check(react > -1 && react < support, `${p} loads React before support.js`);

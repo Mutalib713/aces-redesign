@@ -30,6 +30,58 @@ const PAGES = [
   ['ACES Redesign Case Study.dc.html', ['case-study.html']],
 ];
 
+const SITE_URL = 'https://aces-redesign.vercel.app';
+
+// The designs carry no page metadata — they were built to be viewed inside a design tool, not
+// linked. These get injected at build time so a pasted link renders a proper card in WhatsApp,
+// which is where this actually gets shared.
+const META = {
+  'index.html': {
+    title: 'ACES KNUST — Association of Computer Engineering Students',
+    desc: 'Events, course resources, executives and a student-run marketplace — all in one place.',
+  },
+  'prototype.html': {
+    title: 'ACES KNUST — Mobile Prototype',
+    desc: 'The redesigned ACES site as a working mobile app. Tabs, search, cart, checkout and dark mode all work.',
+  },
+  'case-study.html': {
+    title: 'ACES Redesign — CodeFest 2026 UI/UX Challenge',
+    desc: 'A mobile-first redesign of acesknust.com, rebuilt around the four things students actually open the site to do.',
+  },
+};
+
+function injectMeta(html, outName) {
+  const m = META[outName];
+  if (!m) return html;
+  const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+  const og = `<title>${esc(m.title)}</title>
+<meta name="description" content="${esc(m.desc)}" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="${esc(m.title)}" />
+<meta property="og:description" content="${esc(m.desc)}" />
+<meta property="og:image" content="${SITE_URL}/assets/remote/aces-group-photo.webp" />
+<meta property="og:url" content="${SITE_URL}/${outName === 'index.html' ? '' : outName}" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="theme-color" content="#0B5FFF" />
+`;
+  return html.replace('</head>', og + '</head>');
+}
+
+/**
+ * The prototype sets document.title in componentDidMount. That is right when it stands alone and
+ * wrong when the case study embeds it, where it overwrites the host page's own title. Strip the
+ * side-effect from the embedded copy only.
+ */
+function suppressEmbedTitle(html) {
+  const before = html;
+  html = html.replace(
+    /componentDidMount\(\) \{ document\.title = '[^']*'; \}/,
+    'componentDidMount() { /* title suppressed: this copy is embedded in the case study */ }'
+  );
+  if (html === before) throw new Error('build: prototype title side-effect not found — did the design change?');
+  return html;
+}
+
 const REACT_TAGS =
   '<script src="./vendor/react.production.min.js"></script>\n' +
   '<script src="./vendor/react-dom.production.min.js"></script>\n';
@@ -152,8 +204,14 @@ function blankMissingProducts(html, converted) {
       .replace(/assets\/shop\/codefest-shirt\.png/g, 'assets/shop/codefest-shirt.webp');
 
     for (const outName of outNames) {
-      fs.writeFileSync(path.join(SITE, outName), html);
-      console.log(`  ${outName.padEnd(24)} ${kb(Buffer.byteLength(html))}  (${remoteHits} remote refs localised)`);
+      // The .dc.html output is the embed copy the case study fetches, not a page of its own.
+      const isEmbedCopy = outName.endsWith('.dc.html');
+      const out = isEmbedCopy ? suppressEmbedTitle(html) : injectMeta(html, outName);
+      fs.writeFileSync(path.join(SITE, outName), out);
+      console.log(
+        `  ${outName.padEnd(24)} ${kb(Buffer.byteLength(out))}  ` +
+          `(${remoteHits} remote refs localised${isEmbedCopy ? ', embed copy' : ''})`
+      );
     }
   }
 
