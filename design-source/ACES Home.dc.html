@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -101,12 +101,14 @@ button{font-family:inherit}
           <button onClick="{{ toggleSearch }}" aria-label="Search the site" style="width:44px;height:44px;display:grid;place-items:center;border:none;background:none;cursor:pointer;color:#0B1F3A;border-radius:13px;transition:background .25s ease" style-hover="background:#EAF4FF">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.6-3.6"></path></svg>
           </button>
+          <sc-if value="{{ showCart }}" hint-placeholder-val="{{ true }}">
           <a href="#/cart" aria-label="Open cart" style="position:relative;width:44px;height:44px;display:grid;place-items:center;color:#0B1F3A;border-radius:13px" style-hover="background:#EAF4FF;color:#0B5FFF">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h2.2l2 11h10L21 8H7"></path><circle cx="9.6" cy="20" r="1.4"></circle><circle cx="18" cy="20" r="1.4"></circle></svg>
             <sc-if value="{{ hasCount }}" hint-placeholder-val="{{ false }}">
               <span style="position:absolute;top:3px;right:2px;min-width:18px;height:18px;padding:0 4px;border-radius:9px;background:#0B5FFF;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;display:grid;place-items:center;border:2px solid #fff">{{ cartCount }}</span>
             </sc-if>
           </a>
+          </sc-if>
           <a data-only="desktop" href="#/login" style="align-items:center;height:44px;padding:0 18px;border-radius:13px;background:#0B1F3A;color:#fff;font-size:14px;font-weight:700" style-hover="background:#0B5FFF;color:#fff">Log in</a>
           <button data-only="mobile" onClick="{{ openMenu }}" aria-label="Open menu" aria-expanded="false" style="width:44px;height:44px;display:grid;place-content:center;gap:4px;border:1px solid rgba(11,31,58,.14);background:#fff;cursor:pointer;color:#0B1F3A;border-radius:13px;transition:background .25s ease,border-color .25s ease" style-hover="background:#EAF4FF;border-color:#0B5FFF">
             <span aria-hidden="true" style="display:block;width:15px;height:1.6px;border-radius:2px;background:currentColor;transition:transform .3s cubic-bezier(.16,1,.3,1)"></span>
@@ -140,7 +142,7 @@ button{font-family:inherit}
                       <span style="display:block;font-size:15px;font-weight:600;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ g.label }}</span>
                       <span style="display:block;font-size:12.5px;color:#5B6B7E;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ g.sub }}</span>
                     </span>
-                    <span aria-hidden="true" style="color:#0B5FFF">→</span>
+                    <span aria-hidden="true" style="color:#0B5FFF">â†’</span>
                   </a>
                 </sc-for>
               </div>
@@ -192,24 +194,24 @@ button{font-family:inherit}
                     <span style="display:block;font-size:14.5px;font-weight:600;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ g.label }}</span>
                     <span style="display:block;font-size:12px;color:#5B6B7E;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ g.sub }}</span>
                   </span>
-                  <span aria-hidden="true" style="color:#0B5FFF">→</span>
+                  <span aria-hidden="true" style="color:#0B5FFF">â†’</span>
                 </a>
               </sc-for>
             </div>
           </sc-if>
           <div style="display:grid;gap:9px;animation:acItem .5s cubic-bezier(.16,1,.3,1) .22s both">
             <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#5B6B7E;font-weight:600">Explore</div>
-            <a href="#/home" style="display:flex;align-items:center;justify-content:space-between;min-height:50px;padding:0 14px;border-radius:14px;background:#F7FAFF;font-size:16px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">Home<span style="color:#0B5FFF">→</span></a>
-            <a href="#/about" style="display:flex;align-items:center;justify-content:space-between;min-height:50px;padding:0 14px;border-radius:14px;background:#F7FAFF;font-size:16px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">About ACES<span style="color:#0B5FFF">→</span></a>
-            <a href="#/executives" style="display:flex;align-items:center;justify-content:space-between;min-height:50px;padding:0 14px;border-radius:14px;background:#F7FAFF;font-size:16px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">Executives<span style="color:#0B5FFF">→</span></a>
-            <a href="#/staff" style="display:flex;align-items:center;justify-content:space-between;min-height:50px;padding:0 14px;border-radius:14px;background:#F7FAFF;font-size:16px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">Staff &amp; department<span style="color:#0B5FFF">→</span></a>
-            <a href="#/events" style="display:flex;align-items:center;justify-content:space-between;min-height:50px;padding:0 14px;border-radius:14px;background:#F7FAFF;font-size:16px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">Events<span style="color:#0B5FFF">→</span></a>
-            <a href="#/gallery" style="display:flex;align-items:center;justify-content:space-between;min-height:50px;padding:0 14px;border-radius:14px;background:#F7FAFF;font-size:16px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">Gallery<span style="color:#0B5FFF">→</span></a>
+            <a href="#/home" style="display:flex;align-items:center;justify-content:space-between;min-height:50px;padding:0 14px;border-radius:14px;background:#F7FAFF;font-size:16px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">Home<span style="color:#0B5FFF">â†’</span></a>
+            <a href="#/about" style="display:flex;align-items:center;justify-content:space-between;min-height:50px;padding:0 14px;border-radius:14px;background:#F7FAFF;font-size:16px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">About ACES<span style="color:#0B5FFF">â†’</span></a>
+            <a href="#/executives" style="display:flex;align-items:center;justify-content:space-between;min-height:50px;padding:0 14px;border-radius:14px;background:#F7FAFF;font-size:16px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">Executives<span style="color:#0B5FFF">â†’</span></a>
+            <a href="#/staff" style="display:flex;align-items:center;justify-content:space-between;min-height:50px;padding:0 14px;border-radius:14px;background:#F7FAFF;font-size:16px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">Staff &amp; department<span style="color:#0B5FFF">â†’</span></a>
+            <a href="#/events" style="display:flex;align-items:center;justify-content:space-between;min-height:50px;padding:0 14px;border-radius:14px;background:#F7FAFF;font-size:16px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">Events<span style="color:#0B5FFF">â†’</span></a>
+            <a href="#/gallery" style="display:flex;align-items:center;justify-content:space-between;min-height:50px;padding:0 14px;border-radius:14px;background:#F7FAFF;font-size:16px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">Gallery<span style="color:#0B5FFF">â†’</span></a>
           </div>
           <div style="display:grid;gap:9px;animation:acItem .5s cubic-bezier(.16,1,.3,1) .28s both">
             <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#5B6B7E;font-weight:600">Marketplace</div>
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:9px">
-              <a href="#/marketplace" style="display:flex;align-items:center;min-height:50px;padding:0 14px;border-radius:14px;background:#EAF4FF;font-size:15px;font-weight:600;color:#0B5FFF" style-hover="background:#0B5FFF;color:#fff">Browse products</a>
+              <a href="#/browse" style="display:flex;align-items:center;min-height:50px;padding:0 14px;border-radius:14px;background:#EAF4FF;font-size:15px;font-weight:600;color:#0B5FFF" style-hover="background:#0B5FFF;color:#fff">Browse products</a>
               <a href="#/cart" style="display:flex;align-items:center;min-height:50px;padding:0 14px;border-radius:14px;background:#F7FAFF;font-size:15px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">Cart</a>
               <a href="#/register" style="display:flex;align-items:center;min-height:50px;padding:0 14px;border-radius:14px;background:#F7FAFF;font-size:15px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">Register / sell</a>
               <a href="#/vendor" style="display:flex;align-items:center;min-height:50px;padding:0 14px;border-radius:14px;background:#F7FAFF;font-size:15px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">Vendor dashboard</a>
@@ -246,18 +248,18 @@ button{font-family:inherit}
           <div style="flex:1 1 300px;min-width:0;max-width:700px">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;animation:acFade .8s ease .1s both">
               <span style="width:26px;height:2px;border-radius:2px;background:#5BE49B"></span>
-              <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#fff;text-shadow:0 1px 8px rgba(6,17,36,.7)">KNUST · College of Engineering</span>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#fff;text-shadow:0 1px 8px rgba(6,17,36,.7)">KNUST Â· College of Engineering</span>
             </div>
             <h1 data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .08s both;animation-play-state:paused;margin:0 0 14px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.038em;line-height:.98;font-size:clamp(40px,11.5cqw,74px);text-shadow:0 3px 26px rgba(6,17,36,.45)">
               <span style="display:block;overflow:hidden;padding-bottom:.05em"><span style="display:block;white-space:nowrap;animation:acLine .95s cubic-bezier(.16,1,.3,1) .05s both">Welcome to the</span></span>
               <span style="display:block;overflow:hidden;padding-bottom:.05em"><span style="display:block;white-space:nowrap;animation:acLine .95s cubic-bezier(.16,1,.3,1) .16s both">Land of ACES</span></span>
             </h1>
             <p style="margin:0 0 14px;font-family:'IBM Plex Mono',monospace;font-size:clamp(14.5px,3.9cqw,18px);font-weight:500;letter-spacing:.06em;line-height:1.5;color:#fff;text-shadow:0 2px 10px rgba(6,17,36,.5);animation:acRise .9s cubic-bezier(.16,1,.3,1) .24s both"><span style="color:#5BE49B;font-weight:600">A</span>ssociation of <span style="color:#5BE49B;font-weight:600">C</span>omputer <span style="color:#5BE49B;font-weight:600">E</span>ngineering <span style="color:#5BE49B;font-weight:600">S</span>tudents</p>
-            <p style="margin:0 0 20px;font-size:clamp(15px,3.9cqw,18.5px);line-height:1.6;color:rgba(255,255,255,.9);max-width:46ch;text-wrap:pretty;text-shadow:0 1px 12px rgba(6,17,36,.6);animation:acRise .9s cubic-bezier(.16,1,.3,1) .3s both">Events, course resources, executives and a student-run marketplace — all in one place.</p>
+            <p style="margin:0 0 20px;font-size:clamp(15px,3.9cqw,18.5px);line-height:1.6;color:rgba(255,255,255,.9);max-width:46ch;text-wrap:pretty;text-shadow:0 1px 12px rgba(6,17,36,.6);animation:acRise .9s cubic-bezier(.16,1,.3,1) .3s both">Events, course resources, executives and a student-run marketplace â€” all in one place.</p>
 
             <div style="display:flex;flex-wrap:wrap;gap:10px;animation:acRise .9s cubic-bezier(.16,1,.3,1) .5s both">
-              <a href="#/about" style="display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 22px;border-radius:15px;background:#fff;color:#0B1F3A;font-size:16px;font-weight:700;box-shadow:0 16px 34px -18px rgba(0,0,0,.6)" style-hover="background:#EAF4FF;color:#0B1F3A;transform:translateY(-2px)">Explore ACES <span aria-hidden="true">→</span></a>
-              <a href="#/marketplace" style="display:flex;align-items:center;justify-content:center;min-height:52px;padding:0 22px;border-radius:15px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:#fff;font-size:16px;font-weight:600" style-hover="background:rgba(255,255,255,.22);color:#fff">Browse marketplace</a>
+              <a href="#/about" style="display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 22px;border-radius:15px;background:#fff;color:#0B1F3A;font-size:16px;font-weight:700;box-shadow:0 16px 34px -18px rgba(0,0,0,.6)" style-hover="background:#EAF4FF;color:#0B1F3A;transform:translateY(-2px)">Explore ACES <span aria-hidden="true">â†’</span></a>
+              <a href="#/browse" style="display:flex;align-items:center;justify-content:center;min-height:52px;padding:0 22px;border-radius:15px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:#fff;font-size:16px;font-weight:600" style-hover="background:rgba(255,255,255,.22);color:#fff">Browse marketplace</a>
             </div>
           </div>
 
@@ -343,7 +345,7 @@ button{font-family:inherit}
               <h2 style="margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(24px,6cqw,40px);color:#0B1F3A">Upcoming events</h2>
               <p style="margin:0;font-size:15px;color:#5B6B7E;max-width:44ch;text-wrap:pretty">Status and registration links, straight from ACES.</p>
             </div>
-            <a href="#/events" style="flex:0 0 auto;display:none;align-items:center;gap:6px;height:44px;padding:0 16px;border-radius:13px;border:1px solid rgba(11,31,58,.14);font-size:14px;font-weight:700;color:#0B1F3A" data-only="desktop" style-hover="background:#EAF4FF;border-color:#0B5FFF;color:#0B5FFF">See all events <span aria-hidden="true">→</span></a>
+            <a href="#/events" style="flex:0 0 auto;display:none;align-items:center;gap:6px;height:44px;padding:0 16px;border-radius:13px;border:1px solid rgba(11,31,58,.14);font-size:14px;font-weight:700;color:#0B1F3A" data-only="desktop" style-hover="background:#EAF4FF;border-color:#0B5FFF;color:#0B5FFF">See all events <span aria-hidden="true">â†’</span></a>
           </div>
 
           <div class="acx" style="display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px clamp(16px,4cqw,40px) 12px;-webkit-overflow-scrolling:touch">
@@ -353,7 +355,7 @@ button{font-family:inherit}
                 <span style="position:absolute;top:11px;left:11px;display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:9px;background:#5BE49B;color:#062E1B;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase">Registration open</span>
               </div>
               <div style="padding:16px 16px 18px">
-                <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:8px">Date announced soon · Engineering, KNUST</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:8px">Date announced soon Â· Engineering, KNUST</div>
                 <h3 style="margin:0 0 8px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(20px,5cqw,26px);letter-spacing:-.02em">CodeFest 2026</h3>
                 <p style="margin:0 0 14px;font-size:14.5px;line-height:1.55;color:rgba(255,255,255,.78);text-wrap:pretty">A full day of coding challenges, workshops and networking with tech enthusiasts across the college.</p>
                 <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
@@ -372,7 +374,7 @@ button{font-family:inherit}
                 <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5B6B7E;margin-bottom:7px">Date announced soon</div>
                 <h3 style="margin:0 0 7px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;letter-spacing:-.02em;color:#0B1F3A">ACES Robotics Meeting</h3>
                 <p style="margin:0 0 12px;font-size:13.5px;line-height:1.55;color:#5B6B7E;text-wrap:pretty">Collaborate, build bots and automate solutions with fellow members.</p>
-                <a href="#/events" style="display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700">Details <span aria-hidden="true">→</span></a>
+                <a href="#/events" style="display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700">Details <span aria-hidden="true">â†’</span></a>
               </div>
             </article>
 
@@ -385,7 +387,7 @@ button{font-family:inherit}
                 <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5B6B7E;margin-bottom:7px">Date announced soon</div>
                 <h3 style="margin:0 0 7px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;letter-spacing:-.02em;color:#0B1F3A">ACES Hangout</h3>
                 <p style="margin:0 0 12px;font-size:13.5px;line-height:1.55;color:#5B6B7E;text-wrap:pretty">Games, conversations and chill vibes in a relaxed member-only evening.</p>
-                <a href="#/events" style="display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700">Details <span aria-hidden="true">→</span></a>
+                <a href="#/events" style="display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700">Details <span aria-hidden="true">â†’</span></a>
               </div>
             </article>
 
@@ -398,13 +400,13 @@ button{font-family:inherit}
                 <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5B6B7E;margin-bottom:7px">Date announced soon</div>
                 <h3 style="margin:0 0 7px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;letter-spacing:-.02em;color:#0B1F3A">ACES Dinner 2026</h3>
                 <p style="margin:0 0 12px;font-size:13.5px;line-height:1.55;color:#5B6B7E;text-wrap:pretty">A night of food and fellowship. Connect with members over an elegant dinner.</p>
-                <a href="#/events" style="display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700">Notify me <span aria-hidden="true">→</span></a>
+                <a href="#/events" style="display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700">Notify me <span aria-hidden="true">â†’</span></a>
               </div>
             </article>
           </div>
 
           <div data-only="mobile" style="padding:2px clamp(16px,4cqw,40px) 0">
-            <a href="#/events" style="display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;border-radius:14px;border:1px solid rgba(11,31,58,.14);font-size:15px;font-weight:700;color:#0B1F3A" style-hover="background:#EAF4FF;border-color:#0B5FFF;color:#0B5FFF">See all events <span aria-hidden="true">→</span></a>
+            <a href="#/events" style="display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;border-radius:14px;border:1px solid rgba(11,31,58,.14);font-size:15px;font-weight:700;color:#0B1F3A" style-hover="background:#EAF4FF;border-color:#0B5FFF;color:#0B5FFF">See all events <span aria-hidden="true">â†’</span></a>
           </div>
         </div>
       </section>
@@ -414,7 +416,7 @@ button{font-family:inherit}
           <div data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;margin-bottom:clamp(20px,3cqw,32px);max-width:640px">
             <div data-rv="1" style="animation:acRise .6s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">Who we are</div>
             <h2 style="margin:0 0 8px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(24px,6cqw,40px);color:#0B1F3A">Our vision, in five parts</h2>
-            <p style="margin:0;font-size:15px;line-height:1.6;color:#5B6B7E;text-wrap:pretty">Tap a slice or use the arrows — it also turns on its own. Every part of what ACES commits to, one at a time.</p>
+            <p style="margin:0;font-size:15px;line-height:1.6;color:#5B6B7E;text-wrap:pretty">Tap a slice or use the arrows â€” it also turns on its own. Every part of what ACES commits to, one at a time.</p>
           </div>
 
           <div style="display:flex;flex-wrap:wrap;gap:clamp(24px,4cqw,52px);align-items:center;justify-content:center">
@@ -506,7 +508,7 @@ button{font-family:inherit}
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg>
                 </button>
               </div>
-              <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#5B6B7E">Tap a slice · it turns on its own</div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#5B6B7E">Tap a slice Â· it turns on its own</div>
             </div>
 
             <div style="flex:1 1 300px;min-width:0;max-width:520px">
@@ -520,7 +522,7 @@ button{font-family:inherit}
                     </div>
                     <h3 style="margin:0 0 10px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(21px,5.4cqw,30px);letter-spacing:-.03em;color:#0B1F3A">Internships</h3>
                     <p style="margin:0 0 16px;font-size:clamp(14.5px,3.7cqw,17px);line-height:1.65;color:#5B6B7E;text-wrap:pretty">Create opportunities for students to obtain practical exposure through industrial attachments.</p>
-                    <a href="#/about" style="display:inline-flex;align-items:center;gap:7px;font-size:14.5px;font-weight:700">Attachment openings <span aria-hidden="true">→</span></a>
+                    <a href="#/about" style="display:inline-flex;align-items:center;gap:7px;font-size:14.5px;font-weight:700">Attachment openings <span aria-hidden="true">â†’</span></a>
                   </div>
                   <div style="flex:0 0 100%;min-width:0;padding:clamp(20px,4cqw,32px)">
                     <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
@@ -530,7 +532,7 @@ button{font-family:inherit}
                     </div>
                     <h3 style="margin:0 0 10px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(21px,5.4cqw,30px);letter-spacing:-.03em;color:#0B1F3A">Skills</h3>
                     <p style="margin:0 0 16px;font-size:clamp(14.5px,3.7cqw,17px);line-height:1.65;color:#5B6B7E;text-wrap:pretty">Create opportunities for students to acquire skills useful in the field of computer engineering.</p>
-                    <a href="#/about" style="display:inline-flex;align-items:center;gap:7px;font-size:14.5px;font-weight:700">Club workshops <span aria-hidden="true">→</span></a>
+                    <a href="#/about" style="display:inline-flex;align-items:center;gap:7px;font-size:14.5px;font-weight:700">Club workshops <span aria-hidden="true">â†’</span></a>
                   </div>
                   <div style="flex:0 0 100%;min-width:0;padding:clamp(20px,4cqw,32px)">
                     <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
@@ -540,7 +542,7 @@ button{font-family:inherit}
                     </div>
                     <h3 style="margin:0 0 10px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(21px,5.4cqw,30px);letter-spacing:-.03em;color:#0B1F3A">Exchange</h3>
                     <p style="margin:0 0 16px;font-size:clamp(14.5px,3.7cqw,17px);line-height:1.65;color:#5B6B7E;text-wrap:pretty">Organize exchange programs with other computer engineering institutions.</p>
-                    <a href="#/about" style="display:inline-flex;align-items:center;gap:7px;font-size:14.5px;font-weight:700">Partner schools <span aria-hidden="true">→</span></a>
+                    <a href="#/about" style="display:inline-flex;align-items:center;gap:7px;font-size:14.5px;font-weight:700">Partner schools <span aria-hidden="true">â†’</span></a>
                   </div>
                   <div style="flex:0 0 100%;min-width:0;padding:clamp(20px,4cqw,32px)">
                     <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
@@ -550,7 +552,7 @@ button{font-family:inherit}
                     </div>
                     <h3 style="margin:0 0 10px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(21px,5.4cqw,30px);letter-spacing:-.03em;color:#0B1F3A">Outreach</h3>
                     <p style="margin:0 0 16px;font-size:clamp(14.5px,3.7cqw,17px);line-height:1.65;color:#5B6B7E;text-wrap:pretty">Make computer engineering attractive to students in second cycle institutions.</p>
-                    <a href="#/about" style="display:inline-flex;align-items:center;gap:7px;font-size:14.5px;font-weight:700">Outreach visits <span aria-hidden="true">→</span></a>
+                    <a href="#/about" style="display:inline-flex;align-items:center;gap:7px;font-size:14.5px;font-weight:700">Outreach visits <span aria-hidden="true">â†’</span></a>
                   </div>
                   <div style="flex:0 0 100%;min-width:0;padding:clamp(20px,4cqw,32px)">
                     <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
@@ -560,7 +562,7 @@ button{font-family:inherit}
                     </div>
                     <h3 style="margin:0 0 10px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(21px,5.4cqw,30px);letter-spacing:-.03em;color:#0B1F3A">Application</h3>
                     <p style="margin:0 0 16px;font-size:clamp(14.5px,3.7cqw,17px);line-height:1.65;color:#5B6B7E;text-wrap:pretty">Help students put into practice the knowledge acquired.</p>
-                    <a href="#/about" style="display:inline-flex;align-items:center;gap:7px;font-size:14.5px;font-weight:700">Student projects <span aria-hidden="true">→</span></a>
+                    <a href="#/about" style="display:inline-flex;align-items:center;gap:7px;font-size:14.5px;font-weight:700">Student projects <span aria-hidden="true">â†’</span></a>
                   </div>
                 </div>
               </div>
@@ -587,23 +589,23 @@ button{font-family:inherit}
               <div style="padding:15px">
                 <h3 style="margin:0 0 7px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;letter-spacing:-.02em;color:#0B1F3A">ACES Arduino Club</h3>
                 <p style="margin:0 0 12px;font-size:13.5px;line-height:1.55;color:#5B6B7E;text-wrap:pretty">For electronics and embedded systems lovers. Real hardware projects, real boards.</p>
-                <a href="#/about" style="display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700">Join club <span aria-hidden="true">→</span></a>
+                <a href="#/about" style="display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700">Join club <span aria-hidden="true">â†’</span></a>
               </div>
             </article>
             <article data-rv="1" style="animation:acRightSm .8s cubic-bezier(.16,1,.3,1) .1s both;animation-play-state:paused;border-radius:20px;overflow:hidden;background:#fff;border:1px solid rgba(11,31,58,.1);box-shadow:0 14px 32px -24px rgba(11,31,58,.7);transition:transform .3s ease,box-shadow .3s ease" style-hover="transform:translateY(-4px);box-shadow:0 24px 46px -24px rgba(11,31,58,.6)">
               <div style="aspect-ratio:16/9"><image-slot id="aces-club-coding" shape="rect" src="https://www.acesknust.com/images/club_images/coding.webp" placeholder="Coding club photo"></image-slot></div>
               <div style="padding:15px">
                 <h3 style="margin:0 0 7px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;letter-spacing:-.02em;color:#0B1F3A">ACES Coding Club</h3>
-                <p style="margin:0 0 12px;font-size:13.5px;line-height:1.55;color:#5B6B7E;text-wrap:pretty">Build websites and apps — HTML, CSS, JavaScript and modern frameworks.</p>
-                <a href="#/about" style="display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700">Join club <span aria-hidden="true">→</span></a>
+                <p style="margin:0 0 12px;font-size:13.5px;line-height:1.55;color:#5B6B7E;text-wrap:pretty">Build websites and apps â€” HTML, CSS, JavaScript and modern frameworks.</p>
+                <a href="#/about" style="display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700">Join club <span aria-hidden="true">â†’</span></a>
               </div>
             </article>
             <article data-rv="1" style="animation:acRightSm .8s cubic-bezier(.16,1,.3,1) .16s both;animation-play-state:paused;border-radius:20px;overflow:hidden;background:#fff;border:1px solid rgba(11,31,58,.1);box-shadow:0 14px 32px -24px rgba(11,31,58,.7);transition:transform .3s ease,box-shadow .3s ease" style-hover="transform:translateY(-4px);box-shadow:0 24px 46px -24px rgba(11,31,58,.6)">
               <div style="aspect-ratio:16/9"><image-slot id="aces-club-robotics" shape="rect" src="https://www.acesknust.com/images/club_images/robotics_image.webp" placeholder="Robotics club photo"></image-slot></div>
               <div style="padding:15px">
                 <h3 style="margin:0 0 7px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;letter-spacing:-.02em;color:#0B1F3A">ACES Robotics Club</h3>
-                <p style="margin:0 0 12px;font-size:13.5px;line-height:1.55;color:#5B6B7E;text-wrap:pretty">Design, build and program robots — from autonomous vehicles to robotic arms.</p>
-                <a href="#/about" style="display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700">Join club <span aria-hidden="true">→</span></a>
+                <p style="margin:0 0 12px;font-size:13.5px;line-height:1.55;color:#5B6B7E;text-wrap:pretty">Design, build and program robots â€” from autonomous vehicles to robotic arms.</p>
+                <a href="#/about" style="display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700">Join club <span aria-hidden="true">â†’</span></a>
               </div>
             </article>
           </div>
@@ -617,7 +619,7 @@ button{font-family:inherit}
               <div data-rv="1" style="animation:acRise .6s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">Life at ACES</div>
               <h2 style="margin:0;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(24px,6cqw,40px);color:#0B1F3A">Gallery</h2>
             </div>
-            <a href="#/gallery" style="flex:0 0 auto;display:inline-flex;align-items:center;gap:6px;height:44px;padding:0 16px;border-radius:13px;border:1px solid rgba(11,31,58,.14);font-size:14px;font-weight:700;color:#0B1F3A;background:#fff" style-hover="background:#EAF4FF;border-color:#0B5FFF;color:#0B5FFF">See more <span aria-hidden="true">→</span></a>
+            <a href="#/gallery" style="flex:0 0 auto;display:inline-flex;align-items:center;gap:6px;height:44px;padding:0 16px;border-radius:13px;border:1px solid rgba(11,31,58,.14);font-size:14px;font-weight:700;color:#0B1F3A;background:#fff" style-hover="background:#EAF4FF;border-color:#0B5FFF;color:#0B5FFF">See more <span aria-hidden="true">â†’</span></a>
           </div>
           <div ref="{{ galRef }}" class="acx" onPointerDown="{{ galStop }}" style="display:flex;gap:10px;overflow-x:auto;padding:4px clamp(16px,4cqw,40px) 10px">
             <div style="flex:0 0 clamp(180px,52cqw,260px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot id="aces-gal-1" shape="rect" src="https://www.acesknust.com/images/Gallery/Trip.jpg" placeholder="Trip"></image-slot></div>
@@ -634,7 +636,7 @@ button{font-family:inherit}
         <div style="max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;gap:clamp(20px,4cqw,44px);align-items:center">
           <div data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;flex:1 1 280px;min-width:0">
             <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:10px">Members say</div>
-            <blockquote style="margin:0 0 16px;font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:clamp(19px,4.8cqw,28px);line-height:1.35;letter-spacing:-.02em;color:#0B1F3A;text-wrap:pretty">“This platform helped me study for examinations. I love how everything is organised and intuitive.”</blockquote>
+            <blockquote style="margin:0 0 16px;font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:clamp(19px,4.8cqw,28px);line-height:1.35;letter-spacing:-.02em;color:#0B1F3A;text-wrap:pretty">â€œThis platform helped me study for examinations. I love how everything is organised and intuitive.â€</blockquote>
             <div style="display:flex;align-items:center;gap:12px">
               <span style="width:46px;height:46px;flex:0 0 46px;border-radius:50%;overflow:hidden;display:block"><image-slot id="aces-testi-1" shape="circle" placeholder="Photo"></image-slot></span>
               <span>
@@ -653,7 +655,7 @@ button{font-family:inherit}
         <div style="max-width:1240px;margin:0 auto">
           <div data-rv="1" style="animation:acRise .6s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">About</div>
           <h1 data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .08s both;animation-play-state:paused;margin:0 0 10px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(26px,7cqw,44px);color:#0B1F3A">Association of Computer Engineering Students</h1>
-          <p data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .16s both;animation-play-state:paused;margin:0 0 20px;font-size:15px;line-height:1.65;color:#5B6B7E;max-width:62ch;text-wrap:pretty">ACES is the official student body representing all Computer Engineering students at KNUST. We run technical workshops, career programs, mentorship, industrial visits and community service — bridging classroom learning and real-world practice.</p>
+          <p data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .16s both;animation-play-state:paused;margin:0 0 20px;font-size:15px;line-height:1.65;color:#5B6B7E;max-width:62ch;text-wrap:pretty">ACES is the official student body representing all Computer Engineering students at KNUST. We run technical workshops, career programs, mentorship, industrial visits and community service â€” bridging classroom learning and real-world practice.</p>
           <div style="aspect-ratio:16/9;border-radius:20px;overflow:hidden;margin-bottom:20px"><img src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756508620/aces-group-photo_zoxsvy.png" alt="ACES group photo" style="width:100%;height:100%;object-fit:cover;display:block" /></div>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px">
             <div style="padding:18px;border-radius:18px;background:#fff;border:1px solid rgba(11,31,58,.1)">
@@ -666,7 +668,7 @@ button{font-family:inherit}
             </div>
             <div style="padding:18px;border-radius:18px;background:#fff;border:1px solid rgba(11,31,58,.1)">
               <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">Our logo</div>
-              <p style="margin:0;font-size:14.5px;line-height:1.6;color:#0B1F3A;text-wrap:pretty">The crest carries the department colours and the circuit motif — technology for our age.</p>
+              <p style="margin:0;font-size:14.5px;line-height:1.6;color:#0B1F3A;text-wrap:pretty">The crest carries the department colours and the circuit motif â€” technology for our age.</p>
             </div>
           </div>
           <div style="margin-top:22px;padding:18px;border-radius:18px;background:#EAF4FF">
@@ -710,7 +712,7 @@ button{font-family:inherit}
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.4"></circle><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M17 8.5a3 3 0 0 1 0 5.6M21 20c0-2.2-1.2-4.1-3-5"></path></svg>
               </div>
               <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;color:#0B1F3A;margin-bottom:6px">Pick a year to meet the team</div>
-              <p style="margin:0 0 14px;font-size:14.5px;line-height:1.6;color:#5B6B7E;max-width:44ch;margin-left:auto;margin-right:auto;text-wrap:pretty">Executive profiles are published per academic year. The 2025/26 portraits and roles are being uploaded by the PRO — check back shortly or reach the team at the department office.</p>
+              <p style="margin:0 0 14px;font-size:14.5px;line-height:1.6;color:#5B6B7E;max-width:44ch;margin-left:auto;margin-right:auto;text-wrap:pretty">Executive profiles are published per academic year. The 2025/26 portraits and roles are being uploaded by the PRO â€” check back shortly or reach the team at the department office.</p>
               <a href="#/staff" style="display:inline-flex;align-items:center;min-height:46px;padding:0 18px;border-radius:13px;background:#0B1F3A;color:#fff;font-size:15px;font-weight:700" style-hover="background:#0B5FFF;color:#fff">See department officials</a>
             </div>
         </div>
@@ -733,7 +735,7 @@ button{font-family:inherit}
           <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:14px">
             <div style="flex:1 1 240px;padding:18px;border-radius:18px;background:#0B1F3A;color:#fff">
               <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.6);font-weight:600;margin-bottom:8px">Department office</div>
-              <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;line-height:1.35">KNUST-CoE<br />Vodafone Building — Ground Floor</div>
+              <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;line-height:1.35">KNUST-CoE<br />Vodafone Building â€” Ground Floor</div>
             </div>
             <div style="flex:1 1 240px;padding:18px;border-radius:18px;background:#EAF4FF">
               <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">Reach ACES</div>
@@ -761,14 +763,14 @@ button{font-family:inherit}
                 <span style="position:absolute;inset:0;background:linear-gradient(to top,rgba(6,15,30,.86) 0%,rgba(6,15,30,.15) 55%,rgba(6,15,30,0) 100%)"></span>
                 <span style="position:absolute;left:14px;right:14px;bottom:12px">
                   <span style="display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;line-height:1.25;letter-spacing:-.01em;text-wrap:pretty">{{ a.t }}</span>
-                  <span style="display:flex;align-items:center;gap:6px;margin-top:5px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.8)">View album →</span>
+                  <span style="display:flex;align-items:center;gap:6px;margin-top:5px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.8)">View album â†’</span>
                 </span>
               </a>
             </sc-for>
           </div>
           <a href="https://t.me/+Is6U_pngOmYyMjM0" style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px;padding:16px;border-radius:18px;background:#EAF4FF;color:#0B1F3A" style-hover="background:#0B1F3A;color:#fff">
-            <span style="font-size:14.5px;font-weight:600">Telegram Gallery — everything members share, in one channel</span>
-            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase">Open →</span>
+            <span style="font-size:14.5px;font-weight:600">Telegram Gallery â€” everything members share, in one channel</span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase">Open â†’</span>
           </a>
         </div>
       </section>
@@ -777,12 +779,12 @@ button{font-family:inherit}
       <sc-if value="{{ isAlbum }}" hint-placeholder-val="{{ false }}">
       <section style="background:#fff;padding:clamp(16px,3cqw,28px) clamp(16px,4cqw,40px) clamp(30px,6cqw,60px)">
         <div style="max-width:1240px;margin:0 auto">
-          <a href="#/gallery" style="display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:600;margin-bottom:14px">← All albums</a>
+          <a href="#/gallery" style="display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:600;margin-bottom:14px">â† All albums</a>
           <div style="position:relative;aspect-ratio:16/9;border-radius:22px;overflow:hidden;background:#EAF4FF;margin-bottom:18px">
             <sc-if value="{{ album.hasImg }}" hint-placeholder-val="{{ false }}"><img data-src="{{ album.img }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block" /></sc-if>
             <span style="position:absolute;inset:0;background:linear-gradient(to top,rgba(6,15,30,.9) 0%,rgba(6,15,30,.1) 60%)"></span>
             <span style="position:absolute;left:clamp(16px,3cqw,28px);right:clamp(16px,3cqw,28px);bottom:clamp(14px,3cqw,24px);color:#fff">
-              <span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:7px">ACES Gallery · Album</span>
+              <span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:7px">ACES Gallery Â· Album</span>
               <span style="display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(21px,5.5cqw,36px);line-height:1.15;letter-spacing:-.03em;text-wrap:pretty">{{ album.t }}</span>
             </span>
           </div>
@@ -816,9 +818,9 @@ button{font-family:inherit}
               <div style="flex:1 1 200px;min-width:0;aspect-ratio:16/9;border-radius:14px;overflow:hidden"><img src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756508481/codefest_erdhpl.jpg" alt="" style="width:100%;height:100%;object-fit:cover;display:block" /></div>
               <div style="flex:1 1 240px;min-width:0">
                 <span style="display:inline-block;padding:5px 9px;border-radius:8px;background:#5BE49B;color:#062E1B;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px">Registration open</span>
-                <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:6px">Date announced soon · Engineering, KNUST</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:6px">Date announced soon Â· Engineering, KNUST</div>
                 <h2 style="margin:0 0 8px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:22px;letter-spacing:-.02em">CodeFest 2026</h2>
-                <p style="margin:0 0 12px;font-size:14px;line-height:1.55;color:rgba(255,255,255,.78)">CODEFEST is here — register now for the challenges.</p>
+                <p style="margin:0 0 12px;font-size:14px;line-height:1.55;color:rgba(255,255,255,.78)">CODEFEST is here â€” register now for the challenges.</p>
                 <a href="https://forms.gle/p5789Kabjyah6wq59" style="display:inline-flex;align-items:center;min-height:46px;padding:0 18px;border-radius:13px;background:#0B5FFF;color:#fff;font-size:15px;font-weight:700" style-hover="background:#fff;color:#0B1F3A">Register now</a>
               </div>
             </div>
@@ -852,11 +854,56 @@ button{font-family:inherit}
       </sc-if>
 
       <sc-if value="{{ isMarket }}" hint-placeholder-val="{{ false }}">
+      <section style="background:#F7FAFF;padding:clamp(22px,4cqw,44px) clamp(16px,4cqw,40px) clamp(34px,6cqw,64px)">
+        <div style="max-width:1240px;margin:0 auto">
+          <div data-rv="1" style="animation:acRise .6s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:9px">Student Marketplace</div>
+          <h1 data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .08s both;animation-play-state:paused;margin:0 0 10px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(28px,7.6cqw,48px);line-height:1.04;color:#0B1F3A">ACES Marketplace</h1>
+          <p data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .16s both;animation-play-state:paused;margin:0 0 24px;font-size:clamp(15.5px,3.4cqw,17.5px);line-height:1.6;color:#5B6B7E;max-width:58ch;text-wrap:pretty">Food, lab kits, jerseys and services, sold by students on your own campus. Every seller signs up with a KNUST email and delivers to your hall, so you always know who you are paying.</p>
+
+          <div data-rv="1" style="animation:acRise .7s cubic-bezier(.16,1,.3,1) .2s both;animation-play-state:paused;display:grid;grid-template-columns:repeat(auto-fit,minmax(228px,1fr));gap:12px;margin-bottom:30px">
+            <sc-for list="{{ mkDoors }}" as="dr" hint-placeholder-count="4">
+              <div style="padding:20px 18px;border-radius:18px;background:#fff;border:1px solid rgba(11,31,58,.1)">
+                <span style="width:46px;height:46px;border-radius:14px;background:#EAF4FF;color:#0B5FFF;display:grid;place-items:center;margin-bottom:13px">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="{{ dr.d }}"></path></svg>
+                </span>
+                <h3 style="margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17.5px;letter-spacing:-.015em;color:#0B1F3A">{{ dr.t }}</h3>
+                <p style="margin:0;font-size:14.5px;line-height:1.6;color:#5B6B7E;text-wrap:pretty">{{ dr.d2 }}</p>
+              </div>
+            </sc-for>
+          </div>
+
+          <div data-rv="1" style="animation:acRise .7s cubic-bezier(.16,1,.3,1) .26s both;animation-play-state:paused;display:flex;flex-wrap:wrap;gap:12px;margin-bottom:38px">
+            <a href="#/browse" style="flex:1 1 220px;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:60px;padding:0 30px;border-radius:16px;background:#0B5FFF;color:#fff;font-family:'Space Grotesk',sans-serif;font-size:17.5px;font-weight:700;letter-spacing:-.01em;box-shadow:0 16px 34px -16px rgba(11,95,255,.75)" style-hover="background:#0B1F3A;box-shadow:0 18px 38px -16px rgba(11,31,58,.8)">
+              Browse Products
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"></path><path d="M12 5l7 7-7 7"></path></svg>
+            </a>
+            <a href="#/register" style="flex:1 1 220px;display:inline-flex;align-items:center;justify-content:center;min-height:60px;padding:0 30px;border-radius:16px;border:2px solid #0B1F3A;background:#fff;color:#0B1F3A;font-family:'Space Grotesk',sans-serif;font-size:17.5px;font-weight:700;letter-spacing:-.01em" style-hover="background:#0B1F3A;color:#fff">Become a Seller</a>
+          </div>
+
+          <div data-rv="1" style="animation:acRise .7s cubic-bezier(.16,1,.3,1) .3s both;animation-play-state:paused;padding-top:28px;border-top:1px solid rgba(11,31,58,.1)">
+            <h2 style="margin:0 0 4px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(20px,4.8cqw,27px);letter-spacing:-.02em;color:#0B1F3A">Selling here, start to finish</h2>
+            <p style="margin:0 0 18px;font-size:14.5px;line-height:1.6;color:#5B6B7E;max-width:54ch">Free for every ACES member. You keep everything you make.</p>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(226px,1fr));gap:10px">
+              <sc-for list="{{ mkSteps }}" as="sp" hint-placeholder-count="3">
+                <div style="padding:17px;border-radius:17px;background:#fff;border:1px solid rgba(11,31,58,.09)">
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#0B5FFF;margin-bottom:9px">{{ sp.k }}</div>
+                  <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16.5px;letter-spacing:-.01em;color:#0B1F3A;margin-bottom:5px">{{ sp.t }}</div>
+                  <div style="font-size:14px;line-height:1.6;color:#5B6B7E">{{ sp.d }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </section>
+      </sc-if>
+
+      <sc-if value="{{ isBrowse }}" hint-placeholder-val="{{ false }}">
       <section style="background:#F7FAFF;padding:clamp(18px,3.5cqw,34px) clamp(16px,4cqw,40px) clamp(30px,6cqw,60px)">
         <div style="max-width:1240px;margin:0 auto">
-          <div data-rv="1" style="animation:acRise .6s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">Student Marketplace</div>
-          <h1 data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .08s both;animation-play-state:paused;margin:0 0 8px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(26px,7cqw,44px);color:#0B1F3A">ACES Marketplace</h1>
-          <p data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .16s both;animation-play-state:paused;margin:0 0 16px;font-size:15px;line-height:1.6;color:#5B6B7E;max-width:52ch;text-wrap:pretty">Discover products &amp; services from fellow KNUST engineering students.</p>
+          <a href="#/marketplace" style="display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:600;margin-bottom:12px">← El Mercado home</a>
+          <h1 data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .08s both;animation-play-state:paused;margin:0 0 8px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(26px,7cqw,44px);color:#0B1F3A">Browse the listings</h1>
+          <p data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .16s both;animation-play-state:paused;margin:0 0 18px;font-size:15px;line-height:1.6;color:#5B6B7E;max-width:52ch;text-wrap:pretty">{{ mkListingsLine }}</p>
+
           <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px">
             <label style="flex:1 1 240px;display:flex;align-items:center;gap:10px;height:50px;padding:0 14px;border-radius:14px;background:#fff;border:1px solid rgba(11,31,58,.12)">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5B6B7E" stroke-width="2.1" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.6-3.6"></path></svg>
@@ -868,12 +915,39 @@ button{font-family:inherit}
             </button>
           </div>
           <sc-if value="{{ filtersOpen }}" hint-placeholder-val="{{ false }}">
-            <div style="padding:14px;border-radius:16px;background:#fff;border:1px solid rgba(11,31,58,.12);margin-bottom:12px;animation:acDrawer .3s cubic-bezier(.16,1,.3,1) both">
+            <div style="padding:16px;border-radius:16px;background:#fff;border:1px solid rgba(11,31,58,.12);margin-bottom:12px;animation:acDrawer .3s cubic-bezier(.16,1,.3,1) both">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px">
+                <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16.5px;letter-spacing:-.01em;color:#0B1F3A">Filters</span>
+                <button onClick="{{ resetFilters }}" style="min-height:38px;padding:0 13px;border-radius:11px;border:1px solid rgba(11,31,58,.14);background:#fff;color:#0B1F3A;font-family:inherit;font-size:13.5px;font-weight:700;cursor:pointer" style-hover="border-color:#0B5FFF;color:#0B5FFF">Reset</button>
+              </div>
+
               <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#5B6B7E;font-weight:600;margin-bottom:9px">Product type</div>
-              <div style="display:flex;flex-wrap:wrap;gap:7px">
+              <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px">
                 <sc-for list="{{ types }}" as="t" hint-placeholder-count="4">
                   <button data-t="{{ t.k }}" onClick="{{ setType }}" style="min-height:42px;padding:0 14px;border-radius:12px;border:1px solid rgba(11,31,58,.12);background:#fff;color:#0B1F3A;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer" style-hover="border-color:#0B5FFF">{{ t.label }}</button>
                 </sc-for>
+              </div>
+
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px">
+                <label style="display:grid;gap:7px;min-width:0">
+                  <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#5B6B7E;font-weight:600">Condition</span>
+                  <select value="{{ cond }}" onChange="{{ setCond }}" style="width:100%;min-height:46px;padding:0 11px;border-radius:12px;border:1px solid rgba(11,31,58,.14);background:#fff;font-family:inherit;font-size:14.5px;color:#0B1F3A;box-sizing:border-box">
+                    <option value="">Any condition</option>
+                    <option value="NEW">Brand new</option>
+                    <option value="LIKE_NEW">Like new</option>
+                    <option value="GOOD">Good</option>
+                    <option value="FAIR">Fair</option>
+                    <option value="USED">Used</option>
+                  </select>
+                </label>
+                <div style="display:grid;gap:7px;min-width:0">
+                  <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#5B6B7E;font-weight:600">Price range (GH₵)</span>
+                  <div style="display:flex;align-items:center;gap:8px">
+                    <input value="{{ pmin }}" onInput="{{ setPmin }}" type="number" inputmode="numeric" placeholder="Min" aria-label="Minimum price" style="flex:1;min-width:0;min-height:46px;padding:0 11px;border-radius:12px;border:1px solid rgba(11,31,58,.14);background:#fff;font-family:inherit;font-size:14.5px;color:#0B1F3A;box-sizing:border-box" />
+                    <span style="flex:0 0 auto;color:#8A9AAC;font-size:14px">to</span>
+                    <input value="{{ pmax }}" onInput="{{ setPmax }}" type="number" inputmode="numeric" placeholder="Max" aria-label="Maximum price" style="flex:1;min-width:0;min-height:46px;padding:0 11px;border-radius:12px;border:1px solid rgba(11,31,58,.14);background:#fff;font-family:inherit;font-size:14.5px;color:#0B1F3A;box-sizing:border-box" />
+                  </div>
+                </div>
               </div>
             </div>
           </sc-if>
@@ -897,8 +971,7 @@ button{font-family:inherit}
             </div>
           </sc-if>
           <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px">
-            <span style="font-size:13.5px;color:#5B6B7E">{{ countT }}</span>
-            <select value="{{ sort }}" onChange="{{ setSort }}" style="flex:0 1 186px;height:44px;padding:0 10px;border-radius:12px;border:1px solid rgba(11,31,58,.12);background:#fff;font-family:inherit;font-size:14px;color:#0B1F3A">
+            <select value="{{ sort }}" onChange="{{ setSort }}" aria-label="Sort listings" style="flex:0 1 190px;height:44px;padding:0 10px;border-radius:12px;border:1px solid rgba(11,31,58,.12);background:#fff;font-family:inherit;font-size:14px;color:#0B1F3A">
               <option value="">Featured</option>
               <option value="new">Newest first</option>
               <option value="old">Oldest first</option>
@@ -907,6 +980,7 @@ button{font-family:inherit}
               <option value="low">Price: low to high</option>
               <option value="high">Price: high to low</option>
             </select>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;color:#5B6B7E">{{ countT }}</span>
           </div>
           <sc-if value="{{ hasList }}" hint-placeholder-val="{{ true }}">
             <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:10px">
@@ -960,14 +1034,23 @@ button{font-family:inherit}
       <sc-if value="{{ isProduct }}" hint-placeholder-val="{{ false }}">
       <section style="background:#fff;padding:clamp(20px,4cqw,40px) clamp(16px,4cqw,40px) clamp(30px,6cqw,60px)">
         <div style="max-width:1240px;margin:0 auto">
-          <a href="#/marketplace" style="display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:600;margin-bottom:14px">← Back to marketplace</a>
+          <a href="#/browse" style="display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:600;margin-bottom:14px">â† Back to listings</a>
           <div style="display:flex;flex-wrap:wrap;gap:clamp(18px,3cqw,36px)">
-            <div style="flex:1 1 280px;min-width:0;aspect-ratio:4/3;border-radius:20px;overflow:hidden;background:#EAF4FF"><sc-if value="{{ prod.hasImg }}" hint-placeholder-val="{{ false }}"><img data-src="{{ prod.img }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block" /></sc-if></div>
+            <div data-rv="1" style="animation:acLeft .85s cubic-bezier(.16,1,.3,1) .04s both;animation-play-state:paused;flex:1 1 280px;min-width:0;aspect-ratio:4/3;border-radius:20px;overflow:hidden;background:#EAF4FF"><sc-if value="{{ prod.hasImg }}" hint-placeholder-val="{{ false }}"><img data-src="{{ prod.img }}" alt="{{ prod.name }}" style="width:100%;height:100%;object-fit:cover;display:block" /></sc-if></div>
             <div style="flex:1 1 280px;min-width:0">
               <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">{{ prod.cat }}</div>
               <h1 data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .08s both;animation-play-state:paused;margin:0 0 8px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(23px,6cqw,34px);letter-spacing:-.03em;color:#0B1F3A">{{ prod.name }}</h1>
-              <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+              <div data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .12s both;animation-play-state:paused;display:flex;align-items:baseline;flex-wrap:wrap;gap:10px;margin-bottom:14px">
                 <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:26px;color:#0B1F3A">{{ prodPrice }}</span>
+                <sc-if value="{{ prod.deal }}" hint-placeholder-val="{{ true }}">
+                  <span style="font-size:16px;color:#8A9AAC;text-decoration:line-through">{{ prodOldT }}</span>
+                  <span style="padding:4px 9px;border-radius:8px;background:#FEE2E2;color:#B91C1C;font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:.06em">SAVE {{ prodSaveT }}</span>
+                </sc-if>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;font-size:13.5px;color:#5B6B7E">
+                <span style="color:#B45309;font-weight:700">â˜… {{ prod.rating }}</span>
+                <span>Â·</span><span>{{ prod.reviews }} reviews</span>
+                <span>Â·</span><span>{{ prod.sold }} sold</span>
               </div>
               <p data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .16s both;animation-play-state:paused;margin:0 0 16px;font-size:15px;line-height:1.65;color:#5B6B7E;text-wrap:pretty">{{ prod.desc }}</p>
               <div style="display:flex;align-items:center;gap:10px;padding:12px;border-radius:14px;background:#F7FAFF;margin-bottom:16px">
@@ -978,7 +1061,7 @@ button{font-family:inherit}
                   <span style="display:block;font-size:14.5px;font-weight:700;color:#0B1F3A">{{ prod.vendor }}</span>
                   <span style="display:block;font-size:12.5px;color:#5B6B7E">Student store on ACES Marketplace</span>
                 </span>
-                <a href="#/marketplace" data-store="{{ prod.vendor }}" onClick="{{ setStore }}" style="flex:0 0 auto;font-size:13px;font-weight:700;color:#0B5FFF">View store ›</a>
+                <a href="{{ prod.storeHref }}" style="flex:0 0 auto;font-size:13px;font-weight:700;color:#0B5FFF">View store â€º</a>
               </div>
               <div style="display:flex;flex-wrap:wrap;gap:9px">
                 <button data-id="{{ prod.id }}" onClick="{{ add }}" style="flex:1 1 160px;min-height:52px;border:none;border-radius:15px;background:#0B5FFF;color:#fff;font-size:16px;font-weight:700;cursor:pointer" style-hover="background:#0B1F3A">Add to cart</button>
@@ -986,6 +1069,136 @@ button{font-family:inherit}
               </div>
             </div>
           </div>
+
+          <div data-rv="1" style="animation:acRise .8s cubic-bezier(.16,1,.3,1) .1s both;animation-play-state:paused;margin-top:clamp(30px,5cqw,52px);padding-top:clamp(22px,4cqw,34px);border-top:1px solid rgba(11,31,58,.1)">
+            <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:16px">
+              <h2 style="margin:0;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(19px,4.6cqw,25px);letter-spacing:-.02em;color:#0B1F3A">What buyers said</h2>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#5B6B7E">{{ revCountT }}</span>
+            </div>
+
+            <div style="display:flex;flex-wrap:wrap;gap:clamp(16px,3cqw,30px)">
+              <div style="flex:0 0 auto;min-width:132px;padding:16px 20px;border-radius:16px;background:#F7FAFF;text-align:center">
+                <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:38px;line-height:1;color:#0B1F3A">{{ prod.rating }}</div>
+                <div style="margin-top:5px;color:#B45309;font-size:14px;letter-spacing:.1em">{{ revStars }}</div>
+                <div style="margin-top:5px;font-size:12px;color:#5B6B7E">out of 5</div>
+              </div>
+
+              <div style="flex:1 1 260px;min-width:0;display:grid;gap:10px">
+                <sc-for list="{{ reviews }}" as="rv" hint-placeholder-count="3">
+                  <div style="padding:13px 15px;border-radius:14px;border:1px solid rgba(11,31,58,.1);background:#fff">
+                    <div style="display:flex;align-items:center;gap:9px;margin-bottom:6px">
+                      <span style="width:30px;height:30px;flex:0 0 30px;border-radius:50%;background:#0B1F3A;color:#fff;display:grid;place-items:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:12px">{{ rv.ini }}</span>
+                      <span style="flex:1;min-width:0">
+                        <span style="display:block;font-family:'Space Grotesk',sans-serif;font-size:13.5px;font-weight:700;color:#0B1F3A">{{ rv.name }}</span>
+                        <span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#5B6B7E">{{ rv.hall }} Â· {{ rv.when }}</span>
+                      </span>
+                      <span style="flex:0 0 auto;color:#B45309;font-size:12.5px;letter-spacing:.08em">{{ rv.stars }}</span>
+                    </div>
+                    <p style="margin:0;font-size:14px;line-height:1.6;color:#5B6B7E">{{ rv.body }}</p>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <sc-if value="{{ revSent }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:18px;display:flex;align-items:center;gap:10px;padding:14px 16px;border-radius:14px;background:#DCFCE7;color:#046C4E">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+                <span style="font-size:14.5px;font-weight:700">Thanks. Your review goes to the academic committee for a quick check.</span>
+              </div>
+            </sc-if>
+            <sc-if value="{{ revOpen }}" hint-placeholder-val="{{ true }}">
+              <div style="margin-top:18px;padding:16px;border-radius:16px;background:#F7FAFF;border:1px solid rgba(11,31,58,.09)">
+                <div style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;letter-spacing:-.01em;color:#0B1F3A;margin-bottom:4px">Bought this? Say how it went.</div>
+                <div style="font-size:13px;color:#5B6B7E;margin-bottom:12px">Only buyers with a delivered order can review, so the ratings mean something.</div>
+                <div style="display:flex;align-items:center;gap:6px;margin-bottom:12px">
+                  <sc-for list="{{ revStarPick }}" as="st" hint-placeholder-count="5">
+                    <button data-star="{{ st.n }}" onClick="{{ setRevStar }}" aria-label="{{ st.label }}" style="width:44px;height:44px;border:none;background:none;cursor:pointer;display:grid;place-items:center;padding:0">
+                      <svg width="26" height="26" viewBox="0 0 24 24" fill="{{ st.color }}" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.4l6.5-.9z"></path></svg>
+                    </button>
+                  </sc-for>
+                </div>
+                <textarea value="{{ revText }}" onInput="{{ setRevText }}" rows="3" placeholder="What arrived, how fast, would you buy again?" style="width:100%;padding:12px 13px;border-radius:12px;border:1px solid rgba(11,31,58,.16);background:#fff;font-family:inherit;font-size:14.5px;line-height:1.55;color:#0B1F3A;resize:vertical"></textarea>
+                <button onClick="{{ sendRev }}" style="margin-top:11px;min-height:46px;padding:0 22px;border:none;border-radius:13px;background:#0B5FFF;color:#fff;font-size:15px;font-weight:700;cursor:pointer" style-hover="background:#0B1F3A">Post my review</button>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </section>
+      </sc-if>
+
+      <sc-if value="{{ isStore }}" hint-placeholder-val="{{ false }}">
+      <section style="background:#fff;padding:0 0 clamp(30px,6cqw,60px)">
+        <div style="height:clamp(96px,17cqw,150px);background:linear-gradient(115deg,#0B1F3A 0%,#0B5FFF 100%);position:relative">
+          <a href="#/browse" style="position:absolute;left:clamp(16px,4cqw,40px);top:16px;display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:0 14px;border-radius:11px;background:rgba(255,255,255,.16);color:#fff;font-size:13.5px;font-weight:700" style-hover="background:rgba(255,255,255,.28)">â† All sellers</a>
+        </div>
+        <div style="max-width:1240px;margin:0 auto;padding:0 clamp(16px,4cqw,40px)">
+          <div style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:16px;margin-top:-38px;margin-bottom:18px">
+            <span data-rv="1" style="animation:acLeft .8s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;width:84px;height:84px;flex:0 0 84px;border-radius:22px;background:#0B1F3A;border:4px solid #fff;color:#fff;display:grid;place-items:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:29px;box-shadow:0 12px 28px -14px rgba(11,31,58,.8)">{{ seller.ini }}</span>
+            <div data-rv="1" style="animation:acRight .8s cubic-bezier(.16,1,.3,1) .08s both;animation-play-state:paused;flex:1 1 240px;min-width:0;padding-bottom:4px">
+              <h1 style="margin:0 0 5px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(22px,5.4cqw,31px);letter-spacing:-.03em;color:#0B1F3A">{{ seller.name }}</h1>
+              <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px">
+                <span style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:8px;background:#DCFCE7;color:#046C4E;font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>Verified ACES member
+                </span>
+                <span style="font-size:13px;color:#5B6B7E">{{ seller.cat }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(78px,1fr));gap:9px;margin-bottom:16px">
+            <sc-for list="{{ seller.stats }}" as="sv" hint-placeholder-count="4">
+              <div style="padding:12px 10px;border-radius:14px;background:#F7FAFF;text-align:center">
+                <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;color:#0B1F3A">{{ sv.v }}</div>
+                <div style="margin-top:2px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:#5B6B7E">{{ sv.k }}</div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display:flex;flex-wrap:wrap;gap:9px;margin-bottom:24px">
+            <a href="{{ seller.wa }}" style="flex:1 1 170px;display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;border-radius:15px;background:#0B5FFF;color:#fff;font-size:15.5px;font-weight:700" style-hover="background:#0B1F3A">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.5 8.5 0 0 1-3.8-.9L3 21l2-5.1A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"></path></svg>
+              Message on WhatsApp
+            </a>
+            <a href="tel:+233322060331" style="flex:1 1 130px;display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;border-radius:15px;border:1px solid rgba(11,31,58,.16);color:#0B1F3A;font-size:15.5px;font-weight:700" style-hover="border-color:#0B5FFF;color:#0B5FFF">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.1a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6A2 2 0 0 1 22 16.9z"></path></svg>
+              Call seller
+            </a>
+          </div>
+
+          <div style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:12px">
+            <h2 style="margin:0;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(18px,4.4cqw,23px);letter-spacing:-.02em;color:#0B1F3A">Everything from this seller</h2>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#5B6B7E">{{ seller.countT }}</span>
+          </div>
+
+          <sc-if value="{{ seller.has }}" hint-placeholder-val="{{ true }}">
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:10px">
+              <sc-for list="{{ seller.items }}" as="p" hint-placeholder-count="6">
+                <a href="{{ p.href }}" style="display:flex;flex-direction:column;border-radius:14px;background:#fff;border:1px solid rgba(11,31,58,.09);overflow:hidden;color:inherit;transition:box-shadow .22s ease,border-color .22s ease" style-hover="box-shadow:0 14px 30px -20px rgba(11,31,58,.6);border-color:rgba(11,95,255,.4)">
+                  <span style="position:relative;display:block;aspect-ratio:1/1;background:#EEF3FA;overflow:hidden">
+                    <sc-if value="{{ p.hasImg }}" hint-placeholder-val="{{ false }}"><img data-src="{{ p.img }}" alt="{{ p.name }}" style="width:100%;height:100%;object-fit:cover;display:block" /></sc-if>
+                    <span role="button" tabindex="0" aria-label="Save to favourites" data-fav="{{ p.id }}" onClick="{{ toggleFav }}" style="position:absolute;right:6px;top:6px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.9);display:grid;place-items:center;cursor:pointer;box-shadow:0 5px 12px -6px rgba(11,31,58,.75)">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0B1F3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1L12 21l7.7-7.6 1.1-1a5.5 5.5 0 0 0 0-7.8z"></path></svg>
+                    </span>
+                  </span>
+                  <span style="padding:9px 10px 11px;display:flex;flex-direction:column;gap:5px">
+                    <span style="font-size:13px;line-height:1.35;color:#0B1F3A;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.7em">{{ p.name }}</span>
+                    <span style="display:flex;align-items:center;justify-content:space-between;gap:6px">
+                      <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15.5px;color:#0B5FFF">{{ p.priceT }}</span>
+                      <button data-id="{{ p.id }}" onClick="{{ add }}" aria-label="Add to cart" style="width:34px;height:34px;flex:0 0 34px;border:1px solid rgba(11,31,58,.14);border-radius:10px;background:#fff;display:grid;place-items:center;cursor:pointer" style-hover="border-color:#0B5FFF;background:#EAF4FF">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0B1F3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.4"></circle><circle cx="18" cy="20" r="1.4"></circle><path d="M2 3h3l2.5 12h11L21 7H6"></path></svg>
+                      </button>
+                    </span>
+                  </span>
+                </a>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ seller.empty }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:34px 20px;border-radius:18px;background:#F7FAFF;text-align:center">
+              <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;color:#0B1F3A">This seller has nothing listed right now</div>
+              <div style="margin-top:6px;font-size:14px;color:#5B6B7E">Message them. Most sellers restock within a week.</div>
+            </div>
+          </sc-if>
         </div>
       </section>
       </sc-if>
@@ -1003,7 +1216,7 @@ button{font-family:inherit}
                     <span style="display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;color:#0B1F3A">{{ l.name }}</span>
                     <span style="display:block;font-size:13px;color:#5B6B7E">{{ l.unit }}</span>
                     <span style="display:flex;align-items:center;gap:8px;margin-top:8px">
-                      <button data-id="{{ l.id }}" onClick="{{ dec }}" aria-label="Decrease" style="width:36px;height:36px;border:1px solid rgba(11,31,58,.16);background:#fff;border-radius:10px;cursor:pointer;font-size:17px;color:#0B1F3A">−</button>
+                      <button data-id="{{ l.id }}" onClick="{{ dec }}" aria-label="Decrease" style="width:36px;height:36px;border:1px solid rgba(11,31,58,.16);background:#fff;border-radius:10px;cursor:pointer;font-size:17px;color:#0B1F3A">âˆ’</button>
                       <span style="font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:600;min-width:22px;text-align:center">{{ l.qty }}</span>
                       <button data-id="{{ l.id }}" onClick="{{ inc }}" aria-label="Increase" style="width:36px;height:36px;border:1px solid rgba(11,31,58,.16);background:#fff;border-radius:10px;cursor:pointer;font-size:17px;color:#0B1F3A">+</button>
                       <button data-id="{{ l.id }}" onClick="{{ drop }}" style="margin-left:6px;border:none;background:none;cursor:pointer;font-size:13px;color:#5B6B7E;text-decoration:underline">Remove</button>
@@ -1015,7 +1228,7 @@ button{font-family:inherit}
             </div>
             <div style="padding:16px;border-radius:18px;background:#F7FAFF;border:1px solid rgba(11,31,58,.1)">
               <div style="display:flex;justify-content:space-between;font-size:14.5px;color:#5B6B7E;margin-bottom:7px"><span>Subtotal</span><span>{{ subT }}</span></div>
-              <div style="display:flex;justify-content:space-between;font-size:14.5px;color:#5B6B7E;margin-bottom:10px"><span>Campus delivery</span><span>₵10</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:14.5px;color:#5B6B7E;margin-bottom:10px"><span>Campus delivery</span><span>â‚µ10</span></div>
               <div style="display:flex;justify-content:space-between;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;color:#0B1F3A;padding-top:10px;border-top:1px solid rgba(11,31,58,.12)"><span>Total</span><span>{{ totalT }}</span></div>
               <a href="#/checkout" style="display:flex;align-items:center;justify-content:center;min-height:52px;margin-top:14px;border-radius:15px;background:#0B5FFF;color:#fff;font-size:16px;font-weight:700" style-hover="background:#0B1F3A;color:#fff">Checkout</a>
             </div>
@@ -1024,7 +1237,7 @@ button{font-family:inherit}
             <div style="padding:38px 18px;text-align:center;border-radius:20px;background:#F7FAFF;border:1px dashed rgba(11,31,58,.18)">
               <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;color:#0B1F3A;margin-bottom:6px">Your cart is empty</div>
               <p style="margin:0 0 16px;font-size:14.5px;color:#5B6B7E">Add some ACES gear or lab kit to rep your department.</p>
-              <a href="#/marketplace" style="display:inline-flex;align-items:center;min-height:48px;padding:0 20px;border-radius:14px;background:#0B1F3A;color:#fff;font-size:15px;font-weight:700" style-hover="background:#0B5FFF;color:#fff">Start shopping</a>
+              <a href="#/browse" style="display:inline-flex;align-items:center;min-height:48px;padding:0 20px;border-radius:14px;background:#0B1F3A;color:#fff;font-size:15px;font-weight:700" style-hover="background:#0B5FFF;color:#fff">Start shopping</a>
             </div>
           </sc-if>
         </div>
@@ -1068,14 +1281,14 @@ button{font-family:inherit}
       <sc-if value="{{ isLogin }}" hint-placeholder-val="{{ false }}">
       <section style="background:#F7FAFF;padding:clamp(26px,5cqw,60px) clamp(16px,4cqw,40px)">
         <div style="max-width:430px;margin:0 auto;padding:clamp(20px,4cqw,30px);border-radius:22px;background:#fff;border:1px solid rgba(11,31,58,.1);box-shadow:0 22px 48px -30px rgba(11,31,58,.6)">
-          <h1 data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .08s both;animation-play-state:paused;margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:26px;letter-spacing:-.03em;color:#0B1F3A">Log in</h1>
-          <p style="margin:0 0 18px;font-size:14.5px;color:#5B6B7E">Use your student email to access the marketplace and your orders.</p>
+          <h1 data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .08s both;animation-play-state:paused;margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:26px;letter-spacing:-.03em;color:#0B1F3A">Welcome Back</h1>
+          <p style="margin:0 0 18px;font-size:14.5px;color:#5B6B7E">One login for both sides of the marketplace. Track what you ordered, or open your seller dashboard.</p>
           <div style="display:grid;gap:10px">
-            <input placeholder="your.name@st.knust.edu.gh" style="min-width:0;width:100%;min-height:52px;padding:0 14px;border-radius:14px;border:1px solid rgba(11,31,58,.14);font-family:inherit;font-size:15px;outline:none;box-sizing:border-box" />
+            <input placeholder="student@knust.edu.gh" style="min-width:0;width:100%;min-height:52px;padding:0 14px;border-radius:14px;border:1px solid rgba(11,31,58,.14);font-family:inherit;font-size:15px;outline:none;box-sizing:border-box" />
             <input type="password" placeholder="Password" style="min-width:0;width:100%;min-height:52px;padding:0 14px;border-radius:14px;border:1px solid rgba(11,31,58,.14);font-family:inherit;font-size:15px;outline:none;box-sizing:border-box" />
             <a href="#/vendor" style="display:flex;align-items:center;justify-content:center;min-height:52px;border-radius:14px;background:#0B5FFF;color:#fff;font-size:16px;font-weight:700" style-hover="background:#0B1F3A;color:#fff">Log in</a>
           </div>
-          <div style="margin-top:14px;font-size:14px;color:#5B6B7E">No account yet? <a href="#/register">Register as a student or vendor</a></div>
+          <div style="margin-top:14px;font-size:14px;color:#5B6B7E">No account yet? <a href="#/register">Create a seller account</a></div>
         </div>
       </section>
       </sc-if>
@@ -1085,13 +1298,8 @@ button{font-family:inherit}
         <div style="max-width:540px;margin:0 auto">
           <div style="padding:clamp(20px,4cqw,30px);border-radius:22px;background:#fff;border:1px solid rgba(11,31,58,.1);box-shadow:0 22px 48px -30px rgba(11,31,58,.6)">
             <div data-rv="1" style="animation:acRise .6s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">Create account</div>
-            <h1 data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .08s both;animation-play-state:paused;margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(24px,6cqw,30px);letter-spacing:-.03em;color:#0B1F3A">Join ACES online</h1>
-            <p style="margin:0 0 16px;font-size:14.5px;line-height:1.55;color:#5B6B7E;text-wrap:pretty">One account for events, course resources and the marketplace. Open to KNUST Computer Engineering students.</p>
-
-            <div role="tablist" aria-label="Account type" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:5px;border-radius:15px;background:#F3F7FF;border:1px solid rgba(11,31,58,.08);margin-bottom:16px">
-              <button onClick="{{ setRTab }}" data-rt="student" role="tab" style="min-height:46px;padding:0 10px;border:none;border-radius:11px;background:none;font-family:inherit;font-size:14px;font-weight:700;color:#5B6B7E;cursor:pointer;transition:background .25s ease,color .25s ease">Student account</button>
-              <button onClick="{{ setRTab }}" data-rt="vendor" role="tab" style="min-height:46px;padding:0 10px;border:none;border-radius:11px;background:none;font-family:inherit;font-size:14px;font-weight:700;color:#5B6B7E;cursor:pointer;transition:background .25s ease,color .25s ease">Vendor account</button>
-            </div>
+            <h1 data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .08s both;animation-play-state:paused;margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(24px,6cqw,30px);letter-spacing:-.03em;color:#0B1F3A">Join ACES</h1>
+            <p style="margin:0 0 16px;font-size:14.5px;line-height:1.55;color:#5B6B7E;text-wrap:pretty">An account is for selling. Browsing and buying need no account, so create one when you are ready to open a shop.</p>
 
             <sc-if value="{{ regDone }}" hint-placeholder-val="{{ false }}">
               <div style="display:grid;gap:14px;justify-items:center;text-align:center;padding:14px 0 4px;animation:acPop .5s cubic-bezier(.16,1,.3,1) both">
@@ -1112,30 +1320,12 @@ button{font-family:inherit}
             <sc-if value="{{ regForm }}" hint-placeholder-val="{{ true }}">
               <div style="display:grid;gap:10px">
                 <label style="display:grid;gap:6px;min-width:0">
-                  <span style="font-size:12.5px;font-weight:600;color:#0B1F3A">Full name</span>
-                  <input value="{{ rName }}" onInput="{{ setRName }}" placeholder="Kwame Mensah" style="min-width:0;width:100%;min-height:52px;padding:0 14px;border-radius:14px;border:1px solid rgba(11,31,58,.14);font-family:inherit;font-size:15px;outline:none;box-sizing:border-box" />
+                  <span style="font-size:12.5px;font-weight:600;color:#0B1F3A">Username</span>
+                  <input value="{{ rName }}" onInput="{{ setRName }}" placeholder="aces_student" style="min-width:0;width:100%;min-height:52px;padding:0 14px;border-radius:14px;border:1px solid rgba(11,31,58,.14);font-family:inherit;font-size:15px;outline:none;box-sizing:border-box" />
                 </label>
                 <label style="display:grid;gap:6px;min-width:0">
-                  <span style="font-size:12.5px;font-weight:600;color:#0B1F3A">Student email</span>
-                  <input value="{{ rMail }}" onInput="{{ setRMail }}" type="email" placeholder="your.name@st.knust.edu.gh" style="min-width:0;width:100%;min-height:52px;padding:0 14px;border-radius:14px;border:1px solid rgba(11,31,58,.14);font-family:inherit;font-size:15px;outline:none;box-sizing:border-box" />
-                </label>
-                <sc-if value="{{ rIsStudent }}" hint-placeholder-val="{{ true }}">
-                  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:10px">
-                    <label style="display:grid;gap:6px;min-width:0">
-                      <span style="font-size:12.5px;font-weight:600;color:#0B1F3A">Index number</span>
-                      <input value="{{ rIndex }}" onInput="{{ setRIndex }}" placeholder="20xxxxx" style="min-width:0;width:100%;min-height:52px;padding:0 14px;border-radius:14px;border:1px solid rgba(11,31,58,.14);font-family:inherit;font-size:15px;outline:none;box-sizing:border-box" />
-                    </label>
-                    <label style="display:grid;gap:6px;min-width:0">
-                      <span style="font-size:12.5px;font-weight:600;color:#0B1F3A">Year</span>
-                      <select value="{{ rYear }}" onChange="{{ setRYear }}" style="min-width:0;width:100%;min-height:52px;padding:0 12px;border-radius:14px;border:1px solid rgba(11,31,58,.14);background:#fff;font-family:inherit;font-size:15px;outline:none;box-sizing:border-box">
-                        <option value="Y1">Year 1</option>
-                        <option value="Y2">Year 2</option>
-                        <option value="Y3">Year 3</option>
-                        <option value="Y4">Year 4</option>
-                      </select>
-                    </label>
-                  </div>
-                </sc-if>
+                  <span style="font-size:12.5px;font-weight:600;color:#0B1F3A">Email</span>
+                  <input value="{{ rMail }}" onInput="{{ setRMail }}" type="email" placeholder="student@knust.edu.gh" style="min-width:0;width:100%;min-height:52px;padding:0 14px;border-radius:14px;border:1px solid rgba(11,31,58,.14);font-family:inherit;font-size:15px;outline:none;box-sizing:border-box" />
                 <sc-if value="{{ rIsVendor }}" hint-placeholder-val="{{ false }}">
                   <label style="display:grid;gap:6px;min-width:0">
                     <span style="font-size:12.5px;font-weight:600;color:#0B1F3A">Shop name</span>
@@ -1153,10 +1343,13 @@ button{font-family:inherit}
                     </select>
                   </label>
                 </sc-if>
-                <label style="display:grid;gap:6px;min-width:0">
-                  <span style="font-size:12.5px;font-weight:600;color:#0B1F3A">WhatsApp number</span>
-                  <input value="{{ rPhone }}" onInput="{{ setRPhone }}" type="tel" placeholder="+233 55 000 0000" style="min-width:0;width:100%;min-height:52px;padding:0 14px;border-radius:14px;border:1px solid rgba(11,31,58,.14);font-family:inherit;font-size:15px;outline:none;box-sizing:border-box" />
-                </label>
+                <sc-if value="{{ rIsVendor }}" hint-placeholder-val="{{ false }}">
+                  <label style="display:grid;gap:6px;min-width:0">
+                    <span style="font-size:12.5px;font-weight:600;color:#0B1F3A">WhatsApp number</span>
+                    <input value="{{ rPhone }}" onInput="{{ setRPhone }}" type="tel" placeholder="+233 55 000 0000" style="min-width:0;width:100%;min-height:52px;padding:0 14px;border-radius:14px;border:1px solid rgba(11,31,58,.14);font-family:inherit;font-size:15px;outline:none;box-sizing:border-box" />
+                    <span style="font-size:11.5px;color:#5B6B7E">Buyers use this to reach you about an order. It is not shown on your listings.</span>
+                  </label>
+                </sc-if>
                 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:10px">
                   <label style="display:grid;gap:6px;min-width:0">
                     <span style="font-size:12.5px;font-weight:600;color:#0B1F3A">Password</span>
@@ -1185,7 +1378,7 @@ button{font-family:inherit}
           <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:14px">
             <span style="flex:1 1 150px;display:flex;align-items:center;gap:9px;padding:12px 13px;border-radius:15px;background:#fff;border:1px solid rgba(11,31,58,.09);font-size:13px;line-height:1.45;color:#5B6B7E">
               <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0B5FFF" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 17px"><path d="M12 3l8 4v5c0 5-3.4 8.1-8 9-4.6-.9-8-4-8-9V7z"></path><path d="M9 12.2l2.2 2.2L15.5 10"></path></svg>
-              <span>Student emails only — no spam, no resale of your data.</span>
+              <span>Student emails only â€” no spam, no resale of your data.</span>
             </span>
             <span style="flex:1 1 150px;display:flex;align-items:center;gap:9px;padding:12px 13px;border-radius:15px;background:#fff;border:1px solid rgba(11,31,58,.09);font-size:13px;line-height:1.45;color:#5B6B7E">
               <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0B5FFF" stroke-width="2.1" stroke-linecap="round" style="flex:0 0 17px"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5l3.4 2"></path></svg>
@@ -1203,12 +1396,12 @@ button{font-family:inherit}
             <div>
               <div data-rv="1" style="animation:acRise .6s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">Vendor dashboard</div>
               <h1 data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .08s both;animation-play-state:paused;margin:0 0 4px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(24px,6cqw,38px);color:#0B1F3A">Your shop</h1>
-              <p style="margin:0;font-size:14.5px;color:#5B6B7E">Nothing listed yet — your first product takes about two minutes.</p>
+              <p style="margin:0;font-size:14.5px;color:#5B6B7E">Nothing listed yet â€” your first product takes about two minutes.</p>
             </div>
             <button style="min-height:48px;padding:0 18px;border:none;border-radius:14px;background:#0B5FFF;color:#fff;font-size:15px;font-weight:700;cursor:pointer" style-hover="background:#0B1F3A">+ Add product</button>
           </div>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:18px">
-            <div style="padding:15px;border-radius:16px;background:#0B1F3A;color:#fff"><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:6px">This month</div><div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:24px;">₵0</div></div>
+            <div style="padding:15px;border-radius:16px;background:#0B1F3A;color:#fff"><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:6px">This month</div><div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:24px;">â‚µ0</div></div>
             <div style="padding:15px;border-radius:16px;background:#fff;border:1px solid rgba(11,31,58,.1)"><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#5B6B7E;margin-bottom:6px">Orders</div><div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:24px;color:#0B1F3A">0</div></div>
             <div style="padding:15px;border-radius:16px;background:#fff;border:1px solid rgba(11,31,58,.1)"><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#5B6B7E;margin-bottom:6px">Live listings</div><div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:24px;color:#0B1F3A">0</div></div>
             <div style="padding:15px;border-radius:16px;background:#fff;border:1px solid rgba(11,31,58,.1)"><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#5B6B7E;margin-bottom:6px">Awaiting action</div><div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:24px;color:#0B1F3A">0</div></div>
@@ -1231,7 +1424,7 @@ button{font-family:inherit}
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
                 </div>
                 <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;color:#0B1F3A;margin-bottom:5px">Add your first product</div>
-                <p style="margin:0 0 14px;font-size:13.5px;line-height:1.55;color:#5B6B7E;max-width:32ch;margin-left:auto;margin-right:auto">Photo, price, category, stock — that's all it takes to go live in the marketplace.</p>
+                <p style="margin:0 0 14px;font-size:13.5px;line-height:1.55;color:#5B6B7E;max-width:32ch;margin-left:auto;margin-right:auto">Photo, price, category, stock â€” that's all it takes to go live in the marketplace.</p>
                 <button style="min-height:44px;padding:0 16px;border:1px solid rgba(11,31,58,.16);background:#fff;border-radius:12px;font-size:14px;font-weight:700;color:#0B1F3A;cursor:pointer" style-hover="border-color:#0B5FFF;color:#0B5FFF">Start a listing</button>
               </div>
             </div>
@@ -1269,7 +1462,7 @@ button{font-family:inherit}
             <span>Showing</span>
             <span style="padding:5px 11px;border-radius:9px;background:#EAF4FF;color:#0B1F3A;font-weight:700">{{ selYear }}</span>
             <span style="padding:5px 11px;border-radius:9px;background:#EAF4FF;color:#0B1F3A;font-weight:700">{{ selSem }}</span>
-            <span>· {{ selCount }}</span>
+            <span>Â· {{ selCount }}</span>
           </div>
 
           <sc-if value="{{ hasCourses }}" hint-placeholder-val="{{ false }}">
@@ -1340,15 +1533,15 @@ button{font-family:inherit}
         <div style="max-width:720px;margin:0 auto">
           <div data-rv="1" style="animation:acRise .6s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">Resources</div>
           <h1 data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .08s both;animation-play-state:paused;margin:0 0 8px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(26px,7cqw,44px);color:#0B1F3A">Scholarship Opportunities</h1>
-          <p data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .16s both;animation-play-state:paused;margin:0 0 18px;font-size:15px;color:#5B6B7E;text-wrap:pretty">Explore various scholarships available and apply. Make sure to read eligibility criteria before applying and provide the necessary documents. Nothing is open at the moment — join the notify list and you'll hear the day one drops.</p>
+          <p data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .16s both;animation-play-state:paused;margin:0 0 18px;font-size:15px;color:#5B6B7E;text-wrap:pretty">Explore various scholarships available and apply. Make sure to read eligibility criteria before applying and provide the necessary documents. Nothing is open at the moment â€” join the notify list and you'll hear the day one drops.</p>
           <div style="padding:26px 20px;border-radius:20px;background:#EAF4FF;text-align:center">
             <div style="width:52px;height:52px;margin:0 auto 12px;border-radius:16px;background:#fff;display:grid;place-items:center;color:#0B5FFF">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5.2"></circle><path d="M8.4 13.6L7 21l5-2.6L17 21l-1.4-7.4"></path></svg>
             </div>
-            <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;color:#0B1F3A;margin-bottom:6px">Nothing open — yet</div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;color:#0B1F3A;margin-bottom:6px">Nothing open â€” yet</div>
             <p style="margin:0 0 16px;font-size:14.5px;color:#5B6B7E">Tell us what you're looking for and we'll alert you first.</p>
             <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center">
-              <input placeholder="your.name@st.knust.edu.gh" style="flex:1 1 200px;min-width:0;min-height:50px;padding:0 14px;border-radius:14px;border:1px solid rgba(11,31,58,.14);background:#fff;font-family:inherit;font-size:15px;outline:none" />
+              <input placeholder="student@knust.edu.gh" style="flex:1 1 200px;min-width:0;min-height:50px;padding:0 14px;border-radius:14px;border:1px solid rgba(11,31,58,.14);background:#fff;font-family:inherit;font-size:15px;outline:none" />
               <button style="min-height:50px;padding:0 20px;border:none;border-radius:14px;background:#0B5FFF;color:#fff;font-size:15px;font-weight:700;cursor:pointer" style-hover="background:#0B1F3A">Notify me</button>
             </div>
           </div>
@@ -1372,12 +1565,17 @@ button{font-family:inherit}
           <p data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .16s both;animation-play-state:paused;margin:0 0 20px;font-size:15px;line-height:1.65;color:#5B6B7E;max-width:56ch;text-wrap:pretty">Rep your department with premium, verified gear. Designed for engineers, by engineers.</p>
           <div style="display:flex;flex-wrap:wrap;gap:clamp(18px,3cqw,36px);padding:clamp(14px,3cqw,22px);border-radius:24px;background:#F7FAFF;border:1px solid rgba(11,31,58,.1)">
             <div style="flex:1 1 300px;min-width:0">
-              <div style="aspect-ratio:4/5;border-radius:20px;overflow:hidden;background:#EAF4FF"><sc-if value="{{ shirt.hasImg }}" hint-placeholder-val="{{ false }}"><img data-src="{{ shirt.img }}" alt="ACES Shirt" style="width:100%;height:100%;object-fit:cover;display:block" /></sc-if></div>
+              <div data-rv="1" style="animation:acLeft .85s cubic-bezier(.16,1,.3,1) .04s both;animation-play-state:paused;position:relative;aspect-ratio:4/5;border-radius:20px;overflow:hidden;background:#EAF4FF">
+                <sc-if value="{{ shirt.hasImg }}" hint-placeholder-val="{{ false }}"><img data-src="{{ shirt.img }}" alt="ACES Shirt" style="width:100%;height:100%;object-fit:cover;display:block" /></sc-if>
+                <span role="button" tabindex="0" aria-label="Save to favourites" data-fav="{{ shirt.id }}" onClick="{{ toggleFav }}" style="position:absolute;right:10px;top:10px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 16px -7px rgba(11,31,58,.8)">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#0B1F3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1L12 21l7.7-7.6 1.1-1a5.5 5.5 0 0 0 0-7.8z"></path></svg>
+                </span>
+              </div>
             </div>
             <div style="flex:1 1 280px;min-width:0;display:flex;flex-direction:column">
               <span style="display:inline-flex;align-self:flex-start;align-items:center;gap:7px;padding:6px 11px;border-radius:9px;background:#0B1F3A;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px">CODEFEST apparel</span>
               <h2 style="margin:0 0 8px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(22px,5.5cqw,32px);letter-spacing:-.03em;color:#0B1F3A">{{ shirt.name }}</h2>
-              <p data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .16s both;animation-play-state:paused;margin:0 0 16px;font-size:15px;line-height:1.65;color:#5B6B7E;text-wrap:pretty">Official CODEFEST tech tee — black cotton with the CODEFEST wordmark and circuit artwork. Collected from the department office or delivered on campus.</p>
+              <p data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .16s both;animation-play-state:paused;margin:0 0 16px;font-size:15px;line-height:1.65;color:#5B6B7E;text-wrap:pretty">Official CODEFEST tech tee â€” black cotton with the CODEFEST wordmark and circuit artwork. Collected from the department office or delivered on campus.</p>
               <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#5B6B7E;font-weight:600;margin-bottom:8px">Size</div>
               <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px">
                 <sc-for list="{{ shirtSizes }}" as="s" hint-placeholder-count="5">
@@ -1397,11 +1595,11 @@ button{font-family:inherit}
           <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:14px">
             <div style="flex:1 1 200px;padding:15px;border-radius:16px;background:#fff;border:1px solid rgba(11,31,58,.1)">
               <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:6px">Pickup</div>
-              <div style="font-size:14px;line-height:1.55;color:#0B1F3A">Department office — Vodafone Building, Ground Floor</div>
+              <div style="font-size:14px;line-height:1.55;color:#0B1F3A">Department office â€” Vodafone Building, Ground Floor</div>
             </div>
             <div style="flex:1 1 200px;padding:15px;border-radius:16px;background:#fff;border:1px solid rgba(11,31,58,.1)">
               <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:6px">Ordered already?</div>
-              <a href="#/track" style="font-size:14px;font-weight:600">Track your order →</a>
+              <a href="#/track" style="font-size:14px;font-weight:600">Track your order â†’</a>
             </div>
             <div style="flex:1 1 200px;padding:15px;border-radius:16px;background:#EAF4FF">
               <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:6px">More drops</div>
@@ -1422,7 +1620,7 @@ button{font-family:inherit}
             <button style="min-height:52px;padding:0 20px;border:none;border-radius:14px;background:#0B5FFF;color:#fff;font-size:15px;font-weight:700;cursor:pointer" style-hover="background:#0B1F3A">Track</button>
           </div>
           <div style="padding:18px;border-radius:20px;background:#F7FAFF;border:1px solid rgba(11,31,58,.1)">
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#5B6B7E;margin-bottom:14px">ACE-2026-0148 · ESP32 dev board</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#5B6B7E;margin-bottom:14px">ACE-2026-0148 Â· ESP32 dev board</div>
             <div style="display:grid;gap:0">
               <div style="display:flex;gap:12px"><span style="display:flex;flex-direction:column;align-items:center"><span style="width:14px;height:14px;border-radius:50%;background:#0B5FFF"></span><span style="width:2px;flex:1;background:#0B5FFF"></span></span><span style="padding-bottom:16px"><span style="display:block;font-size:15px;font-weight:700;color:#0B1F3A">Order placed</span><span style="display:block;font-size:13px;color:#5B6B7E">Today, 9:12 AM</span></span></div>
               <div style="display:flex;gap:12px"><span style="display:flex;flex-direction:column;align-items:center"><span style="width:14px;height:14px;border-radius:50%;background:#0B5FFF"></span><span style="width:2px;flex:1;background:rgba(11,31,58,.16)"></span></span><span style="padding-bottom:16px"><span style="display:block;font-size:15px;font-weight:700;color:#0B1F3A">Vendor confirmed</span><span style="display:block;font-size:13px;color:#5B6B7E">Today, 9:48 AM</span></span></div>
@@ -1437,7 +1635,7 @@ button{font-family:inherit}
       <sc-if value="{{ lbOpen }}" hint-placeholder-val="{{ false }}">
         <div onClick="{{ closeLb }}" style="position:fixed;inset:0;z-index:130;background:rgba(6,15,30,.94);display:grid;place-items:center;padding:20px;animation:acFade .2s ease both;cursor:zoom-out">
           <sc-if value="{{ lbHasSrc }}" hint-placeholder-val="{{ false }}"><img data-src="{{ lbSrc }}" alt="" style="max-width:100%;max-height:86vh;border-radius:16px;display:block;animation:acPop .35s cubic-bezier(.16,1,.3,1) both" /></sc-if>
-          <button onClick="{{ closeLb }}" aria-label="Close" style="position:absolute;top:16px;right:16px;width:46px;height:46px;border:none;border-radius:14px;background:rgba(255,255,255,.14);color:#fff;cursor:pointer;font-size:20px">×</button>
+          <button onClick="{{ closeLb }}" aria-label="Close" style="position:absolute;top:16px;right:16px;width:46px;height:46px;border:none;border-radius:14px;background:rgba(255,255,255,.14);color:#fff;cursor:pointer;font-size:20px">Ã—</button>
         </div>
       </sc-if>
 
@@ -1449,7 +1647,7 @@ button{font-family:inherit}
                 <span style="width:40px;height:40px;flex:0 0 40px;border-radius:12px;background:linear-gradient(145deg,#0B5FFF,#081830);display:grid;place-items:center"><img src="https://www.acesknust.com/images/logo-white.png" alt="ACES logo" style="width:27px;height:27px;object-fit:contain;display:block" /></span>
                 <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14.5px;line-height:1.3;color:rgba(255,255,255,.9)">Association of Computer<br />Engineering Students</span>
               </div>
-              <p style="margin:0 0 14px;font-size:13.5px;line-height:1.6;color:rgba(255,255,255,.62);text-wrap:pretty">Department Office<br />KNUST-CoE, Vodafone Building — Ground Floor</p>
+              <p style="margin:0 0 14px;font-size:13.5px;line-height:1.6;color:rgba(255,255,255,.62);text-wrap:pretty">Department Office<br />KNUST-CoE, Vodafone Building â€” Ground Floor</p>
               <div style="display:flex;gap:8px">
                 <a href="https://www.linkedin.com/company/aces-knust/" aria-label="LinkedIn" style="width:40px;height:40px;display:grid;place-items:center;border-radius:12px;background:rgba(255,255,255,.09);color:#fff" style-hover="background:#0B5FFF;color:#fff"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M6.5 8.5v10h-3v-10zM5 3.6a1.9 1.9 0 110 3.8 1.9 1.9 0 010-3.8zM20.5 13.2v5.3h-3v-4.8c0-1.2-.4-2-1.5-2-.9 0-1.4.6-1.6 1.2-.1.2-.1.5-.1.8v4.8h-3s.04-8.2 0-9h3v1.3c.4-.6 1.2-1.5 2.9-1.5 2.1 0 3.3 1.4 3.3 4z"></path></svg></a>
                 <a href="https://www.instagram.com/aces_knust/" aria-label="Instagram" style="width:40px;height:40px;display:grid;place-items:center;border-radius:12px;background:rgba(255,255,255,.09);color:#fff" style-hover="background:#0B5FFF;color:#fff"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3.5" y="3.5" width="17" height="17" rx="5"></rect><circle cx="12" cy="12" r="3.8"></circle><circle cx="17" cy="7" r="1.1" fill="currentColor" stroke="none"></circle></svg></a>
@@ -1461,13 +1659,13 @@ button{font-family:inherit}
               <h3 style="margin:0 0 8px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(19px,4.6cqw,24px);letter-spacing:-.02em;color:#fff">ACES in your inbox</h3>
               <p style="margin:0 0 16px;font-size:14.5px;line-height:1.55;color:rgba(255,255,255,.7);text-wrap:pretty">Events, deadlines and marketplace drops. One short email a week.</p>
               <div style="display:flex;flex-wrap:wrap;gap:8px">
-                <input placeholder="your.name@st.knust.edu.gh" style="flex:1 1 180px;min-width:0;min-height:50px;padding:0 14px;border-radius:14px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.1);color:#fff;font-family:inherit;font-size:15px;outline:none" />
+                <input placeholder="student@knust.edu.gh" style="flex:1 1 180px;min-width:0;min-height:50px;padding:0 14px;border-radius:14px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.1);color:#fff;font-family:inherit;font-size:15px;outline:none" />
                 <button style="min-height:50px;padding:0 20px;border:none;border-radius:14px;background:#0B5FFF;color:#fff;font-size:15px;font-weight:700;cursor:pointer" style-hover="background:#fff;color:#0B1F3A">Subscribe</button>
               </div>
             </div>
           </div>
           <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-top:26px;padding-top:18px;border-top:1px solid rgba(255,255,255,.12)">
-            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6)">Technology For Our Age · © 2026</span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6)">Technology For Our Age Â· Â© 2026</span>
             <span style="display:flex;gap:16px">
               <a href="#" style="font-size:13px;color:rgba(255,255,255,.7)" style-hover="color:#fff">Terms &amp; conditions</a>
               <a href="#" style="font-size:13px;color:rgba(255,255,255,.7)" style-hover="color:#fff">Policy</a>
@@ -1497,29 +1695,29 @@ const IMG = {
 };
 const CATMAP = { F: 'Fashion & Apparel', T: 'Technology & Electronics', S: 'Services', D: 'Food & Beverages', B: 'Beauty & Cosmetics', O: 'Other' };
 const RAW = [
-  ['Cross chain with inscription', 75, "Cross with inscriptions; the Lord's Prayer (our father)",'The Jewellery plug','F','1785230641030-0'], ['UNISEX CROSS NECKLACE:', 60,'UNISEX CROSS NECKLACE: (in silver too) Can be customized  105','The Jewellery plug','F','1785230641030-1'], ['Acrylic set', 140,'Acrylic medium length aura design','Nail Aesthetics By Vee','S','1785230641030-2'], ['DARO 3 PCs SUIT', 950,'Available in : 30/46; 32/48; 50/36; 52/38; 54/40 ; 56','Sneaks N Wear','F','1785230641030-3'], ['Razer Blade 15 (2020) GAMING', 13000,'Intel Core i7-10750H 2.6 GHz up to 5.0GHz (10th gen Comet Lake Hexa…','TopTek Solutions','T','1785230660989-0'], ['MICROSOFT SURFACE BOOK 2', 7800,'8th Generation Intel Core i7 Processor  Memory: 16GB RA…','TopTek Solutions','T','1785230660989-1'], ['CALVIN KLEIN SHIRTS', 120,'Sizes : M | L | XL | 2XL | 3XL','Sneaks N Wear','F','1785230660989-2'], ["Pink Jordan 1's", 300, 'Pink high top jordans', "H &D's HUB",'F','1785230660989-3'], ['Stickon medium', 90,'Stickon nails','Nail Aesthetics By Vee','S','1785230685631-0'], ['UNISEX Bracelets', 50,'UNISEX BRACELETS  50 each. All can be CUSTOMIZED  Available in Gold','The Jewellery plug','D','1785230685631-1'], ["MEN'S TURTLENECK", 119.99, 'Color Variety: Available in a versatile range of solid colorways including…', 'Sneaks N Wear', 'F', '1785230685631-2'],
-  ['Foldable kettle', 125, 'Convenient for storage and transport in your bag. Foldable and portable design. Equipped with safe and…', 'Campus Plug', 'T', '1785230685631-3'],
-  ['Techno Smart Electric Pressure', 360, 'It features a massive (6.0L) capacity and 1000W of power to handle…', 'Campus Plug', 'T', '1785230713533-0'],
-  ['PS4 designed controller', 175, 'Level up your PlayStation 4 experience with this vibrant wireles…', 'Campus Plug', 'T', '1785230713533-1'],
+  ['Cross chain with inscription', 75, "Cross with inscriptions; the Lord's Prayer (our father)",'The Jewellery plug','F','1785230641030-0'], ['UNISEX CROSS NECKLACE:', 60,'UNISEX CROSS NECKLACE: (in silver too) Can be customized  105','The Jewellery plug','F','1785230641030-1'], ['Acrylic set', 140,'Acrylic medium length aura design','Nail Aesthetics By Vee','S','1785230641030-2'], ['DARO 3 PCs SUIT', 950,'Available in : 30/46; 32/48; 50/36; 52/38; 54/40 ; 56','Sneaks N Wear','F','1785230641030-3'], ['Razer Blade 15 (2020) GAMING', 13000,'Intel Core i7-10750H 2.6 GHz up to 5.0GHz (10th gen Comet Lake Hexaâ€¦','TopTek Solutions','T','1785230660989-0'], ['MICROSOFT SURFACE BOOK 2', 7800,'8th Generation Intel Core i7 Processor  Memory: 16GB RAâ€¦','TopTek Solutions','T','1785230660989-1'], ['CALVIN KLEIN SHIRTS', 120,'Sizes : M | L | XL | 2XL | 3XL','Sneaks N Wear','F','1785230660989-2'], ["Pink Jordan 1's", 300, 'Pink high top jordans', "H &D's HUB",'F','1785230660989-3'], ['Stickon medium', 90,'Stickon nails','Nail Aesthetics By Vee','S','1785230685631-0'], ['UNISEX Bracelets', 50,'UNISEX BRACELETS  50 each. All can be CUSTOMIZED  Available in Gold','The Jewellery plug','D','1785230685631-1'], ["MEN'S TURTLENECK", 119.99, 'Color Variety: Available in a versatile range of solid colorways includingâ€¦', 'Sneaks N Wear', 'F', '1785230685631-2'],
+  ['Foldable kettle', 125, 'Convenient for storage and transport in your bag. Foldable and portable design. Equipped with safe andâ€¦', 'Campus Plug', 'T', '1785230685631-3'],
+  ['Techno Smart Electric Pressure', 360, 'It features a massive (6.0L) capacity and 1000W of power to handleâ€¦', 'Campus Plug', 'T', '1785230713533-0'],
+  ['PS4 designed controller', 175, 'Level up your PlayStation 4 experience with this vibrant wirelesâ€¦', 'Campus Plug', 'T', '1785230713533-1'],
   ['PLAIN LONGSLEEVES', 149.99, 'Sizes: M | L | XL | 2XL | 3XL | Brands: Arare, Polo, Ralph Lauren', 'Sneaks N Wear', 'F', '1785230713533-2'],
-  ['HP VICTUS 15-fa2013dx', 11000, 'Condition: Brand new, sealed in box. CPU: Intel® Core™ i5…', 'TopTek Solutions', 'T', 'x1785230735283-0'],
-  ['Classwiz Calculator', 150, 'Grab one for easy calculations in your algebra and differential equations… class', 'Campus Plug', 'O', 'x1785230735283-1'],
-  ['Water heater', 50, "If the money for a kettle isn't ready yet. Don't worry, I got you. Grab this electric heater for fast and efficient…", 'Campus Plug', 'T', 'x1785230735283-2'],
-  ['Timberland Boot', 550, 'The caraboa shoe stomper', "H &D's HUB",'F','x1785230735283-3'], ['DR MARTENS ZEBZAG MULE.', 500,'Upper Material: It features a soft, premium calf suede upper with a…','Sneaks N Wear','F','x1785230765320-0'], ['NIKE AIRMAX 90', 380, "'Surplus Pink Green'",'Sneaks N Wear','F','x1785230765320-1'], ['Gift package, MALE SET', 350,'ROLEX OYSTER  SET  AVAILABLE IN GOLD AS SEEN, BLA…','The Jewellery plug','F','x1785230765320-2'], ['Laptop stand with fan', 110,'Stop letting your laptop overheat and lag during those long research sessions or heavy gaming nights.','Campus Plug','T','x1785230765320-3'], ['Type-C earpiece', 45,'Clear sound with in-line mic for calls. Handy remote control for volume and music. Comfortable design for all…','Campus Plug','T','1785230780741-0'], ['Customised bracelet', 120,'UNISEX customised bracelet available in black, gold and silver, inside can also be customised.','The Jewellery plug','F','1785230780741-1'], ['Calus power bank', 220, "Don't wait for your phone to go off during a crucial time. Grab this massive 20K mah power bank that…", 'Campus Plug', 'T', '1785230780741-2'],
+  ['HP VICTUS 15-fa2013dx', 11000, 'Condition: Brand new, sealed in box. CPU: IntelÂ® Coreâ„¢ i5â€¦', 'TopTek Solutions', 'T', 'x1785230735283-0'],
+  ['Classwiz Calculator', 150, 'Grab one for easy calculations in your algebra and differential equationsâ€¦ class', 'Campus Plug', 'O', 'x1785230735283-1'],
+  ['Water heater', 50, "If the money for a kettle isn't ready yet. Don't worry, I got you. Grab this electric heater for fast and efficientâ€¦", 'Campus Plug', 'T', 'x1785230735283-2'],
+  ['Timberland Boot', 550, 'The caraboa shoe stomper', "H &D's HUB",'F','x1785230735283-3'], ['DR MARTENS ZEBZAG MULE.', 500,'Upper Material: It features a soft, premium calf suede upper with aâ€¦','Sneaks N Wear','F','x1785230765320-0'], ['NIKE AIRMAX 90', 380, "'Surplus Pink Green'",'Sneaks N Wear','F','x1785230765320-1'], ['Gift package, MALE SET', 350,'ROLEX OYSTER  SET  AVAILABLE IN GOLD AS SEEN, BLAâ€¦','The Jewellery plug','F','x1785230765320-2'], ['Laptop stand with fan', 110,'Stop letting your laptop overheat and lag during those long research sessions or heavy gaming nights.','Campus Plug','T','x1785230765320-3'], ['Type-C earpiece', 45,'Clear sound with in-line mic for calls. Handy remote control for volume and music. Comfortable design for allâ€¦','Campus Plug','T','1785230780741-0'], ['Customised bracelet', 120,'UNISEX customised bracelet available in black, gold and silver, inside can also be customised.','The Jewellery plug','F','1785230780741-1'], ['Calus power bank', 220, "Don't wait for your phone to go off during a crucial time. Grab this massive 20K mah power bank thatâ€¦", 'Campus Plug', 'T', '1785230780741-2'],
   ['Acrylic sets', 140, 'Burgundy design (140) and white design (140)', 'Nail Aesthetics By Vee', 'S', '1785230780741-3'],
   ['G-SHOCK, CUSTOMIZED', 300, 'G-SHOCK watch and a customised bracelet.', 'The Jewellery plug', 'F', 'x1785230796086-0'],
-  ['Universal router', 600, "This decoded router offers the flexibility to use any network. It's ca… support up to 32 devices, providing",'Campus Plug','T','x1785230796086-1'], ['NIKE AIRFORCE 1', 250,'White Nike AirForce 1','Sneaks N Wear','F','x1785230796086-2'], ['HP ELITEBOOK 1030 G4 \u00D7360', 4600,'8th GEN Intel® Core™ i5-8365U processor @1.9~4.10GHz Speed…','TopTek Solutions','T','x1785230796086-3'], ['Eggs', 50,'Size: Small. Quantity: 30 eggs (Full). Half is available for GHS25.00','EggMan','D','1785230826694-0'], ['UNISEX Bracelet', 75,'Durable and classy','The Jewellery plug','F','1785230826694-1'], ['Google Pixel 6 Pro', 3700,'Google Pixel 6 Pro','TopTek Solutions','T','1785230826694-2'], ['Apple Iphone 16', 7299.99,'Apple iphones of all kinds', "H &D's HUB", 'T', '1785230826694-3'],
-  ['APPLE MACBOOK AIR', 6500, 'Apple M1 chip. Memory: 8GB RAM. Storage: 256GB SSD…', 'TopTek Solutions', 'T', '1785230877082-0'],
+  ['Universal router', 600, "This decoded router offers the flexibility to use any network. It's caâ€¦ support up to 32 devices, providing",'Campus Plug','T','x1785230796086-1'], ['NIKE AIRFORCE 1', 250,'White Nike AirForce 1','Sneaks N Wear','F','x1785230796086-2'], ['HP ELITEBOOK 1030 G4 \u00D7360', 4600,'8th GEN IntelÂ® Coreâ„¢ i5-8365U processor @1.9~4.10GHz Speedâ€¦','TopTek Solutions','T','x1785230796086-3'], ['Eggs', 50,'Size: Small. Quantity: 30 eggs (Full). Half is available for GHS25.00','EggMan','D','1785230826694-0'], ['UNISEX Bracelet', 75,'Durable and classy','The Jewellery plug','F','1785230826694-1'], ['Google Pixel 6 Pro', 3700,'Google Pixel 6 Pro','TopTek Solutions','T','1785230826694-2'], ['Apple Iphone 16', 7299.99,'Apple iphones of all kinds', "H &D's HUB", 'T', '1785230826694-3'],
+  ['APPLE MACBOOK AIR', 6500, 'Apple M1 chip. Memory: 8GB RAM. Storage: 256GB SSDâ€¦', 'TopTek Solutions', 'T', '1785230877082-0'],
   ['Egg', 60, 'Size: Big. Quantity: 30 (Full crate). Half is available for GHS30.00', 'EggMan', 'D', '1785230877082-1'],
   ['Black Airforces with Jumbo laces', 280, 'Black air forces with huge laces', "H &D's HUB",'F','1785230877082-2'], ['Converse ALLSTARS Red Lowtop', 160,'Red converse allstarts', "H &D's HUB", 'F', '1785230877082-3'],
-  ['8 in 1 Mega Hub', 190, 'This 8-in-1 Hub has all your missing ports. It instantly connects to your…', 'Campus Plug', 'T', '1785230894435-0'],
+  ['8 in 1 Mega Hub', 190, 'This 8-in-1 Hub has all your missing ports. It instantly connects to yourâ€¦', 'Campus Plug', 'T', '1785230894435-0'],
   ['NIKE AIRMAX PORTAL', 450, '"Midnight Navy"', 'Sneaks N Wear', 'F', '1785230894435-1'],
   ['Acrylic hands and stickon toes', 200, 'Acrylic hands (150) and stickon toes (50)', 'Nail Aesthetics By Vee', 'S', '1785230894435-2'],
-  ['Oud for Glory', 600, "Lattafa Bade'e Al Oud - Oud for Glory is a popular, unisex Oriental woody fragrance launched in 2020. It is…",'The Perfume Store','B','1785230894435-3'], ['2 in 1 Silver Crest blender', 250,'This powerhouse features stainless steel blades to crush through any…','Campus Plug','T','1785230910153-0'], ['RedZobo', 5,'100% Natural Sobolo, Delivered Fresh. Real Fruits. Real Flavor. Real You.','Juice & Bloom','D','1785230910153-1'], ['Seaweed Teal airforce 1', 320,'Seaweed teal irforce 1', "H &D's HUB", 'F', '1785230910153-2'],
+  ['Oud for Glory', 600, "Lattafa Bade'e Al Oud - Oud for Glory is a popular, unisex Oriental woody fragrance launched in 2020. It isâ€¦",'The Perfume Store','B','1785230894435-3'], ['2 in 1 Silver Crest blender', 250,'This powerhouse features stainless steel blades to crush through anyâ€¦','Campus Plug','T','1785230910153-0'], ['RedZobo', 5,'100% Natural Sobolo, Delivered Fresh. Real Fruits. Real Flavor. Real You.','Juice & Bloom','D','1785230910153-1'], ['Seaweed Teal airforce 1', 320,'Seaweed teal irforce 1', "H &D's HUB", 'F', '1785230910153-2'],
   ['OS installation', 150, 'All Operating systems are available and can be installed for you', 'Albany Repairs', 'S', '1785230910153-3'],
   ['Acrylic medium set', 140, 'Acrylic burgundy nail', 'Nail Aesthetics By Vee', 'S', '1785230937439-0'],
   ['Stick-on medium set', 80, 'Burgundy stick-on medium design', 'Nail Aesthetics By Vee', 'S', '1785230937439-1'],
-  ['HP ELITEBOOK x360 1040 G8', 7300, '11th Generation Intel® Core™ i7 Processor (Up to 2.80GHz Spee…', 'TopTek Solutions', 'T', '1785230641030-0']
+  ['HP ELITEBOOK x360 1040 G8', 7300, '11th Generation IntelÂ® Coreâ„¢ i7 Processor (Up to 2.80GHz Speeâ€¦', 'TopTek Solutions', 'T', '1785230641030-0']
 ];
 const SHOTS = ['1785230641030', '1785230660989', '1785230685631', '1785230713533', 'x1785230735283', 'x1785230765320', '1785230780741', 'x1785230796086', '1785230826694', '1785230877082', '1785230894435', '1785230910153', '1785230937439'];
 const PRODUCTS = RAW.map((r, i) => ({
@@ -1528,9 +1726,23 @@ const PRODUCTS = RAW.map((r, i) => ({
   idx: i, deal: i < 2,
   rating: Math.round((3.9 + ((i * 7) % 11) / 10) * 10) / 10,
   reviews: 3 + ((i * 5) % 24), sold: 4 + ((i * 13) % 47),
-  type: /installation|software/i.test(r[0]) ? 'Digital' : (CATMAP[r[4]] === 'Services' ? 'Service' : 'Physical')
+  type: /installation|software/i.test(r[0]) ? 'Digital' : (CATMAP[r[4]] === 'Services' ? 'Service' : 'Physical'),
+  // Condition only means anything for a physical item. Services and digital goods carry none,
+  // so filtering by condition correctly leaves them out.
+  cond: (/installation|software/i.test(r[0]) || CATMAP[r[4]] === 'Services')
+    ? '' : ['NEW', 'NEW', 'LIKE_NEW', 'GOOD', 'NEW', 'FAIR', 'LIKE_NEW', 'USED'][i % 8]
 }));
 const CATS = ['All', 'Food & Beverages', 'Fashion & Apparel', 'Technology & Electronics', 'Services', 'Beauty & Cosmetics', 'Other'];
+const slug = v => String(v || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const SELLER_COUNT = PRODUCTS.reduce((set, p) => set.add(p.vendor), new Set()).size;
+// Seed reviews for the prototype. Swapped for real buyer reviews once orders are live.
+const REVIEWS = [
+  { name: 'Ama Serwaa', hall: 'Africa Hall', when: '2 weeks ago', n: 5, body: 'Delivered to the porterâ€™s lodge same evening. Exactly what was in the photo.' },
+  { name: 'Kwesi Boateng', hall: 'Unity Hall', when: 'last month', n: 4, body: 'Good quality for the price. Took a day longer than we agreed, but he called ahead.' },
+  { name: 'Nana Adjei', hall: 'Republic Hall', when: 'last month', n: 5, body: 'Second time buying from this seller. Pays attention when you ask for something specific.' },
+  { name: 'Efua Mensimah', hall: 'Brunei', when: '3 weeks ago', n: 4, body: 'Works fine. Packaging was basic but nothing was damaged.' },
+  { name: 'Yaw Owusu', hall: 'Katanga', when: 'a week ago', n: 5, body: 'MoMo went through instantly and he confirmed on WhatsApp. No stress.' }
+];
 const MERCH = [
   { id: 'm1', name: 'CODEFEST-TECH-SHIRT', price: 60, cat: 'CODEFEST APPAREL', vendor: 'ACES Shop', desc: 'Official CODEFEST tech tee. Black cotton with the CODEFEST wordmark and circuit artwork.', img: 'assets/shop/codefest-shirt.png', sizes: ['S', 'M', 'L', 'XL', 'XXL'] }
 ];
@@ -1595,7 +1807,7 @@ const COURSES = [
 ].map(c => ({ ...c, files: [{ name: c.title + ' \u2014 ' + (c.file || 'Course Materials'), url: 'https://www.acesknust.com/courses' }] }));
 
 class Component extends DCLogic {
-  state = { bar: true, menu: false, gq: '', search: false, rtab: 'student', reg: { name: '', mail: '', index: '', year: 'Y1', shop: '', cat: 'Food & Beverages', phone: '', pass: '', pass2: '', agree: false }, regDone: false, regErr: '', route: 'home', pid: null, cart: {}, q: '', cat: 'All', cyear: 'All', lb: -1, sent: false, store: '', sort: '', csem: 'All', ptype: 'All', filters: false, favs: {} };
+  state = { bar: true, menu: false, gq: '', search: false, rtab: 'vendor', reg: { name: '', mail: '', index: '', year: 'Y1', shop: '', cat: 'Food & Beverages', phone: '', pass: '', pass2: '', agree: false }, regDone: false, regErr: '', route: 'home', pid: null, cart: {}, q: '', cat: 'All', cyear: 'All', lb: -1, sent: false, store: '', sort: '', csem: 'All', ptype: 'All', filters: false, favs: {}, revStar: 0, revText: '', revSent: false, cond: '', pmin: '', pmax: '' };
   pageRef = React.createRef();
   vpRef = React.createRef();
   hdrRef = React.createRef();
@@ -1663,7 +1875,7 @@ class Component extends DCLogic {
       const h = String(location.hash || '');
       if (h.indexOf('#/') === 0) {
         const parts = h.slice(2).split('/');
-        this.setState({ route: parts[0] || 'home', pid: parts[1] || null, menu: false, search: false, lb: -1 });
+        this.setState({ route: parts[0] || 'home', pid: parts[1] || null, menu: false, search: false, lb: -1, revStar: 0, revText: '', revSent: false });
         window.scrollTo(0, 0);
       }
     };
@@ -1867,6 +2079,10 @@ class Component extends DCLogic {
     let list = PRODUCTS.filter(p => (s.cat === 'All' || p.cat === s.cat) && (!s.store || p.vendor === s.store)
       && (!q || (p.name + ' ' + p.vendor + ' ' + p.cat + ' ' + p.desc).toLowerCase().indexOf(q) > -1));
     if (s.ptype && s.ptype !== 'All') list = list.filter(p => p.type === s.ptype);
+    if (s.cond) list = list.filter(p => p.cond === s.cond);
+    const pmin = parseFloat(s.pmin), pmax = parseFloat(s.pmax);
+    if (!isNaN(pmin)) list = list.filter(p => p.price >= pmin);
+    if (!isNaN(pmax)) list = list.filter(p => p.price <= pmax);
     if (s.sort === 'low') list = list.slice().sort((a, b) => a.price - b.price);
     if (s.sort === 'high') list = list.slice().sort((a, b) => b.price - a.price);
     if (s.sort === 'new') list = list.slice().sort((a, b) => b.idx - a.idx);
@@ -1875,7 +2091,38 @@ class Component extends DCLogic {
     if (s.sort === 'rated') list = list.slice().sort((a, b) => b.rating - a.rating || b.reviews - a.reviews);
     list = list.map(p => ({ ...p, priceT: money(p.price), oldT: money(Math.round(p.price / 0.95)), href: '#/product/' + p.id, short: p.cat.split(' ')[0], hasImg: !!p.img }));
     const prod0 = PRODUCTS.filter(p => p.id === s.pid)[0] || MERCH[0];
-    const prod = { ...prod0, hasImg: !!prod0.img };
+    const prod = { ...prod0, hasImg: !!prod0.img, storeHref: '#/store/' + slug(prod0.vendor) };
+    const prodOld = Math.round(prod0.price / 0.95);
+    const stars = n => 'â˜…â˜…â˜…â˜…â˜…'.slice(0, Math.round(n)) + 'â˜†â˜†â˜†â˜†â˜†'.slice(0, 5 - Math.round(n));
+    // Seeded off the product index so a given product always shows the same reviews.
+    const seedRev = PRODUCTS.indexOf(prod0) < 0 ? 0 : PRODUCTS.indexOf(prod0);
+    const reviews = REVIEWS.slice(seedRev % 3, (seedRev % 3) + 3).map((r, i) => ({
+      ...r, ini: r.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase(),
+      stars: stars(r.n)
+    }));
+
+    // Seller store page â€” everything this vendor has listed.
+    const sellerSlug = s.route === 'store' ? (s.pid || '') : '';
+    const sellerName = (PRODUCTS.filter(p => slug(p.vendor) === sellerSlug)[0] || {}).vendor || '';
+    const sellerItems = PRODUCTS.filter(p => slug(p.vendor) === sellerSlug)
+      .map(p => ({ ...p, priceT: money(p.price), href: '#/product/' + p.id, hasImg: !!p.img }));
+    const sellerSold = sellerItems.reduce((n, p) => n + p.sold, 0);
+    const sellerRating = sellerItems.length
+      ? (sellerItems.reduce((n, p) => n + p.rating, 0) / sellerItems.length).toFixed(1) : 'â€”';
+    const seller = {
+      name: sellerName || 'Store not found',
+      ini: (sellerName || '?').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase(),
+      cat: (sellerItems[0] || {}).cat || '',
+      stats: [
+        { k: 'Listings', v: String(sellerItems.length) },
+        { k: 'Rating', v: sellerRating },
+        { k: 'Sold', v: String(sellerSold) },
+        { k: 'On ACES', v: '2025' }
+      ],
+      wa: 'https://wa.me/233322060331?text=' + encodeURIComponent('Hi ' + (sellerName || '') + ', I saw your store on ACES Marketplace.'),
+      countT: sellerItems.length + (sellerItems.length === 1 ? ' listing' : ' listings'),
+      items: sellerItems, has: sellerItems.length > 0, empty: sellerItems.length === 0
+    };
     const cq = (s.cq || '').trim().toLowerCase();
     const gq = s.gq.trim().toLowerCase();
     let gRes = [];
@@ -1893,12 +2140,12 @@ class Component extends DCLogic {
       COURSES.forEach(c => {
         if (c.title.toLowerCase().indexOf(gq) > -1) {
           const lv = LEVELS.filter(L => L.k === c.level)[0];
-          gRes.push({ kind: 'Course', label: c.title, sub: (lv ? lv.label : c.level) + ' · Sem ' + c.sem + ' · ' + c.credits + ' credits', href: '#/courses' });
+          gRes.push({ kind: 'Course', label: c.title, sub: (lv ? lv.label : c.level) + ' Â· Sem ' + c.sem + ' Â· ' + c.credits + ' credits', href: '#/courses' });
         }
       });
       MERCH.concat(PRODUCTS).forEach(p => {
         if ((p.name + ' ' + p.vendor + ' ' + p.cat).toLowerCase().indexOf(gq) > -1) {
-          gRes.push({ kind: p.id.charAt(0) === 'm' ? 'Merch' : 'Product', label: p.name, sub: p.vendor + ' · GH\u20B5' + p.price, href: '#/product/' + p.id });
+          gRes.push({ kind: p.id.charAt(0) === 'm' ? 'Merch' : 'Product', label: p.name, sub: p.vendor + ' Â· GH\u20B5' + p.price, href: '#/product/' + p.id });
         }
       });
       gRes = gRes.slice(0, 8);
@@ -1932,16 +2179,26 @@ class Component extends DCLogic {
       rName: s.reg.name, rMail: s.reg.mail, rIndex: s.reg.index, rYear: s.reg.year,
       rShop: s.reg.shop, rCat: s.reg.cat, rPhone: s.reg.phone, rPass: s.reg.pass, rPass2: s.reg.pass2, rAgree: s.reg.agree,
       regDone: s.regDone, regForm: !s.regDone, regErr: !!s.regErr, regErrMsg: s.regErr,
-      regCta: s.rtab === 'vendor' ? 'Submit for approval' : 'Create my account',
+      regCta: 'Create Account',
       regTitle: s.rtab === 'vendor' ? 'Application received' : 'Account created',
       regMsg: s.rtab === 'vendor'
         ? 'We will review ' + (s.reg.shop || 'your shop') + ' and email ' + (s.reg.mail || 'you') + ' within a day.'
         : 'Welcome aboard, ' + ((s.reg.name || '').split(' ')[0] || 'ACES member') + '. You can now save events and order from the marketplace.',
-      gCount: gRes.length ? gRes.length + (gRes.length === 1 ? ' result' : ' results') : 'No matches — try a course code or product name',
+      gCount: gRes.length ? gRes.length + (gRes.length === 1 ? ' result' : ' results') : 'No matches â€” try a course code or product name',
       gRes: gRes,
 
+      prodOldT: money(prodOld), prodSaveT: money(prodOld - prod0.price),
+      reviews: reviews, revCountT: prod0.reviews + ' from verified buyers', revStars: stars(prod0.rating),
+      revStarPick: [1, 2, 3, 4, 5].map(n => ({
+        n: String(n), label: n + (n === 1 ? ' star' : ' stars'),
+        color: n <= (s.revStar || 0) ? '#B45309' : '#D3DCE8'
+      })),
+      revText: s.revText || '', revSent: !!s.revSent, revOpen: !s.revSent,
+      seller: seller,
+
       isHome: r === 'home', isAbout: r === 'about', isExec: r === 'executives', isStaff: r === 'staff',
-      isGallery: r === 'gallery', isEvents: r === 'events', isMarket: r === 'marketplace', isProduct: r === 'product',
+      isStore: r === 'store',
+      isGallery: r === 'gallery', isEvents: r === 'events', isMarket: r === 'marketplace', isBrowse: r === 'browse', isProduct: r === 'product',
       isCart: r === 'cart', isCheckout: r === 'checkout', isLogin: r === 'login', isRegister: r === 'register',
       isVendor: r === 'vendor', isCourses: r === 'courses', isScholarships: r === 'scholarships',
       isShop: r === 'shop', isTrack: r === 'track',
@@ -1962,6 +2219,7 @@ class Component extends DCLogic {
       list: list, hasList: list.length > 0, noList: list.length === 0, prod: prod,
       prodPrice: money(prod.price), shirtPrice: money(MERCH[0].price),
       count: list.length, countT: list.length + (list.length === 1 ? ' product found' : ' products found'),
+      cond: s.cond, pmin: s.pmin, pmax: s.pmax,
       store: s.store, hasStore: !!s.store, sort: s.sort,
       sorts: [{ k: '', t: 'Featured' }, { k: 'low', t: 'Price: low to high' }, { k: 'high', t: 'Price: high to low' }].map(o => ({ ...o, on: o.k === s.sort })),
       setSort: e => this.setState({ sort: e.target.value }),
@@ -1969,12 +2227,39 @@ class Component extends DCLogic {
       toggleFilters: () => this.setState(st => ({ filters: !st.filters })),
       types: [{ k: 'All', label: 'All types' }, { k: 'Physical', label: 'Physical product' }, { k: 'Digital', label: 'Digital product' }, { k: 'Service', label: 'Service' }],
       setType: e => this.setState({ ptype: e.currentTarget.dataset.t }),
+      setCond: e => this.setState({ cond: e.currentTarget.value }),
+      setPmin: e => this.setState({ pmin: e.currentTarget.value }),
+      setPmax: e => this.setState({ pmax: e.currentTarget.value }),
+      resetFilters: () => this.setState({ ptype: 'All', cond: '', pmin: '', pmax: '', cat: 'All', q: '', sort: '' }),
       toggleFav: e => { e.preventDefault(); e.stopPropagation(); const id = e.currentTarget.dataset.fav; this.setState(st => { const f = { ...(st.favs || {}) }; if (f[id]) delete f[id]; else f[id] = 1; return { favs: f }; }); },
       addStop: e => { e.preventDefault(); e.stopPropagation(); const id = e.currentTarget.dataset.id; this.setState(st => ({ cart: { ...st.cart, [id]: (st.cart[id] || 0) + 1 } })); },
       setStore: e => { this.setState({ store: e.currentTarget.dataset.store, cat: 'All', q: '' }); window.scrollTo(0, 0); },
+      setRevStar: e => { this.setState({ revStar: Number(e.currentTarget.dataset.star) }); },
+      setRevText: e => { this.setState({ revText: e.currentTarget.value }); },
+      sendRev: () => { if (!this.state.revStar && !(this.state.revText || '').trim()) return; this.setState({ revSent: true }); },
       clearStore: () => this.setState({ store: '' }),
       lines: lines, hasCart: lines.length > 0, emptyCart: lines.length === 0,
       cartCount: count, hasCount: count > 0,
+      // Finding F6: the live site mounts commerce chrome on About, Courses and Scholarships.
+      // The cart belongs to the shopping journey only â€” marketplace, a seller's store, ACES Shop,
+      // and the cart/checkout pages themselves. Nowhere else.
+      showCart: ['browse', 'product', 'store', 'cart', 'checkout', 'shop'].indexOf(r) > -1,
+      // El Mercado model: #/marketplace is a gateway that explains the place and shows no
+      // products at all. The grid lives behind a tap, on #/browse.
+      mkListingsLine: PRODUCTS.length + ' listings from ' + SELLER_COUNT +
+        ' student sellers. Search by name, or narrow it down with categories and filters.',
+      // Informational only — no links. The two buttons underneath are the only way out.
+      mkDoors: [
+        { t: 'Buy Products', d2: 'Browse and buy from ' + SELLER_COUNT + ' verified student sellers across KNUST.', d: 'M4 5h2.2l2 11h10L21 8H7' },
+        { t: 'Become a Seller', d2: 'Open your own shop and sell to thousands of students on campus.', d: 'M4 9h16v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1zM3 9l2-5h14l2 5' },
+        { t: 'Track an Order', d2: 'Follow an order from the moment you pay to the hand-off at your hall.', d: 'M5 12l4 4L19 7' },
+        { t: 'Why it is safe', d2: 'Sellers verify with a KNUST email and settle in person, so nobody here is a stranger.', d: 'M12 3l8 4v6c0 4.4-3.4 7.6-8 8.6-4.6-1-8-4.2-8-8.6V7z' }
+      ],
+      mkSteps: [
+        { k: 'Step one', t: 'Register as a seller', d: 'Username, email, a shop name and what you sell. Verification is automatic for a KNUST address.' },
+        { k: 'Step two', t: 'List your first item', d: 'A photo, a price and a category. Most sellers are live in under two minutes.' },
+        { k: 'Step three', t: 'Get paid on delivery', d: 'Buyers pay by MoMo or cash when you hand the item over. ACES takes nothing.' }
+      ],
       subT: sub ? 'GH\u20B5' + sub.toLocaleString() : 'To confirm', totalT: sub ? 'GH\u20B5' + (sub + 10).toLocaleString() : 'To confirm',
       q: s.q, sent: s.sent, notSent: !s.sent,
       lbOpen: s.lb > -1, lbSrc: s.lb > -1 ? ALBUMS[s.lb].img : '', lbHasSrc: s.lb > -1 && !!ALBUMS[s.lb].img,
@@ -1998,11 +2283,10 @@ class Component extends DCLogic {
       submitReg: () => {
         const r = this.state.reg, vendor = this.state.rtab === 'vendor';
         let err = '';
-        if (!r.name.trim()) err = 'Enter your full name.';
+        if (!r.name.trim()) err = 'Choose a username.';
         else if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(r.mail.trim())) err = 'Enter a valid email address.';
-        else if (!vendor && !r.index.trim()) err = 'Enter your index number.';
         else if (vendor && !r.shop.trim()) err = 'Give your shop a name.';
-        else if (!r.phone.trim()) err = 'We need a WhatsApp number to reach you.';
+        else if (vendor && !r.phone.trim()) err = 'Sellers need a WhatsApp number so buyers can reach you.';
         else if (r.pass.length < 8) err = 'Password must be at least 8 characters.';
         else if (r.pass !== r.pass2) err = 'Passwords do not match.';
         else if (!r.agree) err = 'Please confirm the details and guidelines.';

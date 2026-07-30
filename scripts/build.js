@@ -54,7 +54,15 @@ function injectMeta(html, outName) {
   const m = META[outName];
   if (!m) return html;
   const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
-  const og = `<title>${esc(m.title)}</title>
+  // Favicon: the ACES monogram on brand blue, inline so there's no extra request.
+  // SVG only — an emoji favicon is banned by the design gate.
+  const favicon =
+    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E" +
+    "%3Crect width='64' height='64' rx='14' fill='%230B5FFF'/%3E" +
+    "%3Cpath d='M32 14 L46 50 H38.5 L35.6 42 H28.4 L25.5 50 H18 Z M32 26.5 L29.9 35.5 H34.1 Z' fill='white'/%3E" +
+    '%3C/svg%3E';
+  const og = `<link rel="icon" href="${favicon}" />
+<title>${esc(m.title)}</title>
 <meta name="description" content="${esc(m.desc)}" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="${esc(m.title)}" />
