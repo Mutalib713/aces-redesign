@@ -168,75 +168,67 @@ button{font-family:inherit}
     </sc-if>
 
     <sc-if value="{{ menu }}" hint-placeholder-val="{{ false }}">
-      <div style="position:fixed;inset:0;z-index:110;display:flex;justify-content:flex-end">
-        <div onClick="{{ closeMenu }}" aria-hidden="true" style="position:absolute;inset:0;background:rgba(6,15,30,.5);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);animation:acFade .28s ease both"></div>
-        <div style="position:relative;width:min(420px,100%);height:100%;background:#fff;display:flex;flex-direction:column;box-shadow:-24px 0 60px -30px rgba(6,15,30,.7);animation:acPanel .42s cubic-bezier(.16,1,.3,1) both;will-change:transform">
-        <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid rgba(11,31,58,.09)">
-          <span style="display:flex;align-items:center;gap:9px;animation:acItem .4s cubic-bezier(.16,1,.3,1) .12s both">
-            <span style="width:30px;height:30px;border-radius:9px;background:#0B1F3A;color:#fff;display:grid;place-items:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:-.02em">AC</span>
-            <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;color:#0B1F3A;letter-spacing:-.02em">ACES KNUST</span>
+      <div style="position:fixed;inset:0;z-index:110;display:flex;flex-direction:column;background:linear-gradient(180deg,#EAF4FF 0%,#F7FAFF 42%,#FFFFFF 100%);animation:acFade .24s ease both">
+        <div style="flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px clamp(16px,5cqw,22px)">
+          <span style="display:flex;align-items:center;gap:9px;animation:acItem .4s cubic-bezier(.16,1,.3,1) .06s both">
+            <span style="width:34px;height:34px;border-radius:10px;background:#0B1F3A;color:#fff;display:grid;place-items:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13.5px;letter-spacing:-.02em">AC</span>
+            <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;color:#0B1F3A;letter-spacing:-.02em">ACES KNUST</span>
           </span>
-          <button onClick="{{ closeMenu }}" aria-label="Close menu" style="width:44px;height:44px;display:grid;place-items:center;border:1px solid rgba(11,31,58,.14);background:#fff;cursor:pointer;color:#0B1F3A;border-radius:13px;transition:transform .3s cubic-bezier(.16,1,.3,1),background .25s ease" style-hover="background:#EAF4FF;border-color:#0B5FFF;transform:rotate(90deg)">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"></path></svg>
+          <button onClick="{{ closeMenu }}" aria-label="Close menu" style="width:44px;height:44px;flex:0 0 44px;display:grid;place-items:center;border:none;background:#fff;cursor:pointer;color:#0B1F3A;border-radius:9999px;box-shadow:0 6px 20px rgba(11,95,255,.16);transition:transform .3s cubic-bezier(.16,1,.3,1)" style-hover="transform:rotate(90deg)">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"></path></svg>
           </button>
         </div>
-        <div class="acx" style="flex:1;overflow-y:auto;padding:16px 16px 30px;display:grid;gap:22px">
-          <label style="display:flex;align-items:center;gap:10px;height:50px;padding:0 14px;border-radius:14px;background:#F3F7FF;border:1px solid rgba(11,31,58,.10);animation:acItem .5s cubic-bezier(.16,1,.3,1) .16s both">
+
+        <div class="acx" style="flex:1;min-height:0;overflow-y:auto;padding:6px clamp(16px,5cqw,22px) 18px">
+          <label style="display:flex;align-items:center;gap:10px;height:52px;padding:0 15px;border-radius:18px;background:#fff;box-shadow:0 4px 16px rgba(11,95,255,.08);margin-bottom:16px;animation:acItem .5s cubic-bezier(.16,1,.3,1) .1s both">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5B6B7E" stroke-width="2.1" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.6-3.6"></path></svg>
             <input value="{{ gq }}" onInput="{{ setGq }}" placeholder="Search pages, courses, products" style="flex:1;min-width:0;border:none;background:none;outline:none;font-family:inherit;font-size:15px;color:#111827" />
             <sc-if value="{{ gqOn }}" hint-placeholder-val="{{ false }}">
-              <button onClick="{{ clearGq }}" aria-label="Clear search" style="width:26px;height:26px;flex:0 0 26px;display:grid;place-items:center;border:none;border-radius:8px;background:rgba(11,31,58,.08);color:#5B6B7E;cursor:pointer">
+              <button onClick="{{ clearGq }}" aria-label="Clear search" style="width:28px;height:28px;flex:0 0 28px;display:grid;place-items:center;border:none;border-radius:9999px;background:rgba(11,31,58,.08);color:#5B6B7E;cursor:pointer">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"></path></svg>
               </button>
             </sc-if>
           </label>
+
           <sc-if value="{{ gqOn }}" hint-placeholder-val="{{ false }}">
-            <div style="display:grid;gap:7px;margin-top:-12px">
+            <div style="display:grid;gap:8px;margin-bottom:16px">
               <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#5B6B7E;font-weight:600">{{ gCount }}</div>
               <sc-for list="{{ gRes }}" as="g" hint-placeholder-count="3">
-                <a href="{{ g.href }}" style="display:flex;align-items:center;gap:11px;min-height:52px;padding:8px 12px;border-radius:14px;background:#F7FAFF;border:1px solid rgba(11,31,58,.08);color:#0B1F3A;animation:acItem .35s cubic-bezier(.16,1,.3,1) both" style-hover="background:#EAF4FF;border-color:#0B5FFF">
-                  <span style="font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:#0B5FFF;background:#EAF4FF;border-radius:6px;padding:4px 6px;flex:0 0 auto">{{ g.kind }}</span>
+                <a href="{{ g.href }}" style="display:flex;align-items:center;gap:11px;min-height:54px;padding:8px 14px;border-radius:18px;background:#fff;box-shadow:0 4px 16px rgba(11,95,255,.08);color:#0B1F3A;animation:acItem .35s cubic-bezier(.16,1,.3,1) both">
+                  <span style="font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:#0B5FFF;background:#EAF4FF;border-radius:7px;padding:4px 6px;flex:0 0 auto">{{ g.kind }}</span>
                   <span style="flex:1;min-width:0">
                     <span style="display:block;font-size:14.5px;font-weight:600;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ g.label }}</span>
                     <span style="display:block;font-size:12px;color:#5B6B7E;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ g.sub }}</span>
                   </span>
-                  <span aria-hidden="true" style="color:#0B5FFF">→</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0B5FFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto"><path d="M9 6l6 6-6 6"></path></svg>
                 </a>
               </sc-for>
             </div>
           </sc-if>
-          <div style="display:grid;gap:9px;animation:acItem .5s cubic-bezier(.16,1,.3,1) .22s both">
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#5B6B7E;font-weight:600">Explore</div>
-            <a href="#/home" style="display:flex;align-items:center;justify-content:space-between;min-height:50px;padding:0 14px;border-radius:14px;background:#F7FAFF;font-size:16px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">Home<span style="color:#0B5FFF">→</span></a>
-            <a href="#/about" style="display:flex;align-items:center;justify-content:space-between;min-height:50px;padding:0 14px;border-radius:14px;background:#F7FAFF;font-size:16px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">About ACES<span style="color:#0B5FFF">→</span></a>
-            <a href="#/executives" style="display:flex;align-items:center;justify-content:space-between;min-height:50px;padding:0 14px;border-radius:14px;background:#F7FAFF;font-size:16px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">Executives<span style="color:#0B5FFF">→</span></a>
-            <a href="#/staff" style="display:flex;align-items:center;justify-content:space-between;min-height:50px;padding:0 14px;border-radius:14px;background:#F7FAFF;font-size:16px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">Staff &amp; department<span style="color:#0B5FFF">→</span></a>
-            <a href="#/events" style="display:flex;align-items:center;justify-content:space-between;min-height:50px;padding:0 14px;border-radius:14px;background:#F7FAFF;font-size:16px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">Events<span style="color:#0B5FFF">→</span></a>
-            <a href="#/gallery" style="display:flex;align-items:center;justify-content:space-between;min-height:50px;padding:0 14px;border-radius:14px;background:#F7FAFF;font-size:16px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">Gallery<span style="color:#0B5FFF">→</span></a>
+
+          <div style="display:grid;gap:8px">
+            <sc-for list="{{ navItems }}" as="nv" hint-placeholder-count="6">
+              <a href="{{ nv.href }}" style="display:flex;align-items:center;justify-content:space-between;gap:12px;height:54px;padding:0 20px;border-radius:18px;background:{{ nv.bg }};color:{{ nv.fg }};font-size:16.5px;font-weight:{{ nv.fw }};box-shadow:{{ nv.shadow }};animation:acItem .5s cubic-bezier(.16,1,.3,1) both">
+                {{ nv.label }}
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;opacity:.75"><path d="M9 6l6 6-6 6"></path></svg>
+              </a>
+            </sc-for>
           </div>
-          <div style="display:grid;gap:9px;animation:acItem .5s cubic-bezier(.16,1,.3,1) .28s both">
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#5B6B7E;font-weight:600">Marketplace</div>
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:9px">
-              <a href="#/browse" style="display:flex;align-items:center;min-height:50px;padding:0 14px;border-radius:14px;background:#EAF4FF;font-size:15px;font-weight:600;color:#0B5FFF" style-hover="background:#0B5FFF;color:#fff">Browse products</a>
-              <a href="#/cart" style="display:flex;align-items:center;min-height:50px;padding:0 14px;border-radius:14px;background:#F7FAFF;font-size:15px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">Cart</a>
-              <a href="#/register" style="display:flex;align-items:center;min-height:50px;padding:0 14px;border-radius:14px;background:#F7FAFF;font-size:15px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">Register / sell</a>
-              <a href="#/vendor" style="display:flex;align-items:center;min-height:50px;padding:0 14px;border-radius:14px;background:#F7FAFF;font-size:15px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">Vendor dashboard</a>
+
+          <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(11,31,58,.1);animation:acItem .5s cubic-bezier(.16,1,.3,1) .34s both">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#5B6B7E;font-weight:600;margin-bottom:11px">More from ACES</div>
+            <div style="display:flex;flex-wrap:wrap;gap:7px">
+              <sc-for list="{{ navMore }}" as="nm" hint-placeholder-count="6">
+                <a href="{{ nm.href }}" style="display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border-radius:9999px;background:#fff;color:#0B1F3A;font-size:14px;font-weight:600;box-shadow:0 3px 12px rgba(11,95,255,.07)" style-hover="color:#0B5FFF">{{ nm.label }}</a>
+              </sc-for>
             </div>
-          </div>
-          <div style="display:grid;gap:9px;animation:acItem .5s cubic-bezier(.16,1,.3,1) .34s both">
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#5B6B7E;font-weight:600">Resources</div>
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:9px">
-              <a href="#/courses" style="display:flex;align-items:center;min-height:50px;padding:0 14px;border-radius:14px;background:#F7FAFF;font-size:15px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">Courses</a>
-              <a href="#/scholarships" style="display:flex;align-items:center;min-height:50px;padding:0 14px;border-radius:14px;background:#F7FAFF;font-size:15px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">Scholarships</a>
-              <a href="#/shop" style="display:flex;align-items:center;min-height:50px;padding:0 14px;border-radius:14px;background:#F7FAFF;font-size:15px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">ACES Shop</a>
-              <a href="#/track" style="display:flex;align-items:center;min-height:50px;padding:0 14px;border-radius:14px;background:#F7FAFF;font-size:15px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">Track an order</a>
-            </div>
-          </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;animation:acItem .5s cubic-bezier(.16,1,.3,1) .4s both">
-            <a href="#/login" style="display:flex;align-items:center;justify-content:center;min-height:52px;border-radius:14px;background:#0B1F3A;color:#fff;font-size:15.5px;font-weight:700" style-hover="background:#0B5FFF;color:#fff">Log in</a>
-            <a href="#/register" style="display:flex;align-items:center;justify-content:center;min-height:52px;border-radius:14px;border:1px solid rgba(11,95,255,.35);background:#EAF4FF;color:#0B5FFF;font-size:15.5px;font-weight:700" style-hover="background:#0B5FFF;color:#fff">Register</a>
           </div>
         </div>
+
+        <div style="flex:0 0 auto;padding:14px clamp(16px,5cqw,22px) calc(14px + env(safe-area-inset-bottom,0px));display:grid;gap:10px;animation:acItem .5s cubic-bezier(.16,1,.3,1) .4s both">
+          <a href="#/login" style="display:flex;align-items:center;justify-content:center;min-height:50px;border-radius:9999px;background:#fff;color:#0B1F3A;font-size:15px;font-weight:700;box-shadow:0 4px 16px rgba(11,31,58,.1)" style-hover="color:#0B5FFF">Log in</a>
+          <a href="#/register" style="display:flex;align-items:center;justify-content:center;min-height:50px;border-radius:9999px;background:#0B5FFF;color:#fff;font-size:15px;font-weight:700;box-shadow:0 12px 28px -10px rgba(11,95,255,.55)" style-hover="background:#0B1F3A">Become a seller</a>
+          <div style="text-align:center;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.02em;color:#5B6B7E;padding-top:2px">{{ navStat }}</div>
         </div>
       </div>
     </sc-if>
@@ -1726,37 +1718,85 @@ button{font-family:inherit}
         </div>
       </sc-if>
 
-      <footer style="background:#0B1F3A;color:#fff;padding:clamp(30px,6cqw,60px) clamp(16px,4cqw,40px) 20px">
+      <div style="background:linear-gradient(180deg,#EAF4FF 0%,#EAF4FF 50%,#0B1F3A 50%,#0B1F3A 100%);padding:0 clamp(16px,4cqw,40px)">
+        <div data-rv="1" style="animation:acRise .8s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;max-width:1240px;margin:0 auto;padding:clamp(26px,5cqw,44px) clamp(20px,4cqw,40px);border-radius:24px;background:#0B5FFF;text-align:center;box-shadow:0 26px 60px -30px rgba(11,95,255,.85)">
+          <h2 style="margin:0 0 8px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(21px,5.2cqw,31px);letter-spacing:-.025em;line-height:1.15;color:#fff">Subscribe to ACES Updates</h2>
+          <p style="margin:0 auto;max-width:44ch;font-size:clamp(14.5px,3.2cqw,16.5px);line-height:1.55;color:rgba(255,255,255,.88);text-wrap:pretty">Events, deadlines, course uploads and marketplace drops. One short email a week, and nothing else.</p>
+          <sc-if value="{{ subClosed }}" hint-placeholder-val="{{ true }}">
+            <button onClick="{{ openSub }}" style="margin-top:20px;min-height:52px;padding:0 30px;border-radius:9999px;border:1.5px solid rgba(255,255,255,.75);background:none;color:#fff;font-family:inherit;font-size:16px;font-weight:600;cursor:pointer;transition:background .25s ease,color .25s ease" style-hover="background:#fff;color:#0B5FFF">Subscribe Now</button>
+          </sc-if>
+          <sc-if value="{{ subOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="margin:20px auto 0;max-width:440px;display:flex;flex-wrap:wrap;gap:9px;animation:acRise .45s cubic-bezier(.16,1,.3,1) both">
+              <input value="{{ subMail }}" onInput="{{ setSubMail }}" type="email" placeholder="student@knust.edu.gh" aria-label="Your student email" style="flex:1 1 190px;min-width:0;min-height:52px;padding:0 16px;border-radius:9999px;border:1.5px solid rgba(255,255,255,.5);background:rgba(255,255,255,.12);color:#fff;font-family:inherit;font-size:15.5px;outline:none;box-sizing:border-box" />
+              <button onClick="{{ sendSub }}" style="flex:0 0 auto;min-height:52px;padding:0 26px;border:none;border-radius:9999px;background:#fff;color:#0B5FFF;font-family:inherit;font-size:15.5px;font-weight:700;cursor:pointer" style-hover="background:#0B1F3A;color:#fff">Join the list</button>
+            </div>
+          </sc-if>
+          <sc-if value="{{ subDone }}" hint-placeholder-val="{{ false }}">
+            <div style="margin:20px auto 0;display:inline-flex;align-items:center;gap:9px;padding:14px 20px;border-radius:9999px;background:rgba(255,255,255,.16);color:#fff;animation:acPop .35s cubic-bezier(.16,1,.3,1) both">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+              <span style="font-size:15.5px;font-weight:700">You are on the list. First email lands Monday.</span>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+
+      <footer style="background:#0B1F3A;color:#fff;padding:clamp(26px,5cqw,48px) clamp(16px,4cqw,40px) 22px">
         <div style="max-width:1240px;margin:0 auto">
-          <div style="display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:clamp(22px,3cqw,44px)">
-            <div style="flex:1 1 260px;min-width:0;max-width:380px">
-              <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
-                <span style="width:40px;height:40px;flex:0 0 40px;border-radius:12px;background:linear-gradient(145deg,#0B5FFF,#081830);display:grid;place-items:center"><img src="https://www.acesknust.com/images/logo-white.png" alt="ACES logo" style="width:27px;height:27px;object-fit:contain;display:block" /></span>
-                <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14.5px;line-height:1.3;color:rgba(255,255,255,.9)">Association of Computer<br />Engineering Students</span>
+
+          <div style="border-top:1px solid rgba(255,255,255,.14)">
+            <sc-for list="{{ footGroups }}" as="fg" hint-placeholder-count="4">
+              <div style="border-bottom:1px solid rgba(255,255,255,.14)">
+                <button data-acc="{{ fg.id }}" onClick="{{ toggleAcc }}" aria-expanded="{{ fg.expanded }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:60px;padding:0 2px;border:none;background:none;color:#fff;font-family:inherit;font-size:16.5px;font-weight:500;text-align:left;cursor:pointer" style-hover="color:#8FBBFF">
+                  {{ fg.label }}
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;color:rgba(255,255,255,.45);transform:{{ fg.rotate }};transition:transform .3s cubic-bezier(.16,1,.3,1)"><path d="M6 9l6 6 6-6"></path></svg>
+                </button>
+                <sc-if value="{{ fg.open }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:grid;gap:2px;padding:0 2px 16px;animation:acDrawer .3s cubic-bezier(.16,1,.3,1) both">
+                    <sc-for list="{{ fg.links }}" as="fl" hint-placeholder-count="4">
+                      <a href="{{ fl.href }}" style="display:flex;align-items:center;min-height:44px;font-size:15px;color:rgba(255,255,255,.66)" style-hover="color:#fff">{{ fl.label }}</a>
+                    </sc-for>
+                  </div>
+                </sc-if>
               </div>
-              <p style="margin:0 0 14px;font-size:13.5px;line-height:1.6;color:rgba(255,255,255,.62);text-wrap:pretty">Department Office<br />KNUST-CoE, Vodafone Building — Ground Floor</p>
-              <div style="display:flex;gap:8px">
-                <a href="https://www.linkedin.com/company/aces-knust/" aria-label="LinkedIn" style="width:40px;height:40px;display:grid;place-items:center;border-radius:12px;background:rgba(255,255,255,.09);color:#fff" style-hover="background:#0B5FFF;color:#fff"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M6.5 8.5v10h-3v-10zM5 3.6a1.9 1.9 0 110 3.8 1.9 1.9 0 010-3.8zM20.5 13.2v5.3h-3v-4.8c0-1.2-.4-2-1.5-2-.9 0-1.4.6-1.6 1.2-.1.2-.1.5-.1.8v4.8h-3s.04-8.2 0-9h3v1.3c.4-.6 1.2-1.5 2.9-1.5 2.1 0 3.3 1.4 3.3 4z"></path></svg></a>
-                <a href="https://www.instagram.com/aces_knust/" aria-label="Instagram" style="width:40px;height:40px;display:grid;place-items:center;border-radius:12px;background:rgba(255,255,255,.09);color:#fff" style-hover="background:#0B5FFF;color:#fff"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3.5" y="3.5" width="17" height="17" rx="5"></rect><circle cx="12" cy="12" r="3.8"></circle><circle cx="17" cy="7" r="1.1" fill="currentColor" stroke="none"></circle></svg></a>
-                <a href="https://x.com/aces_knust" aria-label="X" style="width:40px;height:40px;display:grid;place-items:center;border-radius:12px;background:rgba(255,255,255,.09);color:#fff" style-hover="background:#0B5FFF;color:#fff"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7 8 7.5 12h-6.3l-4.9-7.4L5.6 22H2.4l7.4-8.5L2.5 2h6.4l4.6 6.9zm-1.1 18h1.7L7.3 3.8H5.5z"></path></svg></a>
-              </div>
-            </div>
-            <div style="flex:1 1 300px;min-width:0;max-width:440px;padding:clamp(18px,3.4cqw,24px);border-radius:20px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14)">
-              <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.5);font-weight:600;margin-bottom:10px">Newsletter</div>
-              <h3 style="margin:0 0 8px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(19px,4.6cqw,24px);letter-spacing:-.02em;color:#fff">ACES in your inbox</h3>
-              <p style="margin:0 0 16px;font-size:14.5px;line-height:1.55;color:rgba(255,255,255,.7);text-wrap:pretty">Events, deadlines and marketplace drops. One short email a week.</p>
-              <div style="display:flex;flex-wrap:wrap;gap:8px">
-                <input placeholder="student@knust.edu.gh" style="flex:1 1 180px;min-width:0;min-height:50px;padding:0 14px;border-radius:14px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.1);color:#fff;font-family:inherit;font-size:15px;outline:none" />
-                <button style="min-height:50px;padding:0 20px;border:none;border-radius:14px;background:#0B5FFF;color:#fff;font-size:15px;font-weight:700;cursor:pointer" style-hover="background:#fff;color:#0B1F3A">Subscribe</button>
-              </div>
-            </div>
+            </sc-for>
+            <sc-for list="{{ footFlat }}" as="ff" hint-placeholder-count="3">
+              <a href="{{ ff.href }}" style="display:flex;align-items:center;min-height:60px;padding:0 2px;font-size:16.5px;font-weight:500;color:#fff;border-bottom:1px solid rgba(255,255,255,.14)" style-hover="color:#8FBBFF">{{ ff.label }}</a>
+            </sc-for>
           </div>
-          <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-top:26px;padding-top:18px;border-top:1px solid rgba(255,255,255,.12)">
-            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6)">Technology For Our Age · © 2026</span>
-            <span style="display:flex;gap:16px">
-              <a href="#" style="font-size:13px;color:rgba(255,255,255,.7)" style-hover="color:#fff">Terms &amp; conditions</a>
-              <a href="#" style="font-size:13px;color:rgba(255,255,255,.7)" style-hover="color:#fff">Policy</a>
+
+          <div style="text-align:center;padding-top:clamp(28px,5cqw,44px)">
+            <span style="display:inline-flex;align-items:center;gap:11px;margin-bottom:16px">
+              <span style="width:44px;height:44px;flex:0 0 44px;border-radius:13px;background:rgba(255,255,255,.1);display:grid;place-items:center"><img src="https://www.acesknust.com/images/logo-white.png" alt="ACES KNUST logo" style="width:29px;height:29px;object-fit:contain;display:block" /></span>
+              <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:21px;letter-spacing:-.03em;color:#fff">ACES KNUST</span>
             </span>
+
+            <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;margin-bottom:22px;font-size:13.5px;color:rgba(255,255,255,.62)">
+              <a href="#/about" style="color:rgba(255,255,255,.62)" style-hover="color:#fff">Legal</a>
+              <span aria-hidden="true" style="color:rgba(255,255,255,.28)">|</span>
+              <a href="#/about" style="color:rgba(255,255,255,.62)" style-hover="color:#fff">Cookie Policy</a>
+              <span aria-hidden="true" style="color:rgba(255,255,255,.28)">|</span>
+              <span>© Copyright 2026</span>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:center;gap:11px;flex-wrap:wrap">
+              <a href="https://www.instagram.com/aces_knust/" aria-label="ACES on Instagram" style="width:46px;height:46px;display:grid;place-items:center;border-radius:9999px;background:#fff;color:#0B1F3A;transition:transform .25s cubic-bezier(.16,1,.3,1),background .25s ease" style-hover="background:#0B5FFF;color:#fff">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3.5" y="3.5" width="17" height="17" rx="5"></rect><circle cx="12" cy="12" r="3.8"></circle><circle cx="17" cy="7" r="1.1" fill="currentColor" stroke="none"></circle></svg>
+              </a>
+              <a href="https://x.com/aces_knust" aria-label="ACES on X" style="width:46px;height:46px;display:grid;place-items:center;border-radius:9999px;background:#fff;color:#0B1F3A;transition:background .25s ease" style-hover="background:#0B5FFF;color:#fff">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7 8 7.5 12h-6.3l-4.9-7.4L5.6 22H2.4l7.4-8.5L2.5 2h6.4l4.6 6.9zm-1.1 18h1.7L7.3 3.8H5.5z"></path></svg>
+              </a>
+              <a href="https://www.linkedin.com/company/aces-knust/" aria-label="ACES on LinkedIn" style="width:46px;height:46px;display:grid;place-items:center;border-radius:9999px;background:#fff;color:#0B1F3A;transition:background .25s ease" style-hover="background:#0B5FFF;color:#fff">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M6.5 8.5v10h-3v-10zM5 3.6a1.9 1.9 0 110 3.8 1.9 1.9 0 010-3.8zM20.5 13.2v5.3h-3v-4.8c0-1.2-.4-2-1.5-2-.9 0-1.4.6-1.6 1.2-.1.2-.1.5-.1.8v4.8h-3s.04-8.2 0-9h3v1.3c.4-.6 1.2-1.5 2.9-1.5 2.1 0 3.3 1.4 3.3 4z"></path></svg>
+              </a>
+              <a href="https://t.me/acesknust" aria-label="ACES on Telegram" style="width:46px;height:46px;display:grid;place-items:center;border-radius:9999px;background:#fff;color:#0B1F3A;transition:background .25s ease" style-hover="background:#0B5FFF;color:#fff">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M21.7 3.3L2.9 10.6c-.9.35-.88 1.66.03 1.98l4.2 1.47 1.6 5.1c.26.83 1.34 1 1.85.3l2.3-3.1 4.4 3.24c.7.52 1.7.13 1.87-.72l3-14.1c.2-.93-.7-1.7-1.55-1.35zM9.3 13.9l8.3-5.6-6.4 6.6-.2 3z"></path></svg>
+              </a>
+              <a href="mailto:aces@knust.edu.gh" aria-label="Email ACES" style="width:46px;height:46px;display:grid;place-items:center;border-radius:9999px;background:#fff;color:#0B1F3A;transition:background .25s ease" style-hover="background:#0B5FFF;color:#fff">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"></rect><path d="M3.5 7l8.5 6 8.5-6"></path></svg>
+              </a>
+            </div>
+
+            <div style="margin-top:20px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4)">Technology for our age</div>
           </div>
         </div>
       </footer>
@@ -1894,7 +1934,7 @@ const COURSES = [
 ].map(c => ({ ...c, files: [{ name: c.title + ' \u2014 ' + (c.file || 'Course Materials'), url: 'https://www.acesknust.com/courses' }] }));
 
 class Component extends DCLogic {
-  state = { bar: true, menu: false, gq: '', search: false, rtab: 'vendor', reg: { name: '', mail: '', index: '', year: 'Y1', shop: '', cat: 'Food & Beverages', phone: '', pass: '', pass2: '', agree: false }, regDone: false, regErr: '', route: 'home', pid: null, cart: {}, q: '', cat: 'All', cyear: 'All', lb: -1, sent: false, store: '', sort: '', csem: 'All', ptype: 'All', filters: false, favs: {}, revStar: 0, revText: '', revSent: false, cond: '', pmin: '', pmax: '' };
+  state = { bar: true, menu: false, gq: '', search: false, rtab: 'vendor', reg: { name: '', mail: '', index: '', year: 'Y1', shop: '', cat: 'Food & Beverages', phone: '', pass: '', pass2: '', agree: false }, regDone: false, regErr: '', route: 'home', pid: null, cart: {}, q: '', cat: 'All', cyear: 'All', lb: -1, sent: false, store: '', sort: '', csem: 'All', ptype: 'All', filters: false, favs: {}, revStar: 0, revText: '', revSent: false, cond: '', pmin: '', pmax: '', acc: '', sub: '', subMail: '' };
   pageRef = React.createRef();
   vpRef = React.createRef();
   hdrRef = React.createRef();
@@ -2300,6 +2340,53 @@ class Component extends DCLogic {
       seller: seller,
 
       isHome: r === 'home', isAbout: r === 'about', isExec: r === 'executives', isStaff: r === 'staff',
+      // Full-screen menu: the six top-level destinations as pill cards, current one filled.
+      navItems: [
+        ['Home', '#/home', 'home'], ['About ACES', '#/about', 'about'], ['Events', '#/events', 'events'],
+        ['Marketplace', '#/marketplace', 'marketplace'], ['Courses', '#/courses', 'courses'],
+        ['Gallery', '#/gallery', 'gallery']
+      ].map(([label, href, key]) => {
+        const on = r === key || (key === 'marketplace' && ['browse', 'product', 'store', 'cart', 'checkout', 'favourites'].indexOf(r) > -1);
+        return {
+          label: label, href: href,
+          bg: on ? '#0B5FFF' : '#ffffff',
+          fg: on ? '#ffffff' : '#0B1F3A',
+          fw: on ? '800' : '700',
+          shadow: on ? '0 12px 28px -10px rgba(11,95,255,.5)' : '0 4px 16px rgba(11,95,255,.08)'
+        };
+      }),
+      navMore: [
+        { label: 'Executives', href: '#/executives' }, { label: 'Staff', href: '#/staff' },
+        { label: 'Scholarships', href: '#/scholarships' }, { label: 'ACES Shop', href: '#/shop' },
+        { label: 'Vendor hub', href: '#/vendor' }, { label: 'Track an order', href: '#/track' },
+        { label: 'Saved', href: '#/favourites' }
+      ],
+      navStat: PRODUCTS.length + ' listings · ' + SELLER_COUNT + ' student sellers · 9 courses filed',
+
+      // Footer accordion. One group open at a time, collapsed by default so the footer stays short
+      // on a phone — the whole point of the pattern.
+      footGroups: [
+        { id: 'assoc', label: 'Association', links: [
+          { label: 'About ACES', href: '#/about' }, { label: 'Executives', href: '#/executives' },
+          { label: 'Staff & department', href: '#/staff' }, { label: 'Gallery', href: '#/gallery' }] },
+        { id: 'market', label: 'Marketplace', links: [
+          { label: 'Browse listings', href: '#/browse' }, { label: 'Your favourites', href: '#/favourites' },
+          { label: 'Become a seller', href: '#/register' }, { label: 'Vendor hub', href: '#/vendor' },
+          { label: 'Track an order', href: '#/track' }] },
+        { id: 'res', label: 'Resources', links: [
+          { label: 'Course materials', href: '#/courses' }, { label: 'Scholarships', href: '#/scholarships' },
+          { label: 'ACES Shop', href: '#/shop' }] }
+      ].map(g => ({
+        ...g, open: s.acc === g.id, expanded: s.acc === g.id ? 'true' : 'false',
+        rotate: s.acc === g.id ? 'rotate(180deg)' : 'rotate(0deg)'
+      })),
+      footFlat: [
+        { label: 'Events', href: '#/events' },
+        { label: 'Log in', href: '#/login' },
+        { label: 'Support', href: 'mailto:aces@knust.edu.gh' }
+      ],
+      subOpen: s.sub === 'open', subClosed: !s.sub, subDone: s.sub === 'done', subMail: s.subMail || '',
+
       isStore: r === 'store', isFavs: r === 'favourites',
       favList: favList, hasFavs: favList.length > 0, noFavs: favList.length === 0,
       favLine: favList.length
@@ -2338,6 +2425,10 @@ class Component extends DCLogic {
       types: [{ k: 'All', label: 'All types' }, { k: 'Physical', label: 'Physical product' }, { k: 'Digital', label: 'Digital product' }, { k: 'Service', label: 'Service' }],
       setType: e => this.setState({ ptype: e.currentTarget.dataset.t }),
       setCond: e => this.setState({ cond: e.currentTarget.value }),
+      toggleAcc: e => { const id = e.currentTarget.dataset.acc; this.setState(st => ({ acc: st.acc === id ? '' : id })); },
+      openSub: () => this.setState({ sub: 'open' }),
+      setSubMail: e => this.setState({ subMail: e.currentTarget.value }),
+      sendSub: () => { if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(this.state.subMail || '')) return; this.setState({ sub: 'done' }); },
       dropFilter: e => {
         const k = e.currentTarget.dataset.k;
         const blank = { q: '', cat: 'All', ptype: 'All', cond: '', pmin: '', pmax: '' };
