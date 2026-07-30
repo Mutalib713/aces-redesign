@@ -36,10 +36,13 @@ for (const p of PAGES) {
 
   check(html.length > 20000, `${p} is non-trivial (${Math.round(html.length / 1024)} KB)`);
 
-  // Mojibake guard. PowerShell's Set-Content/Out-File can re-save UTF-8 as CP1252, which
-  // turns — into â€” and → into â†’ across the whole page. Caught it once; never again.
-  const moji = html.match(/[ÂÃâÅÆ][-ÿ–-™]/g) || [];
-  check(moji.length === 0, `${p} has no mojibake (${moji.length ? [...new Set(moji)].slice(0, 5).join(' ') : 'clean'})`);
+  // Mojibake guard. PowerShell's Set-Content/Out-File can re-save UTF-8 as CP1252, turning
+  // an em dash into three junk chars and a star into another three. The tail class must cover
+  // every character CP1252 can emit, including U+02DC — a narrower class missed the mangled
+  // stars for a whole round before anyone noticed.
+  const TAIL = "[\u00a0-\u00ff\u20ac\u201a\u0192\u201e\u2026\u2020\u2021\u02c6\u2030\u0160\u2039\u0152\u017d\u2018\u2019\u201c\u201d\u2022\u2013\u2014\u02dc\u2122\u0161\u203a\u0153\u017e\u0178]";
+  const moji = html.match(new RegExp("[\u00c2-\u00c6\u00e2\u00e3]" + TAIL, "g")) || [];
+  check(moji.length === 0, `${p} has no mojibake (${moji.length ? moji.length + " found: " + [...new Set(moji)].slice(0, 5).join(" ") : "clean"})`);
 
   // A pasted link has to render a card — this gets shared in WhatsApp, not crawled.
   const title = /<title>([^<]+)<\/title>/.exec(html);
