@@ -26,6 +26,7 @@ button{font-family:inherit}
 @keyframes acRight{from{opacity:0;transform:translateX(56px)}to{opacity:1;transform:none}}
 @keyframes acLeft{from{opacity:0;transform:translateX(-56px)}to{opacity:1;transform:none}}
 @keyframes acRightSm{from{opacity:0;transform:translateX(26px)}to{opacity:1;transform:none}}
+@keyframes acSlowZoom{from{transform:scale(1.12)}to{transform:scale(1)}}
 @keyframes acFade{from{opacity:0}to{opacity:1}}
 @keyframes acPop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
 @keyframes acDrawer{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
@@ -183,45 +184,24 @@ button{font-family:inherit}
         </div>
 
         <div class="acx" style="flex:1;min-height:0;overflow-y:auto;padding:6px clamp(16px,5cqw,22px) 18px">
-          <label style="display:flex;align-items:center;gap:10px;height:52px;padding:0 15px;border-radius:18px;background:#fff;box-shadow:0 4px 16px rgba(11,95,255,.08);margin-bottom:16px;animation:acItem .5s cubic-bezier(.16,1,.3,1) .1s both">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5B6B7E" stroke-width="2.1" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.6-3.6"></path></svg>
-            <input value="{{ gq }}" onInput="{{ setGq }}" placeholder="Search pages, courses, products" style="flex:1;min-width:0;border:none;background:none;outline:none;font-family:inherit;font-size:15px;color:#111827" />
-            <sc-if value="{{ gqOn }}" hint-placeholder-val="{{ false }}">
-              <button onClick="{{ clearGq }}" aria-label="Clear search" style="width:28px;height:28px;flex:0 0 28px;display:grid;place-items:center;border:none;border-radius:9999px;background:rgba(11,31,58,.08);color:#5B6B7E;cursor:pointer">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"></path></svg>
-              </button>
-            </sc-if>
-          </label>
-
-          <sc-if value="{{ gqOn }}" hint-placeholder-val="{{ false }}">
-            <div style="display:grid;gap:8px;margin-bottom:16px">
-              <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#5B6B7E;font-weight:600">{{ gCount }}</div>
-              <sc-for list="{{ gRes }}" as="g" hint-placeholder-count="3">
-                <a href="{{ g.href }}" style="display:flex;align-items:center;gap:11px;min-height:54px;padding:8px 14px;border-radius:18px;background:#fff;box-shadow:0 4px 16px rgba(11,95,255,.08);color:#0B1F3A;animation:acItem .35s cubic-bezier(.16,1,.3,1) both">
-                  <span style="font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:#0B5FFF;background:#EAF4FF;border-radius:7px;padding:4px 6px;flex:0 0 auto">{{ g.kind }}</span>
-                  <span style="flex:1;min-width:0">
-                    <span style="display:block;font-size:14.5px;font-weight:600;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ g.label }}</span>
-                    <span style="display:block;font-size:12px;color:#5B6B7E;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ g.sub }}</span>
-                  </span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0B5FFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto"><path d="M9 6l6 6-6 6"></path></svg>
-                </a>
-              </sc-for>
+          <sc-for list="{{ navGroups }}" as="ng" hint-placeholder-count="3">
+            <div style="margin-bottom:20px;animation:acItem .5s cubic-bezier(.16,1,.3,1) both;animation-delay:{{ ng.delay }}">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#5B6B7E;font-weight:600;margin-bottom:10px">{{ ng.label }}</div>
+              <div style="display:grid;gap:8px">
+                <sc-for list="{{ ng.items }}" as="nv" hint-placeholder-count="5">
+                  <a href="{{ nv.href }}" style="display:flex;align-items:center;justify-content:space-between;gap:12px;height:54px;padding:0 20px;border-radius:18px;background:{{ nv.bg }};color:{{ nv.fg }};font-size:16.5px;font-weight:{{ nv.fw }};box-shadow:{{ nv.shadow }};transition:transform .22s cubic-bezier(.16,1,.3,1)" style-hover="transform:translateX(4px)">
+                    {{ nv.label }}
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;opacity:.75"><path d="M9 6l6 6-6 6"></path></svg>
+                  </a>
+                </sc-for>
+              </div>
             </div>
-          </sc-if>
+          </sc-for>
 
-          <div style="display:grid;gap:8px">
-            <sc-for list="{{ navItems }}" as="nv" hint-placeholder-count="6">
-              <a href="{{ nv.href }}" style="display:flex;align-items:center;justify-content:space-between;gap:12px;height:54px;padding:0 20px;border-radius:18px;background:{{ nv.bg }};color:{{ nv.fg }};font-size:16.5px;font-weight:{{ nv.fw }};box-shadow:{{ nv.shadow }};animation:acItem .5s cubic-bezier(.16,1,.3,1) both">
-                {{ nv.label }}
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 auto;opacity:.75"><path d="M9 6l6 6-6 6"></path></svg>
-              </a>
-            </sc-for>
-          </div>
-
-          <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(11,31,58,.1);animation:acItem .5s cubic-bezier(.16,1,.3,1) .34s both">
+          <div style="padding-top:14px;border-top:1px solid rgba(11,31,58,.1);animation:acItem .5s cubic-bezier(.16,1,.3,1) .34s both">
             <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#5B6B7E;font-weight:600;margin-bottom:11px">More from ACES</div>
             <div style="display:flex;flex-wrap:wrap;gap:7px">
-              <sc-for list="{{ navMore }}" as="nm" hint-placeholder-count="6">
+              <sc-for list="{{ navMore }}" as="nm" hint-placeholder-count="5">
                 <a href="{{ nm.href }}" style="display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border-radius:9999px;background:#fff;color:#0B1F3A;font-size:14px;font-weight:600;box-shadow:0 3px 12px rgba(11,95,255,.07)" style-hover="color:#0B5FFF">{{ nm.label }}</a>
               </sc-for>
             </div>
@@ -689,33 +669,80 @@ button{font-family:inherit}
       <sc-if value="{{ isExec }}" hint-placeholder-val="{{ false }}">
       <section style="background:#fff;padding:0 0 clamp(30px,6cqw,60px)">
         <div style="position:relative;aspect-ratio:21/9;min-height:190px;background:#0B1F3A;overflow:hidden">
-          <img src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756565095/executives_ahwozc.jpg" alt="ACES executives" style="width:100%;height:100%;object-fit:cover;display:block" />
+          <img src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756565095/executives_ahwozc.jpg" alt="ACES executives" style="width:100%;height:100%;object-fit:cover;display:block;animation:acSlowZoom 14s ease-out both" />
           <span style="position:absolute;inset:0;background:linear-gradient(to top,rgba(6,15,30,.92) 0%,rgba(6,15,30,.25) 65%)"></span>
           <span style="position:absolute;left:clamp(16px,4cqw,40px);right:clamp(16px,4cqw,40px);bottom:clamp(16px,3cqw,30px);color:#fff">
-            <span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:8px">People</span>
-            <span style="display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(26px,7cqw,44px);letter-spacing:-.03em;line-height:1.05">Our Executives</span>
+            <span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:8px;animation:acRise .7s cubic-bezier(.16,1,.3,1) .1s both">People</span>
+            <span style="display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(26px,7cqw,44px);letter-spacing:-.03em;line-height:1.05;animation:acRise .8s cubic-bezier(.16,1,.3,1) .18s both">Our Executives</span>
           </span>
         </div>
         <div style="max-width:1240px;margin:0 auto;padding:clamp(20px,4cqw,34px) clamp(16px,4cqw,40px) 0">
-          <h2 style="margin:0 0 10px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(19px,5cqw,26px);letter-spacing:-.02em;color:#0B1F3A">Meet Your Leaders</h2>
-          <p data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .16s both;animation-play-state:paused;margin:0 0 20px;font-size:15px;line-height:1.65;color:#5B6B7E;max-width:62ch;text-wrap:pretty">We are a student-led association that aims to provide an environment where students can grow and develop their skills. It is with great honor and enthusiasm that we, the executives leading the Noble Association, extend our warmest welcome to each and every one of you.</p>
-          <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:14px;border-radius:16px;background:#F3F7FF;border:1px solid rgba(11,31,58,.1);margin-bottom:16px">
+          <h2 data-rv="1" style="animation:acRight .8s cubic-bezier(.16,1,.3,1) .06s both;animation-play-state:paused;margin:0 0 10px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(19px,5cqw,26px);letter-spacing:-.02em;color:#0B1F3A">Meet Your Leaders</h2>
+          <p data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .14s both;animation-play-state:paused;margin:0 0 20px;font-size:15px;line-height:1.65;color:#5B6B7E;max-width:62ch;text-wrap:pretty">A student-led association built so every Computer Engineering student has somewhere to grow. These are the officers you elected, and the fastest way to reach any of them.</p>
+
+          <div data-rv="1" style="animation:acRise .7s cubic-bezier(.16,1,.3,1) .2s both;animation-play-state:paused;display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:14px;border-radius:16px;background:#F3F7FF;border:1px solid rgba(11,31,58,.1);margin-bottom:18px">
             <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#5B6B7E;font-weight:600">Academic year</span>
-            <select style="flex:1 1 180px;min-height:48px;padding:0 12px;border-radius:12px;border:1px solid rgba(11,31,58,.16);background:#fff;font-family:inherit;font-size:15px;color:#0B1F3A">
-              <option>Select year</option>
-              <option>2025 / 2026</option>
-              <option>2024 / 2025</option>
-              <option>2023 / 2024</option>
+            <select value="{{ execYear }}" onChange="{{ setExecYear }}" aria-label="Choose an academic year" style="flex:1 1 180px;min-height:48px;padding:0 12px;border-radius:12px;border:1px solid rgba(11,31,58,.16);background:#fff;font-family:inherit;font-size:15px;color:#0B1F3A">
+              <option value="2025/26">2025 / 2026</option>
+              <option value="2024/25">2024 / 2025</option>
+              <option value="2023/24">2023 / 2024</option>
             </select>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;color:#5B6B7E">{{ execCountT }}</span>
           </div>
+
+          <sc-if value="{{ hasExecs }}" hint-placeholder-val="{{ true }}">
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px">
+              <sc-for list="{{ execs }}" as="ex" hint-placeholder-count="6">
+                <div data-rv="1" style="animation:acRise .7s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;animation-delay:{{ ex.delay }};display:flex;flex-direction:column;padding:18px;border-radius:20px;background:#fff;border:1px solid rgba(11,31,58,.1);box-shadow:0 4px 18px -12px rgba(11,31,58,.5);transition:box-shadow .28s ease,border-color .28s ease,transform .28s cubic-bezier(.16,1,.3,1)" style-hover="box-shadow:0 22px 44px -26px rgba(11,31,58,.65);border-color:rgba(11,95,255,.4);transform:translateY(-3px)">
+                  <span style="position:relative;display:block;width:82px;height:82px;margin-bottom:14px">
+                    <sc-if value="{{ ex.hasPhoto }}" hint-placeholder-val="{{ false }}">
+                      <img data-src="{{ ex.photo }}" alt="{{ ex.name }}" style="width:82px;height:82px;border-radius:24px;object-fit:cover;display:block" />
+                    </sc-if>
+                    <sc-if value="{{ ex.noPhoto }}" hint-placeholder-val="{{ true }}">
+                      <span style="width:82px;height:82px;border-radius:24px;background:linear-gradient(150deg,#0B5FFF,#0B1F3A);color:#fff;display:grid;place-items:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:28px;letter-spacing:-.02em;box-shadow:0 12px 26px -14px rgba(11,95,255,.9)">{{ ex.ini }}</span>
+                    </sc-if>
+                    <span style="position:absolute;right:-4px;bottom:-4px;width:26px;height:26px;border-radius:9999px;background:#fff;border:2px solid #fff;display:grid;place-items:center;box-shadow:0 4px 10px -4px rgba(11,31,58,.6)">
+                      <span style="width:100%;height:100%;border-radius:9999px;background:#DCFCE7;color:#046C4E;display:grid;place-items:center">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+                      </span>
+                    </span>
+                  </span>
+
+                  <span style="display:inline-flex;align-self:flex-start;align-items:center;padding:4px 10px;border-radius:8px;background:#EAF4FF;color:#0B5FFF;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:9px">{{ ex.role }}</span>
+
+                  <span style="display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17.5px;letter-spacing:-.02em;color:#0B1F3A;line-height:1.2">{{ ex.name }}</span>
+                  <span style="display:block;margin-top:5px;font-size:13.5px;color:#5B6B7E">{{ ex.level }}</span>
+                  <span style="display:block;margin-top:2px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;color:#8A9AAC">Session {{ ex.year }}</span>
+
+                  <a href="mailto:{{ ex.mail }}" style="display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;margin-top:14px;border-radius:13px;background:#F7FAFF;border:1px solid rgba(11,31,58,.1);color:#0B1F3A;font-size:14px;font-weight:700" style-hover="background:#0B5FFF;color:#fff;border-color:#0B5FFF">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"></rect><path d="M3.5 7l8.5 6 8.5-6"></path></svg>
+                    Contact
+                  </a>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="margin-top:16px;display:flex;align-items:flex-start;gap:11px;padding:14px 16px;border-radius:16px;background:#F7FAFF;border:1px solid rgba(11,31,58,.09)">
+              <span style="width:34px;height:34px;flex:0 0 34px;border-radius:11px;background:#EAF4FF;color:#0B5FFF;display:grid;place-items:center">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5.5M12 7.6v.1"></path></svg>
+              </span>
+              <span style="flex:1;min-width:0;font-size:13.5px;line-height:1.6;color:#5B6B7E">
+                <span style="display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14.5px;color:#0B1F3A;margin-bottom:3px">Placeholder policy</span>
+                Where an officer has not submitted a portrait, their initials render on brand. The card never collapses and never shows a broken image.
+              </span>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ noExecs }}" hint-placeholder-val="{{ false }}">
             <div style="padding:34px 20px;text-align:center;border-radius:20px;background:#F7FAFF;border:1px dashed rgba(11,31,58,.18)">
               <div style="width:50px;height:50px;margin:0 auto 12px;border-radius:15px;background:#EAF4FF;display:grid;place-items:center;color:#0B5FFF">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.4"></circle><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M17 8.5a3 3 0 0 1 0 5.6M21 20c0-2.2-1.2-4.1-3-5"></path></svg>
               </div>
-              <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;color:#0B1F3A;margin-bottom:6px">Pick a year to meet the team</div>
-              <p style="margin:0 0 14px;font-size:14.5px;line-height:1.6;color:#5B6B7E;max-width:44ch;margin-left:auto;margin-right:auto;text-wrap:pretty">Executive profiles are published per academic year. The 2025/26 portraits and roles are being uploaded by the PRO — check back shortly or reach the team at the department office.</p>
+              <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;color:#0B1F3A;margin-bottom:6px">No profiles filed for {{ execYearT }}</div>
+              <p style="margin:0 0 14px;font-size:14.5px;line-height:1.6;color:#5B6B7E;max-width:44ch;margin-left:auto;margin-right:auto;text-wrap:pretty">Executive profiles are published per academic year. Pick another year, or reach the current team at the department office.</p>
               <a href="#/staff" style="display:inline-flex;align-items:center;min-height:46px;padding:0 18px;border-radius:13px;background:#0B1F3A;color:#fff;font-size:15px;font-weight:700" style-hover="background:#0B5FFF;color:#fff">See department officials</a>
             </div>
+          </sc-if>
         </div>
       </section>
       </sc-if>
@@ -2066,6 +2093,21 @@ const PRODUCTS = RAW.map((r, i) => ({
 }));
 const CATS = ['All', 'Food & Beverages', 'Fashion & Apparel', 'Technology & Electronics', 'Services', 'Beauty & Cosmetics', 'Other'];
 const slug = v => String(v || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+// Executive roster. Placeholder names and no portraits yet — the PRO supplies both. Every card
+// renders initials on brand rather than a broken image, which is the point of the pattern.
+const EXECS = [
+  ['2025/26', 'Kwabena Asante Mensah', 'President', 'Level 400 · Computer Engineering'],
+  ['2025/26', 'Abena Serwaa Owusu', 'Vice President', 'Level 300 · Computer Engineering'],
+  ['2025/26', 'Yaw Boateng Nyarko', 'General Secretary', 'Level 300 · Computer Engineering'],
+  ['2025/26', 'Efua Adjoa Danso', 'Financial Secretary', 'Level 400 · Computer Engineering'],
+  ['2025/26', 'Kojo Anane Frimpong', 'Organising Secretary', 'Level 200 · Computer Engineering'],
+  ['2025/26', 'Akosua Nyameche Baah', 'PRO', 'Level 300 · Computer Engineering'],
+  ['2024/25', 'Nana Kwame Appiah', 'President', 'Level 400 · Computer Engineering'],
+  ['2024/25', 'Adwoa Pokuaa Sarpong', 'Vice President', 'Level 400 · Computer Engineering'],
+  ['2024/25', 'Kofi Agyapong Darko', 'General Secretary', 'Level 300 · Computer Engineering'],
+  ['2024/25', 'Ama Konadu Antwi', 'Financial Secretary', 'Level 300 · Computer Engineering']
+];
 const SELLER_COUNT = PRODUCTS.reduce((set, p) => set.add(p.vendor), new Set()).size;
 // Seed reviews for the prototype. Swapped for real buyer reviews once orders are live.
 const REVIEWS = [
@@ -2139,7 +2181,7 @@ const COURSES = [
 ].map(c => ({ ...c, files: [{ name: c.title + ' \u2014 ' + (c.file || 'Course Materials'), url: 'https://www.acesknust.com/courses' }] }));
 
 class Component extends DCLogic {
-  state = { bar: true, menu: false, gq: '', search: false, rtab: 'vendor', reg: { name: '', mail: '', index: '', year: 'Y1', shop: '', cat: 'Food & Beverages', phone: '', pass: '', pass2: '', agree: false }, regDone: false, regErr: '', route: 'home', pid: null, cart: {}, q: '', cat: 'All', cyear: 'All', lb: -1, sent: false, store: '', sort: '', csem: 'All', ptype: 'All', filters: false, favs: {}, revStar: 0, revText: '', revSent: false, cond: '', pmin: '', pmax: '', acc: '', sub: '', subMail: '', liMail: '', liPass: '', liErr: '', pwShow: false, user: '', shop: '', bizName: '', bizCat: 'Food & Beverages', bizPhone: '', bizDesc: '', bizErr: '', np: '', npName: '', npCat: 'Food & Beverages', npPrice: '', npDesc: '', npErr: '', listings: [] };
+  state = { bar: true, menu: false, gq: '', search: false, rtab: 'vendor', reg: { name: '', mail: '', index: '', year: 'Y1', shop: '', cat: 'Food & Beverages', phone: '', pass: '', pass2: '', agree: false }, regDone: false, regErr: '', route: 'home', pid: null, cart: {}, q: '', cat: 'All', cyear: 'All', lb: -1, sent: false, store: '', sort: '', csem: 'All', ptype: 'All', filters: false, favs: {}, revStar: 0, revText: '', revSent: false, cond: '', pmin: '', pmax: '', acc: '', execYear: '2025/26', sub: '', subMail: '', liMail: '', liPass: '', liErr: '', pwShow: false, user: '', shop: '', bizName: '', bizCat: 'Food & Beverages', bizPhone: '', bizDesc: '', bizErr: '', np: '', npName: '', npCat: 'Food & Beverages', npPrice: '', npDesc: '', npErr: '', listings: [] };
   pageRef = React.createRef();
   vpRef = React.createRef();
   hdrRef = React.createRef();
@@ -2557,26 +2599,50 @@ class Component extends DCLogic {
 
       isHome: r === 'home', isAbout: r === 'about', isExec: r === 'executives', isStaff: r === 'staff',
       // Full-screen menu: the six top-level destinations as pill cards, current one filled.
-      navItems: [
-        ['Home', '#/home', 'home'],
-        ['About', '#/about', 'about'],
-        ['Executives', '#/executives', 'executives'],
-        ['Staff & Department', '#/staff', 'staff'],
-        ['Gallery', '#/gallery', 'gallery'],
-        ['Marketplace', '#/marketplace', 'marketplace'],
-        ['Scholarships', '#/scholarships', 'scholarships'],
-        ['Courses', '#/courses', 'courses'],
-        ['ACES Shop', '#/shop', 'shop']
-      ].map(([label, href, key]) => {
-        const on = r === key || (key === 'marketplace' && ['browse', 'product', 'store', 'cart', 'checkout', 'favourites'].indexOf(r) > -1);
-        return {
-          label: label, href: href,
-          bg: on ? '#0B5FFF' : '#ffffff',
-          fg: on ? '#ffffff' : '#0B1F3A',
-          fw: on ? '800' : '700',
-          shadow: on ? '0 12px 28px -10px rgba(11,95,255,.5)' : '0 4px 16px rgba(11,95,255,.08)'
-        };
-      }),
+      // Menu mirrors the footer's grouping, but every group stays open. A menu that hides its
+      // own contents behind a tap is the 14-link footer problem wearing a different coat.
+      execYear: s.execYear || '2025/26',
+      execYearT: (s.execYear || '2025/26').replace('/', ' / 20'),
+      execs: EXECS.filter(e => e[0] === (s.execYear || '2025/26')).map((e, i) => ({
+        year: e[0], name: e[1], role: e[2], level: e[3],
+        ini: e[1].split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase(),
+        mail: slug(e[1].split(' ')[0]) + '.aces@st.knust.edu.gh',
+        photo: '', hasPhoto: false, noPhoto: true,
+        delay: (0.06 + i * 0.05).toFixed(2) + 's'
+      })),
+      execCountT: (() => {
+        const n = EXECS.filter(e => e[0] === (s.execYear || '2025/26')).length;
+        return n + (n === 1 ? ' officer' : ' officers');
+      })(),
+      hasExecs: EXECS.some(e => e[0] === (s.execYear || '2025/26')),
+      noExecs: !EXECS.some(e => e[0] === (s.execYear || '2025/26')),
+
+      navGroups: [
+        ['Association', '.06s', [
+          ['Home', '#/home', 'home'],
+          ['About', '#/about', 'about'],
+          ['Executives', '#/executives', 'executives'],
+          ['Staff & Department', '#/staff', 'staff'],
+          ['Gallery', '#/gallery', 'gallery']]],
+        ['Marketplace', '.14s', [
+          ['Marketplace', '#/marketplace', 'marketplace'],
+          ['ACES Shop', '#/shop', 'shop']]],
+        ['Resources', '.22s', [
+          ['Courses', '#/courses', 'courses'],
+          ['Scholarships', '#/scholarships', 'scholarships']]]
+      ].map(([label, delay, rows]) => ({
+        label: label, delay: delay,
+        items: rows.map(([l, href, key]) => {
+          const on = r === key || (key === 'marketplace' && ['browse', 'product', 'store', 'cart', 'checkout', 'favourites'].indexOf(r) > -1);
+          return {
+            label: l, href: href,
+            bg: on ? '#0B5FFF' : '#ffffff',
+            fg: on ? '#ffffff' : '#0B1F3A',
+            fw: on ? '800' : '700',
+            shadow: on ? '0 12px 28px -10px rgba(11,95,255,.5)' : '0 4px 16px rgba(11,95,255,.08)'
+          };
+        })
+      })),
       // The nine pages are the pill list above. These are the sub-screens that hang off them.
       navMore: [
         { label: 'Events', href: '#/events' }, { label: 'Saved', href: '#/favourites' },
@@ -2673,6 +2739,7 @@ class Component extends DCLogic {
       setType: e => this.setState({ ptype: e.currentTarget.dataset.t }),
       setCond: e => this.setState({ cond: e.currentTarget.value }),
       toggleAcc: e => { const id = e.currentTarget.dataset.acc; this.setState(st => ({ acc: st.acc === id ? '' : id })); },
+      setExecYear: e => this.setState({ execYear: e.currentTarget.value }),
       openSub: () => this.setState({ sub: 'open' }),
       setLiMail: e => this.setState({ liMail: e.currentTarget.value, liErr: '' }),
       setLiPass: e => this.setState({ liPass: e.currentTarget.value, liErr: '' }),
