@@ -36,6 +36,12 @@ npm start              # build, then serve site/ on :8123
   Claude Design project. The build detects absent files and blanks `img`, so `hasImg: !!p.img`
   goes false and the design's own placeholder tile renders. Do not "fix" this with a broken `<img>`.
 - Don't add `cleanUrls` to `vercel.json` — it would mangle `AcesPrototype.dc.html`.
+- **Never edit `design-source/*.dc.html` with PowerShell `Set-Content` / `Out-File`.** They re-save
+  UTF-8 as CP1252, which turned every `—` into `â€”` and every `→` into `â†’` across the whole page
+  (98 occurrences before it was caught). Use the Edit tool or `node -e` with explicit `'utf8'`.
+  `npm run check` now fails on mojibake, so this cannot ship, but it still costs a repair pass.
+- Deploys are Mutalib's call. Commit and push freely; do not run `vercel deploy` unless asked.
+- Do not run the humanizer skill on this project.
 - Verify UI with JS measurements in the browser tool, not screenshots. Screenshots are flaky here.
 
 ## Standing rules

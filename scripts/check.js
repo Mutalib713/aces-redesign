@@ -36,6 +36,11 @@ for (const p of PAGES) {
 
   check(html.length > 20000, `${p} is non-trivial (${Math.round(html.length / 1024)} KB)`);
 
+  // Mojibake guard. PowerShell's Set-Content/Out-File can re-save UTF-8 as CP1252, which
+  // turns — into â€” and → into â†’ across the whole page. Caught it once; never again.
+  const moji = html.match(/[ÂÃâÅÆ][-ÿ–-™]/g) || [];
+  check(moji.length === 0, `${p} has no mojibake (${moji.length ? [...new Set(moji)].slice(0, 5).join(' ') : 'clean'})`);
+
   // A pasted link has to render a card — this gets shared in WhatsApp, not crawled.
   const title = /<title>([^<]+)<\/title>/.exec(html);
   check(!!title, `${p} has a <title>${title ? ` — "${title[1].slice(0, 46)}"` : ''}`);
