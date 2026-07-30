@@ -27,6 +27,8 @@ button{font-family:inherit}
 @keyframes acLeft{from{opacity:0;transform:translateX(-56px)}to{opacity:1;transform:none}}
 @keyframes acRightSm{from{opacity:0;transform:translateX(26px)}to{opacity:1;transform:none}}
 @keyframes acSlowZoom{from{transform:scale(1.12)}to{transform:scale(1)}}
+@keyframes acAlbumIn{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
+@keyframes acAlbumText{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 @keyframes acFade{from{opacity:0}to{opacity:1}}
 @keyframes acPop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
 @keyframes acDrawer{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
@@ -751,19 +753,72 @@ button{font-family:inherit}
       <section style="background:#fff;padding:clamp(24px,5cqw,48px) clamp(16px,4cqw,40px) clamp(30px,6cqw,60px)">
         <div style="max-width:1240px;margin:0 auto">
           <div data-rv="1" style="animation:acRise .6s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">Department</div>
-          <h1 data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .08s both;animation-play-state:paused;margin:0 0 10px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(26px,7cqw,44px);color:#0B1F3A">Department Officials</h1>
-          <p data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .16s both;animation-play-state:paused;margin:0 0 20px;font-size:15px;line-height:1.65;color:#5B6B7E;max-width:56ch;text-wrap:pretty">Meet the dedicated faculty members leading the Computer Engineering Department.</p>
-            <div style="padding:34px 20px;text-align:center;border-radius:20px;background:#F7FAFF;border:1px dashed rgba(11,31,58,.18)">
-              <div style="width:50px;height:50px;margin:0 auto 12px;border-radius:15px;background:#EAF4FF;display:grid;place-items:center;color:#0B5FFF">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.4"></circle><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M17 8.5a3 3 0 0 1 0 5.6M21 20c0-2.2-1.2-4.1-3-5"></path></svg>
+          <h1 data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .08s both;animation-play-state:paused;margin:0 0 10px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(26px,7cqw,44px);color:#0B1F3A">Staff &amp; Department</h1>
+          <p data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .16s both;animation-play-state:paused;margin:0 0 18px;font-size:15px;line-height:1.65;color:#5B6B7E;max-width:58ch;text-wrap:pretty">Computer Engineering, KNUST College of Engineering. Office hours are Monday to Friday, 9am to 4pm. Every card carries the office and the email, so you never have to hunt for a contact again.</p>
+
+          <div data-rv="1" style="animation:acRise .7s cubic-bezier(.16,1,.3,1) .2s both;animation-play-state:paused;display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px">
+            <sc-for list="{{ staffFilters }}" as="sf" hint-placeholder-count="4">
+              <button data-g="{{ sf.k }}" onClick="{{ setStaffGroup }}" style="min-height:44px;padding:0 15px;border-radius:12px;border:1px solid {{ sf.border }};background:{{ sf.bg }};color:{{ sf.fg }};font-family:inherit;font-size:14.5px;font-weight:700;cursor:pointer;transition:border-color .22s ease,background .22s ease" style-hover="border-color:#0B5FFF">{{ sf.label }}</button>
+            </sc-for>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(272px,1fr));gap:12px">
+            <sc-for list="{{ staffList }}" as="st" hint-placeholder-count="6">
+              <div data-rv="1" style="animation:acRise .7s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;animation-delay:{{ st.delay }};display:flex;flex-direction:column;padding:18px;border-radius:20px;background:#fff;border:1px solid rgba(11,31,58,.1);box-shadow:0 4px 18px -12px rgba(11,31,58,.5);transition:box-shadow .28s ease,border-color .28s ease,transform .28s cubic-bezier(.16,1,.3,1)" style-hover="box-shadow:0 22px 44px -26px rgba(11,31,58,.65);border-color:rgba(11,95,255,.4);transform:translateY(-3px)">
+                <span style="display:flex;align-items:center;gap:13px;margin-bottom:14px">
+                  <span style="position:relative;display:block;width:64px;height:64px;flex:0 0 64px">
+                    <sc-if value="{{ st.hasPhoto }}" hint-placeholder-val="{{ false }}">
+                      <img data-src="{{ st.photo }}" alt="{{ st.name }}" style="width:64px;height:64px;border-radius:20px;object-fit:cover;display:block" />
+                    </sc-if>
+                    <sc-if value="{{ st.noPhoto }}" hint-placeholder-val="{{ true }}">
+                      <span style="width:64px;height:64px;border-radius:20px;background:linear-gradient(150deg,{{ st.tint }});color:#fff;display:grid;place-items:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:21px;letter-spacing:-.02em">{{ st.ini }}</span>
+                    </sc-if>
+                  </span>
+                  <span style="flex:1;min-width:0">
+                    <span style="display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16.5px;letter-spacing:-.02em;color:#0B1F3A;line-height:1.25">{{ st.name }}</span>
+                    <span style="display:block;margin-top:3px;font-size:13.5px;color:#5B6B7E">{{ st.role }}</span>
+                  </span>
+                </span>
+
+                <span style="display:inline-flex;align-self:flex-start;align-items:center;padding:4px 10px;border-radius:8px;background:#EAF4FF;color:#0B5FFF;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin-bottom:12px">{{ st.area }}</span>
+
+                <span style="display:grid;gap:8px;padding-top:12px;border-top:1px solid rgba(11,31,58,.09)">
+                  <span style="display:flex;align-items:center;gap:9px;font-size:13.5px;color:#5B6B7E">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A9AAC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 16px"><path d="M3 10l9-7 9 7v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+                    {{ st.office }}
+                  </span>
+                  <span style="display:flex;align-items:center;gap:9px;font-size:13.5px;color:#5B6B7E">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A9AAC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 16px"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5V12l3 1.8"></path></svg>
+                    {{ st.hours }}
+                  </span>
+                  <a href="mailto:{{ st.mail }}" style="display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;margin-top:4px;border-radius:13px;background:#F7FAFF;border:1px solid rgba(11,31,58,.1);color:#0B1F3A;font-size:14px;font-weight:700" style-hover="background:#0B5FFF;color:#fff;border-color:#0B5FFF">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"></rect><path d="M3.5 7l8.5 6 8.5-6"></path></svg>
+                    Email
+                  </a>
+                </span>
               </div>
-              <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;color:#0B1F3A;margin-bottom:6px">Faculty profiles coming soon</div>
-              <p style="margin:0 0 0;font-size:14.5px;line-height:1.6;color:#5B6B7E;max-width:44ch;margin-left:auto;margin-right:auto;text-wrap:pretty">The department is compiling official names, roles and consultation hours. Until then, the office below is the fastest way to reach any lecturer.</p>
-            </div>
+            </sc-for>
+          </div>
+
+          <div data-rv="1" style="animation:acRise .7s cubic-bezier(.16,1,.3,1) .1s both;animation-play-state:paused;margin-top:16px;display:flex;align-items:flex-start;gap:11px;padding:14px 16px;border-radius:16px;background:#F7FAFF;border:1px solid rgba(11,31,58,.09)">
+            <span style="width:34px;height:34px;flex:0 0 34px;border-radius:11px;background:#EAF4FF;color:#0B5FFF;display:grid;place-items:center">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5.5M12 7.6v.1"></path></svg>
+            </span>
+            <span style="flex:1;min-width:0;font-size:13.5px;line-height:1.6;color:#5B6B7E">
+              <span style="display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14.5px;color:#0B1F3A;margin-bottom:3px">Portraits pending</span>
+              The department is still supplying official photographs. Until they arrive each card shows initials on brand, so the listing stays usable rather than half-built.
+            </span>
+          </div>
+
           <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:14px">
             <div style="flex:1 1 240px;padding:18px;border-radius:18px;background:#0B1F3A;color:#fff">
               <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.6);font-weight:600;margin-bottom:8px">Department office</div>
-              <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;line-height:1.35">KNUST-CoE<br />Vodafone Building — Ground Floor</div>
+              <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;line-height:1.35">KNUST-CoE<br />Vodafone Building, Ground Floor</div>
+              <div style="margin-top:10px;display:grid;gap:5px;font-size:14px;color:rgba(255,255,255,.75)">
+                <a href="mailto:aces@knust.edu.gh" style="color:rgba(255,255,255,.9)">aces@knust.edu.gh</a>
+                <a href="tel:+233322060331" style="color:rgba(255,255,255,.9)">+233 32 206 0331</a>
+                <span>Mon to Fri, 9am to 4pm</span>
+              </div>
             </div>
             <div style="flex:1 1 240px;padding:18px;border-radius:18px;background:#EAF4FF">
               <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">Reach ACES</div>
@@ -808,12 +863,12 @@ button{font-family:inherit}
       <section style="background:#fff;padding:clamp(16px,3cqw,28px) clamp(16px,4cqw,40px) clamp(30px,6cqw,60px)">
         <div style="max-width:1240px;margin:0 auto">
           <a href="#/gallery" style="display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:600;margin-bottom:14px">← All albums</a>
-          <div style="position:relative;aspect-ratio:16/9;border-radius:22px;overflow:hidden;background:#EAF4FF;margin-bottom:18px">
-            <sc-if value="{{ album.hasImg }}" hint-placeholder-val="{{ false }}"><img data-src="{{ album.img }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block" /></sc-if>
+          <div key="{{ album.id }}" style="position:relative;aspect-ratio:16/9;border-radius:22px;overflow:hidden;background:#EAF4FF;margin-bottom:18px;animation:acAlbumIn .6s cubic-bezier(.16,1,.3,1) both">
+            <sc-if value="{{ album.hasImg }}" hint-placeholder-val="{{ false }}"><img data-src="{{ album.img }}" alt="{{ album.t }}" style="width:100%;height:100%;object-fit:cover;display:block;animation:acSlowZoom 10s ease-out both" /></sc-if>
             <span style="position:absolute;inset:0;background:linear-gradient(to top,rgba(6,15,30,.9) 0%,rgba(6,15,30,.1) 60%)"></span>
             <span style="position:absolute;left:clamp(16px,3cqw,28px);right:clamp(16px,3cqw,28px);bottom:clamp(14px,3cqw,24px);color:#fff">
-              <span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:7px">ACES Gallery · Album</span>
-              <span style="display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(21px,5.5cqw,36px);line-height:1.15;letter-spacing:-.03em;text-wrap:pretty">{{ album.t }}</span>
+              <span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:7px;animation:acAlbumText .55s cubic-bezier(.16,1,.3,1) .1s both">ACES Gallery · Album</span>
+              <span style="display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(21px,5.5cqw,36px);line-height:1.15;letter-spacing:-.03em;text-wrap:pretty;animation:acAlbumText .6s cubic-bezier(.16,1,.3,1) .17s both">{{ album.t }}</span>
             </span>
           </div>
           <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:20px">
@@ -825,7 +880,7 @@ button{font-family:inherit}
           <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#5B6B7E;font-weight:600;margin-bottom:10px">More albums</div>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:9px">
             <sc-for list="{{ albums }}" as="a" hint-placeholder-count="8">
-              <a href="#/album/{{ a.id }}" style="position:relative;display:block;aspect-ratio:1;border-radius:14px;overflow:hidden;background:#EAF4FF;color:#fff" style-hover="opacity:.92">
+              <a href="#/album/{{ a.id }}" style="position:relative;display:block;aspect-ratio:1;border-radius:14px;overflow:hidden;background:#EAF4FF;color:#fff;transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s ease" style-hover="transform:translateY(-4px);box-shadow:0 20px 38px -22px rgba(11,31,58,.85)">
                 <sc-if value="{{ a.hasImg }}" hint-placeholder-val="{{ false }}"><img data-src="{{ a.img }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block" /></sc-if>
                 <span style="position:absolute;inset:0;background:linear-gradient(to top,rgba(6,15,30,.82) 0%,rgba(6,15,30,0) 62%)"></span>
                 <span style="position:absolute;left:10px;right:10px;bottom:9px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:12.5px;line-height:1.25;text-wrap:pretty">{{ a.t }}</span>
@@ -1832,27 +1887,80 @@ button{font-family:inherit}
 
       <sc-if value="{{ isScholarships }}" hint-placeholder-val="{{ false }}">
       <section style="background:#fff;padding:clamp(20px,4cqw,40px) clamp(16px,4cqw,40px) clamp(30px,6cqw,60px)">
-        <div style="max-width:720px;margin:0 auto">
+        <div style="max-width:760px;margin:0 auto">
           <div data-rv="1" style="animation:acRise .6s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">Resources</div>
-          <h1 data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .08s both;animation-play-state:paused;margin:0 0 8px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(26px,7cqw,44px);color:#0B1F3A">Scholarship Opportunities</h1>
-          <p data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .16s both;animation-play-state:paused;margin:0 0 18px;font-size:15px;color:#5B6B7E;text-wrap:pretty">Explore various scholarships available and apply. Make sure to read eligibility criteria before applying and provide the necessary documents. Nothing is open at the moment — join the notify list and you'll hear the day one drops.</p>
-          <div style="padding:26px 20px;border-radius:20px;background:#EAF4FF;text-align:center">
-            <div style="width:52px;height:52px;margin:0 auto 12px;border-radius:16px;background:#fff;display:grid;place-items:center;color:#0B5FFF">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5.2"></circle><path d="M8.4 13.6L7 21l5-2.6L17 21l-1.4-7.4"></path></svg>
+          <h1 data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .08s both;animation-play-state:paused;margin:0 0 10px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(26px,7cqw,44px);color:#0B1F3A">Scholarship Opportunities</h1>
+          <p data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .16s both;animation-play-state:paused;margin:0 0 20px;font-size:15px;line-height:1.65;color:#5B6B7E;max-width:58ch;text-wrap:pretty">We only list opportunities we have verified with the department, so this page is empty more often than not. Join the alert list and you will hear the day one opens.</p>
+
+          <div data-rv="1" style="animation:acRise .75s cubic-bezier(.16,1,.3,1) .2s both;animation-play-state:paused;padding:clamp(24px,4cqw,32px) 20px;border-radius:22px;background:#EAF4FF;text-align:center;margin-bottom:14px">
+            <div style="width:56px;height:56px;margin:0 auto 14px;border-radius:17px;background:#fff;display:grid;place-items:center;color:#0B5FFF;box-shadow:0 10px 24px -14px rgba(11,95,255,.8)">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5z"></path><path d="M7 10.5V16c0 1.7 2.2 3 5 3s5-1.3 5-3v-5.5"></path></svg>
             </div>
-            <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;color:#0B1F3A;margin-bottom:6px">Nothing open — yet</div>
-            <p style="margin:0 0 16px;font-size:14.5px;color:#5B6B7E">Tell us what you're looking for and we'll alert you first.</p>
-            <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center">
-              <input placeholder="student@knust.edu.gh" style="flex:1 1 200px;min-width:0;min-height:50px;padding:0 14px;border-radius:14px;border:1px solid rgba(11,31,58,.14);background:#fff;font-family:inherit;font-size:15px;outline:none" />
-              <button style="min-height:50px;padding:0 20px;border:none;border-radius:14px;background:#0B5FFF;color:#fff;font-size:15px;font-weight:700;cursor:pointer" style-hover="background:#0B1F3A">Notify me</button>
-            </div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(19px,4.8cqw,24px);letter-spacing:-.02em;color:#0B1F3A;margin-bottom:7px">Nothing open right now</div>
+            <p style="margin:0 auto 18px;max-width:46ch;font-size:14.5px;line-height:1.6;color:#5B6B7E;text-wrap:pretty">The MTN and GNPC rounds usually reopen in September, and the department circulates faculty awards each semester. We will not list anything until it is confirmed.</p>
+
+            <sc-if value="{{ schDone }}" hint-placeholder-val="{{ false }}">
+              <div style="display:inline-flex;align-items:center;gap:10px;padding:15px 20px;border-radius:9999px;background:#fff;color:#046C4E;animation:acPop .4s cubic-bezier(.16,1,.3,1) both;box-shadow:0 10px 26px -16px rgba(4,108,78,.8)">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+                <span style="font-size:15px;font-weight:700">You are on the alert list. We will email you the day one opens.</span>
+              </div>
+            </sc-if>
+            <sc-if value="{{ schForm }}" hint-placeholder-val="{{ true }}">
+              <div style="max-width:430px;margin:0 auto;display:grid;gap:9px;text-align:left">
+                <label style="display:grid;gap:6px">
+                  <span style="font-size:13px;font-weight:600;color:#0B1F3A">Email me when one opens</span>
+                  <div style="display:flex;flex-wrap:wrap;gap:9px">
+                    <input value="{{ schMail }}" onInput="{{ setSchMail }}" type="email" placeholder="student@knust.edu.gh" style="flex:1 1 180px;min-width:0;min-height:52px;padding:0 15px;border-radius:14px;border:1px solid rgba(11,31,58,.16);background:#fff;font-family:inherit;font-size:15px;color:#0B1F3A;outline:none;box-sizing:border-box" />
+                    <button onClick="{{ sendSch }}" style="flex:0 0 auto;min-height:52px;padding:0 22px;border:none;border-radius:14px;background:#0B5FFF;color:#fff;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer" style-hover="background:#0B1F3A">Alert me</button>
+                  </div>
+                </label>
+                <div style="display:flex;flex-wrap:wrap;gap:7px">
+                  <sc-for list="{{ schTags }}" as="sg" hint-placeholder-count="4">
+                    <button data-sw="{{ sg.k }}" onClick="{{ toggleSchTag }}" style="min-height:38px;padding:0 13px;border-radius:9999px;border:1px solid {{ sg.border }};background:{{ sg.bg }};color:{{ sg.fg }};font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:background .2s ease,border-color .2s ease">{{ sg.label }}</button>
+                  </sc-for>
+                </div>
+                <div style="font-size:12px;color:#5B6B7E">Pick what you are looking for and we will only email you about those.</div>
+                <sc-if value="{{ schErr }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;align-items:center;gap:8px;padding:11px 13px;border-radius:12px;background:#FEE2E2;color:#B91C1C;font-size:13.5px;font-weight:600">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5.5M12 16.4v.1"></path></svg>{{ schErrMsg }}
+                  </div>
+                </sc-if>
+              </div>
+            </sc-if>
           </div>
-          <div style="margin-top:18px;padding:16px;border-radius:18px;background:#F7FAFF;border:1px solid rgba(11,31,58,.1)">
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#5B6B7E;font-weight:600;margin-bottom:8px">How this page will look when open</div>
-            <div style="display:flex;gap:12px;align-items:center;padding:12px;border-radius:14px;background:#fff;border:1px dashed rgba(11,31,58,.18);opacity:.6">
-              <span style="width:44px;height:44px;border-radius:12px;background:#EAF4FF"></span>
-              <span style="flex:1"><span style="display:block;height:11px;width:60%;border-radius:6px;background:#EAF4FF;margin-bottom:7px"></span><span style="display:block;height:9px;width:40%;border-radius:6px;background:#F0F4FA"></span></span>
-              <span style="width:74px;height:36px;border-radius:10px;background:#EAF4FF"></span>
+
+          <div data-rv="1" style="animation:acRise .75s cubic-bezier(.16,1,.3,1) .26s both;animation-play-state:paused;padding:18px;border-radius:20px;background:#F7FAFF;border:1px solid rgba(11,31,58,.1)">
+            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin-bottom:6px">
+              <span style="display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:9px;background:#FEF3C7;color:#92400E;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5.5M12 16.4v.1"></path></svg>
+                Layout preview
+              </span>
+              <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16.5px;letter-spacing:-.02em;color:#0B1F3A">How a real opportunity will appear</span>
+            </div>
+            <p style="margin:0 0 14px;font-size:13.5px;line-height:1.6;color:#5B6B7E;text-wrap:pretty">This is the shape of the card, not a listing. The fields below are labels waiting on real data, so nothing here can be mistaken for an open award.</p>
+
+            <div style="padding:16px;border-radius:18px;background:#fff;border:1px dashed rgba(11,31,58,.22)">
+              <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:12px">
+                <span style="padding:5px 10px;border-radius:8px;background:#EAF4FF;color:#0B5FFF;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">Provider name</span>
+                <span style="padding:5px 10px;border-radius:8px;background:#DCFCE7;color:#046C4E;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">Open / Closing date</span>
+              </div>
+              <div style="height:15px;width:62%;border-radius:7px;background:#E7EEF8;margin-bottom:9px"></div>
+              <div style="height:10px;width:88%;border-radius:6px;background:#F0F4FA;margin-bottom:6px"></div>
+              <div style="height:10px;width:74%;border-radius:6px;background:#F0F4FA;margin-bottom:16px"></div>
+
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:9px;margin-bottom:16px">
+                <sc-for list="{{ schFields }}" as="sf2" hint-placeholder-count="4">
+                  <div style="padding:11px 12px;border-radius:12px;background:#F7FAFF">
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:#5B6B7E;margin-bottom:6px">{{ sf2 }}</div>
+                    <div style="height:9px;width:70%;border-radius:5px;background:#E7EEF8"></div>
+                  </div>
+                </sc-for>
+              </div>
+
+              <div style="display:flex;flex-wrap:wrap;gap:9px">
+                <span style="flex:1 1 150px;min-height:46px;border-radius:13px;background:#E7EEF8;display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#8A9AAC">Apply button</span>
+                <span style="flex:0 0 auto;min-width:110px;min-height:46px;border-radius:13px;border:1px dashed rgba(11,31,58,.2);display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#8A9AAC">Criteria</span>
+              </div>
             </div>
           </div>
         </div>
@@ -2094,6 +2202,21 @@ const PRODUCTS = RAW.map((r, i) => ({
 const CATS = ['All', 'Food & Beverages', 'Fashion & Apparel', 'Technology & Electronics', 'Services', 'Beauty & Cosmetics', 'Other'];
 const slug = v => String(v || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
+// Department staff. Placeholder names and no portraits yet — the department supplies both.
+// Fields mirror what the brief asks a staff listing to carry: role, department area, office
+// and a contact route.
+const STAFF = [
+  ['Faculty', 'Prof. Emmanuel Osei-Tutu', 'Head of Department', 'Embedded Systems', 'Vodafone Bldg, Rm 204', 'Tue & Thu, 10am to 12pm', '#0B5FFF,#0B1F3A'],
+  ['Faculty', 'Dr. Grace Ampofo Mensah', 'Senior Lecturer', 'Computer Networks', 'Vodafone Bldg, Rm 208', 'Mon & Wed, 1pm to 3pm', '#0B5FFF,#083A8A'],
+  ['Faculty', 'Dr. Samuel Kwarteng Boadu', 'Senior Lecturer', 'Machine Learning', 'Vodafone Bldg, Rm 211', 'Wed, 9am to 12pm', '#0B1F3A,#0B5FFF'],
+  ['Faculty', 'Dr. Comfort Adjei Baffour', 'Lecturer', 'Digital Systems Design', 'Vodafone Bldg, Rm 106', 'Tue, 2pm to 4pm', '#083A8A,#0B5FFF'],
+  ['Faculty', 'Ing. Michael Owusu Ansah', 'Lecturer', 'Power & Control', 'Vodafone Bldg, Rm 109', 'Thu, 10am to 1pm', '#0B5FFF,#12306B'],
+  ['Lab', 'Mr. Daniel Appiah Kubi', 'Chief Technician', 'Electronics Laboratory', 'Vodafone Bldg, Lab 1', 'Mon to Fri, 9am to 4pm', '#12306B,#0B5FFF'],
+  ['Lab', 'Ms. Priscilla Amoah Nkrumah', 'Laboratory Technician', 'Embedded Systems Lab', 'Vodafone Bldg, Lab 3', 'Mon to Fri, 9am to 4pm', '#0B5FFF,#0B1F3A'],
+  ['Admin', 'Mrs. Vivian Asantewaa Oppong', 'Departmental Secretary', 'Student Records', 'Vodafone Bldg, Ground Floor', 'Mon to Fri, 9am to 4pm', '#0B1F3A,#12306B'],
+  ['Admin', 'Mr. Isaac Nyarko Gyamfi', 'Administrative Assistant', 'Admissions & Exams', 'Vodafone Bldg, Ground Floor', 'Mon to Fri, 9am to 4pm', '#083A8A,#0B1F3A']
+];
+
 // Executive roster. Placeholder names and no portraits yet — the PRO supplies both. Every card
 // renders initials on brand rather than a broken image, which is the point of the pattern.
 const EXECS = [
@@ -2181,7 +2304,7 @@ const COURSES = [
 ].map(c => ({ ...c, files: [{ name: c.title + ' \u2014 ' + (c.file || 'Course Materials'), url: 'https://www.acesknust.com/courses' }] }));
 
 class Component extends DCLogic {
-  state = { bar: true, menu: false, gq: '', search: false, rtab: 'vendor', reg: { name: '', mail: '', index: '', year: 'Y1', shop: '', cat: 'Food & Beverages', phone: '', pass: '', pass2: '', agree: false }, regDone: false, regErr: '', route: 'home', pid: null, cart: {}, q: '', cat: 'All', cyear: 'All', lb: -1, sent: false, store: '', sort: '', csem: 'All', ptype: 'All', filters: false, favs: {}, revStar: 0, revText: '', revSent: false, cond: '', pmin: '', pmax: '', acc: '', execYear: '2025/26', sub: '', subMail: '', liMail: '', liPass: '', liErr: '', pwShow: false, user: '', shop: '', bizName: '', bizCat: 'Food & Beverages', bizPhone: '', bizDesc: '', bizErr: '', np: '', npName: '', npCat: 'Food & Beverages', npPrice: '', npDesc: '', npErr: '', listings: [] };
+  state = { bar: true, menu: false, gq: '', search: false, rtab: 'vendor', reg: { name: '', mail: '', index: '', year: 'Y1', shop: '', cat: 'Food & Beverages', phone: '', pass: '', pass2: '', agree: false }, regDone: false, regErr: '', route: 'home', pid: null, cart: {}, q: '', cat: 'All', cyear: 'All', lb: -1, sent: false, store: '', sort: '', csem: 'All', ptype: 'All', filters: false, favs: {}, revStar: 0, revText: '', revSent: false, cond: '', pmin: '', pmax: '', acc: '', execYear: '2025/26', staffGroup: 'All', sch: '', schMail: '', schWants: [], schErr: '', sub: '', subMail: '', liMail: '', liPass: '', liErr: '', pwShow: false, user: '', shop: '', bizName: '', bizCat: 'Food & Beverages', bizPhone: '', bizDesc: '', bizErr: '', np: '', npName: '', npCat: 'Food & Beverages', npPrice: '', npDesc: '', npErr: '', listings: [] };
   pageRef = React.createRef();
   vpRef = React.createRef();
   hdrRef = React.createRef();
@@ -2601,6 +2724,37 @@ class Component extends DCLogic {
       // Full-screen menu: the six top-level destinations as pill cards, current one filled.
       // Menu mirrors the footer's grouping, but every group stays open. A menu that hides its
       // own contents behind a tap is the 14-link footer problem wearing a different coat.
+      // Scholarships: interest capture plus a labelled skeleton. No award is ever invented here.
+      schMail: s.schMail || '', schDone: s.sch === 'done', schForm: s.sch !== 'done',
+      schErr: !!s.schErr, schErrMsg: s.schErr || '',
+      schTags: ['Undergraduate', 'Need-based', 'Merit', 'Industry-sponsored', 'Postgraduate'].map(k => {
+        const on = (s.schWants || []).indexOf(k) > -1;
+        return {
+          k: k, label: k,
+          bg: on ? '#0B5FFF' : '#fff', fg: on ? '#fff' : '#0B1F3A',
+          border: on ? '#0B5FFF' : 'rgba(11,31,58,.16)'
+        };
+      }),
+      schFields: ['Award value', 'Eligibility', 'Documents', 'Deadline'],
+
+      staffFilters: ['All', 'Faculty', 'Lab', 'Admin'].map(k => {
+        const on = (s.staffGroup || 'All') === k;
+        const n = k === 'All' ? STAFF.length : STAFF.filter(x => x[0] === k).length;
+        return {
+          k: k, label: (k === 'All' ? 'Everyone' : k) + ' · ' + n,
+          bg: on ? '#EAF4FF' : '#fff', fg: on ? '#0B5FFF' : '#0B1F3A',
+          border: on ? 'rgba(11,95,255,.45)' : 'rgba(11,31,58,.12)'
+        };
+      }),
+      staffList: STAFF.filter(x => (s.staffGroup || 'All') === 'All' || x[0] === (s.staffGroup || 'All'))
+        .map((x, i) => ({
+          name: x[1], role: x[2], area: x[3], office: x[4], hours: x[5], tint: x[6],
+          ini: x[1].replace(/^(Prof\.|Dr\.|Ing\.|Mr\.|Mrs\.|Ms\.)\s*/, '').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase(),
+          mail: slug(x[1].replace(/^(Prof\.|Dr\.|Ing\.|Mr\.|Mrs\.|Ms\.)\s*/, '').split(' ')[0]) + '.ce@knust.edu.gh',
+          photo: '', hasPhoto: false, noPhoto: true,
+          delay: (0.05 + i * 0.045).toFixed(2) + 's'
+        })),
+
       execYear: s.execYear || '2025/26',
       execYearT: (s.execYear || '2025/26').replace('/', ' / 20'),
       execs: EXECS.filter(e => e[0] === (s.execYear || '2025/26')).map((e, i) => ({
@@ -2710,7 +2864,7 @@ class Component extends DCLogic {
       isCart: r === 'cart', isCheckout: r === 'checkout', isLogin: r === 'login', isRegister: r === 'register',
       isVendor: r === 'vendor', isCourses: r === 'courses', isScholarships: r === 'scholarships',
       isShop: r === 'shop', isTrack: r === 'track',
-      albums: ALBUMS.map(a => ({ ...a, hasImg: !!a.img })), album: { ...(ALBUMS.filter(a => a.id === s.pid)[0] || ALBUMS[0]), hasImg: true }, isAlbum: r === 'album',
+      albums: ALBUMS.map((a, i) => ({ ...a, i: String(i), hasImg: !!a.img })), album: { ...(ALBUMS.filter(a => a.id === s.pid)[0] || ALBUMS[0]), hasImg: true }, isAlbum: r === 'album',
       shirt: { ...MERCH[0], hasImg: !!MERCH[0].img }, shirtSizes: MERCH[0].sizes.map(z => ({ z: z })),
       shopHint: MERCH.length === 1 ? 'One item in the shop right now' : MERCH.length + ' items',
       cats: CATS.map(c => ({ name: c, on: c === s.cat })),
@@ -2740,6 +2894,19 @@ class Component extends DCLogic {
       setCond: e => this.setState({ cond: e.currentTarget.value }),
       toggleAcc: e => { const id = e.currentTarget.dataset.acc; this.setState(st => ({ acc: st.acc === id ? '' : id })); },
       setExecYear: e => this.setState({ execYear: e.currentTarget.value }),
+      setStaffGroup: e => this.setState({ staffGroup: e.currentTarget.dataset.g }),
+      setSchMail: e => this.setState({ schMail: e.currentTarget.value, schErr: '' }),
+      toggleSchTag: e => {
+        const k = e.currentTarget.dataset.sw;
+        this.setState(st => {
+          const cur = st.schWants || [];
+          return { schWants: cur.indexOf(k) > -1 ? cur.filter(x => x !== k) : cur.concat([k]) };
+        });
+      },
+      sendSch: () => {
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(this.state.schMail || '')) { this.setState({ schErr: 'Enter your student email so we can reach you.' }); return; }
+        this.setState({ sch: 'done', schErr: '' });
+      },
       openSub: () => this.setState({ sub: 'open' }),
       setLiMail: e => this.setState({ liMail: e.currentTarget.value, liErr: '' }),
       setLiPass: e => this.setState({ liPass: e.currentTarget.value, liErr: '' }),
