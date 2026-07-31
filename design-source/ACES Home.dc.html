@@ -81,58 +81,54 @@ button{font-family:inherit}
 /* Expanding panels. Hover picks the active panel on a mouse; on touch the panel
    scrolling into view picks itself. Only opacity and transform move — animating
    flex/width here would relayout the row on every frame. */
-.acP{display:flex;flex-direction:column;border-radius:20px;overflow:hidden;background:#fff;border:1px solid rgba(11,31,58,.1);box-shadow:0 14px 32px -24px rgba(11,31,58,.7);transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s ease,border-color .4s ease}
-.acP>.acZ>image-slot{opacity:.58;transition:transform .8s cubic-bezier(.16,1,.3,1),opacity .45s ease}
+/* One accordion, two orientations. Phone stacks the panels and the collapsed
+   ones are short bars with the label reading normally; desktop lays them in a
+   row and the collapsed ones become narrow slabs with the label reading
+   downward. Same markup, same states — only the axis changes.
+   A collapsed panel shows NO photograph: it is type on ACES navy, so opening
+   one is what reveals the picture. */
+.acP{display:flex;flex-direction:column;position:relative;border-radius:20px;overflow:hidden;background:#0B1F3A;border:1px solid rgba(255,255,255,.1);box-shadow:0 14px 32px -24px rgba(11,31,58,.7);cursor:pointer;transition:box-shadow .5s ease,border-color .4s ease}
+.acP>.acZ{position:absolute;inset:0;aspect-ratio:auto;min-height:0;z-index:0}
+.acP>.acZ>image-slot{width:100%;height:100%;opacity:0;transition:transform .8s cubic-bezier(.16,1,.3,1),opacity .5s ease}
+.acP[data-on="1"]>.acZ>image-slot{opacity:.62}
+.acPsc{display:block;opacity:0;transition:opacity .5s ease}
+.acP[data-on="1"] .acPsc{opacity:1}
 .acP .acPm{transform:scaleX(0);transform-origin:left;transition:transform .55s cubic-bezier(.16,1,.3,1)}
-/* Phone defaults for the panel parts. The slab treatment is desktop-only: on a
-   phone every panel is already full width, so collapsing one would hide content
-   for nothing. Everything reads at once, no vertical text, no scrim. */
-.acPsc{display:none}
-.acPv{display:none}
-.acPc{padding:15px}
-.acPh{position:static;opacity:1;visibility:visible}
-.acPe{display:block;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:#0B5FFF;margin-bottom:9px}
-/* Colours live here, not inline: the desktop slab needs white type on the
-   photograph, and an inline colour would outrank the rule that sets it. */
-.acPh h3{color:#0B1F3A}
-.acPh p{color:#5B6B7E}
+.acPc{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:flex-end;height:100%;padding:16px;color:#fff}
+.acPe{display:block;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:rgba(255,255,255,.7);margin-bottom:7px}
+/* The collapsed label. Horizontal here — the vertical treatment is desktop
+   only, because a 358px-wide bar has room to read normally. */
+.acPv{display:block;align-self:flex-start;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;letter-spacing:-.02em;line-height:1.1;color:#fff;opacity:1;transition:opacity .3s ease .12s}
+.acPh{position:absolute;left:16px;right:16px;bottom:16px;opacity:0;visibility:hidden;transition:opacity .34s ease,visibility 0s linear .34s}
+.acP[data-on="1"] .acPv{opacity:0;transition-delay:0s}
+.acP[data-on="1"] .acPh{opacity:1;visibility:visible;transition:opacity .38s ease .14s,visibility 0s}
+/* Colours live here, not inline: type sits on a photograph in every state, and
+   an inline colour would outrank the rule that sets it. */
+.acPh h3{color:#fff}
+.acPh p{color:rgba(255,255,255,.84)}
+.acPh a{color:#fff}
+.acP:focus-visible{outline:3px solid #0B5FFF;outline-offset:3px}
 /* No lift on the active panel: the entrance animation owns `transform` on this
    element (animations outrank normal declarations), and a geometry shift on
    hover is the tell we avoid anyway. Colour, border and elevation carry it. */
 .acP[data-on="1"]{border-color:#0B5FFF;box-shadow:0 26px 48px -24px rgba(11,31,58,.55)}
 
-/* The Powershop move: at desktop widths the three panels share one row and the
-   active one takes the space. This animates flex-grow, which our perf floor
-   normally bans — the exception is scoped deliberately. Three elements, one
-   static row, no scroll container involved, and it is gated to >=1024px so no
-   low-end phone ever runs it. Below that the panels stack full width, where
-   "expanding" would mean nothing, and the scroll-driven tint does the work. */
-.acProw{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+/* The Powershop move. This animates flex-grow, which our perf floor normally
+   bans — the exception is scoped deliberately: three elements, one static row,
+   no scroll container involved. Lenol's own ratios, measured: collapsed 1,
+   active 3.5, in a fixed-height rail. */
+.acProw{display:flex;flex-direction:column;gap:10px;height:clamp(520px,80vh,660px)}
+.acProw > .acP{flex:1 1 0;min-height:0;transition:flex-grow .55s cubic-bezier(.16,1,.3,1),box-shadow .5s ease,border-color .4s ease}
+.acProw > .acP[data-on="1"]{flex-grow:3.5}
 @container page (min-width:1024px){
-  .acProw{display:flex;align-items:stretch;height:clamp(400px,50vh,500px)}
-  .acProw > .acP{flex:1 1 0;min-width:0;position:relative;background:#0B1F3A;transition:flex-grow .55s cubic-bezier(.16,1,.3,1),box-shadow .5s ease,border-color .4s ease}
-  /* 3.4 is Lenol's ratio. Below it the collapsed panels stop reading as slabs
-     and the row turns into three ordinary cards again. */
-  .acProw > .acP[data-on="1"]{flex-grow:3.4}
-  /* The photograph fills the whole slab and the text sits on it, rather than a
-     16:9 thumbnail with a white block underneath. */
-  .acProw > .acP > .acZ{position:absolute;inset:0;aspect-ratio:auto;min-height:0;z-index:0}
-  .acProw > .acP > .acZ > image-slot{width:100%;height:100%;opacity:.42}
-  .acProw > .acP[data-on="1"] > .acZ > image-slot{opacity:.72}
-  .acPsc{display:block}
-  .acPc{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:flex-end;height:100%;padding:18px;color:#fff}
-  .acPe{color:rgba(255,255,255,.72)}
-  /* Collapsed: the club name reads downward in upright characters, the way the
-     narrow slab on lenol.co does. writing-mode cannot be transitioned, so the
-     two titles cross-fade instead of one morphing. */
-  .acPv{display:block;align-self:flex-start;writing-mode:vertical-rl;text-orientation:upright;letter-spacing:-.11em;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;line-height:.92;color:#fff;opacity:1;transition:opacity .3s ease .12s}
-  .acPh{position:absolute;left:18px;right:18px;bottom:18px;opacity:0;visibility:hidden;transition:opacity .34s ease,visibility 0s linear .34s}
-  .acProw > .acP[data-on="1"] .acPv{opacity:0;transition-delay:0s}
-  .acProw > .acP[data-on="1"] .acPh{opacity:1;visibility:visible;transition:opacity .38s ease .14s,visibility 0s}
-  .acProw > .acP h3{color:#fff}
-  .acProw > .acP p{color:rgba(255,255,255,.82)}
-  .acProw > .acP a{color:#fff}
-  .acP:focus-visible{outline:3px solid #0B5FFF;outline-offset:3px}
+  .acProw{flex-direction:row;align-items:stretch;gap:12px;height:clamp(400px,50vh,500px)}
+  .acProw > .acP{min-width:0}
+  /* Collapsed slab: the club name reads downward in upright characters, the way
+     the narrow panel on lenol.co does. writing-mode cannot be transitioned, so
+     the two labels cross-fade rather than one morphing into the other. */
+  .acPv{writing-mode:vertical-rl;text-orientation:upright;letter-spacing:-.11em;font-size:19px;line-height:.92}
+  .acPc{padding:18px}
+  .acPh{left:18px;right:18px;bottom:18px}
 }
 @media (prefers-reduced-motion:reduce){
   .acProw > .acP{transition:none}
@@ -3260,6 +3256,23 @@ class Component extends DCLogic {
       this.io3.observe(el);
       el.addEventListener('mouseenter', () => { if (window.innerWidth >= 1024) this.setPanel(el); });
       el.addEventListener('focusin', () => this.setPanel(el));
+      // Tap opens a panel. A thumb has no hover, and waiting for the panel to
+      // scroll into view is not the same as asking for it — the click must not
+      // fall through to the Join link of a panel that is still closed.
+      el.addEventListener('click', e => {
+        if (el.getAttribute('data-on') === '1') return;
+        const a = e.target.closest && e.target.closest('a');
+        if (a && el.contains(a)) e.preventDefault();
+        this.setPanel(el);
+      });
+      // Space/Enter on a focused panel does what a tap does.
+      el.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+          if (e.target !== el) return;
+          e.preventDefault();
+          this.setPanel(el);
+        }
+      });
     });
   }
 
