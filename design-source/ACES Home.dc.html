@@ -634,35 +634,98 @@ button{font-family:inherit}
       </sc-if>
 
       <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
-      <section style="background:#F7FAFF;padding:clamp(24px,5cqw,48px) clamp(16px,4cqw,40px)">
-        <div style="max-width:1240px;margin:0 auto">
-          <div data-rv="1" style="animation:acRise .6s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">About</div>
-          <h1 data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .08s both;animation-play-state:paused;margin:0 0 10px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(26px,7cqw,44px);color:#0B1F3A">Association of Computer Engineering Students</h1>
-          <p data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .16s both;animation-play-state:paused;margin:0 0 20px;font-size:15px;line-height:1.65;color:#5B6B7E;max-width:62ch;text-wrap:pretty">ACES is the official student body representing all Computer Engineering students at KNUST. We run technical workshops, career programs, mentorship, industrial visits and community service — bridging classroom learning and real-world practice.</p>
-          <div style="aspect-ratio:16/9;border-radius:20px;overflow:hidden;margin-bottom:20px"><img src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756508620/aces-group-photo_zoxsvy.png" alt="ACES group photo" style="width:100%;height:100%;object-fit:cover;display:block" /></div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px">
-            <div style="padding:18px;border-radius:18px;background:#fff;border:1px solid rgba(11,31,58,.1)">
-              <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">Mission</div>
-              <p style="margin:0;font-size:14.5px;line-height:1.6;color:#0B1F3A;text-wrap:pretty">To equip Computer Engineering students with the skills, exposure and network they need to lead in technology.</p>
-            </div>
-            <div style="padding:18px;border-radius:18px;background:#0B1F3A;color:#fff">
-              <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.6);font-weight:600;margin-bottom:8px">Vision</div>
-              <p style="margin:0;font-size:14.5px;line-height:1.6;text-wrap:pretty">A community where innovation thrives, ideas are shared and every member is empowered to succeed.</p>
-            </div>
-            <div style="padding:18px;border-radius:18px;background:#fff;border:1px solid rgba(11,31,58,.1)">
-              <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">Our logo</div>
-              <p style="margin:0;font-size:14.5px;line-height:1.6;color:#0B1F3A;text-wrap:pretty">The crest carries the department colours and the circuit motif — technology for our age.</p>
+      <section style="background:#fff;padding:0 0 clamp(30px,6cqw,60px)">
+
+        <div style="position:relative;overflow:hidden;background:linear-gradient(155deg,#0B1F3A 0%,#12306B 52%,#0B5FFF 100%);padding:clamp(30px,6cqw,64px) clamp(16px,4cqw,40px) clamp(72px,11cqw,110px)">
+          <span aria-hidden="true" style="position:absolute;inset:0;opacity:.14;background-image:radial-gradient(circle at 18% 24%,#fff 1.6px,transparent 1.7px),radial-gradient(circle at 72% 68%,#fff 1.6px,transparent 1.7px);background-size:46px 46px"></span>
+          <div style="position:relative;max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:clamp(20px,4cqw,44px)">
+            <span style="flex:0 0 auto;width:clamp(92px,17cqw,132px);height:clamp(92px,17cqw,132px);border-radius:30px;background:#fff;display:grid;place-items:center;box-shadow:0 26px 56px -26px rgba(0,0,0,.75);animation:acPop .8s cubic-bezier(.16,1,.3,1) .1s both">
+              <img data-src="assets/remote/aces-crest.webp" alt="ACES KNUST crest" style="width:72%;height:72%;object-fit:contain;display:block" />
+            </span>
+            <div style="flex:1 1 260px;min-width:0;color:#fff">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:10px;animation:acRise .7s cubic-bezier(.16,1,.3,1) .12s both">KNUST · College of Engineering</div>
+              <h1 style="margin:0 0 12px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(28px,7.4cqw,50px);letter-spacing:-.035em;line-height:1.04;animation:acRise .8s cubic-bezier(.16,1,.3,1) .18s both">Association of Computer<br />Engineering Students</h1>
+              <p style="margin:0;max-width:52ch;font-size:clamp(15px,3.4cqw,17.5px);line-height:1.6;color:rgba(255,255,255,.82);text-wrap:pretty;animation:acRise .8s cubic-bezier(.16,1,.3,1) .26s both">The official student body for every Computer Engineering student at KNUST. A place to connect, learn and grow, and the shortest route between a classroom and the work that comes after it.</p>
             </div>
           </div>
-          <div style="margin-top:22px;padding:18px;border-radius:18px;background:#EAF4FF">
-            <h2 style="margin:0 0 12px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(19px,5cqw,26px);letter-spacing:-.02em;color:#0B1F3A">The five parts of our vision</h2>
-            <div style="display:grid;gap:8px">
-              <div style="padding:13px 14px;border-radius:14px;background:#fff"><strong style="font-size:15px;color:#0B1F3A">Internships</strong><span style="display:block;font-size:13.5px;color:#5B6B7E">Practical exposure through industrial attachments.</span></div>
-              <div style="padding:13px 14px;border-radius:14px;background:#fff"><strong style="font-size:15px;color:#0B1F3A">Skills</strong><span style="display:block;font-size:13.5px;color:#5B6B7E">Skills useful in the field of computer engineering.</span></div>
-              <div style="padding:13px 14px;border-radius:14px;background:#fff"><strong style="font-size:15px;color:#0B1F3A">Exchange</strong><span style="display:block;font-size:13.5px;color:#5B6B7E">Exchange programs with other computer engineering institutions.</span></div>
-              <div style="padding:13px 14px;border-radius:14px;background:#fff"><strong style="font-size:15px;color:#0B1F3A">Outreach</strong><span style="display:block;font-size:13.5px;color:#5B6B7E">Making computer engineering attractive to second cycle students.</span></div>
-              <div style="padding:13px 14px;border-radius:14px;background:#fff"><strong style="font-size:15px;color:#0B1F3A">Application</strong><span style="display:block;font-size:13.5px;color:#5B6B7E">Helping students put knowledge into practice.</span></div>
+        </div>
+
+        <div style="max-width:1240px;margin:0 auto;padding:0 clamp(16px,4cqw,40px)">
+          <div data-rv="1" style="animation:acRise .7s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:clamp(-56px,-8cqw,-40px);margin-bottom:clamp(26px,5cqw,44px)">
+            <sc-for list="{{ aboutStats }}" as="ab" hint-placeholder-count="4">
+              <div style="padding:16px;border-radius:18px;background:#fff;border:1px solid rgba(11,31,58,.1);box-shadow:0 14px 34px -22px rgba(11,31,58,.6)">
+                <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(22px,5cqw,28px);letter-spacing:-.02em;color:#0B1F3A">{{ ab.v }}</div>
+                <div style="margin-top:3px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5B6B7E">{{ ab.k }}</div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div data-rv="1" style="animation:acRise .6s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">What we are here for</div>
+          <h2 data-rv="1" style="animation:acRight .8s cubic-bezier(.16,1,.3,1) .06s both;animation-play-state:paused;margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(22px,5.6cqw,34px);letter-spacing:-.03em;color:#0B1F3A">Our mission, in three parts</h2>
+          <p data-rv="1" style="animation:acRight .8s cubic-bezier(.16,1,.3,1) .12s both;animation-play-state:paused;margin:0 0 18px;font-size:15px;line-height:1.6;color:#5B6B7E;max-width:56ch">Taken from the association's own charter. Each one is something a member should be able to point at and say it happened this year.</p>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:12px;margin-bottom:clamp(28px,5cqw,48px)">
+            <sc-for list="{{ missions }}" as="ms" hint-placeholder-count="3">
+              <div data-rv="1" style="animation:acRise .75s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;animation-delay:{{ ms.delay }};position:relative;padding:22px 20px;border-radius:22px;background:{{ ms.bg }};border:1px solid rgba(11,31,58,.1);overflow:hidden">
+                <span aria-hidden="true" style="position:absolute;right:-14px;top:-18px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:96px;line-height:1;color:{{ ms.ghost }}">{{ ms.n }}</span>
+                <span style="position:relative;display:grid;gap:11px">
+                  <span style="width:44px;height:44px;border-radius:14px;background:{{ ms.iconBg }};color:{{ ms.iconFg }};display:grid;place-items:center">
+                    <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="{{ ms.d }}"></path></svg>
+                  </span>
+                  <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;letter-spacing:-.02em;color:#0B1F3A">{{ ms.t }}</span>
+                  <span style="font-size:14.5px;line-height:1.62;color:#5B6B7E;text-wrap:pretty">{{ ms.body }}</span>
+                </span>
+              </div>
+            </sc-for>
+          </div>
+
+          <div data-rv="1" style="animation:acRise .75s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;display:flex;flex-wrap:wrap;gap:12px;margin-bottom:clamp(28px,5cqw,48px)">
+            <div style="flex:1 1 280px;min-width:0;padding:clamp(20px,3.4cqw,28px);border-radius:22px;background:#0B1F3A;color:#fff;position:relative;overflow:hidden">
+              <span aria-hidden="true" style="position:absolute;right:-30px;bottom:-30px;width:150px;height:150px;border-radius:50%;background:rgba(91,233,185,.14)"></span>
+              <div style="position:relative">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:#5BE9B9;font-weight:600;margin-bottom:10px">Our vision</div>
+                <p style="margin:0;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(18px,4.2cqw,24px);line-height:1.35;letter-spacing:-.02em;text-wrap:pretty">A vibrant community where innovation thrives, ideas are shared, and every member is empowered to succeed.</p>
+              </div>
             </div>
+            <div style="flex:1 1 240px;min-width:0;padding:clamp(20px,3.4cqw,28px);border-radius:22px;background:#F7FAFF;border:1px solid rgba(11,31,58,.1);display:flex;flex-direction:column;gap:14px">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:#0B5FFF;font-weight:600">Our logo</div>
+              <div style="display:flex;align-items:center;gap:16px">
+                <span style="flex:0 0 auto;width:76px;height:76px;border-radius:22px;background:#fff;border:1px solid rgba(11,31,58,.1);display:grid;place-items:center;box-shadow:0 12px 26px -18px rgba(11,31,58,.7)">
+                  <img data-src="assets/remote/aces-crest.webp" alt="ACES KNUST crest" style="width:70%;height:70%;object-fit:contain;display:block" />
+                </span>
+                <p style="margin:0;flex:1;min-width:0;font-size:14px;line-height:1.6;color:#5B6B7E;text-wrap:pretty">The crest carries the department colours and the circuit motif. It is untouched in this redesign, on purpose.</p>
+              </div>
+              <span style="display:inline-flex;align-self:flex-start;align-items:center;gap:7px;padding:6px 12px;border-radius:9px;background:#EAF4FF;color:#0B5FFF;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+                Brand guardrail, unchanged
+              </span>
+            </div>
+          </div>
+
+          <div data-rv="1" style="animation:acRise .6s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">What we commit to</div>
+          <h2 data-rv="1" style="animation:acRight .8s cubic-bezier(.16,1,.3,1) .06s both;animation-play-state:paused;margin:0 0 18px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(22px,5.6cqw,34px);letter-spacing:-.03em;color:#0B1F3A">The five pillars</h2>
+
+          <div style="display:grid;gap:11px">
+            <sc-for list="{{ pillars }}" as="pl" hint-placeholder-count="5">
+              <div data-rv="1" style="animation:{{ pl.anim }} .85s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;display:flex;align-items:flex-start;gap:15px;padding:18px;border-radius:20px;background:#fff;border:1px solid rgba(11,31,58,.1);box-shadow:0 4px 18px -12px rgba(11,31,58,.5);transition:box-shadow .28s ease,border-color .28s ease,transform .28s cubic-bezier(.16,1,.3,1)" style-hover="box-shadow:0 22px 44px -26px rgba(11,31,58,.65);border-color:rgba(11,95,255,.4);transform:translateY(-3px)">
+                <span style="flex:0 0 auto;width:50px;height:50px;border-radius:16px;background:linear-gradient(150deg,{{ pl.tint }});color:#fff;display:grid;place-items:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;box-shadow:0 12px 24px -14px rgba(11,95,255,.9)">{{ pl.n }}</span>
+                <span style="flex:1;min-width:0">
+                  <span style="display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin-bottom:5px">
+                    <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17.5px;letter-spacing:-.02em;color:#0B1F3A">{{ pl.t }}</span>
+                    <span style="padding:3px 9px;border-radius:7px;background:#EAF4FF;color:#0B5FFF;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.09em;text-transform:uppercase">{{ pl.tag }}</span>
+                  </span>
+                  <span style="display:block;font-size:14.5px;line-height:1.62;color:#5B6B7E;text-wrap:pretty">{{ pl.d }}</span>
+                </span>
+              </div>
+            </sc-for>
+          </div>
+
+          <div data-rv="1" style="animation:acRise .7s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;display:flex;flex-wrap:wrap;gap:10px;margin-top:clamp(22px,4cqw,34px)">
+            <a href="#/executives" style="flex:1 1 190px;display:flex;align-items:center;justify-content:center;gap:9px;min-height:54px;border-radius:15px;background:#0B5FFF;color:#fff;font-family:'Space Grotesk',sans-serif;font-size:16.5px;font-weight:700;letter-spacing:-.01em" style-hover="background:#0B1F3A">
+              Meet the executives
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"></path><path d="M12 5l7 7-7 7"></path></svg>
+            </a>
+            <a href="#/staff" style="flex:1 1 190px;display:flex;align-items:center;justify-content:center;min-height:54px;border-radius:15px;border:1px solid rgba(11,31,58,.16);background:#fff;color:#0B1F3A;font-family:'Space Grotesk',sans-serif;font-size:16.5px;font-weight:700;letter-spacing:-.01em" style-hover="border-color:#0B5FFF;color:#0B5FFF">Staff &amp; department</a>
           </div>
         </div>
       </section>
@@ -1992,9 +2055,9 @@ button{font-family:inherit}
             </span>
           </div>
 
-          <div data-rv="1" style="animation:acRise .7s cubic-bezier(.16,1,.3,1) .24s both;animation-play-state:paused;display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px">
-            <sc-for list="{{ shopTabs }}" as="sb" hint-placeholder-count="3">
-              <button data-k="{{ sb.k }}" onClick="{{ setShopTab }}" style="min-height:44px;padding:0 15px;border-radius:12px;border:1px solid {{ sb.border }};background:{{ sb.bg }};color:{{ sb.fg }};font-family:inherit;font-size:14.5px;font-weight:700;cursor:pointer;transition:background .22s ease,border-color .22s ease" style-hover="border-color:#0B5FFF">{{ sb.label }}</button>
+          <div class="acx" data-rv="1" style="animation:acRise .7s cubic-bezier(.16,1,.3,1) .24s both;animation-play-state:paused;display:flex;gap:7px;overflow-x:auto;padding-bottom:16px">
+            <sc-for list="{{ shopTabs }}" as="sb" hint-placeholder-count="4">
+              <button data-k="{{ sb.k }}" onClick="{{ setShopTab }}" style="flex:0 0 auto;min-height:42px;padding:0 15px;border-radius:12px;border:1px solid {{ sb.border }};background:{{ sb.bg }};color:{{ sb.fg }};font-family:inherit;font-size:14px;font-weight:600;white-space:nowrap;cursor:pointer;transition:background .22s ease,border-color .22s ease" style-hover="border-color:#0B5FFF">{{ sb.label }}</button>
             </sc-for>
           </div>
 
@@ -2004,6 +2067,12 @@ button{font-family:inherit}
                 <span style="position:relative;display:block;aspect-ratio:1/1;background:#EEF3FA;overflow:hidden">
                   <sc-if value="{{ m.showImg }}" hint-placeholder-val="{{ false }}">
                     <img data-src="{{ m.img }}" alt="{{ m.name }}" style="width:100%;height:100%;object-fit:cover;display:block" />
+                  </sc-if>
+                  <sc-if value="{{ m.dimmed }}" hint-placeholder-val="{{ false }}">
+                    <img data-src="{{ m.img }}" alt="{{ m.name }}" style="width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(1);opacity:.42" />
+                    <span style="position:absolute;inset:0;display:grid;place-items:center">
+                      <span style="padding:8px 15px;border-radius:9999px;background:rgba(11,31,58,.9);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase">Sold out</span>
+                    </span>
                   </sc-if>
                   <sc-if value="{{ m.teased }}" hint-placeholder-val="{{ true }}">
                     <span style="position:absolute;inset:0;background:linear-gradient(150deg,#0B1F3A 0%,#12306B 55%,#0B5FFF 100%);display:grid;place-items:center;overflow:hidden">
@@ -2030,7 +2099,7 @@ button{font-family:inherit}
                   <sc-if value="{{ m.hasVariants }}" hint-placeholder-val="{{ true }}">
                     <span style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px">
                       <sc-for list="{{ m.variants }}" as="mv" hint-placeholder-count="5">
-                        <button data-m="{{ mv.mid }}" data-v="{{ mv.v }}" onClick="{{ setMerchVar }}" aria-label="{{ mv.label }}" style="min-width:38px;min-height:38px;padding:0 10px;border-radius:10px;border:1px solid {{ mv.border }};background:{{ mv.bg }};color:{{ mv.fg }};font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:700;cursor:pointer;transition:background .18s ease,border-color .18s ease">{{ mv.v }}</button>
+                        <button data-m="{{ mv.mid }}" data-v="{{ mv.v }}" onClick="{{ setMerchVar }}" aria-label="{{ mv.label }}" style="min-width:38px;min-height:38px;padding:0 10px;border-radius:10px;border:1px solid {{ mv.border }};background:{{ mv.bg }};color:{{ mv.fg }};font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:700;cursor:{{ mv.cursor }};text-decoration:{{ mv.strike }};transition:background .18s ease,border-color .18s ease">{{ mv.v }}</button>
                       </sc-for>
                     </span>
                   </sc-if>
@@ -2045,6 +2114,9 @@ button{font-family:inherit}
                   </sc-if>
                   <sc-if value="{{ m.soon }}" hint-placeholder-val="{{ true }}">
                     <button data-id="{{ m.id }}" onClick="{{ reserveMerch }}" style="margin-top:auto;min-height:48px;border:1px solid rgba(11,95,255,.4);border-radius:13px;background:#EAF4FF;color:#0B5FFF;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer" style-hover="background:#0B5FFF;color:#fff">{{ m.cta }}</button>
+                  </sc-if>
+                  <sc-if value="{{ m.oos }}" hint-placeholder-val="{{ false }}">
+                    <button data-id="{{ m.id }}" onClick="{{ reserveMerch }}" style="margin-top:auto;min-height:48px;border:1px solid rgba(11,31,58,.16);border-radius:13px;background:#fff;color:#0B1F3A;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer" style-hover="border-color:#0B5FFF;color:#0B5FFF">{{ m.cta }}</button>
                   </sc-if>
                 </span>
               </div>
@@ -2301,14 +2373,17 @@ const MERCH = [
 ];
 // ACES Shop catalogue. Only the CODEFEST tee is on sale; everything else is genuinely unreleased,
 // so its artwork stays hidden behind a teaser rather than showing a photo that does not exist yet.
-// [id, kind, name, price, blurb, state, variantKind, variants, stock]
+// [id, kind, name, price, blurb, state, variantKind, variants, stock, soldOutVariants]
+// state: live (buyable) · oos (sold out) · soon (unreleased, artwork hidden)
 const MERCH_ALL = [
-  ['m1', 'Apparel', 'CODEFEST Tech Tee', 60, 'Black cotton with the CODEFEST wordmark and circuit artwork.', 'live', 'Size', ['S', 'M', 'L', 'XL', 'XXL'], 'In stock'],
-  ['m2', 'Apparel', "Class Jersey '26", 120, 'Your year and index on the back. Sizing runs true.', 'soon', 'Size', ['S', 'M', 'L', 'XL', 'XXL'], 'Drops 15 Aug'],
-  ['m3', 'Apparel', 'ACES Hoodie', 180, 'Heavyweight, embroidered crest on the chest.', 'soon', 'Size', ['S', 'M', 'L', 'XL'], 'Drops 15 Aug'],
-  ['m4', 'Accessory', 'Crest Cap', 45, 'Structured six-panel with the department crest.', 'soon', 'Colour', ['Navy', 'Black'], 'Drops 15 Aug'],
-  ['m5', 'Ticket', 'ACES Dinner 2026', 150, 'Three courses, awards night, plus-one allowed.', 'soon', 'Tier', ['Single', 'Couple', 'Table'], 'Sales open Sept'],
-  ['m6', 'Ticket', 'CODEFEST Day Pass', 0, 'All-day access, workshops and lunch included.', 'soon', 'Day', ['Day 1', 'Day 2', 'Both'], 'Free, register first']
+  ['m1', 'Clothes', 'CODEFEST Tech Tee', 60, 'Black cotton with the CODEFEST wordmark and circuit artwork.', 'live', 'Size', ['S', 'M', 'L', 'XL', 'XXL'], 'In stock', ['XL', 'XXL']],
+  ['m7', 'Clothes', 'Departmental Tee', 75, 'The everyday navy tee with the crest on the chest.', 'oos', 'Size', ['S', 'M', 'L', 'XL'], 'Sold out', ['S', 'M', 'L', 'XL']],
+  ['m2', 'Clothes', "Class Jersey '26", 120, 'Your year and index on the back. Sizing runs true.', 'soon', 'Size', ['S', 'M', 'L', 'XL', 'XXL'], 'Drops 15 Aug', []],
+  ['m3', 'Clothes', 'ACES Hoodie', 180, 'Heavyweight, embroidered crest on the chest.', 'soon', 'Size', ['S', 'M', 'L', 'XL'], 'Drops 15 Aug', []],
+  ['m4', 'Accessories', 'Crest Cap', 45, 'Structured six-panel with the department crest.', 'soon', 'Colour', ['Navy', 'Black'], 'Drops 15 Aug', []],
+  ['m8', 'Accessories', 'ACES Lanyard', 25, 'Woven navy lanyard with a breakaway clip.', 'oos', 'Colour', ['Navy'], 'Sold out', ['Navy']],
+  ['m5', 'Tickets', 'ACES Dinner 2026', 150, 'Three courses, awards night, plus-one allowed.', 'soon', 'Tier', ['Single', 'Couple', 'Table'], 'Sales open Sept', []],
+  ['m6', 'Tickets', 'CODEFEST Day Pass', 0, 'All-day access, workshops and lunch included.', 'soon', 'Day', ['Day 1', 'Day 2', 'Both'], 'Free, register first', []]
 ];
 
 const ALBUMS = [
@@ -2794,7 +2869,36 @@ class Component extends DCLogic {
       // own contents behind a tap is the 14-link footer problem wearing a different coat.
       // Scholarships: interest capture plus a labelled skeleton. No award is ever invented here.
       // ACES Shop: browsing, variants, cart flow, and a coming-soon state that still does a job.
-      shopTabs: ['All', 'Apparel', 'Accessory', 'Ticket'].map(k => {
+      aboutStats: [
+        { k: 'Members', v: '600+' }, { k: 'Clubs', v: '3' },
+        { k: 'Courses filed', v: '9' }, { k: 'Est. at KNUST', v: 'CoE' }
+      ],
+      // The three missions, taken verbatim in substance from the association's own About page.
+      missions: [
+        { n: '1', t: 'Academic experience', d: 'M4 6.5A2.5 2.5 0 0 1 6.5 4H20v13H6.5A2.5 2.5 0 0 0 4 19.5z',
+          body: 'Enhance the academic experience of Computer Engineering students with resources, workshops and study groups that reinforce classroom learning and encourage independent study.',
+          bg: '#F7FAFF', ghost: 'rgba(11,95,255,.07)', iconBg: '#EAF4FF', iconFg: '#0B5FFF', delay: '.06s' },
+        { n: '2', t: 'Professional growth', d: 'M4 9h16v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1zM3 9l2-5h14l2 5M9.5 20v-5h5v5',
+          body: 'Foster professional growth through career development programmes, networking events and mentorship that connect students with industry leaders and alumni.',
+          bg: '#EAF4FF', ghost: 'rgba(11,95,255,.12)', iconBg: '#fff', iconFg: '#0B5FFF', delay: '.14s' },
+        { n: '3', t: 'Community impact', d: 'M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9.5 7a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7M19 8v6M22 11h-6',
+          body: 'Run outreach programmes and initiatives that use technology to address societal challenges and promote tech literacy beyond the university.',
+          bg: '#F7FAFF', ghost: 'rgba(11,95,255,.07)', iconBg: '#EAF4FF', iconFg: '#0B5FFF', delay: '.22s' }
+      ],
+      // Pillars alternate their entrance: 1 from the right, 2 from the left, 3 from the right,
+      // and so on, so the eye zig-zags down the list instead of watching five identical fades.
+      pillars: [
+        ['Internships', 'Industry', 'Create opportunities for students to obtain practical exposure through industrial attachments.', '#0B5FFF,#0B1F3A'],
+        ['Skills', 'Learning', 'Create opportunities for students to acquire skills useful in the field of computer engineering.', '#0B5FFF,#083A8A'],
+        ['Exchange', 'Partners', 'Organize exchange programs with other computer engineering institutions.', '#0B1F3A,#0B5FFF'],
+        ['Outreach', 'Community', 'Make computer engineering attractive to students in second cycle institutions.', '#083A8A,#0B5FFF'],
+        ['Application', 'Practice', 'Help students put into practice the knowledge acquired.', '#12306B,#0B5FFF']
+      ].map((p, i) => ({
+        n: String(i + 1), t: p[0], tag: p[1], d: p[2], tint: p[3],
+        anim: i % 2 === 0 ? 'acRight' : 'acLeft'
+      })),
+
+      shopTabs: ['All', 'Clothes', 'Accessories', 'Tickets'].map(k => {
         const on = (s.shopTab || 'All') === k;
         const n = k === 'All' ? MERCH_ALL.length : MERCH_ALL.filter(x => x[1] === k).length;
         return {
@@ -2806,25 +2910,38 @@ class Component extends DCLogic {
       merchList: MERCH_ALL
         .filter(x => (s.shopTab || 'All') === 'All' || x[1] === (s.shopTab || 'All'))
         .map((x, i) => {
-          const live = x[5] === 'live';
-          const picked = (s.merchVar || {})[x[0]] || x[7][0];
+          const state = x[5];
+          const live = state === 'live';
+          const oos = state === 'oos';
+          const soon = state === 'soon';
+          const gone = x[9] || [];
+          const sellable = x[7].filter(v => gone.indexOf(v) < 0);
+          const picked = (s.merchVar || {})[x[0]] || sellable[0] || x[7][0];
+          const isTicket = x[1] === 'Tickets';
           return {
             id: x[0], kind: x[1] + ' · ' + x[6], name: x[2], blurb: x[4],
             priceT: x[3] === 0 ? 'Free' : 'GH₵' + x[3], stock: x[8],
-            live: live, soon: !live,
-            showImg: live, teased: !live,
-            img: live ? 'assets/shop/codefest-shirt.png' : '',
-            pill: live ? 'On sale now' : (x[1] === 'Ticket' ? 'Tickets soon' : 'Coming soon'),
-            pillBg: live ? '#DCFCE7' : 'rgba(255,255,255,.92)',
-            pillFg: live ? '#046C4E' : '#0B1F3A',
-            cta: x[1] === 'Ticket' ? 'Notify me when tickets open' : 'Reserve my ' + x[6].toLowerCase(),
+            live: live, oos: oos, soon: soon, notSoon: !soon,
+            // Only a product that exists and is on sale gets a photograph.
+            showImg: live, teased: soon, dimmed: oos,
+            img: live || oos ? 'assets/shop/codefest-shirt.png' : '',
+            pill: live ? 'On sale now' : (oos ? 'Out of stock' : (isTicket ? 'Tickets soon' : 'Coming soon')),
+            pillBg: live ? '#DCFCE7' : (oos ? '#FEE2E2' : 'rgba(255,255,255,.92)'),
+            pillFg: live ? '#046C4E' : (oos ? '#B91C1C' : '#0B1F3A'),
+            cta: oos ? 'Tell me when it is back' : (isTicket ? 'Notify me when tickets open' : 'Reserve my ' + x[6].toLowerCase()),
             hasVariants: true,
-            variants: x[7].map(v => ({
-              mid: x[0], v: v, label: x[6] + ' ' + v,
-              bg: v === picked ? '#0B5FFF' : '#fff',
-              fg: v === picked ? '#fff' : '#0B1F3A',
-              border: v === picked ? '#0B5FFF' : 'rgba(11,31,58,.14)'
-            })),
+            variants: x[7].map(v => {
+              const dead = gone.indexOf(v) > -1;
+              const on = !dead && v === picked;
+              return {
+                mid: x[0], v: v, label: x[6] + ' ' + v + (dead ? ', sold out' : ''),
+                bg: dead ? '#F4F6FA' : (on ? '#0B5FFF' : '#fff'),
+                fg: dead ? '#B6C1D0' : (on ? '#fff' : '#0B1F3A'),
+                border: dead ? 'rgba(11,31,58,.08)' : (on ? '#0B5FFF' : 'rgba(11,31,58,.14)'),
+                strike: dead ? 'line-through' : 'none',
+                cursor: dead ? 'not-allowed' : 'pointer'
+              };
+            }),
             delay: (0.05 + i * 0.05).toFixed(2) + 's'
           };
         }),
@@ -3011,16 +3128,21 @@ class Component extends DCLogic {
       setShopTab: e => this.setState({ shopTab: e.currentTarget.dataset.k }),
       setMerchVar: e => {
         const mid = e.currentTarget.dataset.m, v = e.currentTarget.dataset.v;
+        const row = MERCH_ALL.filter(x => x[0] === mid)[0];
+        if (row && (row[9] || []).indexOf(v) > -1) return; // sold-out size is not selectable
         this.setState(st => ({ merchVar: { ...(st.merchVar || {}), [mid]: v } }));
       },
       reserveMerch: e => {
         const id = e.currentTarget.dataset.id;
         const row = MERCH_ALL.filter(x => x[0] === id)[0];
         if (!row) return;
-        const picked = (this.state.merchVar || {})[id] || row[7][0];
-        const msg = row[1] === 'Ticket'
-          ? 'We will email you the moment ' + row[2] + ' tickets open.'
-          : row[2] + ' held in ' + row[6].toLowerCase() + ' ' + picked + ' for 48 hours after launch.';
+        const sellable = row[7].filter(v => (row[9] || []).indexOf(v) < 0);
+        const picked = (this.state.merchVar || {})[id] || sellable[0] || row[7][0];
+        const msg = row[5] === 'oos'
+          ? 'We will email you the moment ' + row[2] + ' is back in stock.'
+          : row[1] === 'Tickets'
+            ? 'We will email you the moment ' + row[2] + ' tickets open.'
+            : row[2] + ' held in ' + row[6].toLowerCase() + ' ' + picked + ' for 48 hours after launch.';
         clearTimeout(this._rsvT);
         this.setState({ reserved: msg });
         this._rsvT = setTimeout(() => this.setState({ reserved: '' }), 3200);

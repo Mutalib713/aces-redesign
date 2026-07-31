@@ -29,6 +29,7 @@ const IMAGES = [
   ['https://res.cloudinary.com/dmgk37i6y/image/upload/v1756562742/dinner_night_uicikj.jpg', 'dinner-night', 'card'],
   ['https://res.cloudinary.com/dmgk37i6y/image/upload/v1756565095/executives_ahwozc.jpg', 'executives', 'card'],
   ['https://www.acesknust.com/images/logo-white.png', 'logo-white', 'logo'],
+  ['https://www.acesknust.com/images/aceslogo.png', 'aces-crest', 'logo'],
   ['https://www.acesknust.com/images/Gallery/Trip.jpg', 'gallery-trip', 'card'],
   ['https://www.acesknust.com/images/Gallery/Acesshirt.jpg', 'gallery-acesshirt', 'card'],
   ['https://www.acesknust.com/images/Gallery/codefest.jpg', 'gallery-codefest', 'card'],
