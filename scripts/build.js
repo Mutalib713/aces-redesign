@@ -38,7 +38,7 @@ const SITE_URL = 'https://aces-redesign.vercel.app';
 const META = {
   'index.html': {
     title: 'ACES KNUST — Association of Computer Engineering Students',
-    desc: 'Events, course resources, executives and a student-run marketplace — all in one place.',
+    desc: 'The student association for Computer Engineering at KNUST. Events, course materials by year and semester, and a marketplace run by students.',
   },
   'prototype.html': {
     title: 'ACES KNUST — Mobile Prototype',

@@ -269,44 +269,57 @@ button{font-family:inherit}
     <main id="top">
 
       <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
-      <section style="position:relative;overflow:hidden;background:#0B1F3A;color:#fff;padding:clamp(72px,14cqw,150px) clamp(16px,4cqw,40px) clamp(30px,5cqw,54px);min-height:min(92cqh,760px);display:flex;align-items:flex-end">
+      <section style="position:relative;overflow:hidden;background:#0B1F3A;color:#fff;padding:clamp(30px,7cqw,72px) clamp(16px,4cqw,40px) clamp(26px,5cqw,54px);min-height:min(76cqh,660px);display:flex;align-items:center">
         <div ref="{{ heroRef }}" aria-hidden="true" style="position:absolute;inset:-8% 0;will-change:transform"><image-slot id="aces-hero-group" shape="rect" src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756508620/aces-group-photo_zoxsvy.png" placeholder="Drop the ACES group photo"></image-slot></div>
-        <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(6,17,36,.72) 0%,rgba(6,17,36,.28) 26%,rgba(6,17,36,.1) 46%,rgba(6,17,36,.72) 78%,rgba(6,17,36,.94) 100%)"></div>
-        <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(100deg,rgba(6,17,36,.62) 0%,rgba(6,17,36,.24) 46%,rgba(6,17,36,0) 74%)"></div>
-        <div aria-hidden="true" style="position:absolute;left:0;right:0;bottom:0;height:2px;background:linear-gradient(90deg,#0B5FFF 0%,#5BE49B 46%,rgba(255,255,255,0) 100%)"></div>
+        <!-- The photo is the field now, not the subject: heavier, flatter scrim so
+             oversized type can sit anywhere on it and still clear 4.5:1. -->
+        <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(6,17,36,.82) 0%,rgba(6,17,36,.66) 38%,rgba(6,17,36,.72) 68%,rgba(6,17,36,.93) 100%)"></div>
+        <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(100deg,rgba(6,17,36,.72) 0%,rgba(6,17,36,.4) 52%,rgba(6,17,36,.2) 100%)"></div>
+        <!-- Signature move: four segments, one per year group. The same colours run
+             the courses page, so the device means something rather than decorating. -->
+        <div aria-hidden="true" style="position:absolute;left:0;right:0;bottom:0;height:3px;display:flex">
+          <span style="flex:1;background:#0B5FFF"></span><span style="flex:1;background:#12855A"></span>
+          <span style="flex:1;background:#C2660A"></span><span style="flex:1;background:#6D3BD1"></span>
+        </div>
 
-        <div style="position:relative;width:100%;max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;gap:clamp(20px,4cqw,54px);align-items:flex-end;justify-content:space-between">
-          <div style="flex:1 1 300px;min-width:0;max-width:700px">
-            <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;animation:acFade .8s ease .3s both">
+        <div style="position:relative;width:100%;max-width:1240px;margin:0 auto">
+          <div style="max-width:760px">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:clamp(12px,2.5cqw,18px);animation:acFade .8s ease .3s both">
               <span style="width:26px;height:2px;border-radius:2px;background:#5BE49B"></span>
               <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#fff;text-shadow:0 1px 8px rgba(6,17,36,.7)">KNUST · College of Engineering</span>
             </div>
-            <h1 data-split="char" data-split-delay=".42" data-rvon="1" style="margin:0 0 14px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.038em;line-height:.98;font-size:clamp(40px,11.5cqw,74px);text-shadow:0 3px 26px rgba(6,17,36,.45)">
-              <span data-sl style="display:block;overflow:hidden;padding-bottom:.08em">Welcome to the</span>
-              <span data-sl style="display:block;overflow:hidden;padding-bottom:.08em">Land of ACES</span>
+            <h1 data-split="char" data-split-delay=".34" data-rvon="1" style="margin:0 0 clamp(12px,2.5cqw,18px);font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.042em;line-height:.94;font-size:clamp(46px,15cqw,96px);text-shadow:0 3px 26px rgba(6,17,36,.45)">
+              <span data-sl style="display:block;overflow:hidden;padding-bottom:.08em">Computer</span>
+              <span data-sl style="display:block;overflow:hidden;padding-bottom:.08em">Engineering</span>
+              <span data-sl style="display:block;overflow:hidden;padding-bottom:.08em">at KNUST.</span>
             </h1>
-            <p style="margin:0 0 14px;font-family:'IBM Plex Mono',monospace;font-size:clamp(14.5px,3.9cqw,18px);font-weight:500;letter-spacing:.06em;line-height:1.5;color:#fff;text-shadow:0 2px 10px rgba(6,17,36,.5);animation:acRise .9s cubic-bezier(.16,1,.3,1) .6s both"><span style="color:#5BE49B;font-weight:600">A</span>ssociation of <span style="color:#5BE49B;font-weight:600">C</span>omputer <span style="color:#5BE49B;font-weight:600">E</span>ngineering <span style="color:#5BE49B;font-weight:600">S</span>tudents</p>
-            <p style="margin:0 0 20px;font-size:clamp(15px,3.9cqw,18.5px);line-height:1.6;color:rgba(255,255,255,.9);max-width:46ch;text-wrap:pretty;text-shadow:0 1px 12px rgba(6,17,36,.6);animation:acRise .9s cubic-bezier(.16,1,.3,1) .78s both">Events, course resources, executives and a student-run marketplace — all in one place.</p>
+            <p style="margin:0 0 clamp(16px,3cqw,24px);font-size:clamp(16px,4.2cqw,20px);line-height:1.5;color:rgba(255,255,255,.92);max-width:34ch;text-wrap:pretty;text-shadow:0 1px 12px rgba(6,17,36,.6);animation:acRise .9s cubic-bezier(.16,1,.3,1) .62s both">ACES is the student association behind it — events, course materials, and a marketplace built by students.</p>
 
-            <div style="display:flex;flex-wrap:wrap;gap:10px;animation:acRise .9s cubic-bezier(.16,1,.3,1) .96s both">
-              <a href="#/about" style="display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 22px;border-radius:15px;background:#fff;color:#0B1F3A;font-size:16px;font-weight:700;box-shadow:0 16px 34px -18px rgba(0,0,0,.6)" style-hover="background:#EAF4FF;color:#0B1F3A;transform:translateY(-2px)">Explore ACES <span aria-hidden="true">→</span></a>
-              <a href="#/browse" style="display:flex;align-items:center;justify-content:center;min-height:52px;padding:0 22px;border-radius:15px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:#fff;font-size:16px;font-weight:600" style-hover="background:rgba(255,255,255,.22);color:#fff">Browse marketplace</a>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;animation:acRise .9s cubic-bezier(.16,1,.3,1) .8s both">
+              <a href="#/register" style="display:flex;align-items:center;justify-content:center;gap:8px;min-height:54px;padding:0 24px;border-radius:15px;background:#fff;color:#0B1F3A;font-size:16.5px;font-weight:700;box-shadow:0 16px 34px -18px rgba(0,0,0,.6);transition:background .22s ease,color .22s ease" style-hover="background:#EAF4FF;color:#0B1F3A">Join ACES <span aria-hidden="true">→</span></a>
+              <a href="#/courses" style="display:flex;align-items:center;justify-content:center;min-height:54px;padding:0 24px;border-radius:15px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:16.5px;font-weight:600;transition:background .22s ease" style-hover="background:rgba(255,255,255,.24);color:#fff">Find my course</a>
             </div>
           </div>
-
-          <a href="#/home" onClick="{{ scrollNext }}" data-only="desktop" aria-label="Scroll to content" style="flex:0 0 auto;flex-direction:column;align-items:center;gap:9px;padding:6px 0;color:rgba(255,255,255,.8);animation:acFade 1s ease .8s both" style-hover="color:#fff">
-            <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;writing-mode:vertical-rl">Scroll</span>
-            <span aria-hidden="true" style="width:1px;height:54px;background:linear-gradient(to bottom,rgba(255,255,255,.7),rgba(255,255,255,0))"></span>
-          </a>
-
         </div>
       </section>
 
-      <section style="background:#F7FAFF;padding:clamp(30px,6cqw,64px) clamp(16px,4cqw,40px)">
+      <!-- Proof band, straight after the claim. Real numbers, counted up once. -->
+      <section style="background:#0B1F3A;color:#fff;padding:0 clamp(16px,4cqw,40px) clamp(22px,4cqw,40px)">
+        <div style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(8px,2cqw,18px);border-top:1px solid rgba(255,255,255,.16);padding-top:clamp(18px,3.5cqw,28px)">
+          <sc-for list="{{ heroStats }}" as="hs" hint-placeholder-count="3">
+            <div data-rv="1" style="animation:acRise .7s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;animation-delay:{{ hs.delay }}">
+              <div data-cu="{{ hs.n }}" data-cu-sfx="{{ hs.sfx }}" data-cu-delay="{{ hs.cd }}" style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(28px,7.5cqw,44px);letter-spacing:-.035em;line-height:1;color:#fff;font-variant-numeric:tabular-nums">{{ hs.v }}</div>
+              <div style="margin-top:5px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.6)">{{ hs.k }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+
+      <section style="background:#F7FAFF;padding:clamp(22px,4cqw,40px) clamp(16px,4cqw,40px)">
         <div style="max-width:1240px;margin:0 auto">
           <div data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;margin-bottom:18px">
             <div data-rv="1" style="animation:acRise .6s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">Start here</div>
-            <h2 data-split="word" data-rvg="1" style="margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(24px,6cqw,40px);color:#0B1F3A">Jump straight in</h2>
+            <h2 data-split="word" data-rvg="1" style="margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(21px,5cqw,30px);color:#0B1F3A">Jump straight in</h2>
             <p style="margin:0;font-size:15px;color:#5B6B7E;max-width:46ch;text-wrap:pretty">The six things students actually come here for.</p>
           </div>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(152px,1fr));gap:10px">
@@ -368,16 +381,15 @@ button{font-family:inherit}
         </div>
       </section>
 
-      <section id="events" style="background:#fff;padding:clamp(30px,6cqw,64px) 0">
+      <section id="events" style="background:#fff;padding:clamp(36px,7cqw,76px) 0">
         <div style="max-width:1240px;margin:0 auto">
           <div data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;padding:0 clamp(16px,4cqw,40px);margin-bottom:16px">
             <div>
               <div data-rv="1" style="animation:acRise .6s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">What's on</div>
-              <h2 data-split="word" data-rvg="1" style="margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(24px,6cqw,40px);color:#0B1F3A">Upcoming events</h2>
-              <p style="margin:0;font-size:15px;color:#5B6B7E;max-width:44ch;text-wrap:pretty">Status and registration links, straight from ACES.</p>
+              <h2 data-split="word" data-rvg="1" style="margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(27px,6.8cqw,44px);color:#0B1F3A">Upcoming events</h2>
+              <p style="margin:0;font-size:15px;color:#5B6B7E;max-width:44ch;text-wrap:pretty">CodeFest registration is open now. The rest are confirmed events with dates still being set — ask to be told first.</p>
             </div>
-            <a href="#/events" style="flex:0 0 auto;display:none;align-items:center;gap:6px;height:44px;padding:0 16px;border-radius:13px;border:1px solid rgba(11,31,58,.14);font-size:14px;font-weight:700;color:#0B1F3A" data-only="desktop" style-hover="background:#EAF4FF;border-color:#0B5FFF;color:#0B5FFF">See all events <span aria-hidden="true">→</span></a>
-          </div>
+            </div>
 
           <div class="acx" style="display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px clamp(16px,4cqw,40px) 12px;-webkit-overflow-scrolling:touch">
             <article class="acC" data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;flex:0 0 clamp(285px,88cqw,430px);scroll-snap-align:start;border-radius:22px;overflow:hidden;background:#0B1F3A;color:#fff;box-shadow:0 22px 44px -26px rgba(11,31,58,.8);transition:transform .3s ease" style-hover="transform:translateY(-4px)">
@@ -386,12 +398,15 @@ button{font-family:inherit}
                 <span style="position:absolute;top:11px;left:11px;display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:9px;background:#5BE49B;color:#062E1B;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase">Registration open</span>
               </div>
               <div style="padding:16px 16px 18px">
-                <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:8px">Date announced soon · Engineering, KNUST</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:8px">College of Engineering, KNUST</div>
                 <h3 style="margin:0 0 8px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(20px,5cqw,26px);letter-spacing:-.02em">CodeFest 2026</h3>
                 <p style="margin:0 0 14px;font-size:14.5px;line-height:1.55;color:rgba(255,255,255,.78);text-wrap:pretty">A full day of coding challenges, workshops and networking with tech enthusiasts across the college.</p>
                 <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
                   <a href="https://forms.gle/p5789Kabjyah6wq59" style="display:flex;align-items:center;justify-content:center;min-height:48px;padding:0 20px;border-radius:14px;background:#0B5FFF;color:#fff;font-size:15px;font-weight:700" style-hover="background:#fff;color:#0B1F3A">Register now</a>
-                  <span style="display:inline-flex;align-items:center;gap:8px;padding:0 14px;min-height:48px;border-radius:14px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);font-size:13.5px;color:rgba(255,255,255,.82)">Date announced soon</span>
+                  <span style="display:inline-flex;align-items:center;gap:8px;padding:0 14px;min-height:48px;border-radius:14px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);font-size:13.5px;color:rgba(255,255,255,.82)">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+                    Date to come
+                  </span>
                 </div>
               </div>
             </article>
@@ -402,10 +417,13 @@ button{font-family:inherit}
                 <span style="position:absolute;top:10px;left:10px;padding:5px 9px;border-radius:8px;background:rgba(255,255,255,.94);color:#0B1F3A;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase">Members welcome</span>
               </div>
               <div style="padding:14px 14px 16px">
-                <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5B6B7E;margin-bottom:7px">Date announced soon</div>
+                <span style="display:inline-flex;align-items:center;gap:5px;margin-bottom:8px;padding:4px 9px;border-radius:8px;background:rgba(11,31,58,.06);color:#5B6B7E;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+                  Date to come
+                </span>
                 <h3 style="margin:0 0 7px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;letter-spacing:-.02em;color:#0B1F3A">ACES Robotics Meeting</h3>
                 <p style="margin:0 0 12px;font-size:13.5px;line-height:1.55;color:#5B6B7E;text-wrap:pretty">Collaborate, build bots and automate solutions with fellow members.</p>
-                <a href="#/events" style="display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700">Details <span aria-hidden="true">→</span></a>
+                <a href="mailto:acesknust@gmail.com?subject=Tell%20me%20when%20ACES%20Robotics%20Meeting%20is%20dated" aria-label="Ask to be told when ACES Robotics Meeting is dated" style="display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:44px;padding:0 15px;border-radius:12px;background:#EAF4FF;color:#0B5FFF;font-size:14.5px;font-weight:700;transition:background .22s ease,color .22s ease" style-hover="background:#0B5FFF;color:#fff">Notify me <span aria-hidden="true">→</span></a>
               </div>
             </article>
 
@@ -415,10 +433,13 @@ button{font-family:inherit}
                 <span style="position:absolute;top:10px;left:10px;padding:5px 9px;border-radius:8px;background:rgba(255,255,255,.94);color:#0B1F3A;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase">Free entry</span>
               </div>
               <div style="padding:14px 14px 16px">
-                <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5B6B7E;margin-bottom:7px">Date announced soon</div>
+                <span style="display:inline-flex;align-items:center;gap:5px;margin-bottom:8px;padding:4px 9px;border-radius:8px;background:rgba(11,31,58,.06);color:#5B6B7E;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+                  Date to come
+                </span>
                 <h3 style="margin:0 0 7px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;letter-spacing:-.02em;color:#0B1F3A">ACES Hangout</h3>
                 <p style="margin:0 0 12px;font-size:13.5px;line-height:1.55;color:#5B6B7E;text-wrap:pretty">Games, conversations and chill vibes in a relaxed member-only evening.</p>
-                <a href="#/events" style="display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700">Details <span aria-hidden="true">→</span></a>
+                <a href="mailto:acesknust@gmail.com?subject=Tell%20me%20when%20ACES%20Hangout%20is%20dated" aria-label="Ask to be told when ACES Hangout is dated" style="display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:44px;padding:0 15px;border-radius:12px;background:#EAF4FF;color:#0B5FFF;font-size:14.5px;font-weight:700;transition:background .22s ease,color .22s ease" style-hover="background:#0B5FFF;color:#fff">Notify me <span aria-hidden="true">→</span></a>
               </div>
             </article>
 
@@ -428,25 +449,24 @@ button{font-family:inherit}
                 <span style="position:absolute;top:10px;left:10px;padding:5px 9px;border-radius:8px;background:#EAF4FF;color:#0B5FFF;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase">Tickets soon</span>
               </div>
               <div style="padding:14px 14px 16px">
-                <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5B6B7E;margin-bottom:7px">Date announced soon</div>
+                <span style="display:inline-flex;align-items:center;gap:5px;margin-bottom:8px;padding:4px 9px;border-radius:8px;background:rgba(11,31,58,.06);color:#5B6B7E;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+                  Date to come
+                </span>
                 <h3 style="margin:0 0 7px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;letter-spacing:-.02em;color:#0B1F3A">ACES Dinner 2026</h3>
                 <p style="margin:0 0 12px;font-size:13.5px;line-height:1.55;color:#5B6B7E;text-wrap:pretty">A night of food and fellowship. Connect with members over an elegant dinner.</p>
-                <a href="#/events" style="display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700">Notify me <span aria-hidden="true">→</span></a>
+                <a href="mailto:acesknust@gmail.com?subject=Tell%20me%20when%20ACES%20Dinner%202026%20is%20dated" aria-label="Ask to be told when ACES Dinner 2026 is dated" style="display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:44px;padding:0 15px;border-radius:12px;background:#EAF4FF;color:#0B5FFF;font-size:14.5px;font-weight:700;transition:background .22s ease,color .22s ease" style-hover="background:#0B5FFF;color:#fff">Notify me <span aria-hidden="true">→</span></a>
               </div>
             </article>
-          </div>
-
-          <div data-only="mobile" style="padding:2px clamp(16px,4cqw,40px) 0">
-            <a href="#/events" style="display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;border-radius:14px;border:1px solid rgba(11,31,58,.14);font-size:15px;font-weight:700;color:#0B1F3A" style-hover="background:#EAF4FF;border-color:#0B5FFF;color:#0B5FFF">See all events <span aria-hidden="true">→</span></a>
           </div>
         </div>
       </section>
 
-      <section id="vision" ref="{{ wheelSecRef }}" style="background:#EAF4FF;padding:clamp(32px,6cqw,68px) clamp(16px,4cqw,40px)">
-        <div style="max-width:1240px;margin:0 auto">
+      <section id="vision" ref="{{ wheelSecRef }}" style="background:#EAF4FF;padding:clamp(52px,10cqw,110px) clamp(16px,4cqw,40px)">
+        <div style="max-width:1080px;margin:0 auto">
           <div data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;margin-bottom:clamp(20px,3cqw,32px);max-width:640px">
             <div data-rv="1" style="animation:acRise .6s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">Who we are</div>
-            <h2 data-split="word" data-rvg="1" style="margin:0 0 8px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(24px,6cqw,40px);color:#0B1F3A">Our vision, in five parts</h2>
+            <h2 data-split="word" data-rvg="1" style="margin:0 0 8px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(32px,8.5cqw,58px);color:#0B1F3A">Our vision, in five parts</h2>
             <p style="margin:0;font-size:15px;line-height:1.6;color:#5B6B7E;text-wrap:pretty">Tap a slice or use the arrows — it also turns on its own. Every part of what ACES commits to, one at a time.</p>
           </div>
 
@@ -607,11 +627,11 @@ button{font-family:inherit}
         </div>
       </section>
 
-      <section style="background:#fff;padding:clamp(30px,6cqw,64px) clamp(16px,4cqw,40px)">
+      <section style="background:#fff;padding:clamp(30px,5.5cqw,56px) clamp(16px,4cqw,40px)">
         <div style="max-width:1240px;margin:0 auto">
           <div data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;margin-bottom:18px">
             <div data-rv="1" style="animation:acRise .6s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">Get involved</div>
-            <h2 data-split="word" data-rvg="1" style="margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(24px,6cqw,40px);color:#0B1F3A">Our clubs</h2>
+            <h2 data-split="word" data-rvg="1" style="margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(24px,6cqw,38px);color:#0B1F3A">Our clubs</h2>
             <p style="margin:0;font-size:15px;color:#5B6B7E;max-width:48ch;text-wrap:pretty">Pick a lane and build something with people in your year.</p>
           </div>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px">
@@ -646,12 +666,12 @@ button{font-family:inherit}
         </div>
       </section>
 
-      <section id="gallery" style="background:#F7FAFF;padding:clamp(30px,6cqw,64px) 0">
+      <section id="gallery" style="background:#F7FAFF;padding:clamp(20px,3.5cqw,38px) 0">
         <div style="max-width:1240px;margin:0 auto">
           <div data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;padding:0 clamp(16px,4cqw,40px);margin-bottom:16px">
             <div>
               <div data-rv="1" style="animation:acRise .6s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">Life at ACES</div>
-              <h2 data-split="word" data-rvg="1" style="margin:0;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(24px,6cqw,40px);color:#0B1F3A">Gallery</h2>
+              <h2 data-split="word" data-rvg="1" style="margin:0;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(20px,4.6cqw,28px);color:#0B1F3A">Gallery</h2>
             </div>
             <div style="flex:0 0 auto;display:flex;align-items:center;gap:8px">
               <button onClick="{{ galToggle }}" aria-label="{{ galBtnLabel }}" aria-pressed="{{ galPressed }}" style="width:44px;height:44px;display:grid;place-items:center;border:1px solid rgba(11,31,58,.14);background:#fff;cursor:pointer;color:#0B1F3A;border-radius:13px;transition:background .25s ease,border-color .25s ease" style-hover="background:#EAF4FF;border-color:#0B5FFF;color:#0B5FFF">
@@ -2265,7 +2285,7 @@ button{font-family:inherit}
       </sc-if>
 
       <sc-if value="{{ isTrack }}" hint-placeholder-val="{{ false }}">
-      <section style="background:#fff;padding:clamp(20px,4cqw,40px) clamp(16px,4cqw,40px) clamp(30px,6cqw,60px)">
+      <section style="background:#fff;padding:clamp(48px,9cqw,96px) clamp(16px,4cqw,40px) clamp(48px,9cqw,96px)">
         <div style="max-width:620px;margin:0 auto">
           <h1 data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .08s both;animation-play-state:paused;margin:0 0 8px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(26px,7cqw,40px);color:#0B1F3A">Track an order</h1>
           <p data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .16s both;animation-play-state:paused;margin:0 0 16px;font-size:15px;color:#5B6B7E">Enter the order code from your confirmation message.</p>
@@ -2295,7 +2315,7 @@ button{font-family:inherit}
 
       <div style="background:linear-gradient(180deg,#EAF4FF 0%,#EAF4FF 50%,#0B1F3A 50%,#0B1F3A 100%);padding:0 clamp(16px,4cqw,40px)">
         <div data-rv="1" style="animation:acRise .8s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;max-width:1240px;margin:0 auto;padding:clamp(26px,5cqw,44px) clamp(20px,4cqw,40px);border-radius:24px;background:#0B5FFF;text-align:center;box-shadow:0 26px 60px -30px rgba(11,95,255,.85)">
-          <h2 style="margin:0 0 8px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(21px,5.2cqw,31px);letter-spacing:-.025em;line-height:1.15;color:#fff">Subscribe to ACES Updates</h2>
+          <h2 style="margin:0 0 8px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(30px,8cqw,52px);letter-spacing:-.025em;line-height:1.15;color:#fff">Subscribe to ACES Updates</h2>
           <p style="margin:0 auto;max-width:44ch;font-size:clamp(14.5px,3.2cqw,16.5px);line-height:1.55;color:rgba(255,255,255,.88);text-wrap:pretty">Events, deadlines, course uploads and marketplace drops. One short email a week, and nothing else.</p>
           <sc-if value="{{ subClosed }}" hint-placeholder-val="{{ true }}">
             <button onClick="{{ openSub }}" style="margin-top:20px;min-height:52px;padding:0 30px;border-radius:9999px;border:1.5px solid rgba(255,255,255,.75);background:none;color:#fff;font-family:inherit;font-size:16px;font-weight:600;cursor:pointer;transition:background .25s ease,color .25s ease" style-hover="background:#fff;color:#0B5FFF">Subscribe Now</button>
@@ -2340,9 +2360,17 @@ button{font-family:inherit}
           </div>
 
           <div style="text-align:center;padding-top:clamp(28px,5cqw,44px)">
-            <span style="display:inline-flex;align-items:center;gap:11px;margin-bottom:16px">
-              <span style="width:44px;height:44px;flex:0 0 44px;border-radius:13px;background:rgba(255,255,255,.1);display:grid;place-items:center"><img src="https://www.acesknust.com/images/logo-white.png" alt="ACES KNUST logo" style="width:29px;height:29px;object-fit:contain;display:block" /></span>
-              <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:21px;letter-spacing:-.03em;color:#fff">ACES KNUST</span>
+            <!-- The wordmark is the footer's closing statement, not a small logo
+                 lockup: big type, then the four year colours under it. -->
+            <span style="display:inline-flex;align-items:center;gap:13px;margin-bottom:14px">
+              <span style="width:52px;height:52px;flex:0 0 52px;border-radius:15px;background:rgba(255,255,255,.1);display:grid;place-items:center"><img src="https://www.acesknust.com/images/logo-white.png" alt="ACES KNUST logo" style="width:34px;height:34px;object-fit:contain;display:block" /></span>
+              <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(34px,9cqw,58px);letter-spacing:-.045em;line-height:.9;color:#fff">ACES</span>
+            </span>
+            <span aria-hidden="true" style="display:flex;gap:4px;width:132px;margin:0 auto 18px">
+              <span style="flex:1;height:3px;border-radius:99px;background:#0B5FFF"></span>
+              <span style="flex:1;height:3px;border-radius:99px;background:#12855A"></span>
+              <span style="flex:1;height:3px;border-radius:99px;background:#C2660A"></span>
+              <span style="flex:1;height:3px;border-radius:99px;background:#6D3BD1"></span>
             </span>
 
             <div style="display:grid;gap:5px;margin-bottom:20px;font-size:13.5px;line-height:1.6;color:rgba(255,255,255,.62)">
@@ -3223,6 +3251,14 @@ class Component extends DCLogic {
       // own contents behind a tap is the 14-link footer problem wearing a different coat.
       // Scholarships: interest capture plus a labelled skeleton. No award is ever invented here.
       // ACES Shop: browsing, variants, cart flow, and a coming-soon state that still does a job.
+      // Proof band under the hero. Every figure is one we already hold: the member
+      // count is the association's own, clubs and courses are counted from the data
+      // on this page. Nothing here is estimated.
+      heroStats: [
+        { k: 'Members', v: '600+', n: '600', sfx: '+', cd: '0', delay: '0s' },
+        { k: 'Clubs', v: '3', n: '3', sfx: '', cd: '120', delay: '.07s' },
+        { k: 'Courses filed', v: String(COURSES.length), n: String(COURSES.length), sfx: '', cd: '240', delay: '.14s' }
+      ],
       // `n` drives the count-up; tiles without a number (CoE) keep `v` as written.
       aboutStats: [
         { k: 'Members', v: '600+', n: '600', sfx: '+', d: '0' },
@@ -3404,10 +3440,14 @@ class Component extends DCLogic {
         { id: 'res', label: 'Resources', links: [
           { label: 'Course materials', href: '#/courses' }, { label: 'Scholarships', href: '#/scholarships' },
           { label: 'ACES Shop', href: '#/shop' }] }
-      ].map(g => ({
-        ...g, open: s.acc === g.id, expanded: s.acc === g.id ? 'true' : 'false',
-        rotate: s.acc === g.id ? 'rotate(180deg)' : 'rotate(0deg)'
-      })),
+      // Open by default. The design's own note says a menu that hides its contents
+      // behind a tap is the 14-link footer problem in a different coat — and the
+      // footer was doing exactly that, shipping zero visible links.
+      ].map(g => {
+        const shut = !!(s.accClosed || {})[g.id];
+        return { ...g, open: !shut, expanded: shut ? 'false' : 'true',
+                 rotate: shut ? 'rotate(0deg)' : 'rotate(180deg)' };
+      }),
       footFlat: [],
       subOpen: s.sub === 'open', subClosed: !s.sub, subDone: s.sub === 'done', subMail: s.subMail || '',
 
@@ -3506,7 +3546,7 @@ class Component extends DCLogic {
       types: [{ k: 'All', label: 'All types' }, { k: 'Physical', label: 'Physical product' }, { k: 'Digital', label: 'Digital product' }, { k: 'Service', label: 'Service' }],
       setType: e => this.setState({ ptype: e.currentTarget.dataset.t }),
       setCond: e => this.setState({ cond: e.currentTarget.value }),
-      toggleAcc: e => { const id = e.currentTarget.dataset.acc; this.setState(st => ({ acc: st.acc === id ? '' : id })); },
+      toggleAcc: e => { const id = e.currentTarget.dataset.acc; this.setState(st => { const m = { ...(st.accClosed || {}) }; m[id] = !m[id]; return { accClosed: m }; }); },
       setExecYear: e => this.setState({ execYear: e.currentTarget.value }),
       setStaffGroup: e => this.setState({ staffGroup: e.currentTarget.dataset.g }),
       setSchMail: e => this.setState({ schMail: e.currentTarget.value, schErr: '' }),
