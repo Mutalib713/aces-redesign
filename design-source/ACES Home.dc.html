@@ -84,6 +84,10 @@ button{font-family:inherit}
    that button on screen at any width while the sheet is open. */
 .acHb[data-open="1"]{display:grid!important}
 
+/* Semester drawer chevron. Points down when closed, flips up when open. */
+.acCh{transition:transform .32s cubic-bezier(.16,1,.3,1)}
+.acCh[data-open="true"]{transform:rotate(180deg)}
+
 /* Header hides on scroll-down, returns on scroll-up. The 6px dead-zone stops a
    thumb wobble from flickering it. */
 .acHd{transition:transform .34s cubic-bezier(.22,1,.36,1)}
@@ -1919,75 +1923,122 @@ button{font-family:inherit}
       </sc-if>
 
       <sc-if value="{{ isCourses }}" hint-placeholder-val="{{ false }}">
-      <section style="background:#F7FAFF;padding:clamp(20px,4cqw,40px) clamp(16px,4cqw,40px) clamp(30px,6cqw,60px)">
+      <section style="background:#F7FAFF;padding:clamp(22px,4cqw,44px) clamp(16px,4cqw,40px) clamp(34px,6cqw,64px)">
         <div style="max-width:1240px;margin:0 auto">
-          <div data-rv="1" style="animation:acRise .6s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">Resources</div>
-          <h1 data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .08s both;animation-play-state:paused;margin:0 0 8px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(26px,7cqw,44px);color:#0B1F3A">Course Materials</h1>
-          <p data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .16s both;animation-play-state:paused;margin:0 0 16px;font-size:15px;line-height:1.6;color:#5B6B7E;max-width:56ch;text-wrap:pretty">Download lecture slides, past questions, and study materials for Computer Engineering courses at KNUST.</p>
 
-          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px">
-            <label style="flex:1 1 240px;display:flex;align-items:center;gap:10px;height:50px;padding:0 14px;border-radius:14px;background:#fff;border:1px solid rgba(11,31,58,.12)">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5B6B7E" stroke-width="2.1" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.6-3.6"></path></svg>
-              <input value="{{ cq }}" onInput="{{ setCq }}" placeholder="Search a course code or title" style="flex:1;min-width:0;border:none;background:none;outline:none;font-family:inherit;font-size:15px;color:#111827" />
+          <div data-rv="1" style="animation:acRise .7s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;display:flex;align-items:flex-start;gap:clamp(12px,3cqw,18px);margin-bottom:clamp(18px,3cqw,26px)">
+            <span aria-hidden="true" style="flex:0 0 auto;width:clamp(52px,13cqw,64px);height:clamp(52px,13cqw,64px);border-radius:18px;background:#EAF4FF;display:grid;place-items:center;color:#0B5FFF">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5z"></path><path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5z"></path></svg>
+            </span>
+            <div style="flex:1;min-width:0">
+              <h1 data-split="word" data-rvg="1" style="margin:0 0 8px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.035em;line-height:1.02;font-size:clamp(30px,8.6cqw,52px);color:#0B1F3A">Academic Resources</h1>
+              <p style="margin:0;font-size:clamp(14.5px,3.7cqw,17px);line-height:1.55;color:#5B6B7E;max-width:52ch;text-wrap:pretty">Slides, past questions and course outlines for Computer Engineering at KNUST, filed by year and semester.</p>
+            </div>
+          </div>
+
+          <div data-rv="1" style="animation:acRise .7s cubic-bezier(.16,1,.3,1) .08s both;animation-play-state:paused;margin-bottom:clamp(16px,3cqw,22px)">
+            <label style="display:flex;align-items:center;gap:11px;height:54px;padding:0 16px;border-radius:16px;background:#fff;border:1px solid rgba(11,31,58,.12);box-shadow:0 10px 26px -22px rgba(11,31,58,.8);margin-bottom:11px">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#5B6B7E" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.6-3.6"></path></svg>
+              <input value="{{ cq }}" onInput="{{ setCq }}" aria-label="Search courses" placeholder="Search a course or code" style="flex:1;min-width:0;border:none;background:none;outline:none;font-family:inherit;font-size:16px;color:#111827" />
+              <sc-if value="{{ hasCq }}" hint-placeholder-val="{{ false }}">
+                <button onClick="{{ clearCq }}" aria-label="Clear search" style="flex:0 0 auto;width:32px;height:32px;display:grid;place-items:center;border:none;border-radius:10px;background:rgba(11,31,58,.07);color:#5B6B7E;cursor:pointer;transition:background .22s ease,color .22s ease" style-hover="background:#EAF4FF;color:#0B5FFF">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"></path></svg>
+                </button>
+              </sc-if>
             </label>
-          </div>
-          <div class="acx" style="display:flex;gap:7px;overflow-x:auto;padding-bottom:14px">
-            <sc-for list="{{ years }}" as="y" hint-placeholder-count="5">
-              <button data-y="{{ y.name }}" onClick="{{ setYear }}" style="flex:0 0 auto;min-height:42px;padding:0 16px;border-radius:12px;border:1px solid rgba(11,31,58,.12);background:#fff;color:#0B1F3A;font-size:14px;font-weight:600;white-space:nowrap;cursor:pointer" style-hover="border-color:#0B5FFF">{{ y.label }}</button>
-            </sc-for>
+
+            <div class="acx" role="group" aria-label="Filter by year" style="display:flex;gap:7px;overflow-x:auto;padding-bottom:9px">
+              <sc-for list="{{ years }}" as="y" hint-placeholder-count="5">
+                <button data-y="{{ y.name }}" onClick="{{ setYear }}" aria-pressed="{{ y.pressed }}" style="flex:0 0 auto;min-height:44px;padding:0 17px;border-radius:13px;border:1px solid {{ y.bd }};background:{{ y.bg }};color:{{ y.fg }};font-size:14.5px;font-weight:600;white-space:nowrap;cursor:pointer;transition:background .22s ease,color .22s ease,border-color .22s ease" style-hover="border-color:#0B5FFF">{{ y.label }}</button>
+              </sc-for>
+            </div>
+
+            <div class="acx" role="group" aria-label="Filter by semester" style="display:flex;gap:7px;overflow-x:auto">
+              <sc-for list="{{ sems }}" as="sm" hint-placeholder-count="3">
+                <button data-s="{{ sm.k }}" onClick="{{ setSem }}" aria-pressed="{{ sm.pressed }}" style="flex:0 0 auto;min-height:40px;padding:0 15px;border-radius:11px;border:1px solid {{ sm.bd }};background:{{ sm.bg }};color:{{ sm.fg }};font-size:13.5px;font-weight:600;white-space:nowrap;cursor:pointer;transition:background .22s ease,color .22s ease,border-color .22s ease" style-hover="border-color:#0B5FFF">{{ sm.label }}</button>
+              </sc-for>
+            </div>
           </div>
 
-          <div class="acx" style="display:flex;gap:7px;overflow-x:auto;padding-bottom:16px">
-            <sc-for list="{{ sems }}" as="sm" hint-placeholder-count="3">
-              <button data-s="{{ sm.k }}" onClick="{{ setSem }}" style="flex:0 0 auto;min-height:40px;padding:0 15px;border-radius:11px;border:1px solid rgba(11,31,58,.12);background:#fff;color:#5B6B7E;font-size:13.5px;font-weight:600;white-space:nowrap;cursor:pointer" style-hover="border-color:#0B5FFF">{{ sm.label }}</button>
-            </sc-for>
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin-bottom:clamp(14px,3cqw,20px)">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:#5B6B7E;font-weight:600">{{ selCount }}</span>
+            <span style="height:1px;flex:1;min-width:20px;background:rgba(11,31,58,.12)"></span>
+            <sc-if value="{{ filtersOn }}" hint-placeholder-val="{{ false }}">
+              <button onClick="{{ clearFilters }}" style="min-height:38px;padding:0 14px;border-radius:11px;border:1px solid rgba(11,31,58,.14);background:#fff;color:#0B1F3A;font-size:13.5px;font-weight:600;cursor:pointer;transition:border-color .22s ease,color .22s ease" style-hover="border-color:#0B5FFF;color:#0B5FFF">Clear filters</button>
+            </sc-if>
           </div>
 
-          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:16px;font-size:13.5px;color:#5B6B7E">
-            <span>Showing</span>
-            <span style="padding:5px 11px;border-radius:9px;background:#EAF4FF;color:#0B1F3A;font-weight:700">{{ selYear }}</span>
-            <span style="padding:5px 11px;border-radius:9px;background:#EAF4FF;color:#0B1F3A;font-weight:700">{{ selSem }}</span>
-            <span>· {{ selCount }}</span>
-          </div>
-
-          <sc-if value="{{ hasCourses }}" hint-placeholder-val="{{ false }}">
-            <div style="display:grid;gap:18px">
-              <sc-for list="{{ groups }}" as="g" hint-placeholder-count="2">
-                <div>
-                  <div style="display:flex;align-items:center;gap:10px;margin-bottom:9px">
-                    <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;letter-spacing:-.02em;color:#0B1F3A">{{ g.lvl }}</span>
-                    <span style="font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:17px;letter-spacing:-.02em;color:#5B6B7E">{{ g.sem }}</span>
-                    <span style="height:1px;flex:1;background:rgba(11,31,58,.12)"></span>
-                    <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#5B6B7E">{{ g.countT }}</span>
+          <sc-if value="{{ hasCourses }}" hint-placeholder-val="{{ true }}">
+            <div style="display:grid;gap:clamp(22px,4cqw,34px)">
+              <sc-for list="{{ yearBlocks }}" as="Y" hint-placeholder-count="2">
+                <div data-rv="1" style="animation:acRise .7s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;position:relative;padding-left:16px">
+                  <span aria-hidden="true" style="position:absolute;left:0;top:4px;bottom:4px;width:4px;border-radius:99px;background:{{ Y.accent }}"></span>
+                  <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:11px">
+                    <h2 style="margin:0;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(19px,4.8cqw,25px);letter-spacing:-.028em;color:#0B1F3A">{{ Y.label }}</h2>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#5B6B7E">{{ Y.meta }}</span>
                   </div>
-                  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px">
-                    <sc-for list="{{ g.items }}" as="c" hint-placeholder-count="4">
-                      <div style="display:flex;flex-direction:column;border-radius:16px;background:#fff;border:1px solid rgba(11,31,58,.1);box-shadow:0 12px 26px -22px rgba(11,31,58,.7);overflow:hidden">
-                        <span style="display:block;height:3px;background:{{ g.accent }}"></span>
-                        <div style="display:flex;flex-direction:column;padding:14px">
-                        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:11px">
-                          <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;line-height:1.25;letter-spacing:-.02em;color:#0B1F3A;text-wrap:pretty">{{ c.title }}</span>
-                          <span style="display:flex;flex-wrap:wrap;gap:7px">
-                            <sc-if value="{{ c.hasCode }}" hint-placeholder-val="{{ false }}">
-                              <span style="padding:5px 10px;border-radius:9px;background:#EAF7EE;border:1px solid rgba(27,122,75,.22);color:#1B7A4B;font-size:12.5px;font-weight:600">{{ c.code }}</span>
-                            </sc-if>
-                            <span style="padding:5px 10px;border-radius:9px;background:#EAF7EE;border:1px solid rgba(27,122,75,.22);color:#1B7A4B;font-size:12.5px;font-weight:600">{{ c.creditsT }}</span>
+
+                  <div style="display:grid;gap:10px">
+                    <sc-for list="{{ Y.sems }}" as="S" hint-placeholder-count="2">
+                      <div>
+                        <button onClick="{{ toggleSem }}" data-sk="{{ S.key }}" aria-expanded="{{ S.expanded }}" style="width:100%;display:flex;align-items:center;gap:12px;min-height:64px;padding:11px 14px;border-radius:16px;border:1px solid {{ S.barBd }};background:{{ S.barBg }};cursor:pointer;text-align:left;font-family:inherit;transition:background .28s ease,border-color .28s ease" style-hover="border-color:{{ S.accent }}">
+                          <span aria-hidden="true" style="flex:0 0 auto;width:38px;height:38px;border-radius:12px;background:{{ S.iconBg }};display:grid;place-items:center;color:{{ S.accent }}">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="16" rx="3"></rect><path d="M8 3v4M16 3v4M3.5 10h17"></path></svg>
                           </span>
-                        </div>
-                        <div style="display:grid;gap:6px">
-                          <sc-for list="{{ c.files }}" as="fl" hint-placeholder-count="3">
-                            <a href="{{ fl.url }}" style="display:flex;align-items:center;gap:9px;min-height:46px;padding:0 11px;border-radius:12px;background:#F7FAFF;border:1px solid rgba(11,31,58,.08);color:#0B1F3A" style-hover="border-color:#0B5FFF;background:#EAF4FF">
-                              <span style="flex:0 0 auto;width:28px;height:28px;border-radius:9px;background:#fff;display:grid;place-items:center;color:#0B5FFF">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7l-4-4z"></path><path d="M14 3v4h4"></path></svg>
-                              </span>
-                              <span style="flex:1;min-width:0;font-size:13.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ fl.name }}</span>
-                              <span style="flex:0 0 auto;width:30px;height:30px;border-radius:9px;background:#DCEBFF;display:grid;place-items:center;color:#0B5FFF">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6"></path><path d="M20 4l-8.5 8.5"></path><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg>
-                              </span>
-                            </a>
-                          </sc-for>
+                          <span style="flex:1;min-width:0">
+                            <span style="display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16.5px;letter-spacing:-.02em;color:#0B1F3A">{{ S.semLabel }}</span>
+                            <span style="display:block;margin-top:2px;font-size:13px;color:#5B6B7E">{{ S.meta }}</span>
+                          </span>
+                          <span aria-hidden="true" class="acCh" data-open="{{ S.expanded }}" style="flex:0 0 auto;width:30px;height:30px;display:grid;place-items:center;border-radius:10px;color:{{ S.accent }}">
+                            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
+                          </span>
+                        </button>
+
+                        <sc-if value="{{ S.open }}" hint-placeholder-val="{{ true }}">
+                          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:10px;padding-top:10px">
+                            <sc-for list="{{ S.items }}" as="c" hint-placeholder-count="4">
+                              <article style="position:relative;display:flex;flex-direction:column;padding:14px 14px 14px 17px;border-radius:16px;background:#fff;border:1px solid rgba(11,31,58,.1);box-shadow:0 12px 26px -22px rgba(11,31,58,.7);animation:acPop .42s cubic-bezier(.16,1,.3,1) both;animation-delay:{{ c.delay }}">
+                                <span aria-hidden="true" style="position:absolute;left:0;top:14px;bottom:14px;width:4px;border-radius:0 99px 99px 0;background:{{ c.accent }}"></span>
+                                <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16.5px;line-height:1.26;letter-spacing:-.02em;color:#0B1F3A;text-wrap:pretty;margin-bottom:9px">{{ c.title }}</span>
+                                <span style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:11px">
+                                  <sc-if value="{{ c.hasCode }}" hint-placeholder-val="{{ true }}">
+                                    <span style="padding:5px 10px;border-radius:9px;background:{{ c.chipBg }};color:{{ c.accent }};font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;letter-spacing:.03em">{{ c.code }}</span>
+                                  </sc-if>
+                                  <span style="padding:5px 10px;border-radius:9px;background:rgba(11,31,58,.06);color:#5B6B7E;font-size:12.5px;font-weight:600">{{ c.creditsT }}</span>
+                                </span>
+
+                                <sc-if value="{{ c.hasFiles }}" hint-placeholder-val="{{ false }}">
+                                  <span style="display:grid;gap:6px">
+                                    <sc-for list="{{ c.files }}" as="fl" hint-placeholder-count="2">
+                                      <a href="{{ fl.url }}" download style="display:flex;align-items:center;gap:9px;min-height:46px;padding:0 11px;border-radius:12px;background:#F7FAFF;border:1px solid rgba(11,31,58,.08);color:#0B1F3A;transition:background .22s ease,border-color .22s ease" style-hover="border-color:#0B5FFF;background:#EAF4FF">
+                                        <span aria-hidden="true" style="flex:0 0 auto;width:28px;height:28px;border-radius:9px;background:#fff;display:grid;place-items:center;color:#0B5FFF">
+                                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7l-4-4z"></path><path d="M14 3v4h4"></path></svg>
+                                        </span>
+                                        <span style="flex:1;min-width:0;font-size:13.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ fl.name }}</span>
+                                        <span aria-hidden="true" style="flex:0 0 auto;width:30px;height:30px;border-radius:9px;background:#DCEBFF;display:grid;place-items:center;color:#0B5FFF">
+                                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"></path><path d="M8 11l4 4 4-4"></path><path d="M5 19h14"></path></svg>
+                                        </span>
+                                      </a>
+                                    </sc-for>
+                                  </span>
+                                </sc-if>
+
+                                <sc-if value="{{ c.noFiles }}" hint-placeholder-val="{{ true }}">
+                                  <span style="display:flex;align-items:center;gap:10px;margin-top:auto;padding:10px 11px;border-radius:12px;background:#F7FAFF;border:1px dashed rgba(11,31,58,.18)">
+                                    <span aria-hidden="true" style="flex:0 0 auto;width:28px;height:28px;border-radius:9px;background:#fff;display:grid;place-items:center;color:#8A97A8">
+                                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7l-4-4z"></path><path d="M14 3v4h4"></path></svg>
+                                    </span>
+                                    <span style="flex:1;min-width:0">
+                                      <span style="display:block;font-size:13px;font-weight:600;color:#0B1F3A">Nothing filed yet</span>
+                                      <span style="display:block;font-size:12.5px;color:#5B6B7E">Have slides or past questions?</span>
+                                    </span>
+                                    <a href="{{ c.mailto }}" aria-label="Send materials for {{ c.title }}" style="flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;min-width:44px;height:32px;padding:0 11px;border-radius:10px;background:#EAF4FF;color:#0B5FFF;font-size:13px;font-weight:700;transition:background .22s ease,color .22s ease" style-hover="background:#0B5FFF;color:#fff">Send</a>
+                                  </span>
+                                </sc-if>
+                              </article>
+                            </sc-for>
                           </div>
-                        </div>
+                        </sc-if>
                       </div>
                     </sc-for>
                   </div>
@@ -1996,16 +2047,16 @@ button{font-family:inherit}
             </div>
           </sc-if>
 
-          <sc-if value="{{ noCourses }}" hint-placeholder-val="{{ true }}">
-            <div style="padding:clamp(26px,5cqw,40px) 20px;text-align:center;border-radius:22px;background:#fff;border:1px dashed rgba(11,31,58,.18)">
-              <div style="width:52px;height:52px;margin:0 auto 13px;border-radius:16px;background:#EAF4FF;display:grid;place-items:center;color:#0B5FFF">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5v-13z"></path><path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5A1.5 1.5 0 0 0 20 18.5v-13z"></path></svg>
+          <sc-if value="{{ noCourses }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:clamp(28px,5cqw,44px) 20px;text-align:center;border-radius:22px;background:#fff;border:1px dashed rgba(11,31,58,.18)">
+              <div aria-hidden="true" style="width:56px;height:56px;margin:0 auto 14px;border-radius:17px;background:#EAF4FF;display:grid;place-items:center;color:#0B5FFF">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.6-3.6"></path></svg>
               </div>
-              <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;color:#0B1F3A;margin-bottom:7px">No materials for that filter</div>
-              <p style="margin:0 auto 16px;font-size:14.5px;line-height:1.6;color:#5B6B7E;max-width:44ch;text-wrap:pretty">Materials are grouped by year and semester. Pick another year, clear the search, or send us what you have and we'll add it.</p>
+              <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(19px,4.6cqw,23px);letter-spacing:-.02em;color:#0B1F3A;margin-bottom:7px">{{ emptyTitle }}</div>
+              <p style="margin:0 auto 18px;font-size:14.5px;line-height:1.6;color:#5B6B7E;max-width:44ch;text-wrap:pretty">{{ emptyBody }}</p>
               <div style="display:flex;flex-wrap:wrap;gap:9px;justify-content:center">
-                <button data-y="All" onClick="{{ setYear }}" style="min-height:48px;padding:0 20px;border:none;border-radius:14px;background:#0B1F3A;color:#fff;font-size:15px;font-weight:700;cursor:pointer" style-hover="background:#0B5FFF">Show all years</button>
-                <a href="mailto:acesknust@gmail.com" style="display:inline-flex;align-items:center;min-height:48px;padding:0 20px;border-radius:14px;border:1px solid rgba(11,31,58,.16);color:#0B1F3A;font-size:15px;font-weight:700" style-hover="border-color:#0B5FFF;color:#0B5FFF">Contribute materials</a>
+                <button onClick="{{ clearFilters }}" style="min-height:48px;padding:0 20px;border:none;border-radius:14px;background:#0B1F3A;color:#fff;font-size:15px;font-weight:700;cursor:pointer;transition:background .22s ease" style-hover="background:#0B5FFF">Show every course</button>
+                <a href="mailto:acesknust@gmail.com?subject=Course%20materials" style="display:inline-flex;align-items:center;min-height:48px;padding:0 20px;border-radius:14px;border:1px solid rgba(11,31,58,.16);color:#0B1F3A;font-size:15px;font-weight:700;transition:border-color .22s ease,color .22s ease" style-hover="border-color:#0B5FFF;color:#0B5FFF">Send us materials</a>
               </div>
             </div>
           </sc-if>
@@ -2509,10 +2560,16 @@ const COURSES = [
   { title: 'Digital Signal Processing', credits: 3, level: 'Y4', sem: 2 },
   { title: 'Software Engineering', code: 'COE 454', credits: 3, level: 'Y4', sem: 2 },
   { title: 'Fault Diagnosis and Failure Tolerance', code: 'COE 480', credits: 3, level: 'Y4', sem: 2 }
-].map(c => ({ ...c, files: [{ name: c.title + ' \u2014 ' + (c.file || 'Course Materials'), url: 'https://www.acesknust.com/courses' }] }));
+];
+// Every course used to be given one synthetic "file" pointing at
+// https://www.acesknust.com/courses \u2014 a download button that was really a link
+// back to the site this project replaces, for a file that does not exist.
+// Courses now carry only the materials we actually hold; the rest render the
+// honest per-course empty state. Add real ones as `files: [{ name, url }]`
+// with the file served from assets/, never hotlinked.
 
 class Component extends DCLogic {
-  state = { bar: true, menu: false, galPaused: false, gq: '', search: false, rtab: 'vendor', reg: { name: '', mail: '', index: '', year: 'Y1', shop: '', cat: 'Food & Beverages', phone: '', pass: '', pass2: '', agree: false }, regDone: false, regErr: '', route: 'home', pid: null, cart: {}, q: '', cat: 'All', cyear: 'All', lb: -1, sent: false, store: '', sort: '', csem: 'All', ptype: 'All', filters: false, favs: {}, revStar: 0, revText: '', revSent: false, cond: '', pmin: '', pmax: '', acc: '', execYear: '2025/26', staffGroup: 'All', shopTab: 'All', merchVar: {}, reserved: '', sch: '', schMail: '', schWants: [], schErr: '', sub: '', subMail: '', liMail: '', liPass: '', liErr: '', pwShow: false, user: '', shop: '', bizName: '', bizCat: 'Food & Beverages', bizPhone: '', bizDesc: '', bizErr: '', np: '', npName: '', npCat: 'Food & Beverages', npPrice: '', npDesc: '', npErr: '', listings: [] };
+  state = { bar: true, menu: false, galPaused: false, openSems: {}, gq: '', search: false, rtab: 'vendor', reg: { name: '', mail: '', index: '', year: 'Y1', shop: '', cat: 'Food & Beverages', phone: '', pass: '', pass2: '', agree: false }, regDone: false, regErr: '', route: 'home', pid: null, cart: {}, q: '', cat: 'All', cyear: 'All', lb: -1, sent: false, store: '', sort: '', csem: 'All', ptype: 'All', filters: false, favs: {}, revStar: 0, revText: '', revSent: false, cond: '', pmin: '', pmax: '', acc: '', execYear: '2025/26', staffGroup: 'All', shopTab: 'All', merchVar: {}, reserved: '', sch: '', schMail: '', schWants: [], schErr: '', sub: '', subMail: '', liMail: '', liPass: '', liErr: '', pwShow: false, user: '', shop: '', bizName: '', bizCat: 'Food & Beverages', bizPhone: '', bizDesc: '', bizErr: '', np: '', npName: '', npCat: 'Food & Beverages', npPrice: '', npDesc: '', npErr: '', listings: [] };
   pageRef = React.createRef();
   vpRef = React.createRef();
   hdrRef = React.createRef();
@@ -3059,16 +3116,61 @@ class Component extends DCLogic {
     const cl = COURSES.filter(c => (s.cyear === 'All' || c.level === s.cyear)
       && (s.csem === 'All' || c.sem === s.csem)
       && (!cq || ((c.code || '') + ' ' + c.title).toLowerCase().indexOf(cq) > -1));
-    const groups = [];
+    // Year -> semester -> courses. The year's accent runs down the left edge of
+    // everything inside it, so the page reads as colour-coded by year at a glance.
+    const tint = (hex, a) => {
+      const n = parseInt(hex.slice(1), 16);
+      return 'rgba(' + ((n >> 16) & 255) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + a + ')';
+    };
+    const plural = (n, one, many) => n + ' ' + (n === 1 ? one : many);
+    const openMap = s.openSems || {};
+    // A filter changes what "open by default" means — every match opens, because
+    // hunting for results behind closed drawers is why people give up on filters.
+    // It is only the default: openSems still wins, and every filter change resets
+    // it, so a semester the user collapsed does not stay collapsed forever.
+    const filtersOn = !!(cq || s.cyear !== 'All' || s.csem !== 'All');
+    const yearBlocks = [];
+    let firstKey = null;
     LEVELS.forEach(L => {
+      const sems = [];
+      let yCourses = 0;
       [1, 2].forEach(sem => {
         const items = cl.filter(c => c.level === L.k && c.sem === sem);
-        if (items.length) groups.push({
-          lvl: L.label, sem: SEMS[sem], accent: L.accent, countT: items.length + (items.length === 1 ? ' course' : ' courses'),
-          items: items.map(c => ({ ...c, creditsT: c.credits + (c.credits === 1 ? ' Credit' : ' Credits'), hasCode: !!c.code, code: c.code || '', files: c.files }))
+        if (!items.length) return;
+        yCourses += items.length;
+        const key = L.k + '-' + sem;
+        if (!firstKey) firstKey = key;
+        sems.push({
+          key: key, accent: L.accent, semLabel: SEMS[sem],
+          meta: plural(items.length, 'course', 'courses') + ' · ' + items.reduce((n, c) => n + c.credits, 0) + ' credits',
+          _items: items
         });
       });
+      if (sems.length) yearBlocks.push({
+        key: L.k, label: L.label, accent: L.accent,
+        meta: plural(yCourses, 'course', 'courses'), sems: sems
+      });
     });
+    yearBlocks.forEach(Y => Y.sems.forEach(S => {
+      const open = S.key in openMap ? openMap[S.key] : (filtersOn || S.key === firstKey);
+      S.open = open;
+      S.expanded = open ? 'true' : 'false';
+      S.barBg = open ? tint(S.accent, .09) : '#ffffff';
+      S.barBd = open ? tint(S.accent, .35) : 'rgba(11,31,58,.1)';
+      S.iconBg = open ? '#ffffff' : tint(S.accent, .1);
+      S.items = S._items.map((c, i) => {
+        const files = c.files || [];
+        return {
+          title: c.title, code: c.code || '', hasCode: !!c.code,
+          creditsT: plural(c.credits, 'credit', 'credits'),
+          accent: S.accent, chipBg: tint(S.accent, .1),
+          delay: Math.min(i, 7) * 0.035 + 's',
+          files: files, hasFiles: files.length > 0, noFiles: files.length === 0,
+          mailto: 'mailto:acesknust@gmail.com?subject=' + encodeURIComponent('Materials for ' + c.title)
+        };
+      });
+      delete S._items;
+    }));
     const r = s.route;
     return {
       pageRef: this.pageRef, vpRef: this.vpRef, hdrRef: this.hdrRef, wheelRef: this.wheelRef,
@@ -3352,16 +3454,44 @@ class Component extends DCLogic {
       shirt: { ...MERCH[0], hasImg: !!MERCH[0].img }, shirtSizes: MERCH[0].sizes.map(z => ({ z: z })),
       shopHint: MERCH.length === 1 ? 'One item in the shop right now' : MERCH.length + ' items',
       cats: CATS.map(c => ({ name: c, on: c === s.cat })),
+      // Chips carry their own selected state. The old markup computed `on` and
+      // then never used it, so the active filter was invisible.
       years: [{ name: 'All', label: 'All years' }].concat(LEVELS.map(L => ({ name: L.k, label: L.label })))
-        .map(y => ({ ...y, on: y.name === s.cyear })),
+        .map(y => {
+          const on = y.name === s.cyear;
+          return { ...y, on: on, pressed: on ? 'true' : 'false',
+                   bg: on ? '#0B1F3A' : '#ffffff', fg: on ? '#ffffff' : '#0B1F3A',
+                   bd: on ? '#0B1F3A' : 'rgba(11,31,58,.12)' };
+        }),
       selYear: s.cyear === 'All' ? 'All years' : (LEVELS.filter(L => L.k === s.cyear)[0] || {}).label,
       selSem: s.csem === 'All' ? 'Both semesters' : 'Sem ' + s.csem,
-      selCount: cl.length + (cl.length === 1 ? ' course' : ' courses'),
-      groups: groups, hasCourses: groups.length > 0, noCourses: groups.length === 0, cq: s.cq || '',
+      selCount: cl.length + (cl.length === 1 ? ' course' : ' courses') + (filtersOn ? ' match' : ' on file'),
+      yearBlocks: yearBlocks, hasCourses: yearBlocks.length > 0, noCourses: yearBlocks.length === 0,
+      cq: s.cq || '', hasCq: !!(s.cq || '').trim(), filtersOn: filtersOn,
+      emptyTitle: cq ? 'No course matches "' + s.cq + '"' : 'Nothing filed for that filter',
+      emptyBody: cq
+        ? 'Try the course code instead of the title, or clear the search to browse every year.'
+        : 'Materials are grouped by year and semester. Pick another year, or send us what you have and we will file it.',
       sems: [{ k: 'All', label: 'All semesters' }, { k: 1, label: 'Sem 1' }, { k: 2, label: 'Sem 2' }]
-        .map(o => ({ ...o, on: o.k === s.csem })),
-      setSem: e => { const v = e.currentTarget.dataset.s; this.setState({ csem: v === 'All' ? 'All' : Number(v) }); },
-      setCq: e => this.setState({ cq: e.target.value }),
+        .map(o => {
+          const on = o.k === s.csem;
+          return { ...o, on: on, pressed: on ? 'true' : 'false',
+                   bg: on ? '#0B5FFF' : '#ffffff', fg: on ? '#ffffff' : '#5B6B7E',
+                   bd: on ? '#0B5FFF' : 'rgba(11,31,58,.12)' };
+        }),
+      // Every filter change clears the per-semester overrides, so a new filter
+      // always starts from "matches are open" rather than from stale drawer state.
+      setSem: e => { const v = e.currentTarget.dataset.s; this.setState({ csem: v === 'All' ? 'All' : Number(v), openSems: {} }); },
+      setCq: e => this.setState({ cq: e.target.value, openSems: {} }),
+      clearCq: () => this.setState({ cq: '', openSems: {} }),
+      clearFilters: () => this.setState({ cq: '', cyear: 'All', csem: 'All', openSems: {} }),
+      // Reads the button's own aria-expanded, so a semester that is open only
+      // because a filter is on still toggles from what the user can actually see.
+      toggleSem: e => {
+        const k = e.currentTarget.dataset.sk;
+        const open = e.currentTarget.getAttribute('aria-expanded') === 'true';
+        this.setState(st => ({ openSems: { ...(st.openSems || {}), [k]: !open } }));
+      },
       list: list, hasList: list.length > 0, noList: list.length === 0, prod: prod,
       prodPrice: money(prod.price), shirtPrice: money(MERCH[0].price),
       count: list.length, countT: list.length + (list.length === 1 ? ' product found' : ' products found'),
@@ -3541,7 +3671,7 @@ class Component extends DCLogic {
         if (e.key === 'Enter' && this.gFirst) { window.location.hash = this.gFirst; this.setState({ search: false }); }
       },
       setCat: e => this.setState({ cat: e.currentTarget.dataset.c }),
-      setYear: e => this.setState({ cyear: e.currentTarget.dataset.y }),
+      setYear: e => this.setState({ cyear: e.currentTarget.dataset.y, openSems: {} }),
       add: e => { const id = e.currentTarget.dataset.id; this.setState(st => ({ cart: { ...st.cart, [id]: (st.cart[id] || 0) + 1 } })); },
       inc: e => { const id = e.currentTarget.dataset.id; this.setState(st => ({ cart: { ...st.cart, [id]: (st.cart[id] || 0) + 1 } })); },
       dec: e => { const id = e.currentTarget.dataset.id; this.setState(st => { const c = { ...st.cart }; c[id] = (c[id] || 1) - 1; if (c[id] < 1) delete c[id]; return { cart: c }; }); },
