@@ -126,7 +126,7 @@ a:hover{color:#0940B8;text-decoration:underline}
       <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="1">What we found on</span></span>
       <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="2">the live site</span></span>
     </h2>
-    <p data-anim="rise" style="margin:0 0 38px;font-size:17px;line-height:1.65;color:#5B6B7E;max-width:68ch;text-wrap:pretty">Eight findings, each one traced to a real page. Every fix later in this document points back to a numbered finding here.</p>
+    <p data-anim="rise" style="margin:0 0 38px;font-size:17px;line-height:1.65;color:#5B6B7E;max-width:68ch;text-wrap:pretty">Fourteen findings, each one traced to a real page and measured on the live site. Every fix later in this document points back to a numbered finding here.</p>
 
     <div data-stagger="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px">
       <sc-for list="{{ findings }}" as="f" hint-placeholder-count="8">
@@ -401,13 +401,13 @@ class Component extends DCLogic {
         {dur:'1.6–1.9s ease-out', name:'Count-up figures', what:'Stat numbers tick up from zero using @property and a CSS counter — no JavaScript, and it degrades to the final number.'},
         {dur:'220ms · 2.2s hold', name:'In-app feedback', what:'Every action in the prototype answers back: toasts slide up and auto-dismiss, buttons scale to 0.98 on press, confirmation blocks pop in place of the button that caused them.'}
       ],
-      ticker: ['Home','About','Executives','Staff','Gallery','Marketplace','Scholarships','Courses','ACES Shop','Technology for our age','9 pages · mobile first'],
+      ticker: ['Home','About','Executives','Staff','Gallery','Events','Marketplace','Scholarships','Courses','ACES Shop','Technology for our age','10 pages · mobile first'],
       findings: [
         f('F1','high','Home','The hero never says what ACES is','“Welcome To The Land of ACES” with a single “Explore” button. A first-year landing from a shared link learns nothing about the association or what the site can do for them.','A hero that states the purpose in one sentence and offers the two most-wanted actions directly.'),
         f('F2','high','Home','Every event countdown reads 00:00','All four event cards show a dead 00:00 timer, and 2025 events sit under the heading “Upcoming Events”. The most time-sensitive content on the site is the least trustworthy.','Real dates, a status pill per event (open / coming soon / past) and exactly one action each.'),
-        f('F3','high','Marketplace','Products never load','The category chips render, then the grid stops at “Loading…”. There is no skeleton, no error state and no way to tell whether the shop is empty or broken.','Skeletons while loading, a populated grid, and an empty state that offers “become a seller” as the next step.'),
+        f('F3','high','Home · Events','The events page is real, and nothing links to it','There is an events page at /events. Exactly one link on the whole home page points at it, in the footer, 5,350px down a 6,055px page — 88% of the way to the bottom. It is in neither the navigation nor the menu: 14 nav links, not one of them Events.','A dedicated Events page reachable from the nav, the menu, the home section header and the quick-access card — four entry points instead of one buried link.'),
         f('F4','high','Scholarships · Courses','Two pages are a heading and nothing else','Both pages ship an intro paragraph and then stop. No list, no empty state, no explanation — the page looks broken rather than pending.','Purposeful empty states that explain the wait, capture interest, and show a skeleton of the future layout.'),
-        f('F5','med','All pages','Testimonials belong to a different product','The homepage quotes “this platform helped me study” and “used our platform” — generic SaaS boilerplate about a study app, not about ACES.','Cut entirely. Replaced with the clubs and the events students actually asked about.'),
+        f('F5','med','Home','The gallery carousel holds five slides and will not move','“Our Gallery” ships five slides, five dot buttons, a previous and a next control. The track is 1,504px wide inside a 288px window set to overflow-x:hidden, with no transform and no animation on it. The controls change nothing: 1,216px of content — 81% of the section — cannot be reached by any means.','A gallery that actually advances, with the same photographs reachable by swipe, by dots and by keyboard.'),
         f('F6','med','All pages','A cart drawer opens on every page','The shopping cart mounts on About, Scholarships and Courses. Commerce chrome follows you through purely informational reading.','Cart moves into the Marketplace tab and the header badge; it only appears when there is something in it.'),
         f('F7','med','Footer','Fourteen flat links and dead policy pages','Explore / Marketplace / Resources is a sitemap, not a menu. Terms and Policy both point at href="#".','Five intent-based tabs, an overflow sheet, and real footer sections with address, hours and working policy links.'),
         f('F8','med','All pages','No search, anywhere','With a marketplace, a course library and a gallery, there is no way to search any of them. Everything is browse-only.','Persistent header search with live filtering across products, plus dedicated in-page filters for courses and gallery.'),
@@ -421,16 +421,17 @@ class Component extends DCLogic {
       oldNav: ['Home','About Us','Executives','Staff','Gallery','Events','Browse Products','Register','Login','Vendor Dashboard','Scholarships','Courses','ACES Shop','Track Order'],
       newNav: [
         {tab:'Home', holds:'Hero · next event · quick actions · clubs · footer'},
-        {tab:'Association', holds:'About · five pillars · executives · staff · gallery'},
+        {tab:'Association', holds:'About · five pillars · executives · staff · gallery · events'},
         {tab:'Market', holds:'Browse · search · product · cart · checkout · seller · vendor hub'},
         {tab:'Resources', holds:'Course materials · scholarships · ACES shop'},
         {tab:'Me', holds:'Identity · dues · orders · alerts · appearance'}
       ],
       journeys: [
-        {no:'J1', name:'Discover an event and register', steps:['Home','Next up card','Event detail','Register free','Confirmed'], why:'Fixes F2. The card carries a real date, a status pill and one action; registering swaps the button for a confirmation block in place — no page change, no lost context.'},
+        {no:'J1', name:'Discover an event and register', steps:['Home','View all','Events','Event detail','Register','Confirmed'], why:'Fixes F2 and F3. Events is a page now, reached from the nav, the menu, the home header and the quick-access card. The card carries a real date, a status pill and one action; registering swaps the button for a confirmation block in place.'},
+        {no:'J1b', name:'Check what is on, when nothing is dated', steps:['Events','Calendar','Dates to be set','Email me the date'], why:'Fixes F2 properly. ACES holds one real date, so the page never invents the rest: the calendar pins what is known, and confirmed-but-undated events get their own filter that says so. A finished event is greyed, never invitation blue. Dated events offer an .ics download straight into the phone calendar.'},
         {no:'J2', name:'Filter the gallery and open a photo', steps:['Association','Gallery','Tap “Clubs”','Tap a photo','Swipe next'], why:'Chip filters re-flow the grid instantly. The lightbox is full-bleed with a position counter and 48pt prev/next targets rather than tiny arrows.'},
         {no:'J3', name:'Find a course pack and download it', steps:['Resources','Year 3','Sem 1','CE 353','Download'], why:'Fixes F4 and F8. Filters by year and semester, searchable by course code, and CE 451 demonstrates the per-course empty state with a “request materials” action.'},
-        {no:'J4', name:'Buy from a student vendor', steps:['Market','Filter “Food”','Product','Add to cart','Checkout','MoMo','Placed'], why:'Fixes F3 and F6. Real quantity control, MoMo-first payment because that is how campus pays, and an order ID on the confirmation.'}
+        {no:'J4', name:'Buy from a student vendor', steps:['Market','Filter “Food”','Product','Add to cart','Checkout','MoMo','Placed'], why:'Fixes F6. Real quantity control, MoMo-first payment because that is how campus pays, and an order ID on the confirmation.'}
       ],
       colors: [
         {name:'ACES Blue', hex:'#0B5FFF', token:'--brand', swatch:'background:#0B5FFF;'},
@@ -482,7 +483,7 @@ class Component extends DCLogic {
         {no:'09', name:'ACES Shop', what:'A confident coming-soon: launch date, real prices and sizes, per-item notify actions and a size-reservation flow.', state:'Coming soon', stateStyle:ST.soon}
       ],
       rubric: [
-        {pts:'15 pts', item:'Website analysis & problem framing', where:'Section 01 — eight findings, each traced to a live page and severity-rated, each linked to its fix.'},
+        {pts:'15 pts', item:'Website analysis & problem framing', where:'Section 01 — fourteen findings, each traced to a live page and severity-rated, each linked to its fix.'},
         {pts:'30 pts', item:'Mobile-first UX & information architecture', where:'Section 02 — the 14-link footer regrouped into five intent-based tabs, plus the four journeys in section 03.'},
         {pts:'20 pts', item:'Visual design & ACES brand alignment', where:'Section 04 — the brief\u2019s exact palette as the base, crest and name untouched, blue-and-white direction held in light and dark.'},
         {pts:'20 pts', item:'Prototype quality & interaction flow', where:'Section 03 — a working prototype: real search, filters, cart, checkout, lightbox, toasts and dark mode.'},
