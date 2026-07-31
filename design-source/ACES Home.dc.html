@@ -117,15 +117,19 @@ button{font-family:inherit}
    piles them up rather than sliding them away. Sticky only — no scroll listener,
    no rAF, nothing to jank on a low-end phone. */
 /* Block, not grid: a grid row sizes to its item, which leaves sticky no travel.
-   The margin below each card IS the scroll runway — with the old 14px gap the
-   next card was already 222px on screen the moment this one stuck, so you were
-   reading a card that was being covered. 26vh puts the next one just off the
-   fold and gives a screenful of reading before it starts to climb. */
-.acStack{display:block}
+   The card must FIT — a card taller than the fold has its bottom cut off from
+   the moment it sticks, which is the real reason you had to scroll one. At the
+   old full 1240px width a 16:9 cover was 698px tall and the card ran to 935px,
+   overflowing a laptop by 181px. Capping the column fixes it at every size, and
+   an event card was never meant to be 1240px across anyway. */
+.acStack{display:block;max-width:min(100%,720px);margin-left:auto;margin-right:auto}
 /* Offsets come from nth-child rather than a --i custom property: inline custom
    properties do not reliably survive the template's style handling. */
-.acStackItem{position:sticky;top:calc(var(--achh,92px) + 10px);margin-bottom:clamp(150px,26vh,280px)}
+.acStackItem{position:sticky;top:calc(var(--achh,92px) + 10px);margin-bottom:clamp(14px,2.5vh,28px)}
 .acStackItem:last-child{margin-bottom:0}
+/* Belt and braces: whatever the copy does, the cover cannot grow past this, so
+   the card always clears the fold. */
+.acStackItem .acZ{max-height:min(42vh,400px)}
 .acStackItem:nth-child(2){top:calc(var(--achh,92px) + 22px)}
 .acStackItem:nth-child(3){top:calc(var(--achh,92px) + 34px)}
 .acStackItem:nth-child(4){top:calc(var(--achh,92px) + 46px)}
