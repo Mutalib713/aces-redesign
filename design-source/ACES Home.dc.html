@@ -67,7 +67,7 @@ button{font-family:inherit}
    the neighbouring section colour. Pure CSS ellipses, so nothing to download and
    it reflows at any width. */
 .acArch{--arch:#F7FAFF;-webkit-mask-image:none;mask-image:none}
-.acArch::before,.acArch::after{content:"";position:absolute;left:-12%;width:124%;height:clamp(26px,6cqw,64px);background:var(--arch);z-index:2;pointer-events:none}
+.acArch::before,.acArch::after{content:"";position:absolute;left:-12%;width:124%;height:clamp(32px,7cqw,80px);background:var(--arch);z-index:2;pointer-events:none}
 .acArch::before{top:-1px;border-radius:0 0 50% 50%/0 0 100% 100%}
 .acArch::after{bottom:-1px;border-radius:50% 50% 0 0/100% 100% 0 0}
 .acArch:focus-visible{outline:3px solid #0B5FFF;outline-offset:3px}
@@ -112,6 +112,32 @@ button{font-family:inherit}
    The sheet now opens below the header, so the one rule still needed is keeping
    that button on screen at any width while the sheet is open. */
 .acHb[data-open="1"]{display:grid!important}
+
+/* Stacked event cards. Each one sticks a little lower than the last, so scrolling
+   piles them up rather than sliding them away. Sticky only — no scroll listener,
+   no rAF, nothing to jank on a low-end phone. */
+.acStack{display:grid;gap:clamp(14px,3cqw,22px)}
+/* Offsets come from nth-child rather than a --i custom property: inline custom
+   properties do not reliably survive the template's style handling, and this
+   needs no per-card data at all. */
+.acStackItem{position:sticky;top:calc(var(--achh,92px) + 10px)}
+.acStackItem:nth-child(2){top:calc(var(--achh,92px) + 22px)}
+.acStackItem:nth-child(3){top:calc(var(--achh,92px) + 34px)}
+.acStackItem:nth-child(4){top:calc(var(--achh,92px) + 46px)}
+.acStackItem:nth-child(n+5){top:calc(var(--achh,92px) + 58px)}
+.acStackItem > a{display:flex}
+/* The pile only reads as a pile when there is room to scroll past it. */
+@container page (min-width:760px){
+  .acStack{gap:clamp(18px,2.4cqw,30px)}
+}
+@media (prefers-reduced-motion:reduce){
+  .acStackItem{position:static}
+}
+/* Countdown pill: colour follows the state tick() writes. */
+.acCd{background:rgba(91,228,155,.16);color:#0B6B43}
+.acCd[data-cdstate="now"]{background:rgba(11,95,255,.14);color:#0B5FFF}
+.acCd[data-cdstate="ended"]{background:rgba(11,31,58,.08);color:#5B6B7E}
+.acCd[data-cdstate="ended"] span:first-child,.acCd[data-cdstate="now"] span:first-child{animation:none}
 
 /* Semester drawer chevron. Points down when closed, flips up when open. */
 .acCh{transition:transform .32s cubic-bezier(.16,1,.3,1)}
@@ -416,77 +442,72 @@ button{font-family:inherit}
             <div>
               <div data-rv="1" style="animation:acRise .6s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">What's on</div>
               <h2 data-split="word" data-rvg="1" style="margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(27px,6.8cqw,44px);color:#0B1F3A">Upcoming events</h2>
-              <p style="margin:0;font-size:15px;color:#5B6B7E;max-width:44ch;text-wrap:pretty">CodeFest registration is open now. The rest are confirmed events with dates still being set — ask to be told first.</p>
+              <p style="margin:0;font-size:15px;color:#5B6B7E;max-width:46ch;text-wrap:pretty">CodeFest is tonight. The rest are confirmed, with dates still being set.</p>
             </div>
-            </div>
+          </div>
 
-          <div class="acx" style="display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px clamp(16px,4cqw,40px) 12px;-webkit-overflow-scrolling:touch">
-            <article class="acC" data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;flex:0 0 clamp(285px,88cqw,430px);scroll-snap-align:start;border-radius:22px;overflow:hidden;background:#0B1F3A;color:#fff;box-shadow:0 22px 44px -26px rgba(11,31,58,.8);transition:transform .3s ease" style-hover="transform:translateY(-4px)">
-              <div class="acZ" style="position:relative;aspect-ratio:16/9">
-                <image-slot id="aces-ev-codefest" shape="rect" src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756508481/codefest_erdhpl.jpg" placeholder="CodeFest photo"></image-slot>
-                <span style="position:absolute;top:11px;left:11px;display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:9px;background:#5BE49B;color:#062E1B;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase">Registration open</span>
-              </div>
-              <div style="padding:16px 16px 18px">
-                <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:8px">College of Engineering, KNUST</div>
-                <h3 style="margin:0 0 8px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(20px,5cqw,26px);letter-spacing:-.02em">CodeFest 2026</h3>
-                <p style="margin:0 0 14px;font-size:14.5px;line-height:1.55;color:rgba(255,255,255,.78);text-wrap:pretty">A full day of coding challenges, workshops and networking with tech enthusiasts across the college.</p>
-                <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
-                  <a href="https://forms.gle/p5789Kabjyah6wq59" style="display:flex;align-items:center;justify-content:center;min-height:48px;padding:0 20px;border-radius:14px;background:#0B5FFF;color:#fff;font-size:15px;font-weight:700" style-hover="background:#fff;color:#0B1F3A">Register now</a>
-                  <span style="display:inline-flex;align-items:center;gap:8px;padding:0 14px;min-height:48px;border-radius:14px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);font-size:13.5px;color:rgba(255,255,255,.82)">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
-                    Date to come
+          <!-- Stacked scroll cards: each sticks under the one before it, so they
+               pile up as you scroll instead of sliding past. -->
+          <div class="acStack" style="padding:0 clamp(16px,4cqw,40px)">
+            <sc-for list="{{ events }}" as="ev" hint-placeholder-count="4">
+              <article class="acStackItem">
+                <a href="#/event/{{ ev.id }}" class="acC" style="display:flex;flex-direction:column;border-radius:24px;overflow:hidden;background:{{ ev.cardBg }};color:{{ ev.cardFg }};box-shadow:0 24px 50px -28px rgba(11,31,58,.75);border:1px solid {{ ev.cardBd }}">
+                  <span class="acZ" style="position:relative;display:block;aspect-ratio:16/9">
+                    <image-slot id="aces-ev-{{ ev.id }}" shape="rect" src="{{ ev.img }}" placeholder="{{ ev.t }}"></image-slot>
+                    <span aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(6,17,36,.15) 0%,rgba(6,17,36,.55) 100%)"></span>
+                    <span style="position:absolute;top:12px;left:12px;display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:9px;background:{{ ev.badgeBg }};color:{{ ev.badgeFg }};font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">{{ ev.status }}</span>
+                    <sc-if value="{{ ev.dated }}" hint-placeholder-val="{{ false }}">
+                      <span style="position:absolute;top:12px;right:12px;display:flex;flex-direction:column;align-items:center;min-width:54px;padding:7px 9px;border-radius:12px;background:rgba(255,255,255,.95);color:#0B1F3A;text-align:center">
+                        <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#0B5FFF;font-weight:700">{{ ev.mon }}</span>
+                        <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:21px;line-height:1;letter-spacing:-.03em">{{ ev.day }}</span>
+                      </span>
+                    </sc-if>
                   </span>
-                </div>
-              </div>
-            </article>
 
-            <article class="acC" data-rv="1" style="animation:acRightSm .8s cubic-bezier(.16,1,.3,1) .06s both;animation-play-state:paused;flex:0 0 clamp(240px,72cqw,300px);scroll-snap-align:start;border-radius:22px;overflow:hidden;background:#fff;border:1px solid rgba(11,31,58,.1);box-shadow:0 14px 32px -24px rgba(11,31,58,.7);transition:transform .3s ease,box-shadow .3s ease" style-hover="transform:translateY(-4px);box-shadow:0 24px 46px -24px rgba(11,31,58,.6)">
-              <div class="acZ" style="position:relative;aspect-ratio:16/10">
-                <image-slot id="aces-ev-robotics" shape="rect" src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756390037/robotics_meeting_avcz53.jpg" placeholder="Robotics meeting photo"></image-slot>
-                <span style="position:absolute;top:10px;left:10px;padding:5px 9px;border-radius:8px;background:rgba(255,255,255,.94);color:#0B1F3A;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase">Members welcome</span>
-              </div>
-              <div style="padding:14px 14px 16px">
-                <span style="display:inline-flex;align-items:center;gap:5px;margin-bottom:8px;padding:4px 9px;border-radius:8px;background:rgba(11,31,58,.06);color:#5B6B7E;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase">
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
-                  Date to come
-                </span>
-                <h3 style="margin:0 0 7px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;letter-spacing:-.02em;color:#0B1F3A">ACES Robotics Meeting</h3>
-                <p style="margin:0 0 12px;font-size:13.5px;line-height:1.55;color:#5B6B7E;text-wrap:pretty">Collaborate, build bots and automate solutions with fellow members.</p>
-                <a href="mailto:acesknust@gmail.com?subject=Tell%20me%20when%20ACES%20Robotics%20Meeting%20is%20dated" aria-label="Ask to be told when ACES Robotics Meeting is dated" style="display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:44px;padding:0 15px;border-radius:12px;background:#EAF4FF;color:#0B5FFF;font-size:14.5px;font-weight:700;transition:background .22s ease,color .22s ease" style-hover="background:#0B5FFF;color:#fff">Notify me <span aria-hidden="true">→</span></a>
-              </div>
-            </article>
+                  <span style="display:block;padding:16px 16px 18px">
+                    <span style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:9px">
+                      <span style="display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:{{ ev.metaFg }}">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+                        {{ ev.whenT }}
+                      </span>
+                      <sc-if value="{{ ev.isTarget }}" hint-placeholder-val="{{ false }}">
+                        <span data-cdstate="before" class="acCd" style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:8px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:.06em">
+                          <span aria-hidden="true" style="width:6px;height:6px;border-radius:50%;background:currentColor;animation:acBlink 1.8s ease-in-out infinite"></span>
+                          <span data-cd="1">--h --m --s</span>
+                        </span>
+                      </sc-if>
+                    </span>
 
-            <article class="acC" data-rv="1" style="animation:acRightSm .8s cubic-bezier(.16,1,.3,1) .12s both;animation-play-state:paused;flex:0 0 clamp(240px,72cqw,300px);scroll-snap-align:start;border-radius:22px;overflow:hidden;background:#fff;border:1px solid rgba(11,31,58,.1);box-shadow:0 14px 32px -24px rgba(11,31,58,.7);transition:transform .3s ease,box-shadow .3s ease" style-hover="transform:translateY(-4px);box-shadow:0 24px 46px -24px rgba(11,31,58,.6)">
-              <div class="acZ" style="position:relative;aspect-ratio:16/10">
-                <image-slot id="aces-ev-hangout" shape="rect" src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756508481/aces_hangout_eywxew.jpg" placeholder="Hangout photo"></image-slot>
-                <span style="position:absolute;top:10px;left:10px;padding:5px 9px;border-radius:8px;background:rgba(255,255,255,.94);color:#0B1F3A;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase">Free entry</span>
-              </div>
-              <div style="padding:14px 14px 16px">
-                <span style="display:inline-flex;align-items:center;gap:5px;margin-bottom:8px;padding:4px 9px;border-radius:8px;background:rgba(11,31,58,.06);color:#5B6B7E;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase">
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
-                  Date to come
-                </span>
-                <h3 style="margin:0 0 7px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;letter-spacing:-.02em;color:#0B1F3A">ACES Hangout</h3>
-                <p style="margin:0 0 12px;font-size:13.5px;line-height:1.55;color:#5B6B7E;text-wrap:pretty">Games, conversations and chill vibes in a relaxed member-only evening.</p>
-                <a href="mailto:acesknust@gmail.com?subject=Tell%20me%20when%20ACES%20Hangout%20is%20dated" aria-label="Ask to be told when ACES Hangout is dated" style="display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:44px;padding:0 15px;border-radius:12px;background:#EAF4FF;color:#0B5FFF;font-size:14.5px;font-weight:700;transition:background .22s ease,color .22s ease" style-hover="background:#0B5FFF;color:#fff">Notify me <span aria-hidden="true">→</span></a>
-              </div>
-            </article>
+                    <span style="display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(20px,5cqw,27px);letter-spacing:-.025em;line-height:1.15;margin-bottom:7px">{{ ev.t }}</span>
+                    <span style="display:block;font-size:14.5px;line-height:1.55;color:{{ ev.bodyFg }};text-wrap:pretty;margin-bottom:14px">{{ ev.blurb }}</span>
 
-            <article class="acC" data-rv="1" style="animation:acRightSm .8s cubic-bezier(.16,1,.3,1) .18s both;animation-play-state:paused;flex:0 0 clamp(240px,72cqw,300px);scroll-snap-align:start;border-radius:22px;overflow:hidden;background:#fff;border:1px solid rgba(11,31,58,.1);box-shadow:0 14px 32px -24px rgba(11,31,58,.7);transition:transform .3s ease,box-shadow .3s ease" style-hover="transform:translateY(-4px);box-shadow:0 24px 46px -24px rgba(11,31,58,.6)">
-              <div class="acZ" style="position:relative;aspect-ratio:16/10">
-                <image-slot id="aces-ev-dinner" shape="rect" src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756562742/dinner_night_uicikj.jpg" placeholder="Dinner night photo"></image-slot>
-                <span style="position:absolute;top:10px;left:10px;padding:5px 9px;border-radius:8px;background:#EAF4FF;color:#0B5FFF;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase">Tickets soon</span>
-              </div>
-              <div style="padding:14px 14px 16px">
-                <span style="display:inline-flex;align-items:center;gap:5px;margin-bottom:8px;padding:4px 9px;border-radius:8px;background:rgba(11,31,58,.06);color:#5B6B7E;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase">
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
-                  Date to come
-                </span>
-                <h3 style="margin:0 0 7px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;letter-spacing:-.02em;color:#0B1F3A">ACES Dinner 2026</h3>
-                <p style="margin:0 0 12px;font-size:13.5px;line-height:1.55;color:#5B6B7E;text-wrap:pretty">A night of food and fellowship. Connect with members over an elegant dinner.</p>
-                <a href="mailto:acesknust@gmail.com?subject=Tell%20me%20when%20ACES%20Dinner%202026%20is%20dated" aria-label="Ask to be told when ACES Dinner 2026 is dated" style="display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:44px;padding:0 15px;border-radius:12px;background:#EAF4FF;color:#0B5FFF;font-size:14.5px;font-weight:700;transition:background .22s ease,color .22s ease" style-hover="background:#0B5FFF;color:#fff">Notify me <span aria-hidden="true">→</span></a>
-              </div>
-            </article>
+                    <span style="display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 20px;border-radius:14px;background:{{ ev.ctaBg }};color:{{ ev.ctaFg }};font-size:15px;font-weight:700">
+                      View details <span aria-hidden="true">→</span>
+                    </span>
+                  </span>
+                </a>
+              </article>
+            </sc-for>
+          </div>
+
+          <div data-rv="1" style="animation:acRise .7s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;padding:clamp(24px,4cqw,40px) clamp(16px,4cqw,40px) 0">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#5B6B7E;font-weight:600">Already happened</span>
+              <span style="height:1px;flex:1;background:rgba(11,31,58,.12)"></span>
+            </div>
+            <div class="acx" style="display:flex;gap:10px;overflow-x:auto;padding-bottom:6px">
+              <sc-for list="{{ pastEvents }}" as="pe" hint-placeholder-count="3">
+                <a href="#/album/{{ pe.id }}" style="flex:0 0 auto;display:flex;align-items:center;gap:10px;min-height:56px;padding:0 16px 0 12px;border-radius:14px;background:#F7FAFF;border:1px solid rgba(11,31,58,.1);color:#0B1F3A;transition:border-color .22s ease,background .22s ease" style-hover="border-color:#0B5FFF;background:#EAF4FF">
+                  <span aria-hidden="true" style="width:32px;height:32px;flex:0 0 32px;border-radius:10px;background:#EAF4FF;color:#0B5FFF;display:grid;place-items:center">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="14" rx="3"></rect><path d="M4 16l4.5-4.5 3.5 3.5 3-3L20 16"></path></svg>
+                  </span>
+                  <span>
+                    <span style="display:block;font-weight:700;font-size:14.5px;line-height:1.2">{{ pe.t }}</span>
+                    <span style="display:block;font-size:12.5px;color:#5B6B7E">{{ pe.note }}</span>
+                  </span>
+                </a>
+              </sc-for>
+            </div>
           </div>
         </div>
       </section>
@@ -709,18 +730,18 @@ button{font-family:inherit}
           <div ref="{{ galRef }}" class="acMqW acArch" data-hold="{{ galHold }}" role="button" tabindex="0" aria-pressed="{{ galPressed }}" aria-label="{{ galBtnLabel }}" onClick="{{ galToggle }}" onKeyDown="{{ galKey }}" style="position:relative;padding:0;cursor:pointer">
             <span class="acArchTag" aria-hidden="true">Paused · tap to play</span>
             <div class="acMq" role="group" aria-label="Photos from ACES trips, dinners and CodeFest">
-              <div class="acC acZ" style="flex:0 0 clamp(180px,52cqw,260px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot id="aces-gal-1" shape="rect" src="https://www.acesknust.com/images/Gallery/Trip.jpg" placeholder="Trip"></image-slot></div>
-              <div class="acC acZ" style="flex:0 0 clamp(180px,52cqw,260px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot id="aces-gal-2" shape="rect" src="https://www.acesknust.com/images/Gallery/Acesshirt.jpg" placeholder="ACES shirt"></image-slot></div>
-              <div class="acC acZ" style="flex:0 0 clamp(180px,52cqw,260px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot id="aces-gal-3" shape="rect" src="https://www.acesknust.com/images/Gallery/codefest.jpg" placeholder="CodeFest"></image-slot></div>
-              <div class="acC acZ" style="flex:0 0 clamp(180px,52cqw,260px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot id="aces-gal-4" shape="rect" src="https://www.acesknust.com/images/Gallery/Jersey.jpg" placeholder="Jersey"></image-slot></div>
-              <div class="acC acZ" style="flex:0 0 clamp(180px,52cqw,260px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot id="aces-gal-5" shape="rect" src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756562742/dinner_night_uicikj.jpg" placeholder="Dinner night"></image-slot></div>
-              <div class="acC acZ" style="flex:0 0 clamp(180px,52cqw,260px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot id="aces-gal-6" shape="rect" src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756508481/aces_hangout_eywxew.jpg" placeholder="Hangout"></image-slot></div>
-              <div class="acC acZ" aria-hidden="true" style="flex:0 0 clamp(180px,52cqw,260px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot shape="rect" src="https://www.acesknust.com/images/Gallery/Trip.jpg" placeholder="Trip"></image-slot></div>
-              <div class="acC acZ" aria-hidden="true" style="flex:0 0 clamp(180px,52cqw,260px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot shape="rect" src="https://www.acesknust.com/images/Gallery/Acesshirt.jpg" placeholder="ACES shirt"></image-slot></div>
-              <div class="acC acZ" aria-hidden="true" style="flex:0 0 clamp(180px,52cqw,260px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot shape="rect" src="https://www.acesknust.com/images/Gallery/codefest.jpg" placeholder="CodeFest"></image-slot></div>
-              <div class="acC acZ" aria-hidden="true" style="flex:0 0 clamp(180px,52cqw,260px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot shape="rect" src="https://www.acesknust.com/images/Gallery/Jersey.jpg" placeholder="Jersey"></image-slot></div>
-              <div class="acC acZ" aria-hidden="true" style="flex:0 0 clamp(180px,52cqw,260px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot shape="rect" src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756562742/dinner_night_uicikj.jpg" placeholder="Dinner night"></image-slot></div>
-              <div class="acC acZ" aria-hidden="true" style="flex:0 0 clamp(180px,52cqw,260px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot shape="rect" src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756508481/aces_hangout_eywxew.jpg" placeholder="Hangout"></image-slot></div>
+              <div class="acC acZ" style="flex:0 0 clamp(240px,66cqw,380px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot id="aces-gal-1" shape="rect" src="https://www.acesknust.com/images/Gallery/Trip.jpg" placeholder="Trip"></image-slot></div>
+              <div class="acC acZ" style="flex:0 0 clamp(240px,66cqw,380px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot id="aces-gal-2" shape="rect" src="https://www.acesknust.com/images/Gallery/Acesshirt.jpg" placeholder="ACES shirt"></image-slot></div>
+              <div class="acC acZ" style="flex:0 0 clamp(240px,66cqw,380px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot id="aces-gal-3" shape="rect" src="https://www.acesknust.com/images/Gallery/codefest.jpg" placeholder="CodeFest"></image-slot></div>
+              <div class="acC acZ" style="flex:0 0 clamp(240px,66cqw,380px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot id="aces-gal-4" shape="rect" src="https://www.acesknust.com/images/Gallery/Jersey.jpg" placeholder="Jersey"></image-slot></div>
+              <div class="acC acZ" style="flex:0 0 clamp(240px,66cqw,380px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot id="aces-gal-5" shape="rect" src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756562742/dinner_night_uicikj.jpg" placeholder="Dinner night"></image-slot></div>
+              <div class="acC acZ" style="flex:0 0 clamp(240px,66cqw,380px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot id="aces-gal-6" shape="rect" src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756508481/aces_hangout_eywxew.jpg" placeholder="Hangout"></image-slot></div>
+              <div class="acC acZ" aria-hidden="true" style="flex:0 0 clamp(240px,66cqw,380px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot shape="rect" src="https://www.acesknust.com/images/Gallery/Trip.jpg" placeholder="Trip"></image-slot></div>
+              <div class="acC acZ" aria-hidden="true" style="flex:0 0 clamp(240px,66cqw,380px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot shape="rect" src="https://www.acesknust.com/images/Gallery/Acesshirt.jpg" placeholder="ACES shirt"></image-slot></div>
+              <div class="acC acZ" aria-hidden="true" style="flex:0 0 clamp(240px,66cqw,380px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot shape="rect" src="https://www.acesknust.com/images/Gallery/codefest.jpg" placeholder="CodeFest"></image-slot></div>
+              <div class="acC acZ" aria-hidden="true" style="flex:0 0 clamp(240px,66cqw,380px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot shape="rect" src="https://www.acesknust.com/images/Gallery/Jersey.jpg" placeholder="Jersey"></image-slot></div>
+              <div class="acC acZ" aria-hidden="true" style="flex:0 0 clamp(240px,66cqw,380px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot shape="rect" src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756562742/dinner_night_uicikj.jpg" placeholder="Dinner night"></image-slot></div>
+              <div class="acC acZ" aria-hidden="true" style="flex:0 0 clamp(240px,66cqw,380px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot shape="rect" src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756508481/aces_hangout_eywxew.jpg" placeholder="Hangout"></image-slot></div>
             </div>
           </div>
         </div>
@@ -2082,6 +2103,98 @@ button{font-family:inherit}
       </section>
       </sc-if>
 
+      <sc-if value="{{ isEvent }}" hint-placeholder-val="{{ false }}">
+      <section style="background:#F7FAFF;padding:0 0 clamp(34px,6cqw,64px)">
+        <div style="max-width:900px;margin:0 auto">
+
+          <div style="padding:clamp(12px,3cqw,20px) clamp(16px,4cqw,40px) 0">
+            <a href="#/home" style="display:inline-flex;align-items:center;gap:7px;min-height:44px;padding:0 14px 0 10px;border-radius:12px;background:#fff;border:1px solid rgba(11,31,58,.12);color:#0B1F3A;font-size:14px;font-weight:600;transition:border-color .22s ease,color .22s ease" style-hover="border-color:#0B5FFF;color:#0B5FFF">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg>
+              All events
+            </a>
+          </div>
+
+          <div style="padding:clamp(14px,3cqw,22px) clamp(16px,4cqw,40px) 0">
+            <div class="acZ" style="position:relative;border-radius:24px;overflow:hidden;aspect-ratio:16/9;box-shadow:0 26px 56px -30px rgba(11,31,58,.7)">
+              <image-slot id="aces-evd-{{ evd.id }}" shape="rect" src="{{ evd.img }}" placeholder="{{ evd.t }}"></image-slot>
+              <span aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(6,17,36,.1) 40%,rgba(6,17,36,.72) 100%)"></span>
+              <span style="position:absolute;top:14px;left:14px;display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:10px;background:{{ evd.badgeBg }};color:{{ evd.badgeFg }};font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">{{ evd.status }}</span>
+            </div>
+          </div>
+
+          <div style="padding:clamp(18px,3.5cqw,28px) clamp(16px,4cqw,40px) 0">
+            <h1 data-split="word" data-rvon="1" style="margin:0 0 12px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.035em;line-height:1.02;font-size:clamp(30px,8cqw,52px);color:#0B1F3A">{{ evd.t }}</h1>
+
+            <sc-if value="{{ evd.isTarget }}" hint-placeholder-val="{{ false }}">
+              <div data-cdstate="before" class="acCd" style="display:inline-flex;align-items:center;gap:8px;margin-bottom:14px;padding:9px 15px;border-radius:12px;font-family:'IBM Plex Mono',monospace;font-size:13.5px;font-weight:700;letter-spacing:.05em">
+                <span aria-hidden="true" style="width:8px;height:8px;border-radius:50%;background:currentColor;animation:acBlink 1.8s ease-in-out infinite"></span>
+                <span data-cd="1">--h --m --s</span>
+              </div>
+            </sc-if>
+
+            <div style="display:grid;gap:10px;margin-bottom:clamp(18px,3cqw,26px)">
+              <div style="display:flex;align-items:flex-start;gap:12px;padding:14px;border-radius:16px;background:#fff;border:1px solid rgba(11,31,58,.1)">
+                <span aria-hidden="true" style="width:42px;height:42px;flex:0 0 42px;border-radius:13px;background:#EAF4FF;color:#0B5FFF;display:grid;place-items:center">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="16" rx="3"></rect><path d="M8 3v4M16 3v4M3.5 10h17"></path></svg>
+                </span>
+                <span style="flex:1;min-width:0">
+                  <span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#5B6B7E;font-weight:600;margin-bottom:3px">When</span>
+                  <span style="display:block;font-size:15.5px;font-weight:700;color:#0B1F3A;line-height:1.35">{{ evd.whenT }}</span>
+                </span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:12px;padding:14px;border-radius:16px;background:#fff;border:1px solid rgba(11,31,58,.1)">
+                <span aria-hidden="true" style="width:42px;height:42px;flex:0 0 42px;border-radius:13px;background:#EAF4FF;color:#0B5FFF;display:grid;place-items:center">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                </span>
+                <span style="flex:1;min-width:0">
+                  <span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#5B6B7E;font-weight:600;margin-bottom:3px">Where</span>
+                  <span style="display:block;font-size:15.5px;font-weight:700;color:#0B1F3A;line-height:1.35">{{ evd.venue }}</span>
+                </span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:12px;padding:14px;border-radius:16px;background:#fff;border:1px solid rgba(11,31,58,.1)">
+                <span aria-hidden="true" style="width:42px;height:42px;flex:0 0 42px;border-radius:13px;background:#EAF4FF;color:#0B5FFF;display:grid;place-items:center">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.3"></circle><path d="M3 20v-1.6A4.4 4.4 0 0 1 7.4 14h3.2a4.4 4.4 0 0 1 4.4 4.4V20"></path><path d="M16.5 11.5a3 3 0 1 0 0-6"></path></svg>
+                </span>
+                <span style="flex:1;min-width:0">
+                  <span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#5B6B7E;font-weight:600;margin-bottom:3px">Hosted by</span>
+                  <span style="display:block;font-size:15.5px;font-weight:700;color:#0B1F3A;line-height:1.35">ACES KNUST</span>
+                </span>
+              </div>
+            </div>
+
+            <h2 style="margin:0 0 10px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.025em;font-size:clamp(20px,4.6cqw,26px);color:#0B1F3A">About this event</h2>
+            <sc-for list="{{ evd.about }}" as="ab" hint-placeholder-count="2">
+              <p style="margin:0 0 12px;font-size:15.5px;line-height:1.65;color:#5B6B7E;max-width:62ch;text-wrap:pretty">{{ ab.p }}</p>
+            </sc-for>
+
+            <h2 style="margin:clamp(16px,3cqw,24px) 0 10px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.025em;font-size:clamp(20px,4.6cqw,26px);color:#0B1F3A">What to bring</h2>
+            <ul style="margin:0;padding:0;list-style:none;display:grid;gap:8px">
+              <sc-for list="{{ evd.bring }}" as="br" hint-placeholder-count="3">
+                <li style="display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.55;color:#0B1F3A">
+                  <span aria-hidden="true" style="flex:0 0 20px;width:20px;height:20px;margin-top:1px;border-radius:7px;background:#EAF4FF;color:#0B5FFF;display:grid;place-items:center">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+                  </span>
+                  {{ br.p }}
+                </li>
+              </sc-for>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Thumb-zone action bar. Registration link where it exists, an honest
+           notify request where the date is still being set. -->
+      <div style="position:sticky;bottom:0;z-index:50;padding:10px clamp(16px,4cqw,40px) calc(10px + env(safe-area-inset-bottom,0px));background:rgba(255,255,255,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid rgba(11,31,58,.1)">
+        <div style="max-width:900px;margin:0 auto;display:flex;align-items:center;gap:10px">
+          <span style="flex:1;min-width:0">
+            <span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#5B6B7E;font-weight:600">{{ evd.status }}</span>
+            <span style="display:block;font-size:13.5px;font-weight:700;color:#0B1F3A;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ evd.whenT }}</span>
+          </span>
+          <a href="{{ evd.ctaHref }}" style="flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 22px;border-radius:15px;background:#0B5FFF;color:#fff;font-size:16px;font-weight:700;box-shadow:0 14px 30px -16px rgba(11,95,255,.9);transition:background .22s ease" style-hover="background:#0B1F3A">{{ evd.ctaLabel }} <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+      </sc-if>
+
       <sc-if value="{{ isScholarships }}" hint-placeholder-val="{{ false }}">
       <section style="background:#fff;padding:clamp(20px,4cqw,40px) clamp(16px,4cqw,40px) clamp(30px,6cqw,60px)">
         <div style="max-width:760px;margin:0 auto">
@@ -2419,7 +2532,55 @@ button{font-family:inherit}
 const STEP = 72, N = 5;
 const LAB_DIR = [[0, -1], [0.951, -0.309], [0.588, 0.809], [-0.588, 0.809], [-0.951, -0.309]];
 const WHEEL_IMGS = ['https://www.acesknust.com/images/Gallery/Trip.jpg','https://www.acesknust.com/images/club_images/coding.webp','https://www.acesknust.com/images/Gallery/Acesshirt.jpg','https://www.acesknust.com/images/club_images/robotics_image.webp','https://www.acesknust.com/images/Gallery/codefest.jpg'];
-const TARGET = new Date('2026-08-15T09:00:00Z').getTime();
+// CodeFest 2026: 31 July 2026, 6pm. Ghana is UTC+0 all year, so 18:00Z is 6pm Accra.
+const TARGET = new Date('2026-07-31T18:00:00Z').getTime();
+// An event is "happening" for three hours from its start, then it has ended.
+const RUNS_FOR = 3 * 60 * 60 * 1000;
+
+// Only CodeFest carries a real date. The rest are confirmed events with dates
+// still being set — they say so rather than inventing one. Past events are the
+// association's real albums, so "past" links somewhere that exists.
+const EVENTS = [
+  {
+    id: 'codefest', t: 'CodeFest 2026', img: 'https://res.cloudinary.com/dmgk37i6y/image/upload/v1756508481/codefest_erdhpl.jpg',
+    start: '2026-07-31T18:00:00Z', when: 'Friday 31 July 2026 · 6:00pm',
+    venue: 'College of Engineering, KNUST', status: 'Registration open', tone: 'live',
+    reg: 'https://forms.gle/p5789Kabjyah6wq59', regLabel: 'Register now',
+    blurb: 'A full day of coding challenges, workshops and networking with tech enthusiasts across the college.',
+    about: [
+      'CodeFest is the association’s flagship build day. Teams form on the morning, pick a challenge, and ship something before the room closes.',
+      'You do not need to arrive with a team or an idea. Both get sorted in the first hour.'
+    ],
+    bring: ['A laptop and your charger', 'Your student ID', 'Whatever you are already building, if anything']
+  },
+  {
+    id: 'robotics', t: 'ACES Robotics Meeting', img: 'https://res.cloudinary.com/dmgk37i6y/image/upload/v1756390037/robotics_meeting_avcz53.jpg',
+    start: '', when: '', venue: 'Engineering block, KNUST', status: 'Members welcome', tone: 'soon',
+    blurb: 'Collaborate, build bots and automate solutions with fellow members.',
+    about: ['The robotics circle meets to plan builds for the term and split the work across year groups.'],
+    bring: ['Nothing. Turn up.']
+  },
+  {
+    id: 'hangout', t: 'ACES Hangout', img: 'https://res.cloudinary.com/dmgk37i6y/image/upload/v1756508481/aces_hangout_eywxew.jpg',
+    start: '', when: '', venue: 'To be confirmed', status: 'Free entry', tone: 'soon',
+    blurb: 'Games, conversations and chill vibes in a relaxed member-only evening.',
+    about: ['An evening with no agenda beyond meeting the people in your year and the years above.'],
+    bring: ['Yourself']
+  },
+  {
+    id: 'dinner', t: 'ACES Dinner 2026', img: 'https://res.cloudinary.com/dmgk37i6y/image/upload/v1756562742/dinner_night_uicikj.jpg',
+    start: '', when: '', venue: 'To be confirmed', status: 'Tickets soon', tone: 'soon',
+    blurb: 'A night of food and fellowship. Connect with members over an elegant dinner.',
+    about: ['The dinner closes the academic year. Tickets are limited and go to members first.'],
+    bring: ['Formal dress']
+  }
+];
+// Real albums from events that already happened.
+const PAST_EVENTS = [
+  { id: 'codefest', t: 'CodeFest', note: 'Last edition' },
+  { id: 'nocte', t: 'Nocte Memminisse', note: 'CBET Dinner & Excellence Awards' },
+  { id: 'repaces', t: 'REP ACES', note: 'Members represented' }
+];
 
 const IMG = {
   ard: 'https://www.acesknust.com/images/club_images/Arduino_image.avif',
@@ -2867,17 +3028,27 @@ class Component extends DCLogic {
     (this._cIos || []).forEach(io => io.disconnect());
   }
 
+  /** Three states, because a countdown that runs past zero is worse than none:
+   *  before the start it counts down, for RUNS_FOR after it says it is running,
+   *  and after that it says it has ended. */
   tick() {
     const root = this.pageRef.current;
     if (!root) return;
     const p = n => String(Math.max(0, n)).padStart(2, '0');
-    let txt = '00d 00h 00m 00s';
     const ms = TARGET - Date.now();
+    let txt, state;
     if (ms > 0) {
       const s = Math.floor(ms / 1000);
-      txt = p(Math.floor(s / 86400)) + 'd ' + p(Math.floor(s / 3600) % 24) + 'h ' + p(Math.floor(s / 60) % 60) + 'm ' + p(s % 60) + 's';
+      state = 'before';
+      txt = (s >= 86400 ? p(Math.floor(s / 86400)) + 'd ' : '') +
+            p(Math.floor(s / 3600) % 24) + 'h ' + p(Math.floor(s / 60) % 60) + 'm ' + p(s % 60) + 's';
+    } else if (-ms < RUNS_FOR) {
+      state = 'now'; txt = 'Happening now';
+    } else {
+      state = 'ended'; txt = 'This event has ended';
     }
     root.querySelectorAll('[data-cd="1"]').forEach(el => { el.textContent = txt; });
+    root.querySelectorAll('[data-cdstate]').forEach(el => { el.setAttribute('data-cdstate', state); });
   }
 
   paint() {
@@ -3236,6 +3407,47 @@ class Component extends DCLogic {
       // own contents behind a tap is the 14-link footer problem wearing a different coat.
       // Scholarships: interest capture plus a labelled skeleton. No award is ever invented here.
       // ACES Shop: browsing, variants, cart flow, and a coming-soon state that still does a job.
+      // Events. The dated one leads in ACES navy so the pile has a clear front;
+      // the undated ones sit back in white and say so rather than faking a date.
+      events: EVENTS.map((e, i) => {
+        const d = e.start ? new Date(e.start) : null;
+        const lead = i === 0;
+        return {
+          id: e.id, t: e.t, img: e.img, blurb: e.blurb, status: e.status, i: String(i),
+          dated: !!d, isTarget: e.start === '2026-07-31T18:00:00Z',
+          mon: d ? ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'][d.getUTCMonth()] : '',
+          day: d ? String(d.getUTCDate()) : '',
+          whenT: e.when || 'Date to come · ' + e.venue,
+          cardBg: lead ? '#0B1F3A' : '#ffffff',
+          cardFg: lead ? '#ffffff' : '#0B1F3A',
+          cardBd: lead ? 'rgba(255,255,255,.12)' : 'rgba(11,31,58,.1)',
+          bodyFg: lead ? 'rgba(255,255,255,.78)' : '#5B6B7E',
+          metaFg: lead ? 'rgba(255,255,255,.7)' : '#5B6B7E',
+          badgeBg: lead ? '#5BE49B' : 'rgba(255,255,255,.94)',
+          badgeFg: lead ? '#062E1B' : '#0B1F3A',
+          ctaBg: lead ? '#ffffff' : '#0B1F3A',
+          ctaFg: lead ? '#0B1F3A' : '#ffffff'
+        };
+      }),
+      pastEvents: PAST_EVENTS,
+      isEvent: r === 'event',
+      // Unknown id falls back to the first event rather than rendering an empty page.
+      evd: (() => {
+        const e = EVENTS.filter(x => x.id === s.pid)[0] || EVENTS[0];
+        const dated = !!e.start;
+        return {
+          id: e.id, t: e.t, img: e.img, venue: e.venue, status: e.status,
+          whenT: e.when || 'Date still being set',
+          isTarget: e.start === '2026-07-31T18:00:00Z',
+          badgeBg: dated ? '#5BE49B' : 'rgba(255,255,255,.94)',
+          badgeFg: dated ? '#062E1B' : '#0B1F3A',
+          about: (e.about || []).map(p => ({ p: p })),
+          bring: (e.bring || []).map(p => ({ p: p })),
+          ctaHref: e.reg || ('mailto:acesknust@gmail.com?subject=' + encodeURIComponent('Tell me when ' + e.t + ' is dated')),
+          ctaLabel: e.reg ? (e.regLabel || 'Register') : 'Notify me'
+        };
+      })(),
+
       // Proof band under the hero. Every figure is one we already hold: the member
       // count is the association's own, clubs and courses are counted from the data
       // on this page. Nothing here is estimated.
