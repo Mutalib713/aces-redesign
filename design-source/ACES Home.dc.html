@@ -148,6 +148,49 @@ button{font-family:inherit}
 .acCd[data-cdstate="ended"]{background:rgba(11,31,58,.08);color:#5B6B7E}
 .acCd[data-cdstate="ended"] span:first-child,.acCd[data-cdstate="now"] span:first-child{animation:none}
 
+/* Events page. Two primitives: the month grid and the status rail.
+   Phone gets one column with the calendar first — it is the fastest answer to
+   "is anything on this week". From 1024px the calendar becomes a sticky rail
+   beside the list, so scrolling the list never loses the month. */
+.acEvW{display:grid;gap:clamp(16px,3cqw,26px)}
+@media (min-width:1024px){
+  .acEvW{grid-template-columns:326px minmax(0,1fr);align-items:start}
+  .acEvCal{position:sticky;top:92px}
+}
+.acCalG{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.acCalC{aspect-ratio:1;display:grid;place-items:center;border-radius:11px;font-size:13.5px;font-weight:600;min-height:38px}
+/* A dated day is a real target, not a tinted cell: 44px on the shortest side
+   once the container has room, and it keeps its own focus ring. */
+.acCalC[data-on="1"]{background:#0B5FFF;color:#fff;box-shadow:0 8px 18px -10px rgba(11,95,255,.9)}
+.acCalC[data-on="1"]:hover{background:#0B1F3A}
+/* A day whose event has finished still deserves a pin — you may be looking for
+   the write-up — but not the invitation blue of one you can still turn up to. */
+.acCalC[data-state="done"]{background:rgba(11,31,58,.5);box-shadow:none}
+.acCalC[data-state="done"]:hover{background:#0B1F3A}
+/* Focus is designed here, not left to the UA default: the day pins and filters
+   sit on filled backgrounds where a thin default outline disappears. */
+.acCalC:focus-visible,.acEvT button:focus-visible,.acEvCal button:focus-visible,.acEvC a:focus-visible{outline:3px solid #0B5FFF;outline-offset:3px;border-radius:11px}
+.acCalC[data-on="1"]:focus-visible{outline-color:#0B1F3A}
+/* The rail. On a phone the date node sits above its cards as a chip; from 640px
+   it moves into a left column with the connecting line running through it. */
+.acRailG{display:grid;gap:12px;position:relative}
+.acRailN{display:inline-flex;align-items:center;gap:9px}
+@media (min-width:640px){
+  .acRailG{grid-template-columns:66px minmax(0,1fr);gap:20px}
+  .acRailN{display:block;text-align:center}
+  .acRailG::before{content:"";position:absolute;left:32px;top:64px;bottom:-22px;width:2px;background:linear-gradient(to bottom,rgba(11,31,58,.14),rgba(11,31,58,.03));z-index:0}
+  .acRailG:last-of-type::before{display:none}
+}
+/* Event card. Stacked on a phone, side-by-side once there is room for the photo
+   to sit next to the actions rather than push them below the fold. */
+.acEvC{display:flex;flex-direction:column;overflow:hidden}
+.acEvCi{position:relative;aspect-ratio:16/9;flex:0 0 auto}
+@media (min-width:560px){
+  .acEvC{flex-direction:row;align-items:stretch}
+  .acEvCi{aspect-ratio:auto;flex:0 0 clamp(168px,26cqw,224px)}
+}
+.acEvB{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
 /* Semester drawer chevron. Points down when closed, flips up when open. */
 .acCh{transition:transform .32s cubic-bezier(.16,1,.3,1)}
 .acCh[data-open="true"]{transform:rotate(180deg)}
@@ -219,7 +262,7 @@ section,footer,header{overflow-x:clip}
         <nav data-only="desktop" style="flex:1;align-items:center;justify-content:center;gap:2px">
           <a href="#/home" style="padding:10px 12px;border-radius:10px;font-size:14px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">Home</a>
           <a href="#/about" style="padding:10px 12px;border-radius:10px;font-size:14px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">About</a>
-          <a href="#/home" onClick="{{ goEvents }}" style="padding:10px 12px;border-radius:10px;font-size:14px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">Events</a>
+          <a href="#/events" style="padding:10px 12px;border-radius:10px;font-size:14px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">Events</a>
           <a href="#/marketplace" style="padding:10px 12px;border-radius:10px;font-size:14px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">Marketplace</a>
           <a href="#/courses" style="padding:10px 12px;border-radius:10px;font-size:14px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">Courses</a>
           <a href="#/gallery" style="padding:10px 12px;border-radius:10px;font-size:14px;font-weight:600;color:#0B1F3A" style-hover="background:#EAF4FF;color:#0B5FFF">Gallery</a>
@@ -388,19 +431,26 @@ section,footer,header{overflow-x:clip}
 
       <section style="background:#F7FAFF;padding:clamp(22px,4cqw,40px) clamp(16px,4cqw,40px)">
         <div style="max-width:1240px;margin:0 auto">
-          <div data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;margin-bottom:18px">
-            <div data-rv="1" style="animation:acRise .6s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">Start here</div>
-            <h2 data-split="word" data-rvg="1" style="margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(21px,5cqw,30px);color:#0B1F3A">Jump straight in</h2>
-            <p style="margin:0;font-size:15px;color:#5B6B7E;max-width:46ch;text-wrap:pretty">The six things students actually come here for.</p>
+          <div data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:18px">
+            <div style="min-width:0">
+              <div data-rv="1" style="animation:acRise .6s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">Quick access</div>
+              <h2 data-split="word" data-rvg="1" style="margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(21px,5cqw,30px);color:#0B1F3A">Jump straight in</h2>
+              <p style="margin:0;font-size:15px;color:#5B6B7E;max-width:46ch;text-wrap:pretty">The six things students actually come here for.</p>
+            </div>
+            <!-- Six shortcuts is not the whole site. This opens the full menu. -->
+            <button type="button" onClick="{{ openMenu }}" style="flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;min-height:44px;padding:0 15px;border-radius:13px;border:1px solid rgba(11,31,58,.14);background:#fff;color:#0B1F3A;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;transition:border-color .22s ease,color .22s ease" style-hover="border-color:#0B5FFF;color:#0B5FFF">
+              View all
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+            </button>
           </div>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(152px,1fr));gap:10px">
-            <a data-rv="1" href="#/home" onClick="{{ goEvents }}" style="animation:acRightSm .8s cubic-bezier(.16,1,.3,1) .04s both;animation-play-state:paused;display:flex;flex-direction:column;gap:10px;min-height:120px;padding:15px;border-radius:18px;background:#fff;border:1px solid rgba(11,31,58,.09);box-shadow:0 12px 26px -22px rgba(11,31,58,.7);transition:transform .3s ease,box-shadow .3s ease;color:#0B1F3A" style-hover="transform:translateY(-4px);box-shadow:0 20px 38px -22px rgba(11,31,58,.6);color:#0B5FFF">
+            <a data-rv="1" href="#/events" style="animation:acRightSm .8s cubic-bezier(.16,1,.3,1) .04s both;animation-play-state:paused;display:flex;flex-direction:column;gap:10px;min-height:120px;padding:15px;border-radius:18px;background:#fff;border:1px solid rgba(11,31,58,.09);box-shadow:0 12px 26px -22px rgba(11,31,58,.7);transition:transform .3s ease,box-shadow .3s ease;color:#0B1F3A" style-hover="transform:translateY(-4px);box-shadow:0 20px 38px -22px rgba(11,31,58,.6);color:#0B5FFF">
               <span style="width:38px;height:38px;border-radius:12px;background:#EAF4FF;display:grid;place-items:center;color:#0B5FFF">
                 <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="16" rx="3"></rect><path d="M8 3v4M16 3v4M3.5 10h17"></path></svg>
               </span>
               <span style="display:block;margin-top:auto">
                 <span style="display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px">Events</span>
-                <span style="display:block;font-size:12.5px;color:#5B6B7E">4 coming up</span>
+                <span style="display:block;font-size:12.5px;color:#5B6B7E">{{ evComingT }}</span>
               </span>
             </a>
             <a data-rv="1" href="#/marketplace" style="animation:acRightSm .8s cubic-bezier(.16,1,.3,1) .09s both;animation-play-state:paused;display:flex;flex-direction:column;gap:10px;min-height:120px;padding:15px;border-radius:18px;background:#fff;border:1px solid rgba(11,31,58,.09);box-shadow:0 12px 26px -22px rgba(11,31,58,.7);transition:transform .3s ease,box-shadow .3s ease;color:#0B1F3A" style-hover="transform:translateY(-4px);box-shadow:0 20px 38px -22px rgba(11,31,58,.6);color:#0B5FFF">
@@ -523,6 +573,9 @@ section,footer,header{overflow-x:clip}
                   </span>
                 </a>
               </sc-for>
+              <a href="#/events" style="flex:0 0 auto;display:flex;align-items:center;gap:9px;min-height:56px;padding:0 18px;border-radius:14px;background:#0B1F3A;color:#fff;font-weight:700;font-size:14.5px;white-space:nowrap;transition:background .22s ease" style-hover="background:#0B5FFF">
+                {{ allEventsT }} <span aria-hidden="true">&#8594;</span>
+              </a>
             </div>
           </div>
         </div>
@@ -2119,12 +2172,200 @@ section,footer,header{overflow-x:clip}
       </section>
       </sc-if>
 
+      <sc-if value="{{ isEvents }}" hint-placeholder-val="{{ false }}">
+      <section style="background:#F7FAFF;padding:clamp(20px,4cqw,40px) clamp(16px,4cqw,40px) clamp(34px,6cqw,64px)">
+        <div style="max-width:1240px;margin:0 auto">
+
+          <div data-rv="1" style="animation:acRise .6s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">What's on</div>
+          <h1 data-split="word" data-rvg="1" style="margin:0 0 10px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.035em;line-height:1.03;font-size:clamp(30px,8cqw,54px);color:#0B1F3A">Events</h1>
+          <p data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .16s both;animation-play-state:paused;margin:0 0 clamp(18px,3cqw,26px);font-size:15.5px;line-height:1.6;color:#5B6B7E;max-width:58ch;text-wrap:pretty">{{ evLead }}</p>
+
+          <div class="acEvW">
+
+            <!-- The calendar. One month at a time, arrows that actually move it,
+                 and a month with nothing in it says so rather than showing a
+                 grid of dead cells and hoping you do not look. -->
+            <div class="acEvCal" data-rv="1" style="animation:acRise .7s cubic-bezier(.16,1,.3,1) .1s both;animation-play-state:paused">
+              <div style="padding:clamp(14px,2.6cqw,18px);border-radius:20px;background:#fff;border:1px solid rgba(11,31,58,.1);box-shadow:0 4px 18px -14px rgba(11,31,58,.6)">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px">
+                  <button data-step="-1" onClick="{{ calStep }}" aria-label="Previous month" style="width:44px;height:44px;flex:0 0 44px;border-radius:13px;border:1px solid rgba(11,31,58,.12);background:#fff;color:#0B1F3A;display:grid;place-items:center;cursor:pointer;transition:border-color .22s ease,color .22s ease" style-hover="border-color:#0B5FFF;color:#0B5FFF">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg>
+                  </button>
+                  <span aria-live="polite" style="flex:1;text-align:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16.5px;letter-spacing:-.02em;color:#0B1F3A">{{ calMonth }}</span>
+                  <button data-step="1" onClick="{{ calStep }}" aria-label="Next month" style="width:44px;height:44px;flex:0 0 44px;border-radius:13px;border:1px solid rgba(11,31,58,.12);background:#fff;color:#0B1F3A;display:grid;place-items:center;cursor:pointer;transition:border-color .22s ease,color .22s ease" style-hover="border-color:#0B5FFF;color:#0B5FFF">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+                  </button>
+                </div>
+
+                <div class="acCalG" style="margin-bottom:5px">
+                  <sc-for list="{{ calDows }}" as="w" hint-placeholder-count="7">
+                    <span aria-hidden="true" style="display:grid;place-items:center;height:24px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.1em;color:#8A99AB;font-weight:600">{{ w.d }}</span>
+                  </sc-for>
+                </div>
+
+                <div class="acCalG">
+                  <sc-for list="{{ calCells }}" as="c" hint-placeholder-count="35">
+                    <span style="display:block">
+                      <sc-if value="{{ c.on }}" hint-placeholder-val="{{ false }}">
+                        <a class="acCalC" data-on="1" data-state="{{ c.state }}" href="{{ c.href }}" aria-label="{{ c.aria }}" style="transition:background .22s ease">{{ c.d }}</a>
+                      </sc-if>
+                      <sc-if value="{{ c.off }}" hint-placeholder-val="{{ true }}">
+                        <span class="acCalC" style="color:{{ c.fg }};border:{{ c.ring }} solid {{ c.bd }}">{{ c.d }}</span>
+                      </sc-if>
+                    </span>
+                  </sc-for>
+                </div>
+
+                <p style="margin:13px 0 0;font-size:13px;line-height:1.5;color:#5B6B7E;text-wrap:pretty">{{ calNote }}</p>
+              </div>
+            </div>
+
+            <div>
+              <!-- Status tabs carry their own counts, so the shape of the year is
+                   readable before you scroll: what is dated, what is not, what is done. -->
+              <!-- Filter buttons, not a tablist: there is no tabpanel to own and
+                   no roving focus, so aria-pressed is the honest role here. -->
+              <div class="acx acEvT" role="group" aria-label="Filter events by status" data-rv="1" style="animation:acRise .7s cubic-bezier(.16,1,.3,1) .14s both;animation-play-state:paused;display:flex;gap:7px;overflow-x:auto;padding-bottom:14px">
+                <sc-for list="{{ evTabs }}" as="tb" hint-placeholder-count="4">
+                  <button type="button" aria-pressed="{{ tb.sel }}" data-k="{{ tb.k }}" onClick="{{ setEvTab }}" style="flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 15px;border-radius:13px;border:1px solid {{ tb.bd }};background:{{ tb.bg }};color:{{ tb.fg }};font-family:inherit;font-size:14.5px;font-weight:600;white-space:nowrap;cursor:pointer;transition:background .22s ease,border-color .22s ease" style-hover="border-color:#0B5FFF">
+                    {{ tb.label }}
+                    <span style="min-width:22px;padding:2px 7px;border-radius:8px;background:{{ tb.nBg }};color:{{ tb.nFg }};font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700">{{ tb.n }}</span>
+                  </button>
+                </sc-for>
+              </div>
+
+              <!-- Changing a filter is silent for a screen reader unless the
+                   result is announced. It doubles as the visible result count. -->
+              <p aria-live="polite" style="margin:0 0 14px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#5B6B7E;font-weight:600">{{ evCountT }}</p>
+
+              <sc-if value="{{ evHasGroups }}" hint-placeholder-val="{{ true }}">
+              <div>
+                <sc-for list="{{ evGroups }}" as="g" hint-placeholder-count="2">
+                  <div class="acRailG" style="margin-bottom:22px">
+
+                    <div class="acRailN" style="position:relative;z-index:1">
+                      <sc-if value="{{ g.hasDate }}" hint-placeholder-val="{{ true }}">
+                        <span style="display:inline-flex;flex-direction:column;align-items:center;justify-content:center;width:64px;height:64px;border-radius:18px;background:{{ g.nodeBg }};color:{{ g.nodeFg }};box-shadow:0 12px 24px -16px rgba(11,31,58,.8)">
+                          <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;font-weight:700;opacity:.85">{{ g.mon }}</span>
+                          <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:25px;line-height:1;letter-spacing:-.03em">{{ g.day }}</span>
+                        </span>
+                      </sc-if>
+                      <sc-if value="{{ g.noDate }}" hint-placeholder-val="{{ false }}">
+                        <span style="display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:18px;background:{{ g.nodeBg }};color:{{ g.nodeFg }};font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em">{{ g.label }}</span>
+                      </sc-if>
+                      <span style="display:block;margin-top:7px;font-size:12px;line-height:1.35;color:#5B6B7E;text-wrap:pretty">{{ g.sub }}</span>
+                    </div>
+
+                    <div style="display:grid;gap:12px;min-width:0;position:relative;z-index:1">
+                      <sc-for list="{{ g.items }}" as="ev" hint-placeholder-count="2">
+                        <article class="acEvC acC" style="border-radius:22px;background:{{ ev.cardBg }};color:{{ ev.cardFg }};border:1px solid {{ ev.cardBd }};box-shadow:0 16px 38px -28px rgba(11,31,58,.8)">
+                          <a class="acEvCi" href="#/event/{{ ev.id }}" tabindex="-1" aria-hidden="true" style="display:block;overflow:hidden">
+                            <span class="acZ" style="position:absolute;inset:0;display:block">
+                              <image-slot id="aces-evp-{{ ev.id }}" shape="rect" src="{{ ev.img }}" placeholder="{{ ev.t }}"></image-slot>
+                            </span>
+                            <span aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(6,17,36,.05),rgba(6,17,36,.4))"></span>
+                            <sc-if value="{{ ev.dated }}" hint-placeholder-val="{{ true }}">
+                              <span style="position:absolute;top:10px;left:10px;display:flex;flex-direction:column;align-items:center;min-width:46px;padding:6px 8px;border-radius:11px;background:rgba(255,255,255,.95);color:#0B1F3A;text-align:center">
+                                <span style="font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.14em;color:#0B5FFF;font-weight:700">{{ ev.mon }}</span>
+                                <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;line-height:1;letter-spacing:-.03em">{{ ev.day }}</span>
+                              </span>
+                            </sc-if>
+                          </a>
+
+                          <div style="flex:1;min-width:0;padding:14px 15px 15px">
+                            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin-bottom:8px">
+                              <span style="display:inline-flex;align-items:center;padding:4px 10px;border-radius:8px;background:{{ ev.chipBg }};color:{{ ev.chipFg }};font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">{{ ev.status }}</span>
+                              <sc-if value="{{ ev.isTarget }}" hint-placeholder-val="{{ false }}">
+                                <span data-cdstate="before" class="acCd" style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:8px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:.06em">
+                                  <span aria-hidden="true" style="width:6px;height:6px;border-radius:50%;background:currentColor;animation:acBlink 1.8s ease-in-out infinite"></span>
+                                  <span data-cd="1">--h --m --s</span>
+                                </span>
+                              </sc-if>
+                            </div>
+
+                            <h2 style="margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(18px,4.4cqw,23px);letter-spacing:-.025em;line-height:1.15">
+                              <a href="#/event/{{ ev.id }}" style="color:inherit">{{ ev.t }}</a>
+                            </h2>
+                            <p class="acEvB" style="margin:0 0 10px;font-size:14px;line-height:1.5;color:{{ ev.bodyFg }};text-wrap:pretty">{{ ev.blurb }}</p>
+
+                            <div style="display:flex;flex-wrap:wrap;gap:6px 14px;margin-bottom:13px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:{{ ev.metaFg }}">
+                              <span style="display:inline-flex;align-items:center;gap:6px">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+                                {{ ev.whenT }}
+                              </span>
+                              <span style="display:inline-flex;align-items:center;gap:6px">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                {{ ev.venue }}
+                              </span>
+                            </div>
+
+                            <div style="display:flex;flex-wrap:wrap;gap:8px">
+                              <a href="{{ ev.ctaHref }}" style="display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:44px;padding:0 17px;border-radius:13px;background:{{ ev.ctaBg }};color:{{ ev.ctaFg }};font-size:14.5px;font-weight:700;transition:background .22s ease" style-hover="background:#0B1F3A;color:#ffffff">{{ ev.ctaLabel }} <span aria-hidden="true">&#8594;</span></a>
+                              <sc-if value="{{ ev.hasIcs }}" hint-placeholder-val="{{ true }}">
+                                <a href="{{ ev.ics }}" download="{{ ev.icsName }}" style="display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:44px;padding:0 15px;border-radius:13px;border:1px solid {{ ev.subBd }};color:{{ ev.subFg }};font-size:14px;font-weight:600;transition:border-color .22s ease,color .22s ease" style-hover="border-color:#0B5FFF;color:#0B5FFF">
+                                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="16" rx="3"></rect><path d="M8 3v4M16 3v4M3.5 10h17M12 14v4M10 16h4"></path></svg>
+                                  Add to calendar
+                                </a>
+                              </sc-if>
+                            </div>
+                          </div>
+                        </article>
+                      </sc-for>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+              </sc-if>
+
+              <!-- Empty state. It names the tab that does have something in it and
+                   moves you there, rather than leaving you on a blank list. -->
+              <sc-if value="{{ evNoGroups }}" hint-placeholder-val="{{ false }}">
+                <div style="padding:clamp(24px,5cqw,40px) clamp(18px,4cqw,32px);border-radius:22px;background:#fff;border:1px dashed rgba(11,31,58,.18);text-align:left">
+                  <span aria-hidden="true" style="display:grid;place-items:center;width:48px;height:48px;border-radius:15px;background:#EAF4FF;color:#0B5FFF;margin-bottom:13px">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="16" rx="3"></rect><path d="M8 3v4M16 3v4M3.5 10h17"></path></svg>
+                  </span>
+                  <p style="margin:0 0 7px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(19px,4.6cqw,24px);letter-spacing:-.025em;color:#0B1F3A">{{ evEmptyT }}</p>
+                  <p style="margin:0 0 15px;font-size:14.5px;line-height:1.6;color:#5B6B7E;max-width:52ch;text-wrap:pretty">{{ evEmptyB }}</p>
+                  <button data-k="{{ evEmptyTo }}" onClick="{{ setEvTab }}" style="display:inline-flex;align-items:center;gap:8px;min-height:46px;padding:0 18px;border-radius:13px;background:#0B5FFF;color:#fff;border:none;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;transition:background .22s ease" style-hover="background:#0B1F3A">{{ evEmptyCta }} <span aria-hidden="true">&#8594;</span></button>
+                </div>
+              </sc-if>
+
+              <!-- Past events are albums, not listings: we hold the photos and the
+                   name, never the date, so none of them claims one. -->
+              <sc-if value="{{ evShowAlbums }}" hint-placeholder-val="{{ true }}">
+                <div style="margin-top:clamp(22px,4cqw,34px)">
+                  <div style="display:flex;align-items:center;gap:10px;margin-bottom:13px">
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#5B6B7E;font-weight:600">Already happened</span>
+                    <span style="height:1px;flex:1;background:rgba(11,31,58,.12)"></span>
+                  </div>
+                  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(154px,1fr));gap:10px">
+                    <sc-for list="{{ evAlbums }}" as="pa" hint-placeholder-count="8">
+                      <a class="acC" href="#/album/{{ pa.id }}" style="position:relative;display:block;aspect-ratio:4/3;border-radius:16px;overflow:hidden;background:#EAF4FF;color:#fff;transition:box-shadow .28s ease" style-hover="box-shadow:0 20px 38px -24px rgba(11,31,58,.85)">
+                        <sc-if value="{{ pa.hasImg }}" hint-placeholder-val="{{ true }}">
+                          <span class="acZ" style="position:absolute;inset:0;display:block"><img data-src="{{ pa.img }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block" /></span>
+                        </sc-if>
+                        <span aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(6,17,36,.1) 35%,rgba(6,17,36,.8) 100%)"></span>
+                        <span style="position:absolute;left:11px;right:11px;bottom:10px">
+                          <span style="display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;line-height:1.2;letter-spacing:-.02em;text-wrap:pretty">{{ pa.t }}</span>
+                          <span style="display:block;margin-top:3px;font-size:11.5px;line-height:1.35;color:rgba(255,255,255,.82)">{{ pa.note }}</span>
+                        </span>
+                      </a>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+        </div>
+      </section>
+      </sc-if>
+
       <sc-if value="{{ isEvent }}" hint-placeholder-val="{{ false }}">
       <section style="background:#F7FAFF;padding:0 0 clamp(34px,6cqw,64px)">
         <div style="max-width:900px;margin:0 auto">
 
           <div style="padding:clamp(12px,3cqw,20px) clamp(16px,4cqw,40px) 0">
-            <a href="#/home" style="display:inline-flex;align-items:center;gap:7px;min-height:44px;padding:0 14px 0 10px;border-radius:12px;background:#fff;border:1px solid rgba(11,31,58,.12);color:#0B1F3A;font-size:14px;font-weight:600;transition:border-color .22s ease,color .22s ease" style-hover="border-color:#0B5FFF;color:#0B5FFF">
+            <a href="#/events" style="display:inline-flex;align-items:center;gap:7px;min-height:44px;padding:0 14px 0 10px;border-radius:12px;background:#fff;border:1px solid rgba(11,31,58,.12);color:#0B1F3A;font-size:14px;font-weight:600;transition:border-color .22s ease,color .22s ease" style-hover="border-color:#0B5FFF;color:#0B5FFF">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg>
               All events
             </a>
@@ -2591,11 +2832,24 @@ const EVENTS = [
     bring: ['Formal dress']
   }
 ];
-// Real albums from events that already happened.
+// The calendar opens on the month holding the next dated event rather than on
+// whatever month today falls in. With one date on the books, opening on an empty
+// grid would be the wrong first impression of a page about what is on.
+const EV_DATED = EVENTS.filter(e => e.start).sort((a, b) => a.start < b.start ? -1 : 1);
+const EV_OPEN = EV_DATED.length ? new Date(EV_DATED[0].start) : new Date();
+
+// Real albums from events that already happened. We hold the album and the name.
+// We do NOT hold the dates, so not one past event claims one — "Photo album" is
+// the whole of what we can honestly say about most of them.
 const PAST_EVENTS = [
   { id: 'codefest', t: 'CodeFest', note: 'Last edition' },
   { id: 'nocte', t: 'Nocte Memminisse', note: 'CBET Dinner & Excellence Awards' },
-  { id: 'repaces', t: 'REP ACES', note: 'Members represented' }
+  { id: 'repaces', t: 'REP ACES', note: 'Members represented' },
+  { id: 'acesweek', t: 'ACES Week', note: 'Photo album' },
+  { id: 'fieldtrip', t: 'Field Trip', note: 'Photo album' },
+  { id: 'orientation', t: 'Orientation', note: 'Photo album' },
+  { id: 'medtechrave', t: 'MedTech Rave', note: 'Photo album' },
+  { id: 'ladiesmeetup', t: 'Ladies Meetup', note: 'Photo album' }
 ];
 
 const IMG = {
@@ -2772,7 +3026,7 @@ const COURSES = [
 // with the file served from assets/, never hotlinked.
 
 class Component extends DCLogic {
-  state = { bar: true, menu: false, galPaused: false, openSems: {}, gq: '', search: false, rtab: 'vendor', reg: { name: '', mail: '', index: '', year: 'Y1', shop: '', cat: 'Food & Beverages', phone: '', pass: '', pass2: '', agree: false }, regDone: false, regErr: '', route: 'home', pid: null, cart: {}, q: '', cat: 'All', cyear: 'All', lb: -1, sent: false, store: '', sort: '', csem: 'All', ptype: 'All', filters: false, favs: {}, revStar: 0, revText: '', revSent: false, cond: '', pmin: '', pmax: '', acc: '', execYear: '2025/26', staffGroup: 'All', shopTab: 'All', merchVar: {}, reserved: '', sch: '', schMail: '', schWants: [], schErr: '', sub: '', subMail: '', liMail: '', liPass: '', liErr: '', pwShow: false, user: '', shop: '', bizName: '', bizCat: 'Food & Beverages', bizPhone: '', bizDesc: '', bizErr: '', np: '', npName: '', npCat: 'Food & Beverages', npPrice: '', npDesc: '', npErr: '', listings: [] };
+  state = { bar: true, menu: false, galPaused: false, openSems: {}, gq: '', search: false, rtab: 'vendor', reg: { name: '', mail: '', index: '', year: 'Y1', shop: '', cat: 'Food & Beverages', phone: '', pass: '', pass2: '', agree: false }, regDone: false, regErr: '', route: 'home', pid: null, cart: {}, q: '', cat: 'All', cyear: 'All', lb: -1, sent: false, store: '', sort: '', csem: 'All', ptype: 'All', filters: false, favs: {}, revStar: 0, revText: '', revSent: false, cond: '', pmin: '', pmax: '', acc: '', execYear: '2025/26', staffGroup: 'All', shopTab: 'All', merchVar: {}, reserved: '', sch: '', schMail: '', schWants: [], schErr: '', sub: '', subMail: '', liMail: '', liPass: '', liErr: '', pwShow: false, user: '', shop: '', bizName: '', bizCat: 'Food & Beverages', bizPhone: '', bizDesc: '', bizErr: '', np: '', npName: '', npCat: 'Food & Beverages', npPrice: '', npDesc: '', npErr: '', listings: [], evTab: '', evY: EV_OPEN.getUTCFullYear(), evM: EV_OPEN.getUTCMonth() };
   pageRef = React.createRef();
   hdrRef = React.createRef();
   wheelRef = React.createRef();
@@ -3292,7 +3546,7 @@ class Component extends DCLogic {
     if (gq) {
       const PAGES = [
         ['About ACES', '#/about', 'Vision, clubs, history'], ['Executives', '#/executives', 'Meet the 2025/26 board'],
-        ['Staff & department', '#/staff', 'Lecturers and department info'], ['Events', '#/home', 'Upcoming and past events'],
+        ['Staff & department', '#/staff', 'Lecturers and department info'], ['Events', '#/events', 'Upcoming and past events'],
         ['Gallery', '#/gallery', 'Photo albums'], ['Marketplace', '#/marketplace', 'Student-run shops'],
         ['ACES Shop', '#/shop', 'Official merchandise'], ['Cart', '#/cart', 'Your basket'],
         ['Register', '#/register', 'Create a student or vendor account'], ['Vendor dashboard', '#/vendor', 'Manage your listings'],
@@ -3373,6 +3627,181 @@ class Component extends DCLogic {
       delete S._items;
     }));
     const r = s.route;
+
+    /* ── Events page ───────────────────────────────────────────────────────
+     * A calendar wants a timestamp on every event. We hold exactly one real
+     * date — CodeFest — and none at all for the past albums. So the page
+     * splits by what is actually known rather than by what would fill the
+     * grid: dated events get a day on the calendar and a node on the rail,
+     * confirmed-but-undated ones get their own tab that says so in the tab
+     * label. Nothing here invents a date, and no empty month is disguised. */
+    const NOW = Date.now();
+    const MON_L = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const MON_S = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+    const DAY_L = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const p2 = n => String(n).padStart(2, '0');
+    const started = e => e.start ? new Date(e.start).getTime() : 0;
+    const isOver = e => !!e.start && (NOW - started(e)) > RUNS_FOR;
+    const isLive = e => !!e.start && !isOver(e) && started(e) <= NOW;
+
+    // An .ics so the date lands in the phone's own calendar app instead of a
+    // screenshot of a poster. Only dated events get one: there is nothing to
+    // write for the rest, so they get a mail reminder request instead.
+    const icsFor = e => {
+      const st = new Date(e.start);
+      const z = d => d.getUTCFullYear() + p2(d.getUTCMonth() + 1) + p2(d.getUTCDate()) + 'T' +
+        p2(d.getUTCHours()) + p2(d.getUTCMinutes()) + '00Z';
+      const q = t => String(t || '').replace(/([\\,;])/g, '\\$1');
+      return 'data:text/calendar;charset=utf-8,' + encodeURIComponent([
+        'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//ACES KNUST//Events//EN', 'CALSCALE:GREGORIAN',
+        'BEGIN:VEVENT', 'UID:' + e.id + '-aces@acesknust.com', 'DTSTAMP:' + z(new Date(NOW)),
+        'DTSTART:' + z(st), 'DTEND:' + z(new Date(started(e) + RUNS_FOR)),
+        'SUMMARY:' + q(e.t), 'LOCATION:' + q(e.venue), 'DESCRIPTION:' + q(e.blurb),
+        'END:VEVENT', 'END:VCALENDAR'
+      ].join('\r\n'));
+    };
+
+    // One card shape for every event, so status is the only thing that varies.
+    // `feature` is the live or next-dated event: it leads in ACES navy so the
+    // rail has a clear front, exactly as the home stack does.
+    const evRow = (e, feature) => {
+      const d = e.start ? new Date(e.start) : null;
+      const over = isOver(e);
+      const live = isLive(e);
+      const status = over ? 'Ended' : (live ? 'Happening now' : e.status);
+      return {
+        id: e.id, t: e.t, img: e.img, blurb: e.blurb, venue: e.venue,
+        dated: !!d, undated: !d, over: over, notOver: !over,
+        isTarget: e.start === '2026-07-31T18:00:00Z',
+        mon: d ? MON_S[d.getUTCMonth()] : '', day: d ? String(d.getUTCDate()) : '',
+        whenT: e.when || 'Date still being set · ' + e.venue,
+        status: status,
+        hasIcs: !!d && !over, ics: d ? icsFor(e) : '',
+        icsName: e.id + '-aces-knust.ics',
+        ctaHref: over ? ('#/event/' + e.id)
+          : (e.reg || ('mailto:acesknust@gmail.com?subject=' + encodeURIComponent('Tell me when ' + e.t + ' is dated'))),
+        ctaLabel: over ? 'View details' : (e.reg ? (e.regLabel || 'Register') : 'Email me the date'),
+        cardBg: feature ? '#0B1F3A' : '#ffffff',
+        cardFg: feature ? '#ffffff' : '#0B1F3A',
+        cardBd: feature ? 'rgba(255,255,255,.12)' : 'rgba(11,31,58,.1)',
+        bodyFg: feature ? 'rgba(255,255,255,.78)' : '#5B6B7E',
+        metaFg: feature ? 'rgba(255,255,255,.7)' : '#5B6B7E',
+        subBd: feature ? 'rgba(255,255,255,.24)' : 'rgba(11,31,58,.14)',
+        subFg: feature ? '#ffffff' : '#0B1F3A',
+        ctaBg: feature ? '#ffffff' : '#0B5FFF',
+        ctaFg: feature ? '#0B1F3A' : '#ffffff',
+        chipBg: over ? 'rgba(11,31,58,.08)' : (live ? 'rgba(11,95,255,.14)' : (d ? 'rgba(91,228,155,.2)' : '#EAF4FF')),
+        chipFg: over ? '#5B6B7E' : (live ? '#0B5FFF' : (d ? '#0B6B43' : '#0B5FFF'))
+      };
+    };
+
+    const evUpcoming = EVENTS.filter(e => e.start && !isOver(e));
+    const evTba = EVENTS.filter(e => !e.start);
+    const evOver = EVENTS.filter(e => isOver(e));
+    // Past = events of ours that have finished, then the association's real albums.
+    const evAlbums = PAST_EVENTS.map(pe => {
+      const a = ALBUMS.filter(x => x.id === pe.id)[0] || {};
+      return { id: pe.id, t: pe.t, note: pe.note, img: a.img || '', hasImg: !!a.img };
+    });
+    const pastCount = evOver.length + evAlbums.length;
+
+    // Never open on an empty room: the tab defaults to whichever of these
+    // actually has something in it. Tonight, when CodeFest ends, that default
+    // moves from Upcoming to Dates to be set on its own.
+    const evTab = s.evTab || (evUpcoming.length ? 'upcoming' : (evTba.length ? 'tba' : 'past'));
+    const evTabs = [
+      { k: 'upcoming', label: 'Upcoming', n: String(evUpcoming.length) },
+      { k: 'tba', label: 'Dates to be set', n: String(evTba.length) },
+      { k: 'past', label: 'Past', n: String(pastCount) },
+      { k: 'all', label: 'All', n: String(evUpcoming.length + evTba.length + pastCount) }
+    ].map(t => ({
+      ...t, sel: evTab === t.k ? 'true' : 'false',
+      bg: evTab === t.k ? '#0B1F3A' : '#ffffff',
+      fg: evTab === t.k ? '#ffffff' : '#0B1F3A',
+      bd: evTab === t.k ? '#0B1F3A' : 'rgba(11,31,58,.14)',
+      nBg: evTab === t.k ? 'rgba(255,255,255,.18)' : '#EAF4FF',
+      nFg: evTab === t.k ? '#ffffff' : '#0B5FFF'
+    }));
+    const showUp = evTab === 'upcoming' || evTab === 'all';
+    const showTba = evTab === 'tba' || evTab === 'all';
+    const showPast = evTab === 'past' || evTab === 'all';
+
+    // The rail. Dated events group by day the way a calendar app groups them;
+    // the undated ones collapse under a single node that names the gap instead
+    // of pretending each one has a slot.
+    const evGroups = [];
+    if (showUp) {
+      const byDay = {};
+      evUpcoming.forEach(e => {
+        const k = e.start.slice(0, 10);
+        (byDay[k] = byDay[k] || []).push(e);
+      });
+      Object.keys(byDay).sort().forEach(k => {
+        const d = new Date(k + 'T00:00:00Z');
+        const anyLive = byDay[k].some(isLive);
+        evGroups.push({
+          key: 'd' + k, hasDate: true, noDate: false,
+          mon: MON_S[d.getUTCMonth()], day: String(d.getUTCDate()),
+          sub: DAY_L[d.getUTCDay()] + ' · ' + MON_L[d.getUTCMonth()] + ' ' + d.getUTCFullYear(),
+          nodeBg: anyLive ? '#0B5FFF' : '#0B1F3A', nodeFg: '#ffffff',
+          items: byDay[k].map((e, i) => evRow(e, i === 0))
+        });
+      });
+    }
+    if (showTba && evTba.length) {
+      evGroups.push({
+        key: 'tba', hasDate: false, noDate: true,
+        mon: '', day: '', label: 'TBA',
+        sub: plural(evTba.length, 'event', 'events') + ' confirmed, waiting on a date',
+        nodeBg: '#EAF4FF', nodeFg: '#0B5FFF',
+        items: evTba.map(e => evRow(e, false))
+      });
+    }
+    if (showPast && evOver.length) {
+      evGroups.push({
+        key: 'over', hasDate: false, noDate: true,
+        mon: '', day: '', label: 'DONE',
+        sub: evOver.length === 1 ? 'An event that has finished' : evOver.length + ' events that have finished',
+        nodeBg: 'rgba(11,31,58,.08)', nodeFg: '#5B6B7E',
+        items: evOver.map(e => evRow(e, false))
+      });
+    }
+
+    // The calendar. It moves month to month like a real one, and an empty
+    // month says it is empty rather than showing a grid of dead cells.
+    const calY = s.evY, calM = s.evM;
+    const monFirst = new Date(Date.UTC(calY, calM, 1));
+    const monDays = new Date(Date.UTC(calY, calM + 1, 0)).getUTCDate();
+    const monLead = (monFirst.getUTCDay() + 6) % 7; // grid starts Monday
+    const calBy = {};
+    EVENTS.forEach(e => {
+      if (!e.start) return;
+      const d = new Date(e.start);
+      if (d.getUTCFullYear() === calY && d.getUTCMonth() === calM) calBy[d.getUTCDate()] = e;
+    });
+    const tNow = new Date(NOW);
+    const calIsNow = tNow.getUTCFullYear() === calY && tNow.getUTCMonth() === calM;
+    const calCells = [];
+    for (let i = 0; i < monLead; i++) calCells.push({ key: 'b' + i, on: false, off: false, d: '' });
+    for (let d = 1; d <= monDays; d++) {
+      const e = calBy[d];
+      const today = calIsNow && tNow.getUTCDate() === d;
+      const done = e ? isOver(e) : false;
+      calCells.push({
+        key: 'd' + d, on: !!e, off: !e, d: String(d),
+        href: e ? '#/event/' + e.id : '',
+        // A finished event must not wear the same invitation blue as a live one.
+        state: done ? 'done' : 'open',
+        aria: e ? e.t + (done ? ' (ended), ' : ', ') + d + ' ' + MON_L[calM] + ' ' + calY
+          : String(d) + ' ' + MON_L[calM],
+        fg: e ? '#ffffff' : (today ? '#0B5FFF' : '#0B1F3A'),
+        bd: today ? '#0B5FFF' : 'transparent',
+        ring: today ? '1.5px' : '0'
+      });
+    }
+    const calCount = Object.keys(calBy).length;
+    const calOver = Object.keys(calBy).filter(k => isOver(calBy[k])).length;
+
     return {
       pageRef: this.pageRef, hdrRef: this.hdrRef, wheelRef: this.wheelRef,
       wheelSecRef: this.wheelSecRef, heroRef: this.heroRef, discRef: this.discRef, labRef: this.labRef, trackRef: this.trackRef,
@@ -3445,7 +3874,63 @@ class Component extends DCLogic {
           ctaFg: lead ? '#0B1F3A' : '#ffffff'
         };
       }),
-      pastEvents: PAST_EVENTS,
+      // Home keeps three as a taster; the events page carries all of them.
+      pastEvents: PAST_EVENTS.slice(0, 3),
+      allEventsT: 'See all ' + (EVENTS.length + pastCount) + ' events',
+      // Counted, never hardcoded: this said "4 coming up" while one had finished.
+      evComingT: evUpcoming.length
+        ? plural(evUpcoming.length, 'event', 'events') + ' coming up'
+        : plural(evTba.length, 'event', 'events') + ' confirmed',
+
+      isEvents: r === 'events',
+      evTabs: evTabs, evGroups: evGroups,
+      evCountT: (() => {
+        const n = evGroups.reduce((a, g) => a + g.items.length, 0) + (showPast ? evAlbums.length : 0);
+        return 'Showing ' + plural(n, 'event', 'events');
+      })(),
+      evHasGroups: evGroups.length > 0, evNoGroups: evGroups.length === 0,
+      evAlbums: evAlbums, evShowAlbums: showPast && evAlbums.length > 0,
+      // Every count here can legitimately be 0, 1 or many, so the sentence is
+      // assembled per case rather than patched with an (s).
+      evLead: (() => {
+        const any = evUpcoming.length > 0;
+        const dated = any
+          ? (evUpcoming.length === 1 ? 'One event has a confirmed date.' : evUpcoming.length + ' events have confirmed dates.')
+          : 'Nothing has a date on it right now.';
+        // "N more" only makes sense after a non-zero count.
+        const waiting = evTba.length
+          ? (evTba.length === 1
+            ? (any ? ' One more is confirmed, with the date still being set.' : ' One event is confirmed, with the date still being set.')
+            : ' ' + evTba.length + (any ? ' more are' : ' events are') + ' confirmed, with dates still being set.')
+          : '';
+        return dated + waiting + ' Past events link straight to their photo albums.';
+      })(),
+      // The empty state names the tab that does have something, and moves you there.
+      evEmptyT: evTab === 'upcoming' ? 'Nothing has a date on it yet'
+        : (evTab === 'tba' ? 'Every confirmed event now has a date' : 'Nothing here yet'),
+      evEmptyB: evTab === 'upcoming'
+        ? (evTba.length
+          ? 'The association has ' + plural(evTba.length, 'event', 'events') + ' confirmed with the date still being set. They move here the moment a date is fixed.'
+          : 'Nothing is on the books at the moment. Past events and their albums are still here.')
+        : (evTab === 'tba'
+          ? 'Everything confirmed has a date on it. Check Upcoming for what is next.'
+          : 'Nothing in this list at the moment.'),
+      // Never point the way out at another empty room.
+      evEmptyTo: (evTab === 'upcoming' && evTba.length) ? 'tba' : (evUpcoming.length ? 'upcoming' : 'past'),
+      evEmptyCta: (evTab === 'upcoming' && evTba.length) ? 'See what is confirmed'
+        : (evUpcoming.length ? 'See what is dated' : 'See past events'),
+      calCells: calCells,
+      calMonth: MON_L[calM] + ' ' + calY,
+      calDows: ['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((d, i) => ({ k: 'w' + i, d: d })),
+      // The note reports the month honestly, including when the only thing on it
+      // has already happened — a filled cell you cannot act on needs saying.
+      calNote: calCount === 0
+        ? 'Nothing dated in ' + MON_L[calM] + ' yet.'
+        : (calOver === calCount
+          ? plural(calCount, 'event', 'events') + ' in ' + MON_L[calM] + ', already finished. Tap to read back.'
+          : plural(calCount - calOver, 'event', 'events') + ' dated in ' + MON_L[calM] + '. Tap to open.'),
+      calHasAny: calCount > 0, calEmpty: calCount === 0,
+
       isEvent: r === 'event',
       // Unknown id falls back to the first event rather than rendering an empty page.
       evd: (() => {
@@ -3627,6 +4112,7 @@ class Component extends DCLogic {
       navGroups: [
         ['Association', '.06s', [
           ['Home', '#/home', 'home'],
+          ['Events', '#/events', 'events'],
           ['About', '#/about', 'about'],
           ['Executives', '#/executives', 'executives'],
           ['Staff & Department', '#/staff', 'staff'],
@@ -3652,7 +4138,7 @@ class Component extends DCLogic {
       })),
       // The nine pages are the pill list above. These are the sub-screens that hang off them.
       navMore: [
-        { label: 'Events', href: '#/home' }, { label: 'Saved', href: '#/favourites' },
+        { label: 'Events', href: '#/events' }, { label: 'Saved', href: '#/favourites' },
         { label: 'Your cart', href: '#/cart' }, { label: 'Track an order', href: '#/track' },
         { label: 'Vendor hub', href: '#/vendor' }
       ],
@@ -3778,16 +4264,15 @@ class Component extends DCLogic {
       setType: e => this.setState({ ptype: e.currentTarget.dataset.t }),
       setCond: e => this.setState({ cond: e.currentTarget.value }),
       toggleAcc: e => { const id = e.currentTarget.dataset.acc; this.setState(st => { const m = { ...(st.accClosed || {}) }; m[id] = !m[id]; return { accClosed: m }; }); },
-      // Events live on the home page now, so every "Events" entry point lands on
-      // the section rather than a route that no longer exists.
-      goEvents: e => {
-        if (e && e.preventDefault) e.preventDefault();
-        this.setState({ route: 'home', menu: false, search: false }, () => {
-          if (location.hash !== '#/home') location.hash = '#/home';
-          setTimeout(() => {
-            const el = this.pageRef.current && this.pageRef.current.querySelector('#events');
-            if (el) window.scrollTo(0, Math.max(0, el.getBoundingClientRect().top + (window.pageYOffset || 0) - 84));
-          }, 70);
+      // Events page. Changing tab keeps the page where it is — a student
+      // comparing "upcoming" against "dates to be set" should not be thrown
+      // back to the top of the page on every tap.
+      setEvTab: e => this.setState({ evTab: e.currentTarget.dataset.k }),
+      calStep: e => {
+        const step = Number(e.currentTarget.dataset.step) || 0;
+        this.setState(st => {
+          const m = st.evM + step;
+          return { evY: st.evY + Math.floor(m / 12), evM: ((m % 12) + 12) % 12 };
         });
       },
       setExecYear: e => this.setState({ execYear: e.currentTarget.value }),
