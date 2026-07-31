@@ -41,14 +41,70 @@ button{font-family:inherit}
 @keyframes acFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 @keyframes acRing{to{transform:rotate(360deg)}}
 @keyframes acBlink{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes acChar{from{opacity:0;transform:translateY(105%);filter:blur(5px)}to{opacity:1;transform:none;filter:blur(0)}}
+@keyframes acWipe{from{clip-path:circle(0% at calc(100% - 34px) 6px)}to{clip-path:circle(155% at calc(100% - 34px) 6px)}}
+
+/* Split-heading reveal. Words carry the space as padding so a character split
+   never collapses it; the mask lives on the line, so every character slides out
+   from behind the same edge. Hero splits per character (26 elements, once, the
+   signature moment); section headings split per word — 67 simultaneous tweens
+   is what makes the reference sites stutter on a low-end Android. */
+.acSl{display:block;overflow:hidden;padding-bottom:.08em}
+.acSw{display:inline-block;white-space:nowrap;padding-right:.26em}
+.acSc{display:inline-block;animation:acChar .55s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;will-change:transform,opacity}
+
+/* Image zoom inside a fixed frame. The card never moves — only the photo grows
+   behind the crop, so no neighbour gets nudged and no layout is recalculated. */
+.acZ{overflow:hidden}
+.acZ>image-slot{display:block;transition:transform 1.5s cubic-bezier(.16,1,.3,1)}
+.acC:hover .acZ>image-slot,.acC:focus-within .acZ>image-slot{transform:scale(1.09)}
+
+/* Gallery marquee: one duplicated track on a single transform, replacing a
+   32ms scrollLeft interval. Pauses on hover and on touch. */
+.acMqW{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+.acMq{display:flex;gap:10px;width:max-content;animation:acMarq 52s linear infinite;will-change:transform}
+.acMqW:hover .acMq,.acMqW:focus-within .acMq,.acMqW[data-touch="1"] .acMq,.acMqW[data-hold="1"] .acMq{animation-play-state:paused}
+
+/* Expanding panels. Hover picks the active panel on a mouse; on touch the panel
+   scrolling into view picks itself. Only opacity and transform move — animating
+   flex/width here would relayout the row on every frame. */
+.acP{border-radius:20px;overflow:hidden;background:#fff;border:1px solid rgba(11,31,58,.1);box-shadow:0 14px 32px -24px rgba(11,31,58,.7);transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s ease,border-color .4s ease}
+.acP>.acZ>image-slot{opacity:.58;transition:transform .8s cubic-bezier(.16,1,.3,1),opacity .45s ease}
+.acP .acPm{transform:scaleX(0);transform-origin:left;transition:transform .55s cubic-bezier(.16,1,.3,1)}
+/* No lift on the active panel: the entrance animation owns `transform` on this
+   element (animations outrank normal declarations), and a geometry shift on
+   hover is the tell we avoid anyway. Colour, border and elevation carry it. */
+.acP[data-on="1"]{border-color:#0B5FFF;box-shadow:0 26px 48px -24px rgba(11,31,58,.55)}
+.acP[data-on="1"]>.acZ>image-slot{opacity:1;transform:scale(1.07)}
+.acP[data-on="1"] .acPm{transform:scaleX(1)}
+
+/* The bar-to-X morph already lived in paint() as inline transforms — it was just
+   never visible, because the old sheet covered the button that was morphing.
+   The sheet now opens below the header, so the one rule still needed is keeping
+   that button on screen at any width while the sheet is open. */
+.acHb[data-open="1"]{display:grid!important}
+
+/* Header hides on scroll-down, returns on scroll-up. The 6px dead-zone stops a
+   thumb wobble from flickering it. */
+.acHd{transition:transform .34s cubic-bezier(.22,1,.36,1)}
+.acHd[data-hide="1"]{transform:translateY(-100%)}
+.acMn{animation:acWipe .58s cubic-bezier(.32,.72,0,1) both}
 [data-only="desktop"]{display:none}
 @container page (min-width:760px){
   [data-only="mobile"]{display:none!important}
   [data-only="desktop"]{display:flex!important}
 }
+/* Split headings only start once their line is in view. */
+[data-rvon="1"] .acSc{animation-play-state:running}
+
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.001ms!important;animation-delay:0ms!important;animation-iteration-count:1!important}
-  [data-rv="1"]{animation-play-state:running!important}
+  [data-rv="1"],.acSc{animation-play-state:running!important}
+  /* The marquee is the one loop that must stop rather than snap: at .001ms it
+     would jump a full track-width and sit there. */
+  .acMq{animation:none!important}
+  .acHd{transition:none}
+  .acP>.acZ>image-slot{opacity:1}
 }
 </style>
 </helmet>
@@ -62,7 +118,7 @@ button{font-family:inherit}
 
   <div ref="{{ pageRef }}" style="container-type:inline-size;container-name:page;width:390px;max-width:100%;min-height:100vh;background:#fff;color:#111827;position:relative;box-shadow:0 0 0 1px rgba(11,31,58,.08),0 34px 90px -34px rgba(11,31,58,.5)">
 
-    <div style="position:sticky;top:0;z-index:70">
+    <div class="acHd" data-hide="0" data-menu="{{ menuOn }}" style="position:sticky;top:0;z-index:{{ barZ }}">
     <sc-if value="{{ showBar }}" hint-placeholder-val="{{ true }}">
       <div style="display:flex;align-items:center;gap:10px;padding:8px 10px 8px 12px;background:#0B1F3A;color:#fff;min-height:46px">
         <span style="flex:0 0 auto;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:5px 7px;border-radius:6px;background:#0B5FFF;animation:acBlink 2.6s ease-in-out infinite">Live</span>
@@ -119,7 +175,7 @@ button{font-family:inherit}
           </a>
           </sc-if>
           <a data-only="desktop" href="#/login" style="align-items:center;height:44px;padding:0 18px;border-radius:13px;background:#0B1F3A;color:#fff;font-size:14px;font-weight:700" style-hover="background:#0B5FFF;color:#fff">Log in</a>
-          <button data-only="mobile" onClick="{{ openMenu }}" aria-label="Open menu" aria-expanded="false" style="width:48px;height:48px;flex:0 0 48px;display:grid;place-content:center;gap:4px;border:none;background:#EAF4FF;cursor:pointer;color:#0B1F3A;border-radius:9999px;transition:background .25s ease,color .25s ease" style-hover="background:#0B5FFF;color:#fff">
+          <button class="acHb" data-only="mobile" data-open="{{ menuOn }}" onClick="{{ openMenu }}" aria-label="{{ menuLabel }}" aria-expanded="{{ menuOn2 }}" style="width:48px;height:48px;flex:0 0 48px;display:grid;place-content:center;gap:4px;border:none;background:{{ menuBtnBg }};cursor:pointer;color:{{ menuBtnFg }};border-radius:9999px;transition:background .25s ease,color .25s ease" style-hover="background:#0B5FFF;color:#fff">
             <span aria-hidden="true" style="display:block;width:15px;height:1.6px;border-radius:2px;background:currentColor;transition:transform .3s cubic-bezier(.16,1,.3,1)"></span>
             <span aria-hidden="true" style="display:block;width:10px;height:1.6px;border-radius:2px;background:currentColor;transition:width .3s ease,transform .3s cubic-bezier(.16,1,.3,1)"></span>
             <span aria-hidden="true" style="display:block;width:15px;height:1.6px;border-radius:2px;background:currentColor;transition:transform .3s cubic-bezier(.16,1,.3,1)"></span>
@@ -171,21 +227,9 @@ button{font-family:inherit}
     </sc-if>
 
     <sc-if value="{{ menu }}" hint-placeholder-val="{{ false }}">
-      <div style="position:fixed;inset:0;z-index:110;display:flex;flex-direction:column;background:linear-gradient(180deg,#EAF4FF 0%,#F7FAFF 42%,#FFFFFF 100%);animation:acFade .24s ease both">
-        <div style="flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px clamp(16px,5cqw,22px)">
-          <a href="#/home" onClick="{{ closeMenu }}" style="display:flex;align-items:center;gap:10px;color:inherit;animation:acItem .4s cubic-bezier(.16,1,.3,1) .06s both">
-            <span style="width:40px;height:40px;flex:0 0 40px;border-radius:12px;background:linear-gradient(145deg,#0B5FFF,#0B1F3A);display:grid;place-items:center;box-shadow:0 8px 18px -8px rgba(11,95,255,.8)"><img src="https://www.acesknust.com/images/logo-white.png" alt="ACES logo" style="width:27px;height:27px;object-fit:contain;display:block" /></span>
-            <span style="display:block;min-width:0">
-              <span style="display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;line-height:1.05;letter-spacing:-.02em;color:#0B1F3A">ACES</span>
-              <span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#5B6B7E">KNUST</span>
-            </span>
-          </a>
-          <button onClick="{{ closeMenu }}" aria-label="Close menu" style="width:44px;height:44px;flex:0 0 44px;display:grid;place-items:center;border:none;background:#fff;cursor:pointer;color:#0B1F3A;border-radius:9999px;box-shadow:0 6px 20px rgba(11,95,255,.16);transition:transform .3s cubic-bezier(.16,1,.3,1)" style-hover="transform:rotate(90deg)">
-            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"></path></svg>
-          </button>
-        </div>
+      <div class="acMn" role="dialog" aria-modal="true" aria-label="Site menu" onKeyDown="{{ menuKey }}" style="position:fixed;top:var(--achh,92px);left:0;right:0;bottom:0;z-index:110;display:flex;flex-direction:column;background:linear-gradient(180deg,#EAF4FF 0%,#F7FAFF 42%,#FFFFFF 100%)">
 
-        <div class="acx" style="flex:1;min-height:0;overflow-y:auto;padding:6px clamp(16px,5cqw,22px) 18px">
+        <div class="acx" style="flex:1;min-height:0;overflow-y:auto;padding:16px clamp(16px,5cqw,22px) 18px">
           <sc-for list="{{ navGroups }}" as="ng" hint-placeholder-count="3">
             <div style="margin-bottom:20px;animation:acItem .5s cubic-bezier(.16,1,.3,1) both;animation-delay:{{ ng.delay }}">
               <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#5B6B7E;font-weight:600;margin-bottom:10px">{{ ng.label }}</div>
@@ -229,18 +273,18 @@ button{font-family:inherit}
 
         <div style="position:relative;width:100%;max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;gap:clamp(20px,4cqw,54px);align-items:flex-end;justify-content:space-between">
           <div style="flex:1 1 300px;min-width:0;max-width:700px">
-            <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;animation:acFade .8s ease .1s both">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;animation:acFade .8s ease .3s both">
               <span style="width:26px;height:2px;border-radius:2px;background:#5BE49B"></span>
               <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#fff;text-shadow:0 1px 8px rgba(6,17,36,.7)">KNUST · College of Engineering</span>
             </div>
-            <h1 data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .08s both;animation-play-state:paused;margin:0 0 14px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.038em;line-height:.98;font-size:clamp(40px,11.5cqw,74px);text-shadow:0 3px 26px rgba(6,17,36,.45)">
-              <span style="display:block;overflow:hidden;padding-bottom:.05em"><span style="display:block;white-space:nowrap;animation:acLine .95s cubic-bezier(.16,1,.3,1) .05s both">Welcome to the</span></span>
-              <span style="display:block;overflow:hidden;padding-bottom:.05em"><span style="display:block;white-space:nowrap;animation:acLine .95s cubic-bezier(.16,1,.3,1) .16s both">Land of ACES</span></span>
+            <h1 data-split="char" data-split-delay=".42" data-rvon="1" style="margin:0 0 14px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.038em;line-height:.98;font-size:clamp(40px,11.5cqw,74px);text-shadow:0 3px 26px rgba(6,17,36,.45)">
+              <span data-sl style="display:block;overflow:hidden;padding-bottom:.08em">Welcome to the</span>
+              <span data-sl style="display:block;overflow:hidden;padding-bottom:.08em">Land of ACES</span>
             </h1>
-            <p style="margin:0 0 14px;font-family:'IBM Plex Mono',monospace;font-size:clamp(14.5px,3.9cqw,18px);font-weight:500;letter-spacing:.06em;line-height:1.5;color:#fff;text-shadow:0 2px 10px rgba(6,17,36,.5);animation:acRise .9s cubic-bezier(.16,1,.3,1) .24s both"><span style="color:#5BE49B;font-weight:600">A</span>ssociation of <span style="color:#5BE49B;font-weight:600">C</span>omputer <span style="color:#5BE49B;font-weight:600">E</span>ngineering <span style="color:#5BE49B;font-weight:600">S</span>tudents</p>
-            <p style="margin:0 0 20px;font-size:clamp(15px,3.9cqw,18.5px);line-height:1.6;color:rgba(255,255,255,.9);max-width:46ch;text-wrap:pretty;text-shadow:0 1px 12px rgba(6,17,36,.6);animation:acRise .9s cubic-bezier(.16,1,.3,1) .3s both">Events, course resources, executives and a student-run marketplace — all in one place.</p>
+            <p style="margin:0 0 14px;font-family:'IBM Plex Mono',monospace;font-size:clamp(14.5px,3.9cqw,18px);font-weight:500;letter-spacing:.06em;line-height:1.5;color:#fff;text-shadow:0 2px 10px rgba(6,17,36,.5);animation:acRise .9s cubic-bezier(.16,1,.3,1) .6s both"><span style="color:#5BE49B;font-weight:600">A</span>ssociation of <span style="color:#5BE49B;font-weight:600">C</span>omputer <span style="color:#5BE49B;font-weight:600">E</span>ngineering <span style="color:#5BE49B;font-weight:600">S</span>tudents</p>
+            <p style="margin:0 0 20px;font-size:clamp(15px,3.9cqw,18.5px);line-height:1.6;color:rgba(255,255,255,.9);max-width:46ch;text-wrap:pretty;text-shadow:0 1px 12px rgba(6,17,36,.6);animation:acRise .9s cubic-bezier(.16,1,.3,1) .78s both">Events, course resources, executives and a student-run marketplace — all in one place.</p>
 
-            <div style="display:flex;flex-wrap:wrap;gap:10px;animation:acRise .9s cubic-bezier(.16,1,.3,1) .5s both">
+            <div style="display:flex;flex-wrap:wrap;gap:10px;animation:acRise .9s cubic-bezier(.16,1,.3,1) .96s both">
               <a href="#/about" style="display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 22px;border-radius:15px;background:#fff;color:#0B1F3A;font-size:16px;font-weight:700;box-shadow:0 16px 34px -18px rgba(0,0,0,.6)" style-hover="background:#EAF4FF;color:#0B1F3A;transform:translateY(-2px)">Explore ACES <span aria-hidden="true">→</span></a>
               <a href="#/browse" style="display:flex;align-items:center;justify-content:center;min-height:52px;padding:0 22px;border-radius:15px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:#fff;font-size:16px;font-weight:600" style-hover="background:rgba(255,255,255,.22);color:#fff">Browse marketplace</a>
             </div>
@@ -258,7 +302,7 @@ button{font-family:inherit}
         <div style="max-width:1240px;margin:0 auto">
           <div data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;margin-bottom:18px">
             <div data-rv="1" style="animation:acRise .6s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">Start here</div>
-            <h2 style="margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(24px,6cqw,40px);color:#0B1F3A">Jump straight in</h2>
+            <h2 data-split="word" data-rvg="1" style="margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(24px,6cqw,40px);color:#0B1F3A">Jump straight in</h2>
             <p style="margin:0;font-size:15px;color:#5B6B7E;max-width:46ch;text-wrap:pretty">The six things students actually come here for.</p>
           </div>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(152px,1fr));gap:10px">
@@ -325,15 +369,15 @@ button{font-family:inherit}
           <div data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;padding:0 clamp(16px,4cqw,40px);margin-bottom:16px">
             <div>
               <div data-rv="1" style="animation:acRise .6s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">What's on</div>
-              <h2 style="margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(24px,6cqw,40px);color:#0B1F3A">Upcoming events</h2>
+              <h2 data-split="word" data-rvg="1" style="margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(24px,6cqw,40px);color:#0B1F3A">Upcoming events</h2>
               <p style="margin:0;font-size:15px;color:#5B6B7E;max-width:44ch;text-wrap:pretty">Status and registration links, straight from ACES.</p>
             </div>
             <a href="#/events" style="flex:0 0 auto;display:none;align-items:center;gap:6px;height:44px;padding:0 16px;border-radius:13px;border:1px solid rgba(11,31,58,.14);font-size:14px;font-weight:700;color:#0B1F3A" data-only="desktop" style-hover="background:#EAF4FF;border-color:#0B5FFF;color:#0B5FFF">See all events <span aria-hidden="true">→</span></a>
           </div>
 
           <div class="acx" style="display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px clamp(16px,4cqw,40px) 12px;-webkit-overflow-scrolling:touch">
-            <article data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;flex:0 0 clamp(285px,88cqw,430px);scroll-snap-align:start;border-radius:22px;overflow:hidden;background:#0B1F3A;color:#fff;box-shadow:0 22px 44px -26px rgba(11,31,58,.8);transition:transform .3s ease" style-hover="transform:translateY(-4px)">
-              <div style="position:relative;aspect-ratio:16/9">
+            <article class="acC" data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;flex:0 0 clamp(285px,88cqw,430px);scroll-snap-align:start;border-radius:22px;overflow:hidden;background:#0B1F3A;color:#fff;box-shadow:0 22px 44px -26px rgba(11,31,58,.8);transition:transform .3s ease" style-hover="transform:translateY(-4px)">
+              <div class="acZ" style="position:relative;aspect-ratio:16/9">
                 <image-slot id="aces-ev-codefest" shape="rect" src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756508481/codefest_erdhpl.jpg" placeholder="CodeFest photo"></image-slot>
                 <span style="position:absolute;top:11px;left:11px;display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:9px;background:#5BE49B;color:#062E1B;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase">Registration open</span>
               </div>
@@ -348,8 +392,8 @@ button{font-family:inherit}
               </div>
             </article>
 
-            <article data-rv="1" style="animation:acRightSm .8s cubic-bezier(.16,1,.3,1) .06s both;animation-play-state:paused;flex:0 0 clamp(240px,72cqw,300px);scroll-snap-align:start;border-radius:22px;overflow:hidden;background:#fff;border:1px solid rgba(11,31,58,.1);box-shadow:0 14px 32px -24px rgba(11,31,58,.7);transition:transform .3s ease,box-shadow .3s ease" style-hover="transform:translateY(-4px);box-shadow:0 24px 46px -24px rgba(11,31,58,.6)">
-              <div style="position:relative;aspect-ratio:16/10">
+            <article class="acC" data-rv="1" style="animation:acRightSm .8s cubic-bezier(.16,1,.3,1) .06s both;animation-play-state:paused;flex:0 0 clamp(240px,72cqw,300px);scroll-snap-align:start;border-radius:22px;overflow:hidden;background:#fff;border:1px solid rgba(11,31,58,.1);box-shadow:0 14px 32px -24px rgba(11,31,58,.7);transition:transform .3s ease,box-shadow .3s ease" style-hover="transform:translateY(-4px);box-shadow:0 24px 46px -24px rgba(11,31,58,.6)">
+              <div class="acZ" style="position:relative;aspect-ratio:16/10">
                 <image-slot id="aces-ev-robotics" shape="rect" src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756390037/robotics_meeting_avcz53.jpg" placeholder="Robotics meeting photo"></image-slot>
                 <span style="position:absolute;top:10px;left:10px;padding:5px 9px;border-radius:8px;background:rgba(255,255,255,.94);color:#0B1F3A;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase">Members welcome</span>
               </div>
@@ -361,8 +405,8 @@ button{font-family:inherit}
               </div>
             </article>
 
-            <article data-rv="1" style="animation:acRightSm .8s cubic-bezier(.16,1,.3,1) .12s both;animation-play-state:paused;flex:0 0 clamp(240px,72cqw,300px);scroll-snap-align:start;border-radius:22px;overflow:hidden;background:#fff;border:1px solid rgba(11,31,58,.1);box-shadow:0 14px 32px -24px rgba(11,31,58,.7);transition:transform .3s ease,box-shadow .3s ease" style-hover="transform:translateY(-4px);box-shadow:0 24px 46px -24px rgba(11,31,58,.6)">
-              <div style="position:relative;aspect-ratio:16/10">
+            <article class="acC" data-rv="1" style="animation:acRightSm .8s cubic-bezier(.16,1,.3,1) .12s both;animation-play-state:paused;flex:0 0 clamp(240px,72cqw,300px);scroll-snap-align:start;border-radius:22px;overflow:hidden;background:#fff;border:1px solid rgba(11,31,58,.1);box-shadow:0 14px 32px -24px rgba(11,31,58,.7);transition:transform .3s ease,box-shadow .3s ease" style-hover="transform:translateY(-4px);box-shadow:0 24px 46px -24px rgba(11,31,58,.6)">
+              <div class="acZ" style="position:relative;aspect-ratio:16/10">
                 <image-slot id="aces-ev-hangout" shape="rect" src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756508481/aces_hangout_eywxew.jpg" placeholder="Hangout photo"></image-slot>
                 <span style="position:absolute;top:10px;left:10px;padding:5px 9px;border-radius:8px;background:rgba(255,255,255,.94);color:#0B1F3A;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase">Free entry</span>
               </div>
@@ -374,8 +418,8 @@ button{font-family:inherit}
               </div>
             </article>
 
-            <article data-rv="1" style="animation:acRightSm .8s cubic-bezier(.16,1,.3,1) .18s both;animation-play-state:paused;flex:0 0 clamp(240px,72cqw,300px);scroll-snap-align:start;border-radius:22px;overflow:hidden;background:#fff;border:1px solid rgba(11,31,58,.1);box-shadow:0 14px 32px -24px rgba(11,31,58,.7);transition:transform .3s ease,box-shadow .3s ease" style-hover="transform:translateY(-4px);box-shadow:0 24px 46px -24px rgba(11,31,58,.6)">
-              <div style="position:relative;aspect-ratio:16/10">
+            <article class="acC" data-rv="1" style="animation:acRightSm .8s cubic-bezier(.16,1,.3,1) .18s both;animation-play-state:paused;flex:0 0 clamp(240px,72cqw,300px);scroll-snap-align:start;border-radius:22px;overflow:hidden;background:#fff;border:1px solid rgba(11,31,58,.1);box-shadow:0 14px 32px -24px rgba(11,31,58,.7);transition:transform .3s ease,box-shadow .3s ease" style-hover="transform:translateY(-4px);box-shadow:0 24px 46px -24px rgba(11,31,58,.6)">
+              <div class="acZ" style="position:relative;aspect-ratio:16/10">
                 <image-slot id="aces-ev-dinner" shape="rect" src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756562742/dinner_night_uicikj.jpg" placeholder="Dinner night photo"></image-slot>
                 <span style="position:absolute;top:10px;left:10px;padding:5px 9px;border-radius:8px;background:#EAF4FF;color:#0B5FFF;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase">Tickets soon</span>
               </div>
@@ -398,12 +442,12 @@ button{font-family:inherit}
         <div style="max-width:1240px;margin:0 auto">
           <div data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;margin-bottom:clamp(20px,3cqw,32px);max-width:640px">
             <div data-rv="1" style="animation:acRise .6s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">Who we are</div>
-            <h2 style="margin:0 0 8px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(24px,6cqw,40px);color:#0B1F3A">Our vision, in five parts</h2>
+            <h2 data-split="word" data-rvg="1" style="margin:0 0 8px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(24px,6cqw,40px);color:#0B1F3A">Our vision, in five parts</h2>
             <p style="margin:0;font-size:15px;line-height:1.6;color:#5B6B7E;text-wrap:pretty">Tap a slice or use the arrows — it also turns on its own. Every part of what ACES commits to, one at a time.</p>
           </div>
 
           <div style="display:flex;flex-wrap:wrap;gap:clamp(24px,4cqw,52px);align-items:center;justify-content:center">
-            <div style="flex:1 1 290px;min-width:0;display:flex;flex-direction:column;align-items:center;gap:16px">
+            <div data-rv="1" style="animation:acLeft .9s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;flex:1 1 290px;min-width:0;display:flex;flex-direction:column;align-items:center;gap:16px">
               <div ref="{{ wheelRef }}" tabindex="0" role="group" aria-label="ACES vision wheel" onClick="{{ pickSlice }}" onKeyDown="{{ onKey }}" style="position:relative;width:min(100%,clamp(250px,82cqw,400px));aspect-ratio:1;touch-action:pan-y;cursor:pointer;user-select:none;outline:none">
 
                 <div aria-hidden="true" style="position:absolute;right:-10px;top:50%;transform:translateY(-50%);z-index:6;display:flex;align-items:center;gap:2px">
@@ -494,7 +538,7 @@ button{font-family:inherit}
               <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#5B6B7E">Tap a slice · it turns on its own</div>
             </div>
 
-            <div style="flex:1 1 300px;min-width:0;max-width:520px">
+            <div data-rv="1" style="animation:acRight .9s cubic-bezier(.16,1,.3,1) .15s both;animation-play-state:paused;flex:1 1 300px;min-width:0;max-width:520px">
               <div style="overflow:hidden;border-radius:22px;background:#fff;border:1px solid rgba(11,31,58,.1);box-shadow:0 20px 44px -28px rgba(11,31,58,.6)">
                 <div ref="{{ trackRef }}" style="display:flex;align-items:stretch;transition:transform .6s cubic-bezier(.16,1,.3,1);will-change:transform">
                   <div style="flex:0 0 100%;min-width:0;padding:clamp(20px,4cqw,32px)">
@@ -563,29 +607,32 @@ button{font-family:inherit}
         <div style="max-width:1240px;margin:0 auto">
           <div data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;margin-bottom:18px">
             <div data-rv="1" style="animation:acRise .6s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">Get involved</div>
-            <h2 style="margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(24px,6cqw,40px);color:#0B1F3A">Our clubs</h2>
+            <h2 data-split="word" data-rvg="1" style="margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(24px,6cqw,40px);color:#0B1F3A">Our clubs</h2>
             <p style="margin:0;font-size:15px;color:#5B6B7E;max-width:48ch;text-wrap:pretty">Pick a lane and build something with people in your year.</p>
           </div>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px">
-            <article data-rv="1" style="animation:acRightSm .8s cubic-bezier(.16,1,.3,1) .04s both;animation-play-state:paused;border-radius:20px;overflow:hidden;background:#fff;border:1px solid rgba(11,31,58,.1);box-shadow:0 14px 32px -24px rgba(11,31,58,.7);transition:transform .3s ease,box-shadow .3s ease" style-hover="transform:translateY(-4px);box-shadow:0 24px 46px -24px rgba(11,31,58,.6)">
-              <div style="aspect-ratio:16/9"><image-slot id="aces-club-arduino" shape="rect" src="https://www.acesknust.com/images/club_images/Arduino_image.avif" placeholder="Arduino club photo"></image-slot></div>
+            <article class="acP" data-on="1" data-panel="0" data-rv="1" style="animation:acRightSm .8s cubic-bezier(.16,1,.3,1) .04s both;animation-play-state:paused">
+              <div class="acZ" style="aspect-ratio:16/9"><image-slot id="aces-club-arduino" shape="rect" src="https://www.acesknust.com/images/club_images/Arduino_image.avif" placeholder="Arduino club photo"></image-slot></div>
               <div style="padding:15px">
+                <span class="acPm" aria-hidden="true" style="display:block;width:34px;height:3px;border-radius:2px;background:#0B5FFF;margin-bottom:11px"></span>
                 <h3 style="margin:0 0 7px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;letter-spacing:-.02em;color:#0B1F3A">ACES Arduino Club</h3>
                 <p style="margin:0 0 12px;font-size:13.5px;line-height:1.55;color:#5B6B7E;text-wrap:pretty">For electronics and embedded systems lovers. Real hardware projects, real boards.</p>
                 <a href="#/about" style="display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700">Join club <span aria-hidden="true">→</span></a>
               </div>
             </article>
-            <article data-rv="1" style="animation:acRightSm .8s cubic-bezier(.16,1,.3,1) .1s both;animation-play-state:paused;border-radius:20px;overflow:hidden;background:#fff;border:1px solid rgba(11,31,58,.1);box-shadow:0 14px 32px -24px rgba(11,31,58,.7);transition:transform .3s ease,box-shadow .3s ease" style-hover="transform:translateY(-4px);box-shadow:0 24px 46px -24px rgba(11,31,58,.6)">
-              <div style="aspect-ratio:16/9"><image-slot id="aces-club-coding" shape="rect" src="https://www.acesknust.com/images/club_images/coding.webp" placeholder="Coding club photo"></image-slot></div>
+            <article class="acP" data-on="0" data-panel="1" data-rv="1" style="animation:acRightSm .8s cubic-bezier(.16,1,.3,1) .1s both;animation-play-state:paused">
+              <div class="acZ" style="aspect-ratio:16/9"><image-slot id="aces-club-coding" shape="rect" src="https://www.acesknust.com/images/club_images/coding.webp" placeholder="Coding club photo"></image-slot></div>
               <div style="padding:15px">
+                <span class="acPm" aria-hidden="true" style="display:block;width:34px;height:3px;border-radius:2px;background:#0B5FFF;margin-bottom:11px"></span>
                 <h3 style="margin:0 0 7px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;letter-spacing:-.02em;color:#0B1F3A">ACES Coding Club</h3>
                 <p style="margin:0 0 12px;font-size:13.5px;line-height:1.55;color:#5B6B7E;text-wrap:pretty">Build websites and apps — HTML, CSS, JavaScript and modern frameworks.</p>
                 <a href="#/about" style="display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700">Join club <span aria-hidden="true">→</span></a>
               </div>
             </article>
-            <article data-rv="1" style="animation:acRightSm .8s cubic-bezier(.16,1,.3,1) .16s both;animation-play-state:paused;border-radius:20px;overflow:hidden;background:#fff;border:1px solid rgba(11,31,58,.1);box-shadow:0 14px 32px -24px rgba(11,31,58,.7);transition:transform .3s ease,box-shadow .3s ease" style-hover="transform:translateY(-4px);box-shadow:0 24px 46px -24px rgba(11,31,58,.6)">
-              <div style="aspect-ratio:16/9"><image-slot id="aces-club-robotics" shape="rect" src="https://www.acesknust.com/images/club_images/robotics_image.webp" placeholder="Robotics club photo"></image-slot></div>
+            <article class="acP" data-on="0" data-panel="2" data-rv="1" style="animation:acRightSm .8s cubic-bezier(.16,1,.3,1) .16s both;animation-play-state:paused">
+              <div class="acZ" style="aspect-ratio:16/9"><image-slot id="aces-club-robotics" shape="rect" src="https://www.acesknust.com/images/club_images/robotics_image.webp" placeholder="Robotics club photo"></image-slot></div>
               <div style="padding:15px">
+                <span class="acPm" aria-hidden="true" style="display:block;width:34px;height:3px;border-radius:2px;background:#0B5FFF;margin-bottom:11px"></span>
                 <h3 style="margin:0 0 7px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;letter-spacing:-.02em;color:#0B1F3A">ACES Robotics Club</h3>
                 <p style="margin:0 0 12px;font-size:13.5px;line-height:1.55;color:#5B6B7E;text-wrap:pretty">Design, build and program robots — from autonomous vehicles to robotic arms.</p>
                 <a href="#/about" style="display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700">Join club <span aria-hidden="true">→</span></a>
@@ -600,17 +647,35 @@ button{font-family:inherit}
           <div data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;padding:0 clamp(16px,4cqw,40px);margin-bottom:16px">
             <div>
               <div data-rv="1" style="animation:acRise .6s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">Life at ACES</div>
-              <h2 style="margin:0;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(24px,6cqw,40px);color:#0B1F3A">Gallery</h2>
+              <h2 data-split="word" data-rvg="1" style="margin:0;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(24px,6cqw,40px);color:#0B1F3A">Gallery</h2>
             </div>
-            <a href="#/gallery" style="flex:0 0 auto;display:inline-flex;align-items:center;gap:6px;height:44px;padding:0 16px;border-radius:13px;border:1px solid rgba(11,31,58,.14);font-size:14px;font-weight:700;color:#0B1F3A;background:#fff" style-hover="background:#EAF4FF;border-color:#0B5FFF;color:#0B5FFF">See more <span aria-hidden="true">→</span></a>
+            <div style="flex:0 0 auto;display:flex;align-items:center;gap:8px">
+              <button onClick="{{ galToggle }}" aria-label="{{ galBtnLabel }}" aria-pressed="{{ galPressed }}" style="width:44px;height:44px;display:grid;place-items:center;border:1px solid rgba(11,31,58,.14);background:#fff;cursor:pointer;color:#0B1F3A;border-radius:13px;transition:background .25s ease,border-color .25s ease" style-hover="background:#EAF4FF;border-color:#0B5FFF;color:#0B5FFF">
+                <sc-if value="{{ galPaused }}" hint-placeholder-val="{{ false }}">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"></path></svg>
+                </sc-if>
+                <sc-if value="{{ galRunning }}" hint-placeholder-val="{{ true }}">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="7" y="5.5" width="3.6" height="13" rx="1.2"></rect><rect x="13.4" y="5.5" width="3.6" height="13" rx="1.2"></rect></svg>
+                </sc-if>
+              </button>
+              <a href="#/gallery" style="display:inline-flex;align-items:center;gap:6px;height:44px;padding:0 16px;border-radius:13px;border:1px solid rgba(11,31,58,.14);font-size:14px;font-weight:700;color:#0B1F3A;background:#fff" style-hover="background:#EAF4FF;border-color:#0B5FFF;color:#0B5FFF">See more <span aria-hidden="true">→</span></a>
+            </div>
           </div>
-          <div ref="{{ galRef }}" class="acx" onPointerDown="{{ galStop }}" style="display:flex;gap:10px;overflow-x:auto;padding:4px clamp(16px,4cqw,40px) 10px">
-            <div style="flex:0 0 clamp(180px,52cqw,260px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot id="aces-gal-1" shape="rect" src="https://www.acesknust.com/images/Gallery/Trip.jpg" placeholder="Trip"></image-slot></div>
-            <div style="flex:0 0 clamp(180px,52cqw,260px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot id="aces-gal-2" shape="rect" src="https://www.acesknust.com/images/Gallery/Acesshirt.jpg" placeholder="ACES shirt"></image-slot></div>
-            <div style="flex:0 0 clamp(180px,52cqw,260px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot id="aces-gal-3" shape="rect" src="https://www.acesknust.com/images/Gallery/codefest.jpg" placeholder="CodeFest"></image-slot></div>
-            <div style="flex:0 0 clamp(180px,52cqw,260px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot id="aces-gal-4" shape="rect" src="https://www.acesknust.com/images/Gallery/Jersey.jpg" placeholder="Jersey"></image-slot></div>
-            <div style="flex:0 0 clamp(180px,52cqw,260px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot id="aces-gal-5" shape="rect" src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756562742/dinner_night_uicikj.jpg" placeholder="Dinner night"></image-slot></div>
-            <div style="flex:0 0 clamp(180px,52cqw,260px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot id="aces-gal-6" shape="rect" src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756508481/aces_hangout_eywxew.jpg" placeholder="Hangout"></image-slot></div>
+          <div ref="{{ galRef }}" class="acMqW" data-hold="{{ galHold }}" data-touch="0" onPointerDown="{{ galStop }}" onPointerUp="{{ galGo }}" style="padding:4px 0 10px">
+            <div class="acMq" role="group" aria-label="Photos from ACES trips, dinners and CodeFest">
+              <div class="acC acZ" style="flex:0 0 clamp(180px,52cqw,260px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot id="aces-gal-1" shape="rect" src="https://www.acesknust.com/images/Gallery/Trip.jpg" placeholder="Trip"></image-slot></div>
+              <div class="acC acZ" style="flex:0 0 clamp(180px,52cqw,260px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot id="aces-gal-2" shape="rect" src="https://www.acesknust.com/images/Gallery/Acesshirt.jpg" placeholder="ACES shirt"></image-slot></div>
+              <div class="acC acZ" style="flex:0 0 clamp(180px,52cqw,260px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot id="aces-gal-3" shape="rect" src="https://www.acesknust.com/images/Gallery/codefest.jpg" placeholder="CodeFest"></image-slot></div>
+              <div class="acC acZ" style="flex:0 0 clamp(180px,52cqw,260px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot id="aces-gal-4" shape="rect" src="https://www.acesknust.com/images/Gallery/Jersey.jpg" placeholder="Jersey"></image-slot></div>
+              <div class="acC acZ" style="flex:0 0 clamp(180px,52cqw,260px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot id="aces-gal-5" shape="rect" src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756562742/dinner_night_uicikj.jpg" placeholder="Dinner night"></image-slot></div>
+              <div class="acC acZ" style="flex:0 0 clamp(180px,52cqw,260px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot id="aces-gal-6" shape="rect" src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756508481/aces_hangout_eywxew.jpg" placeholder="Hangout"></image-slot></div>
+              <div class="acC acZ" aria-hidden="true" style="flex:0 0 clamp(180px,52cqw,260px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot shape="rect" src="https://www.acesknust.com/images/Gallery/Trip.jpg" placeholder="Trip"></image-slot></div>
+              <div class="acC acZ" aria-hidden="true" style="flex:0 0 clamp(180px,52cqw,260px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot shape="rect" src="https://www.acesknust.com/images/Gallery/Acesshirt.jpg" placeholder="ACES shirt"></image-slot></div>
+              <div class="acC acZ" aria-hidden="true" style="flex:0 0 clamp(180px,52cqw,260px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot shape="rect" src="https://www.acesknust.com/images/Gallery/codefest.jpg" placeholder="CodeFest"></image-slot></div>
+              <div class="acC acZ" aria-hidden="true" style="flex:0 0 clamp(180px,52cqw,260px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot shape="rect" src="https://www.acesknust.com/images/Gallery/Jersey.jpg" placeholder="Jersey"></image-slot></div>
+              <div class="acC acZ" aria-hidden="true" style="flex:0 0 clamp(180px,52cqw,260px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot shape="rect" src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756562742/dinner_night_uicikj.jpg" placeholder="Dinner night"></image-slot></div>
+              <div class="acC acZ" aria-hidden="true" style="flex:0 0 clamp(180px,52cqw,260px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot shape="rect" src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756508481/aces_hangout_eywxew.jpg" placeholder="Hangout"></image-slot></div>
+            </div>
           </div>
         </div>
       </section>
@@ -654,14 +719,14 @@ button{font-family:inherit}
           <div data-rv="1" style="animation:acRise .7s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:clamp(-56px,-8cqw,-40px);margin-bottom:clamp(26px,5cqw,44px)">
             <sc-for list="{{ aboutStats }}" as="ab" hint-placeholder-count="4">
               <div style="padding:16px;border-radius:18px;background:#fff;border:1px solid rgba(11,31,58,.1);box-shadow:0 14px 34px -22px rgba(11,31,58,.6)">
-                <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(22px,5cqw,28px);letter-spacing:-.02em;color:#0B1F3A">{{ ab.v }}</div>
+                <div data-cu="{{ ab.n }}" data-cu-sfx="{{ ab.sfx }}" data-cu-delay="{{ ab.d }}" style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(22px,5cqw,28px);letter-spacing:-.02em;color:#0B1F3A;font-variant-numeric:tabular-nums">{{ ab.v }}</div>
                 <div style="margin-top:3px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5B6B7E">{{ ab.k }}</div>
               </div>
             </sc-for>
           </div>
 
           <div data-rv="1" style="animation:acRise .6s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">What we are here for</div>
-          <h2 data-rv="1" style="animation:acRight .8s cubic-bezier(.16,1,.3,1) .06s both;animation-play-state:paused;margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(22px,5.6cqw,34px);letter-spacing:-.03em;color:#0B1F3A">Our mission, in three parts</h2>
+          <h2 data-split="word" data-rvg="1" data-rv="1" style="animation:acRight .8s cubic-bezier(.16,1,.3,1) .06s both;animation-play-state:paused;margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(22px,5.6cqw,34px);letter-spacing:-.03em;color:#0B1F3A">Our mission, in three parts</h2>
           <p data-rv="1" style="animation:acRight .8s cubic-bezier(.16,1,.3,1) .12s both;animation-play-state:paused;margin:0 0 18px;font-size:15px;line-height:1.6;color:#5B6B7E;max-width:56ch">Taken from the association's own charter. Each one is something a member should be able to point at and say it happened this year.</p>
 
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:12px;margin-bottom:clamp(28px,5cqw,48px)">
@@ -2447,7 +2512,7 @@ const COURSES = [
 ].map(c => ({ ...c, files: [{ name: c.title + ' \u2014 ' + (c.file || 'Course Materials'), url: 'https://www.acesknust.com/courses' }] }));
 
 class Component extends DCLogic {
-  state = { bar: true, menu: false, gq: '', search: false, rtab: 'vendor', reg: { name: '', mail: '', index: '', year: 'Y1', shop: '', cat: 'Food & Beverages', phone: '', pass: '', pass2: '', agree: false }, regDone: false, regErr: '', route: 'home', pid: null, cart: {}, q: '', cat: 'All', cyear: 'All', lb: -1, sent: false, store: '', sort: '', csem: 'All', ptype: 'All', filters: false, favs: {}, revStar: 0, revText: '', revSent: false, cond: '', pmin: '', pmax: '', acc: '', execYear: '2025/26', staffGroup: 'All', shopTab: 'All', merchVar: {}, reserved: '', sch: '', schMail: '', schWants: [], schErr: '', sub: '', subMail: '', liMail: '', liPass: '', liErr: '', pwShow: false, user: '', shop: '', bizName: '', bizCat: 'Food & Beverages', bizPhone: '', bizDesc: '', bizErr: '', np: '', npName: '', npCat: 'Food & Beverages', npPrice: '', npDesc: '', npErr: '', listings: [] };
+  state = { bar: true, menu: false, galPaused: false, gq: '', search: false, rtab: 'vendor', reg: { name: '', mail: '', index: '', year: 'Y1', shop: '', cat: 'Food & Beverages', phone: '', pass: '', pass2: '', agree: false }, regDone: false, regErr: '', route: 'home', pid: null, cart: {}, q: '', cat: 'All', cyear: 'All', lb: -1, sent: false, store: '', sort: '', csem: 'All', ptype: 'All', filters: false, favs: {}, revStar: 0, revText: '', revSent: false, cond: '', pmin: '', pmax: '', acc: '', execYear: '2025/26', staffGroup: 'All', shopTab: 'All', merchVar: {}, reserved: '', sch: '', schMail: '', schWants: [], schErr: '', sub: '', subMail: '', liMail: '', liPass: '', liErr: '', pwShow: false, user: '', shop: '', bizName: '', bizCat: 'Food & Beverages', bizPhone: '', bizDesc: '', bizErr: '', np: '', npName: '', npCat: 'Food & Beverages', npPrice: '', npDesc: '', npErr: '', listings: [] };
   pageRef = React.createRef();
   vpRef = React.createRef();
   hdrRef = React.createRef();
@@ -2474,42 +2539,41 @@ class Component extends DCLogic {
     this.cdT = setInterval(() => this.tick(), 1000);
 
     this._seen = new WeakSet();
+    this._pseen = new WeakSet();
+    this._cseen = new WeakSet();
+    this._cIos = [];
     if (typeof IntersectionObserver !== 'undefined') {
       this.io = new IntersectionObserver(es => {
-        es.forEach(e => { if (e.isIntersecting) { e.target.style.animationPlayState = 'running'; this.io.unobserve(e.target); } });
+        es.forEach(e => {
+          if (!e.isIntersecting) return;
+          // Split headings run their characters off a parent attribute; everything
+          // else just unpauses its own animation.
+          if (e.target.hasAttribute('data-rvg')) e.target.setAttribute('data-rvon', '1');
+          else e.target.style.animationPlayState = 'running';
+          this.io.unobserve(e.target);
+        });
       }, { threshold: 0.06, rootMargin: '0px 0px -5% 0px' });
       const sec = this.wheelSecRef.current;
       if (sec) {
         this.io2 = new IntersectionObserver(es => { this.inView = es[0].isIntersecting; }, { threshold: 0.3 });
         this.io2.observe(sec);
       }
+      // Expanding panels: a mouse picks the active panel by hovering, a thumb
+      // picks it by scrolling. Same state, two inputs, no tap required.
+      this.io3 = new IntersectionObserver(es => {
+        if (window.innerWidth >= 1024) return;
+        es.forEach(e => { if (e.isIntersecting) this.setPanel(e.target); });
+      }, { threshold: 0.55 });
     } else { this.inView = true; }
+    this.splitHeads();
     this.observeReveals();
-
-    const sc = this.pageRef.current && this.pageRef.current.closest('.acsc');
-    this.scroller = sc || window;
-    this.onScroll = () => {
-      const h = this.heroRef.current;
-      if (!h) return;
-      const y = sc ? sc.scrollTop : (window.pageYOffset || 0);
-      h.style.transform = 'translate3d(0,' + (y * 0.16).toFixed(1) + 'px,0) scale(1.04)';
-    };
-    this.scroller.addEventListener('scroll', this.onScroll, { passive: true });
+    this.observePanels();
+    this.startCounters();
 
     this.autoT = setInterval(() => {
       const idle = !this.touched || (Date.now() - (this.lastTouch || 0) > 12000);
       if (this.inView && idle && (this.props.autoRotateWheel !== false)) { this.touched = false; this.setIndex(this.vi + 1); }
     }, 4600);
-
-    this.galT = setInterval(() => {
-      const g = this.galRef.current;
-      if (!g || !this.galOn) return;
-      const max = g.scrollWidth - g.clientWidth;
-      if (max < 8) return;
-      if (g.scrollLeft >= max - 1) this.galDir = -1;
-      if (g.scrollLeft <= 0) this.galDir = 1;
-      g.scrollLeft += this.galDir * 0.6;
-    }, 32);
 
     this.onHash = () => {
       const h = String(location.hash || '');
@@ -2522,19 +2586,169 @@ class Component extends DCLogic {
     window.addEventListener('hashchange', this.onHash);
     this.onHash();
 
-    this.onScroll = () => {
-      const h = this.hdrRef.current;
-      if (!h) return;
-      const y = window.scrollY || document.documentElement.scrollTop || 0;
-      h.style.boxShadow = y > 12 ? '0 12px 30px -18px rgba(11,31,58,.55)' : 'none';
+    // One scroll handler for the three things that read scroll position: hero
+    // parallax, header elevation, and header hide/show. Previously this.onScroll
+    // was assigned twice, so unmount removed the wrong listener and the parallax
+    // one leaked.
+    const sc = this.pageRef.current && this.pageRef.current.closest('.acsc');
+    this.scroller = sc || window;
+    this.lastY = 0;
+    this.rafPend = false;
+    this.readScroll = () => {
+      this.rafPend = false;
+      const y = sc ? sc.scrollTop : (window.pageYOffset || window.scrollY || 0);
+
+      // Background layers travel 8% of scroll — past ~10% it reads as the page
+      // coming apart rather than as depth.
+      const hero = this.heroRef.current;
+      if (hero) hero.style.transform = 'translate3d(0,' + (y * 0.08).toFixed(1) + 'px,0) scale(1.04)';
+
+      const hdr = this.hdrRef.current;
+      if (hdr) hdr.style.boxShadow = y > 12 ? '0 12px 30px -18px rgba(11,31,58,.55)' : 'none';
+
+      // Direction-aware chrome. The 6px dead-zone is what stops a thumb wobble
+      // from flickering the bar; below 100px it always shows.
+      const bar = this.pageRef.current && this.pageRef.current.querySelector('.acHd');
+      if (bar) {
+        const d = y - this.lastY;
+        if (Math.abs(d) >= 6) {
+          const hide = d > 0 && y > 100 && !this.state.menu;
+          bar.setAttribute('data-hide', hide ? '1' : '0');
+          this.lastY = y;
+        } else if (y <= 100) {
+          bar.setAttribute('data-hide', '0');
+        }
+      }
     };
-    window.addEventListener('scroll', this.onScroll, { passive: true });
+    this.onScroll = () => { if (!this.rafPend) { this.rafPend = true; requestAnimationFrame(this.readScroll); } };
+    this.scroller.addEventListener('scroll', this.onScroll, { passive: true });
+    this.onResize = () => this.measureChrome();
+    window.addEventListener('resize', this.onResize, { passive: true });
+    this.readScroll();
+    this.measureChrome();
   }
 
   componentDidUpdate() {
     if (this.props.viewport !== this._pv) { this._pv = this.props.viewport; this.view = this.props.viewport || 'mobile'; }
     this.paint();
+    this.splitHeads();
     this.observeReveals();
+    this.observePanels();
+    this.startCounters();
+    this.measureChrome();
+  }
+
+  /** The menu opens under the real header, so it needs the header's live height. */
+  measureChrome() {
+    const root = this.pageRef.current;
+    const bar = root && root.querySelector('.acHd');
+    if (!bar || !root) return;
+    const h = Math.round(bar.getBoundingClientRect().height);
+    if (h > 0) { this._achh = h; root.style.setProperty('--achh', h + 'px'); }
+  }
+
+  /** Rebuilds a [data-split] heading as masked per-word or per-character spans.
+   *  Runs once per element: the text is a static literal, so React's reconciler
+   *  sees no change and leaves the generated spans alone. */
+  splitHeads() {
+    const root = this.pageRef.current;
+    if (!root) return;
+    const esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const els = root.querySelectorAll('[data-split]:not([data-splitdone])');
+    Array.prototype.forEach.call(els, el => {
+      const mode = el.getAttribute('data-split') === 'char' ? 'char' : 'word';
+      const base = parseFloat(el.getAttribute('data-split-delay') || '0') || 0;
+      const step = mode === 'char' ? 0.028 : 0.055;
+      const marked = el.querySelectorAll('[data-sl]');
+      const lines = marked.length
+        ? Array.prototype.map.call(marked, s => s.textContent.trim())
+        : [el.textContent.trim()];
+      const label = lines.join(' ');
+      if (!label) return;
+      el.setAttribute('data-splitdone', '1');
+      el.setAttribute('aria-label', label);
+      let n = 0;
+      let out = '';
+      lines.forEach(line => {
+        out += '<span class="acSl" aria-hidden="true">';
+        line.split(/\s+/).forEach(word => {
+          out += '<span class="acSw">';
+          if (mode === 'char') {
+            Array.prototype.forEach.call(word, ch => {
+              out += '<span class="acSc" style="animation-delay:' + (base + n * step).toFixed(3) + 's">' + esc(ch) + '</span>';
+              n++;
+            });
+          } else {
+            out += '<span class="acSc" style="animation-delay:' + (base + n * step).toFixed(3) + 's">' + esc(word) + '</span>';
+            n++;
+          }
+          out += '</span>';
+        });
+        out += '</span>';
+      });
+      el.innerHTML = out;
+    });
+  }
+
+  observePanels() {
+    const root = this.pageRef.current;
+    if (!root || !this.io3 || !this._pseen) return;
+    const els = root.querySelectorAll('[data-panel]');
+    Array.prototype.forEach.call(els, el => {
+      if (this._pseen.has(el)) return;
+      this._pseen.add(el);
+      this.io3.observe(el);
+      el.addEventListener('mouseenter', () => { if (window.innerWidth >= 1024) this.setPanel(el); });
+      el.addEventListener('focusin', () => this.setPanel(el));
+    });
+  }
+
+  setPanel(el) {
+    const parent = el.parentNode;
+    if (!parent) return;
+    Array.prototype.forEach.call(parent.querySelectorAll('[data-panel]'), p => {
+      p.setAttribute('data-on', p === el ? '1' : '0');
+    });
+  }
+
+  /** Count-up on [data-cu]. rAF, ease-out cubic, once, and it leaves the
+   *  server-rendered value in place if the element never enters the viewport. */
+  startCounters() {
+    const root = this.pageRef.current;
+    if (!root || !this._cseen) return;
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const els = root.querySelectorAll('[data-cu]');
+    Array.prototype.forEach.call(els, el => {
+      if (this._cseen.has(el)) return;
+      this._cseen.add(el);
+      const end = parseFloat(el.getAttribute('data-cu'));
+      if (!isFinite(end)) return;
+      const sfx = el.getAttribute('data-cu-sfx') || '';
+      const dur = parseFloat(el.getAttribute('data-cu-ms') || '1400');
+      const delay = parseFloat(el.getAttribute('data-cu-delay') || '0');
+      if (reduce) { el.textContent = end.toLocaleString() + sfx; return; }
+      el.textContent = '0' + sfx;
+      const run = () => {
+        const t0 = performance.now() + delay;
+        const frame = now => {
+          const e = now - t0;
+          if (e < 0) { this._cRaf = requestAnimationFrame(frame); return; }
+          const k = Math.min(e / dur, 1);
+          el.textContent = Math.floor(end * (1 - Math.pow(1 - k, 3))).toLocaleString() + sfx;
+          if (k < 1) this._cRaf = requestAnimationFrame(frame);
+          else el.textContent = end.toLocaleString() + sfx;
+        };
+        this._cRaf = requestAnimationFrame(frame);
+      };
+      if (typeof IntersectionObserver === 'undefined') { run(); return; }
+      const io = new IntersectionObserver(es => {
+        if (!es[0].isIntersecting) return;
+        io.disconnect();
+        run();
+      }, { threshold: 0.4 });
+      io.observe(el);
+      this._cIos.push(io);
+    });
   }
 
   setReg(k, v) {
@@ -2544,23 +2758,34 @@ class Component extends DCLogic {
   observeReveals() {
     const root = this.pageRef.current;
     if (!root || !this._seen) return;
-    const els = Array.prototype.slice.call(root.querySelectorAll('[data-rv="1"]')).filter(el => !this._seen.has(el));
+    // A split heading starts its characters from an attribute on the heading;
+    // everything else unpauses its own animation. Both paths need the same
+    // safety net, or a heading whose observer never fires stays blank forever.
+    const reveal = el => {
+      if (el.hasAttribute('data-rvg')) el.setAttribute('data-rvon', '1');
+      else el.style.animationPlayState = 'running';
+    };
+    const els = Array.prototype.slice.call(root.querySelectorAll('[data-rv="1"],[data-rvg="1"]')).filter(el => !this._seen.has(el));
     els.forEach(el => {
       this._seen.add(el);
-      if (this.io) this.io.observe(el); else el.style.animationPlayState = 'running';
+      if (this.io) this.io.observe(el); else reveal(el);
     });
     if (els.length) {
       clearTimeout(this.safety);
-      this.safety = setTimeout(() => els.forEach(el => { el.style.animationPlayState = 'running'; }), 2600);
+      this.safety = setTimeout(() => els.forEach(reveal), 2600);
     }
   }
 
   componentWillUnmount() {
     if (this.scroller && this.onScroll) this.scroller.removeEventListener('scroll', this.onScroll);
-    clearInterval(this.cdT); clearInterval(this.autoT); clearInterval(this.galT); clearTimeout(this.safety);
+    if (this.onResize) window.removeEventListener('resize', this.onResize);
+    if (this.onHash) window.removeEventListener('hashchange', this.onHash);
+    clearInterval(this.cdT); clearInterval(this.autoT); clearTimeout(this.safety);
+    if (this._cRaf) cancelAnimationFrame(this._cRaf);
     if (this.io) this.io.disconnect();
     if (this.io2) this.io2.disconnect();
-    window.removeEventListener('scroll', this.onScroll);
+    if (this.io3) this.io3.disconnect();
+    (this._cIos || []).forEach(io => io.disconnect());
   }
 
   tick() {
@@ -2631,6 +2856,19 @@ class Component extends DCLogic {
       if (b[0]) b[0].style.transform = on ? 'translateY(5.6px) rotate(45deg)' : 'none';
       if (b[1]) { b[1].style.opacity = on ? '0' : '1'; b[1].style.transform = on ? 'translateX(12px)' : 'none'; }
       if (b[2]) b[2].style.transform = on ? 'translateY(-5.6px) rotate(-45deg)' : 'none';
+    }
+    // The menu sheet opens below the real header, so it needs the header's live
+    // height — which changes when the announcement bar is dismissed. Measured
+    // here because paint() is the one hook guaranteed to run on every render.
+    const chrome = this.pageRef.current && this.pageRef.current.querySelector('.acHd');
+    if (chrome && this.pageRef.current) {
+      const h = Math.round(chrome.getBoundingClientRect().height);
+      if (h > 0 && h !== this._achh) {
+        this._achh = h;
+        this.pageRef.current.style.setProperty('--achh', h + 'px');
+      }
+      // The morphed close button has to stay reachable while the sheet is open.
+      if (this.state.menu) chrome.setAttribute('data-hide', '0');
     }
     if (this.state.search && this.sRef.current && this._sf !== true) { this._sf = true; try { this.sRef.current.focus(); } catch (e) {} }
     if (!this.state.search) this._sf = false;
@@ -2840,6 +3078,20 @@ class Component extends DCLogic {
 
       showBar: (this.props.showAnnouncement !== false) && this.state.bar,
       menu: this.state.menu,
+      // The hamburger morphs into the close button rather than handing off to a
+      // second one inside the panel, so it carries both states.
+      menuOn: this.state.menu ? '1' : '0',
+      menuOn2: this.state.menu ? 'true' : 'false',
+      menuLabel: this.state.menu ? 'Close menu' : 'Open menu',
+      menuBtnBg: this.state.menu ? '#0B1F3A' : '#EAF4FF',
+      menuBtnFg: this.state.menu ? '#ffffff' : '#0B1F3A',
+      // Above the sheet (110) while it is open, so the morphed X stays hittable.
+      barZ: this.state.menu ? '115' : '70',
+      galPaused: !!this.state.galPaused,
+      galRunning: !this.state.galPaused,
+      galHold: this.state.galPaused ? '1' : '0',
+      galPressed: this.state.galPaused ? 'true' : 'false',
+      galBtnLabel: this.state.galPaused ? 'Play the gallery strip' : 'Pause the gallery strip',
       gq: this.state.gq, gqOn: this.state.gq.trim().length > 0, gqIdle: !this.state.gq.trim(),
       searchOpen: this.state.search, sRef: this.sRef,
       rIsStudent: s.rtab === 'student', rIsVendor: s.rtab === 'vendor',
@@ -2869,9 +3121,12 @@ class Component extends DCLogic {
       // own contents behind a tap is the 14-link footer problem wearing a different coat.
       // Scholarships: interest capture plus a labelled skeleton. No award is ever invented here.
       // ACES Shop: browsing, variants, cart flow, and a coming-soon state that still does a job.
+      // `n` drives the count-up; tiles without a number (CoE) keep `v` as written.
       aboutStats: [
-        { k: 'Members', v: '600+' }, { k: 'Clubs', v: '3' },
-        { k: 'Courses filed', v: '9' }, { k: 'Est. at KNUST', v: 'CoE' }
+        { k: 'Members', v: '600+', n: '600', sfx: '+', d: '0' },
+        { k: 'Clubs', v: '3', n: '3', sfx: '', d: '110' },
+        { k: 'Courses filed', v: '9', n: '9', sfx: '', d: '220' },
+        { k: 'Est. at KNUST', v: 'CoE', n: '', sfx: '', d: '330' }
       ],
       // The three missions, taken verbatim in substance from the association's own About page.
       missions: [
@@ -3293,13 +3548,18 @@ class Component extends DCLogic {
       drop: e => { const id = e.currentTarget.dataset.id; this.setState(st => { const c = { ...st.cart }; delete c[id]; return { cart: c }; }); },
       placeOrder: () => { this.setState({ sent: true, cart: {} }); },
       hideBar: () => this.setState({ bar: false }),
-      openMenu: () => this.setState(s => ({ menu: !s.menu })),
+      openMenu: () => this.setState(s => ({ menu: !s.menu }), () => this.measureChrome()),
       closeMenu: () => this.setState({ menu: false }),
+      menuKey: e => { if (e.key === 'Escape') this.setState({ menu: false }); },
       setView: e => { this.view = e.currentTarget.dataset.v; this.paint(); },
       goPrev: () => { this.touched = true; this.lastTouch = Date.now(); this.setIndex(this.vi - 1); },
       goNext: () => { this.touched = true; this.lastTouch = Date.now(); this.setIndex(this.vi + 1); },
       onDot: e => { this.touched = true; this.lastTouch = Date.now(); this.setIndex(Number(e.currentTarget.dataset.i)); },
-      galStop: () => { this.galOn = false; },
+      // Touching the strip holds it still; lifting lets it run again. The button
+      // is the persistent stop — WCAG 2.2.2 wants a real control, not just hover.
+      galStop: () => { const g = this.pageRef.current && this.pageRef.current.querySelector('.acMqW'); if (g) g.setAttribute('data-touch', '1'); },
+      galGo: () => { const g = this.pageRef.current && this.pageRef.current.querySelector('.acMqW'); if (g) g.setAttribute('data-touch', '0'); },
+      galToggle: () => this.setState(s => ({ galPaused: !s.galPaused })),
 
       pickSlice: e => {
         this.touched = true; this.lastTouch = Date.now();

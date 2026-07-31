@@ -4,8 +4,16 @@
     {
       "name": "aces-probe",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["--yes", "serve", "_probe", "-l", "8123"],
-      "port": 8123
+      "runtimeArgs": ["--yes", "serve", "_probe"],
+      "port": 8123,
+      "autoPort": true
+    },
+    {
+      "name": "aces-site",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["--yes", "serve", "site"],
+      "port": 8124,
+      "autoPort": true
     }
   ]
 }
