@@ -80,6 +80,15 @@ for (const p of PAGES) {
     );
   }
 
+  // The case study runs the real site inside a phone frame. A broken iframe src
+  // would render as an empty white box and nobody would notice until a judge did.
+  for (const m of html.matchAll(/<iframe[^>]+src="\.\/([^"]+)"/g)) {
+    check(
+      fs.existsSync(path.join(SITE, m[1])),
+      `${p} iframe src ./${m[1]} resolves`
+    );
+  }
+
   // Every local asset path the page mentions must resolve.
   const refs = new Set(
     [...html.matchAll(/["'](assets\/[A-Za-z0-9._\/-]+\.(?:webp|png|jpg|jpeg|avif))["']/g)].map((m) => m[1])

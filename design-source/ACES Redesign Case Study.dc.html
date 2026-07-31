@@ -87,10 +87,11 @@ a:hover{color:#0940B8;text-decoration:underline}
 
   <div style="position:relative;overflow:hidden;background:linear-gradient(160deg,#0B1F3A 0%,#0B2E63 50%,#0B5FFF 125%);color:#EAF4FF;padding:88px 40px 0">
     <div style="position:absolute;inset:0;overflow:hidden">
-      <img data-parallax="" src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756508620/aces-group-photo_zoxsvy.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.17;mix-blend-mode:luminosity;will-change:transform" />
+      <img data-parallax="" src="assets/remote/aces-students-hero.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.17;mix-blend-mode:luminosity;will-change:transform" />
       <div data-orb="" style="position:absolute;top:-18%;right:-8%;width:640px;height:640px;border-radius:50%;background:radial-gradient(circle,rgba(91,233,185,.30),rgba(91,233,185,0) 65%);filter:blur(28px);will-change:transform"></div>
       <div data-orb="" style="position:absolute;bottom:-30%;left:-12%;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(11,95,255,.55),rgba(11,95,255,0) 68%);filter:blur(34px);animation-delay:-6s;will-change:transform"></div>
     </div>
+    <div aria-hidden="true" style="position:absolute;left:0;right:0;bottom:0;height:3px;display:flex;z-index:2"><span style="flex:1;background:#0B5FFF"></span><span style="flex:1;background:#12855A"></span><span style="flex:1;background:#C2660A"></span><span style="flex:1;background:#6D3BD1"></span></div>
     <div style="position:relative;max-width:1100px;margin:0 auto;padding-bottom:64px">
       <div style="overflow:hidden;margin-bottom:26px"><div data-line="1" style="display:inline-flex;align-items:center;gap:9px;padding:6px 13px;border-radius:999px;background:rgba(255,255,255,.13);font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.11em;text-transform:uppercase;font-weight:600">CodeFest 2026 · UI/UX Challenge</div></div>
       <h1 style="margin:0 0 22px;font-family:'Space Grotesk',sans-serif;font-size:62px;line-height:1.04;letter-spacing:-.035em;font-weight:700;color:#fff;max-width:23ch;text-wrap:pretty">
@@ -184,10 +185,16 @@ a:hover{color:#0940B8;text-decoration:underline}
       <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="1">Try it —</span></span>
       <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="2">everything works</span></span>
     </h2>
-    <p data-anim="rise" style="margin:0 0 34px;font-size:17px;line-height:1.65;color:#5B6B7E;max-width:68ch;text-wrap:pretty">Not a static mockup. Tabs, search, category filters, the cart, checkout, the gallery lightbox and dark mode are all real. Follow a journey below, or just wander.</p>
+    <p data-anim="rise" style="margin:0 0 34px;font-size:17px;line-height:1.65;color:#5B6B7E;max-width:68ch;text-wrap:pretty">Not a mockup and not a separate demo — the phone below is running the shipped site itself. Scroll it, open the menu, filter the courses, tap an event. Whatever works here works at the live URL, because it is the same build.</p>
     <div style="display:flex;gap:34px;align-items:flex-start;flex-wrap:wrap">
       <div data-anim="scale" style="flex:0 0 auto;position:sticky;top:36px">
-        <dc-import name="AcesPrototype" hint-size="460px,880px"></dc-import>
+        <!-- The frame is cosmetic; the content is the real site in an iframe, so
+             the prototype can never drift out of sync with what shipped. -->
+        <div style="position:relative;width:390px;max-width:100%;padding:12px;border-radius:44px;background:linear-gradient(160deg,#1B2B45,#0B1F3A);box-shadow:0 40px 80px -34px rgba(11,31,58,.75),inset 0 0 0 1px rgba(255,255,255,.08)">
+          <span aria-hidden="true" style="position:absolute;top:22px;left:50%;transform:translateX(-50%);width:96px;height:22px;border-radius:9999px;background:#0B1F3A;z-index:2"></span>
+          <iframe src="./index.html" title="The redesigned ACES site, running live" loading="lazy" style="display:block;width:100%;height:780px;border:0;border-radius:34px;background:#fff"></iframe>
+        </div>
+        <div style="margin-top:12px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#5B6B7E">Live build · scroll and tap inside</div>
       </div>
       <div data-stagger="" style="flex:1;min-width:300px;display:grid;gap:12px">
         <sc-for list="{{ journeys }}" as="j" hint-placeholder-count="4">
@@ -287,7 +294,7 @@ a:hover{color:#0940B8;text-decoration:underline}
           <div style="margin-left:auto;display:flex;gap:9px;align-items:center"><span style="padding:8px 14px;border-radius:10px;background:#F4F7FC;border:1px solid #DDE6F2;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#5B6B7E">Search…</span><span style="padding:9px 16px;border-radius:10px;background:#0B5FFF;color:#fff;font-size:13px;font-weight:700">Join ACES</span></div>
         </div>
         <div style="position:relative;padding:52px 26px;background:linear-gradient(150deg,#0B1F3A,#0B2E63 60%,#0B5FFF 130%);overflow:hidden">
-          <img src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756508620/aces-group-photo_zoxsvy.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.2;mix-blend-mode:luminosity" />
+          <img src="assets/remote/aces-students-hero.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.2;mix-blend-mode:luminosity" />
           <div style="position:relative;max-width:52ch">
             <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:rgba(234,244,255,.7);margin-bottom:14px">Technology for our age</div>
             <div style="font-family:'Space Grotesk',sans-serif;font-size:42px;line-height:1.05;letter-spacing:-.035em;font-weight:700;color:#fff;margin-bottom:14px">The home base for Computer Engineering at KNUST.</div>
@@ -403,7 +410,13 @@ class Component extends DCLogic {
         f('F5','med','All pages','Testimonials belong to a different product','The homepage quotes “this platform helped me study” and “used our platform” — generic SaaS boilerplate about a study app, not about ACES.','Cut entirely. Replaced with the clubs and the events students actually asked about.'),
         f('F6','med','All pages','A cart drawer opens on every page','The shopping cart mounts on About, Scholarships and Courses. Commerce chrome follows you through purely informational reading.','Cart moves into the Marketplace tab and the header badge; it only appears when there is something in it.'),
         f('F7','med','Footer','Fourteen flat links and dead policy pages','Explore / Marketplace / Resources is a sitemap, not a menu. Terms and Policy both point at href="#".','Five intent-based tabs, an overflow sheet, and real footer sections with address, hours and working policy links.'),
-        f('F8','med','All pages','No search, anywhere','With a marketplace, a course library and a gallery, there is no way to search any of them. Everything is browse-only.','Persistent header search with live filtering across products, plus dedicated in-page filters for courses and gallery.')
+        f('F8','med','All pages','No search, anywhere','With a marketplace, a course library and a gallery, there is no way to search any of them. Everything is browse-only.','Persistent header search with live filtering across products, plus dedicated in-page filters for courses and gallery.'),
+        f('F9','high','Home','The hero is a 4.2 MB PNG','A photograph saved as PNG instead of WebP. Content-Length on res.cloudinary.com reads 4,449,866 bytes — one image is 89% of the entire page.','The same photograph as WebP at 86 KB. 98% smaller, and it is the file the page now ships.'),
+        f('F10','high','All pages','4.9 MB to open the home page','27 requests, 4,879 KB transferred, load complete at 7.6s on a fast desktop connection. On a 3G phone in Kumasi that is roughly 98 seconds before the page settles.','457 KB and about 9 seconds on the same 3G. Every asset is local, WebP, and size-budgeted by a build check that fails the deploy if it regresses.'),
+        f('F11','med','All pages','Assets expire after five minutes','The hero returns Cache-Control: max-age=300. A student who opens the site twice in an afternoon downloads those 4.2 MB again.','Immutable one-year caching on /assets and /vendor, so a second visit costs almost nothing.'),
+        f('F12','med','Home','A screen reader meets an empty cart before the page title','The document outline opens H2 "Shopping Cart", then H3 "Your cart is empty", and only then reaches the H1. The cart markup precedes the page in reading order on every route.','One H1 first, cart chrome out of the reading order and behind a labelled control that only appears when it holds something.'),
+        f('F13','med','All pages','Sharing the link produces no preview','There is no og:image on any page. Pasted into WhatsApp — which is how this site actually circulates — the link renders as bare text.','og:image, og:title and a real description injected at build time for all three pages, so a shared link renders a proper card.'),
+        f('F14','med','All pages','36 tap targets under 44px','Measured at 375px wide: 36 links and buttons render below the 44px minimum, including the footer policy links and the gallery controls.','A 44px floor on every interactive element, enforced across the rebuild.')
       ],
       oldNav: ['Home','About Us','Executives','Staff','Gallery','Events','Browse Products','Register','Login','Vendor Dashboard','Scholarships','Courses','ACES Shop','Track Order'],
       newNav: [
