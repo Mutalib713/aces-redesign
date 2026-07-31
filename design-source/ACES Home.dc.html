@@ -62,19 +62,48 @@ button{font-family:inherit}
 /* Gallery marquee: one duplicated track on a single transform, replacing a
    32ms scrollLeft interval. Pauses on hover and on touch. */
 .acMqW{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+
+/* Arched band, lenol-style: the strip is pinched between two curves cut out of
+   the neighbouring section colour. Pure CSS ellipses, so nothing to download and
+   it reflows at any width. */
+.acArch{--arch:#F7FAFF;-webkit-mask-image:none;mask-image:none}
+.acArch::before,.acArch::after{content:"";position:absolute;left:-12%;width:124%;height:clamp(26px,6cqw,64px);background:var(--arch);z-index:2;pointer-events:none}
+.acArch::before{top:-1px;border-radius:0 0 50% 50%/0 0 100% 100%}
+.acArch::after{bottom:-1px;border-radius:50% 50% 0 0/100% 100% 0 0}
+.acArch:focus-visible{outline:3px solid #0B5FFF;outline-offset:3px}
+/* Paused is a state the reader can see, not just hear about. */
+.acArch[data-hold="1"]::after{background:var(--arch)}
+.acArchTag{position:absolute;left:50%;bottom:clamp(8px,2cqw,16px);transform:translateX(-50%);z-index:3;display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:9999px;background:rgba(11,31,58,.86);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;opacity:0;transition:opacity .25s ease;pointer-events:none}
+.acArch[data-hold="1"] .acArchTag{opacity:1}
 .acMq{display:flex;gap:10px;width:max-content;animation:acMarq 52s linear infinite;will-change:transform}
-.acMqW:hover .acMq,.acMqW:focus-within .acMq,.acMqW[data-touch="1"] .acMq,.acMqW[data-hold="1"] .acMq{animation-play-state:paused}
+.acMqW[data-hold="1"] .acMq{animation-play-state:paused}
 
 /* Expanding panels. Hover picks the active panel on a mouse; on touch the panel
    scrolling into view picks itself. Only opacity and transform move — animating
    flex/width here would relayout the row on every frame. */
-.acP{border-radius:20px;overflow:hidden;background:#fff;border:1px solid rgba(11,31,58,.1);box-shadow:0 14px 32px -24px rgba(11,31,58,.7);transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s ease,border-color .4s ease}
+.acP{display:flex;flex-direction:column;border-radius:20px;overflow:hidden;background:#fff;border:1px solid rgba(11,31,58,.1);box-shadow:0 14px 32px -24px rgba(11,31,58,.7);transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s ease,border-color .4s ease}
 .acP>.acZ>image-slot{opacity:.58;transition:transform .8s cubic-bezier(.16,1,.3,1),opacity .45s ease}
 .acP .acPm{transform:scaleX(0);transform-origin:left;transition:transform .55s cubic-bezier(.16,1,.3,1)}
 /* No lift on the active panel: the entrance animation owns `transform` on this
    element (animations outrank normal declarations), and a geometry shift on
    hover is the tell we avoid anyway. Colour, border and elevation carry it. */
 .acP[data-on="1"]{border-color:#0B5FFF;box-shadow:0 26px 48px -24px rgba(11,31,58,.55)}
+
+/* The Powershop move: at desktop widths the three panels share one row and the
+   active one takes the space. This animates flex-grow, which our perf floor
+   normally bans — the exception is scoped deliberately. Three elements, one
+   static row, no scroll container involved, and it is gated to >=1024px so no
+   low-end phone ever runs it. Below that the panels stack full width, where
+   "expanding" would mean nothing, and the scroll-driven tint does the work. */
+@container page (min-width:1024px){
+  .acProw{display:flex;gap:12px;align-items:stretch}
+  .acProw > .acP{flex:1 1 0;min-width:0;transition:flex-grow .55s cubic-bezier(.16,1,.3,1),box-shadow .5s ease,border-color .4s ease}
+  .acProw > .acP[data-on="1"]{flex-grow:2.4}
+  .acProw > .acP > .acZ{aspect-ratio:auto;flex:1 1 auto;min-height:190px}
+}
+@media (prefers-reduced-motion:reduce){
+  .acProw > .acP{transition:none}
+}
 .acP[data-on="1"]>.acZ>image-slot{opacity:1;transform:scale(1.07)}
 .acP[data-on="1"] .acPm{transform:scaleX(1)}
 
@@ -265,7 +294,7 @@ button{font-family:inherit}
     <main id="top">
 
       <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
-      <section style="position:relative;overflow:hidden;background:#0B1F3A;color:#fff;padding:clamp(30px,7cqw,72px) clamp(16px,4cqw,40px) clamp(26px,5cqw,54px);min-height:min(76cqh,660px);display:flex;align-items:center">
+      <section style="position:relative;overflow:hidden;background:#0B1F3A;color:#fff;padding:clamp(30px,7cqw,72px) clamp(16px,4cqw,40px) clamp(66px,11cqw,120px);min-height:min(76cqh,660px);display:flex;align-items:center">
         <div ref="{{ heroRef }}" aria-hidden="true" style="position:absolute;inset:-8% 0;will-change:transform"><image-slot id="aces-hero-group" shape="rect" src="assets/remote/aces-students-hero.webp" placeholder="ACES members in association shirts"></image-slot></div>
         <!-- The photo is the field now, not the subject: heavier, flatter scrim so
              oversized type can sit anywhere on it and still clear 4.5:1. -->
@@ -299,15 +328,19 @@ button{font-family:inherit}
         </div>
       </section>
 
-      <!-- Proof band, straight after the claim. Real numbers, counted up once. -->
-      <section style="background:#0B1F3A;color:#fff;padding:0 clamp(16px,4cqw,40px) clamp(22px,4cqw,40px)">
-        <div style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(8px,2cqw,18px);border-top:1px solid rgba(255,255,255,.16);padding-top:clamp(18px,3.5cqw,28px)">
-          <sc-for list="{{ heroStats }}" as="hs" hint-placeholder-count="3">
-            <div data-rv="1" style="animation:acRise .7s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;animation-delay:{{ hs.delay }}">
-              <div data-cu="{{ hs.n }}" data-cu-sfx="{{ hs.sfx }}" data-cu-delay="{{ hs.cd }}" style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(28px,7.5cqw,44px);letter-spacing:-.035em;line-height:1;color:#fff;font-variant-numeric:tabular-nums">{{ hs.v }}</div>
-              <div style="margin-top:5px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.6)">{{ hs.k }}</div>
-            </div>
-          </sc-for>
+      <!-- Proof card, lifted over the hero's bottom edge so the numbers read as
+           part of the first impression rather than as the next section down. -->
+      <section style="background:#F7FAFF;padding:0 clamp(12px,3cqw,40px) 0">
+        <div style="max-width:1240px;margin:0 auto;margin-top:clamp(-64px,-8cqw,-36px)">
+          <div data-rv="1" style="animation:acRise .8s cubic-bezier(.16,1,.3,1) .3s both;animation-play-state:paused;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(6px,2cqw,20px);padding:clamp(16px,3.4cqw,26px) clamp(12px,3cqw,30px);border-radius:20px;background:#fff;box-shadow:0 26px 60px -30px rgba(11,31,58,.6),0 0 0 1px rgba(11,31,58,.06)">
+            <sc-for list="{{ heroStats }}" as="hs" hint-placeholder-count="3">
+              <div style="text-align:center;position:relative">
+                <div data-cu="{{ hs.n }}" data-cu-sfx="{{ hs.sfx }}" data-cu-delay="{{ hs.cd }}" style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(26px,7cqw,44px);letter-spacing:-.035em;line-height:1;color:#0B1F3A;font-variant-numeric:tabular-nums">{{ hs.v }}</div>
+                <div style="margin-top:6px;font-family:'IBM Plex Mono',monospace;font-size:clamp(8.5px,2.2cqw,10.5px);letter-spacing:.12em;text-transform:uppercase;color:#5B6B7E;line-height:1.3">{{ hs.k }}</div>
+                <span aria-hidden="true" style="position:absolute;left:0;top:14%;bottom:14%;width:1px;background:{{ hs.rule }}"></span>
+              </div>
+            </sc-for>
+          </div>
         </div>
       </section>
 
@@ -630,7 +663,7 @@ button{font-family:inherit}
             <h2 data-split="word" data-rvg="1" style="margin:0 0 6px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(24px,6cqw,38px);color:#0B1F3A">Our clubs</h2>
             <p style="margin:0;font-size:15px;color:#5B6B7E;max-width:48ch;text-wrap:pretty">Pick a lane and build something with people in your year.</p>
           </div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px">
+          <div class="acProw" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px">
             <article class="acP" data-on="1" data-panel="0" data-rv="1" style="animation:acRightSm .8s cubic-bezier(.16,1,.3,1) .04s both;animation-play-state:paused">
               <div class="acZ" style="aspect-ratio:16/9"><image-slot id="aces-club-arduino" shape="rect" src="https://www.acesknust.com/images/club_images/Arduino_image.avif" placeholder="Arduino club photo"></image-slot></div>
               <div style="padding:15px">
@@ -662,26 +695,19 @@ button{font-family:inherit}
         </div>
       </section>
 
-      <section id="gallery" style="background:#F7FAFF;padding:clamp(20px,3.5cqw,38px) 0">
+      <section id="gallery" style="background:#F7FAFF;padding:clamp(20px,3.5cqw,38px) 0 0">
         <div style="max-width:1240px;margin:0 auto">
           <div data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;padding:0 clamp(16px,4cqw,40px);margin-bottom:16px">
             <div>
               <div data-rv="1" style="animation:acRise .6s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">Life at ACES</div>
               <h2 data-split="word" data-rvg="1" style="margin:0;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(20px,4.6cqw,28px);color:#0B1F3A">Gallery</h2>
             </div>
-            <div style="flex:0 0 auto;display:flex;align-items:center;gap:8px">
-              <button onClick="{{ galToggle }}" aria-label="{{ galBtnLabel }}" aria-pressed="{{ galPressed }}" style="width:44px;height:44px;display:grid;place-items:center;border:1px solid rgba(11,31,58,.14);background:#fff;cursor:pointer;color:#0B1F3A;border-radius:13px;transition:background .25s ease,border-color .25s ease" style-hover="background:#EAF4FF;border-color:#0B5FFF;color:#0B5FFF">
-                <sc-if value="{{ galPaused }}" hint-placeholder-val="{{ false }}">
-                  <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"></path></svg>
-                </sc-if>
-                <sc-if value="{{ galRunning }}" hint-placeholder-val="{{ true }}">
-                  <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="7" y="5.5" width="3.6" height="13" rx="1.2"></rect><rect x="13.4" y="5.5" width="3.6" height="13" rx="1.2"></rect></svg>
-                </sc-if>
-              </button>
+            <div style="flex:0 0 auto">
               <a href="#/gallery" style="display:inline-flex;align-items:center;gap:6px;height:44px;padding:0 16px;border-radius:13px;border:1px solid rgba(11,31,58,.14);font-size:14px;font-weight:700;color:#0B1F3A;background:#fff" style-hover="background:#EAF4FF;border-color:#0B5FFF;color:#0B5FFF">See more <span aria-hidden="true">→</span></a>
             </div>
           </div>
-          <div ref="{{ galRef }}" class="acMqW" data-hold="{{ galHold }}" data-touch="0" onPointerDown="{{ galStop }}" onPointerUp="{{ galGo }}" style="padding:4px 0 10px">
+          <div ref="{{ galRef }}" class="acMqW acArch" data-hold="{{ galHold }}" role="button" tabindex="0" aria-pressed="{{ galPressed }}" aria-label="{{ galBtnLabel }}" onClick="{{ galToggle }}" onKeyDown="{{ galKey }}" style="position:relative;padding:0;cursor:pointer">
+            <span class="acArchTag" aria-hidden="true">Paused · tap to play</span>
             <div class="acMq" role="group" aria-label="Photos from ACES trips, dinners and CodeFest">
               <div class="acC acZ" style="flex:0 0 clamp(180px,52cqw,260px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot id="aces-gal-1" shape="rect" src="https://www.acesknust.com/images/Gallery/Trip.jpg" placeholder="Trip"></image-slot></div>
               <div class="acC acZ" style="flex:0 0 clamp(180px,52cqw,260px);aspect-ratio:4/3;border-radius:16px;overflow:hidden;box-shadow:0 12px 26px -20px rgba(11,31,58,.7)"><image-slot id="aces-gal-2" shape="rect" src="https://www.acesknust.com/images/Gallery/Acesshirt.jpg" placeholder="ACES shirt"></image-slot></div>
@@ -3213,10 +3239,12 @@ class Component extends DCLogic {
       // Proof band under the hero. Every figure is one we already hold: the member
       // count is the association's own, clubs and courses are counted from the data
       // on this page. Nothing here is estimated.
+      // `rule` is the hairline between tiles — absent on the first so the card
+      // does not open with a stray line.
       heroStats: [
-        { k: 'Members', v: '600+', n: '600', sfx: '+', cd: '0', delay: '0s' },
-        { k: 'Clubs', v: '3', n: '3', sfx: '', cd: '120', delay: '.07s' },
-        { k: 'Courses filed', v: String(COURSES.length), n: String(COURSES.length), sfx: '', cd: '240', delay: '.14s' }
+        { k: 'Members', v: '600+', n: '600', sfx: '+', cd: '0', delay: '0s', rule: 'transparent' },
+        { k: 'Clubs', v: '3', n: '3', sfx: '', cd: '120', delay: '.07s', rule: 'rgba(11,31,58,.12)' },
+        { k: 'Courses filed', v: String(COURSES.length), n: String(COURSES.length), sfx: '', cd: '240', delay: '.14s', rule: 'rgba(11,31,58,.12)' }
       ],
       // `n` drives the count-up; tiles without a number (CoE) keep `v` as written.
       aboutStats: [
@@ -3711,11 +3739,8 @@ class Component extends DCLogic {
       goPrev: () => { this.touched = true; this.lastTouch = Date.now(); this.setIndex(this.vi - 1); },
       goNext: () => { this.touched = true; this.lastTouch = Date.now(); this.setIndex(this.vi + 1); },
       onDot: e => { this.touched = true; this.lastTouch = Date.now(); this.setIndex(Number(e.currentTarget.dataset.i)); },
-      // Touching the strip holds it still; lifting lets it run again. The button
-      // is the persistent stop — WCAG 2.2.2 wants a real control, not just hover.
-      galStop: () => { const g = this.pageRef.current && this.pageRef.current.querySelector('.acMqW'); if (g) g.setAttribute('data-touch', '1'); },
-      galGo: () => { const g = this.pageRef.current && this.pageRef.current.querySelector('.acMqW'); if (g) g.setAttribute('data-touch', '0'); },
       galToggle: () => this.setState(s => ({ galPaused: !s.galPaused })),
+      galKey: e => { if (e.key === " " || e.key === "Enter") { e.preventDefault(); this.setState(s => ({ galPaused: !s.galPaused })); } },
 
       pickSlice: e => {
         this.touched = true; this.lastTouch = Date.now();
