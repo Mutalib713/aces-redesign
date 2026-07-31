@@ -1972,40 +1972,96 @@ button{font-family:inherit}
         <div style="max-width:1240px;margin:0 auto">
           <div data-rv="1" style="animation:acRise .6s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:8px">ACES Shop</div>
           <h1 data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .08s both;animation-play-state:paused;margin:0 0 10px;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-.03em;font-size:clamp(26px,7cqw,44px);color:#0B1F3A">ACES Merchandise</h1>
-          <p data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .16s both;animation-play-state:paused;margin:0 0 20px;font-size:15px;line-height:1.65;color:#5B6B7E;max-width:56ch;text-wrap:pretty">Rep your department with premium, verified gear. Designed for engineers, by engineers.</p>
-          <div style="display:flex;flex-wrap:wrap;gap:clamp(18px,3cqw,36px);padding:clamp(14px,3cqw,22px);border-radius:24px;background:#F7FAFF;border:1px solid rgba(11,31,58,.1)">
-            <div style="flex:1 1 300px;min-width:0">
-              <div data-rv="1" style="animation:acLeft .85s cubic-bezier(.16,1,.3,1) .04s both;animation-play-state:paused;position:relative;aspect-ratio:4/5;border-radius:20px;overflow:hidden;background:#EAF4FF">
-                <sc-if value="{{ shirt.hasImg }}" hint-placeholder-val="{{ false }}"><img data-src="{{ shirt.img }}" alt="ACES Shirt" style="width:100%;height:100%;object-fit:cover;display:block" /></sc-if>
-                <span role="button" tabindex="0" aria-label="Save to favourites" data-fav="{{ shirt.id }}" onClick="{{ toggleFav }}" style="position:absolute;right:10px;top:10px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 16px -7px rgba(11,31,58,.8)">
-                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#0B1F3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1L12 21l7.7-7.6 1.1-1a5.5 5.5 0 0 0 0-7.8z"></path></svg>
+          <p data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .16s both;animation-play-state:paused;margin:0 0 18px;font-size:15px;line-height:1.65;color:#5B6B7E;max-width:58ch;text-wrap:pretty">Department gear and event tickets, sold by ACES. One item is on sale now. The rest of the '26 collection drops on 15 August, and you can hold your size before it does.</p>
+
+          <div data-rv="1" style="animation:acRise .7s cubic-bezier(.16,1,.3,1) .2s both;animation-play-state:paused;display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:16px 18px;border-radius:18px;background:#0B1F3A;color:#fff;margin-bottom:18px">
+            <span style="width:44px;height:44px;flex:0 0 44px;border-radius:14px;background:rgba(255,255,255,.12);display:grid;place-items:center">
+              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#5BE9B9" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5V12l3.4 2"></path></svg>
+            </span>
+            <span style="flex:1 1 200px;min-width:0">
+              <span style="display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;letter-spacing:-.02em">The '26 collection drops 15 August</span>
+              <span style="display:block;margin-top:2px;font-size:13.5px;color:rgba(255,255,255,.7)">Members get first pick. Reserving is free and holds your size for 48 hours after launch.</span>
+            </span>
+            <span style="flex:0 0 auto;display:flex;gap:7px">
+              <sc-for list="{{ dropClock }}" as="dc" hint-placeholder-count="3">
+                <span style="min-width:52px;padding:8px 10px;border-radius:12px;background:rgba(255,255,255,.1);text-align:center">
+                  <span style="display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;line-height:1">{{ dc.v }}</span>
+                  <span style="display:block;margin-top:3px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6)">{{ dc.k }}</span>
+                </span>
+              </sc-for>
+            </span>
+          </div>
+
+          <div data-rv="1" style="animation:acRise .7s cubic-bezier(.16,1,.3,1) .24s both;animation-play-state:paused;display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px">
+            <sc-for list="{{ shopTabs }}" as="sb" hint-placeholder-count="3">
+              <button data-k="{{ sb.k }}" onClick="{{ setShopTab }}" style="min-height:44px;padding:0 15px;border-radius:12px;border:1px solid {{ sb.border }};background:{{ sb.bg }};color:{{ sb.fg }};font-family:inherit;font-size:14.5px;font-weight:700;cursor:pointer;transition:background .22s ease,border-color .22s ease" style-hover="border-color:#0B5FFF">{{ sb.label }}</button>
+            </sc-for>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:12px">
+            <sc-for list="{{ merchList }}" as="m" hint-placeholder-count="6">
+              <div data-rv="1" style="animation:acRise .7s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;animation-delay:{{ m.delay }};display:flex;flex-direction:column;border-radius:20px;background:#fff;border:1px solid rgba(11,31,58,.1);overflow:hidden;box-shadow:0 4px 18px -12px rgba(11,31,58,.5);transition:box-shadow .28s ease,border-color .28s ease,transform .28s cubic-bezier(.16,1,.3,1)" style-hover="box-shadow:0 22px 44px -26px rgba(11,31,58,.65);border-color:rgba(11,95,255,.4);transform:translateY(-3px)">
+                <span style="position:relative;display:block;aspect-ratio:1/1;background:#EEF3FA;overflow:hidden">
+                  <sc-if value="{{ m.showImg }}" hint-placeholder-val="{{ false }}">
+                    <img data-src="{{ m.img }}" alt="{{ m.name }}" style="width:100%;height:100%;object-fit:cover;display:block" />
+                  </sc-if>
+                  <sc-if value="{{ m.teased }}" hint-placeholder-val="{{ true }}">
+                    <span style="position:absolute;inset:0;background:linear-gradient(150deg,#0B1F3A 0%,#12306B 55%,#0B5FFF 100%);display:grid;place-items:center;overflow:hidden">
+                      <span aria-hidden="true" style="position:absolute;inset:0;opacity:.16;background-image:radial-gradient(circle at 22% 28%,#fff 1.5px,transparent 1.6px),radial-gradient(circle at 68% 62%,#fff 1.5px,transparent 1.6px);background-size:34px 34px"></span>
+                      <span style="position:relative;text-align:center;color:#fff;padding:16px">
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#5BE9B9" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:9px"><rect x="4" y="10.5" width="16" height="10" rx="2.5"></rect><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"></path></svg>
+                        <span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.72)">Hidden until launch</span>
+                      </span>
+                    </span>
+                  </sc-if>
+                  <span style="position:absolute;left:8px;top:8px;padding:5px 10px;border-radius:9px;background:{{ m.pillBg }};color:{{ m.pillFg }};font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">{{ m.pill }}</span>
+                </span>
+
+                <span style="flex:1;display:flex;flex-direction:column;padding:13px 14px 15px">
+                  <span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:#5B6B7E;margin-bottom:6px">{{ m.kind }}</span>
+                  <span style="display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;letter-spacing:-.02em;color:#0B1F3A;line-height:1.25">{{ m.name }}</span>
+                  <span style="display:block;margin-top:6px;font-size:13px;line-height:1.5;color:#5B6B7E">{{ m.blurb }}</span>
+
+                  <span style="display:flex;align-items:baseline;gap:8px;margin-top:11px;margin-bottom:11px">
+                    <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;color:#0B1F3A">{{ m.priceT }}</span>
+                    <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8A9AAC">{{ m.stock }}</span>
+                  </span>
+
+                  <sc-if value="{{ m.hasVariants }}" hint-placeholder-val="{{ true }}">
+                    <span style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px">
+                      <sc-for list="{{ m.variants }}" as="mv" hint-placeholder-count="5">
+                        <button data-m="{{ mv.mid }}" data-v="{{ mv.v }}" onClick="{{ setMerchVar }}" aria-label="{{ mv.label }}" style="min-width:38px;min-height:38px;padding:0 10px;border-radius:10px;border:1px solid {{ mv.border }};background:{{ mv.bg }};color:{{ mv.fg }};font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:700;cursor:pointer;transition:background .18s ease,border-color .18s ease">{{ mv.v }}</button>
+                      </sc-for>
+                    </span>
+                  </sc-if>
+
+                  <sc-if value="{{ m.live }}" hint-placeholder-val="{{ false }}">
+                    <span style="display:flex;gap:8px;margin-top:auto">
+                      <button data-id="{{ m.id }}" onClick="{{ add }}" style="flex:1;min-height:48px;border:none;border-radius:13px;background:#0B5FFF;color:#fff;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer" style-hover="background:#0B1F3A">Add to cart</button>
+                      <a href="#/cart" aria-label="View cart" style="flex:0 0 48px;width:48px;min-height:48px;display:grid;place-items:center;border-radius:13px;border:1px solid rgba(11,31,58,.14);color:#0B1F3A" style-hover="border-color:#0B5FFF;color:#0B5FFF">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.4"></circle><circle cx="18" cy="20" r="1.4"></circle><path d="M2 3h3l2.5 12h11L21 7H6"></path></svg>
+                      </a>
+                    </span>
+                  </sc-if>
+                  <sc-if value="{{ m.soon }}" hint-placeholder-val="{{ true }}">
+                    <button data-id="{{ m.id }}" onClick="{{ reserveMerch }}" style="margin-top:auto;min-height:48px;border:1px solid rgba(11,95,255,.4);border-radius:13px;background:#EAF4FF;color:#0B5FFF;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer" style-hover="background:#0B5FFF;color:#fff">{{ m.cta }}</button>
+                  </sc-if>
                 </span>
               </div>
-            </div>
-            <div style="flex:1 1 280px;min-width:0;display:flex;flex-direction:column">
-              <span style="display:inline-flex;align-self:flex-start;align-items:center;gap:7px;padding:6px 11px;border-radius:9px;background:#0B1F3A;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px">CODEFEST apparel</span>
-              <h2 style="margin:0 0 8px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(22px,5.5cqw,32px);letter-spacing:-.03em;color:#0B1F3A">{{ shirt.name }}</h2>
-              <p data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .16s both;animation-play-state:paused;margin:0 0 16px;font-size:15px;line-height:1.65;color:#5B6B7E;text-wrap:pretty">Official CODEFEST tech tee — black cotton with the CODEFEST wordmark and circuit artwork. Collected from the department office or delivered on campus.</p>
-              <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#5B6B7E;font-weight:600;margin-bottom:8px">Size</div>
-              <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px">
-                <sc-for list="{{ shirtSizes }}" as="s" hint-placeholder-count="5">
-                  <button style="min-width:50px;min-height:46px;padding:0 12px;border-radius:12px;border:1px solid rgba(11,31,58,.16);background:#fff;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;color:#0B1F3A;cursor:pointer" style-hover="border-color:#0B5FFF;color:#0B5FFF;background:#F3F7FF">{{ s.z }}</button>
-                </sc-for>
-              </div>
-              <div style="display:flex;align-items:baseline;gap:9px;margin-bottom:16px">
-                <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:28px;color:#0B1F3A">{{ shirtPrice }}</span>
-                <span style="font-size:13px;color:#5B6B7E">CODEFEST apparel</span>
-              </div>
-              <div style="display:flex;flex-wrap:wrap;gap:9px;margin-top:auto">
-                <button data-id="{{ shirt.id }}" onClick="{{ add }}" style="flex:1 1 170px;min-height:54px;border:none;border-radius:15px;background:#0B5FFF;color:#fff;font-size:16px;font-weight:700;cursor:pointer" style-hover="background:#0B1F3A">Add to cart</button>
-                <a href="#/cart" style="flex:1 1 120px;display:flex;align-items:center;justify-content:center;min-height:54px;border-radius:15px;border:1px solid rgba(11,31,58,.16);color:#0B1F3A;font-size:16px;font-weight:700" style-hover="border-color:#0B5FFF;color:#0B5FFF">View cart</a>
-              </div>
-            </div>
+            </sc-for>
           </div>
-          <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:14px">
+
+          <sc-if value="{{ reserveToast }}" hint-placeholder-val="{{ false }}">
+            <div style="position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:124;display:inline-flex;align-items:center;gap:10px;padding:14px 20px;border-radius:9999px;background:#0B1F3A;color:#fff;box-shadow:0 18px 40px -18px rgba(11,31,58,.9);animation:acPop .32s cubic-bezier(.16,1,.3,1) both">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5BE9B9" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+              <span style="font-size:14.5px;font-weight:700">{{ reserveMsg }}</span>
+            </div>
+          </sc-if>
+
+          <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:16px">
             <div style="flex:1 1 200px;padding:15px;border-radius:16px;background:#fff;border:1px solid rgba(11,31,58,.1)">
               <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:6px">Pickup</div>
-              <div style="font-size:14px;line-height:1.55;color:#0B1F3A">Department office — Vodafone Building, Ground Floor</div>
+              <div style="font-size:14px;line-height:1.55;color:#0B1F3A">Department office, Vodafone Building, Ground Floor</div>
             </div>
             <div style="flex:1 1 200px;padding:15px;border-radius:16px;background:#fff;border:1px solid rgba(11,31,58,.1)">
               <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#0B5FFF;font-weight:600;margin-bottom:6px">Ordered already?</div>
@@ -2241,8 +2297,20 @@ const REVIEWS = [
   { name: 'Yaw Owusu', hall: 'Katanga', when: 'a week ago', n: 5, body: 'MoMo went through instantly and he confirmed on WhatsApp. No stress.' }
 ];
 const MERCH = [
-  { id: 'm1', name: 'CODEFEST-TECH-SHIRT', price: 60, cat: 'CODEFEST APPAREL', vendor: 'ACES Shop', desc: 'Official CODEFEST tech tee. Black cotton with the CODEFEST wordmark and circuit artwork.', img: 'assets/shop/codefest-shirt.png', sizes: ['S', 'M', 'L', 'XL', 'XXL'] }
+  { id: 'm1', name: 'CODEFEST Tech Tee', price: 60, cat: 'CODEFEST APPAREL', vendor: 'ACES Shop', desc: 'Official CODEFEST tech tee. Black cotton with the CODEFEST wordmark and circuit artwork.', img: 'assets/shop/codefest-shirt.png', sizes: ['S', 'M', 'L', 'XL', 'XXL'] }
 ];
+// ACES Shop catalogue. Only the CODEFEST tee is on sale; everything else is genuinely unreleased,
+// so its artwork stays hidden behind a teaser rather than showing a photo that does not exist yet.
+// [id, kind, name, price, blurb, state, variantKind, variants, stock]
+const MERCH_ALL = [
+  ['m1', 'Apparel', 'CODEFEST Tech Tee', 60, 'Black cotton with the CODEFEST wordmark and circuit artwork.', 'live', 'Size', ['S', 'M', 'L', 'XL', 'XXL'], 'In stock'],
+  ['m2', 'Apparel', "Class Jersey '26", 120, 'Your year and index on the back. Sizing runs true.', 'soon', 'Size', ['S', 'M', 'L', 'XL', 'XXL'], 'Drops 15 Aug'],
+  ['m3', 'Apparel', 'ACES Hoodie', 180, 'Heavyweight, embroidered crest on the chest.', 'soon', 'Size', ['S', 'M', 'L', 'XL'], 'Drops 15 Aug'],
+  ['m4', 'Accessory', 'Crest Cap', 45, 'Structured six-panel with the department crest.', 'soon', 'Colour', ['Navy', 'Black'], 'Drops 15 Aug'],
+  ['m5', 'Ticket', 'ACES Dinner 2026', 150, 'Three courses, awards night, plus-one allowed.', 'soon', 'Tier', ['Single', 'Couple', 'Table'], 'Sales open Sept'],
+  ['m6', 'Ticket', 'CODEFEST Day Pass', 0, 'All-day access, workshops and lunch included.', 'soon', 'Day', ['Day 1', 'Day 2', 'Both'], 'Free, register first']
+];
+
 const ALBUMS = [
   { id: 'codefest', t: 'CODEFEST', url: 'https://Acesworks.pixieset.com/codefest/', img: IMG.fest },
   { id: 'nocte', t: 'Nocte Memminisse | CBET Dinner and Excellence Awards', url: 'https://drive.google.com/drive/folders/1-7r1f4S3YR8NjzcKWv3NZV5eSxIJcTtR', img: 'https://res.cloudinary.com/dmgk37i6y/image/upload/v1756562742/dinner_night_uicikj.jpg' },
@@ -2304,7 +2372,7 @@ const COURSES = [
 ].map(c => ({ ...c, files: [{ name: c.title + ' \u2014 ' + (c.file || 'Course Materials'), url: 'https://www.acesknust.com/courses' }] }));
 
 class Component extends DCLogic {
-  state = { bar: true, menu: false, gq: '', search: false, rtab: 'vendor', reg: { name: '', mail: '', index: '', year: 'Y1', shop: '', cat: 'Food & Beverages', phone: '', pass: '', pass2: '', agree: false }, regDone: false, regErr: '', route: 'home', pid: null, cart: {}, q: '', cat: 'All', cyear: 'All', lb: -1, sent: false, store: '', sort: '', csem: 'All', ptype: 'All', filters: false, favs: {}, revStar: 0, revText: '', revSent: false, cond: '', pmin: '', pmax: '', acc: '', execYear: '2025/26', staffGroup: 'All', sch: '', schMail: '', schWants: [], schErr: '', sub: '', subMail: '', liMail: '', liPass: '', liErr: '', pwShow: false, user: '', shop: '', bizName: '', bizCat: 'Food & Beverages', bizPhone: '', bizDesc: '', bizErr: '', np: '', npName: '', npCat: 'Food & Beverages', npPrice: '', npDesc: '', npErr: '', listings: [] };
+  state = { bar: true, menu: false, gq: '', search: false, rtab: 'vendor', reg: { name: '', mail: '', index: '', year: 'Y1', shop: '', cat: 'Food & Beverages', phone: '', pass: '', pass2: '', agree: false }, regDone: false, regErr: '', route: 'home', pid: null, cart: {}, q: '', cat: 'All', cyear: 'All', lb: -1, sent: false, store: '', sort: '', csem: 'All', ptype: 'All', filters: false, favs: {}, revStar: 0, revText: '', revSent: false, cond: '', pmin: '', pmax: '', acc: '', execYear: '2025/26', staffGroup: 'All', shopTab: 'All', merchVar: {}, reserved: '', sch: '', schMail: '', schWants: [], schErr: '', sub: '', subMail: '', liMail: '', liPass: '', liErr: '', pwShow: false, user: '', shop: '', bizName: '', bizCat: 'Food & Beverages', bizPhone: '', bizDesc: '', bizErr: '', np: '', npName: '', npCat: 'Food & Beverages', npPrice: '', npDesc: '', npErr: '', listings: [] };
   pageRef = React.createRef();
   vpRef = React.createRef();
   hdrRef = React.createRef();
@@ -2725,6 +2793,50 @@ class Component extends DCLogic {
       // Menu mirrors the footer's grouping, but every group stays open. A menu that hides its
       // own contents behind a tap is the 14-link footer problem wearing a different coat.
       // Scholarships: interest capture plus a labelled skeleton. No award is ever invented here.
+      // ACES Shop: browsing, variants, cart flow, and a coming-soon state that still does a job.
+      shopTabs: ['All', 'Apparel', 'Accessory', 'Ticket'].map(k => {
+        const on = (s.shopTab || 'All') === k;
+        const n = k === 'All' ? MERCH_ALL.length : MERCH_ALL.filter(x => x[1] === k).length;
+        return {
+          k: k, label: (k === 'All' ? 'Everything' : k) + ' · ' + n,
+          bg: on ? '#EAF4FF' : '#fff', fg: on ? '#0B5FFF' : '#0B1F3A',
+          border: on ? 'rgba(11,95,255,.45)' : 'rgba(11,31,58,.12)'
+        };
+      }),
+      merchList: MERCH_ALL
+        .filter(x => (s.shopTab || 'All') === 'All' || x[1] === (s.shopTab || 'All'))
+        .map((x, i) => {
+          const live = x[5] === 'live';
+          const picked = (s.merchVar || {})[x[0]] || x[7][0];
+          return {
+            id: x[0], kind: x[1] + ' · ' + x[6], name: x[2], blurb: x[4],
+            priceT: x[3] === 0 ? 'Free' : 'GH₵' + x[3], stock: x[8],
+            live: live, soon: !live,
+            showImg: live, teased: !live,
+            img: live ? 'assets/shop/codefest-shirt.png' : '',
+            pill: live ? 'On sale now' : (x[1] === 'Ticket' ? 'Tickets soon' : 'Coming soon'),
+            pillBg: live ? '#DCFCE7' : 'rgba(255,255,255,.92)',
+            pillFg: live ? '#046C4E' : '#0B1F3A',
+            cta: x[1] === 'Ticket' ? 'Notify me when tickets open' : 'Reserve my ' + x[6].toLowerCase(),
+            hasVariants: true,
+            variants: x[7].map(v => ({
+              mid: x[0], v: v, label: x[6] + ' ' + v,
+              bg: v === picked ? '#0B5FFF' : '#fff',
+              fg: v === picked ? '#fff' : '#0B1F3A',
+              border: v === picked ? '#0B5FFF' : 'rgba(11,31,58,.14)'
+            })),
+            delay: (0.05 + i * 0.05).toFixed(2) + 's'
+          };
+        }),
+      dropClock: (() => {
+        const ms = new Date('2026-08-15T09:00:00Z') - new Date();
+        const d = Math.max(0, Math.floor(ms / 86400000));
+        const h = Math.max(0, Math.floor((ms % 86400000) / 3600000));
+        const m = Math.max(0, Math.floor((ms % 3600000) / 60000));
+        return [{ k: 'Days', v: String(d) }, { k: 'Hrs', v: String(h) }, { k: 'Min', v: String(m) }];
+      })(),
+      reserveToast: !!s.reserved, reserveMsg: s.reserved || '',
+
       schMail: s.schMail || '', schDone: s.sch === 'done', schForm: s.sch !== 'done',
       schErr: !!s.schErr, schErrMsg: s.schErr || '',
       schTags: ['Undergraduate', 'Need-based', 'Merit', 'Industry-sponsored', 'Postgraduate'].map(k => {
@@ -2896,6 +3008,23 @@ class Component extends DCLogic {
       setExecYear: e => this.setState({ execYear: e.currentTarget.value }),
       setStaffGroup: e => this.setState({ staffGroup: e.currentTarget.dataset.g }),
       setSchMail: e => this.setState({ schMail: e.currentTarget.value, schErr: '' }),
+      setShopTab: e => this.setState({ shopTab: e.currentTarget.dataset.k }),
+      setMerchVar: e => {
+        const mid = e.currentTarget.dataset.m, v = e.currentTarget.dataset.v;
+        this.setState(st => ({ merchVar: { ...(st.merchVar || {}), [mid]: v } }));
+      },
+      reserveMerch: e => {
+        const id = e.currentTarget.dataset.id;
+        const row = MERCH_ALL.filter(x => x[0] === id)[0];
+        if (!row) return;
+        const picked = (this.state.merchVar || {})[id] || row[7][0];
+        const msg = row[1] === 'Ticket'
+          ? 'We will email you the moment ' + row[2] + ' tickets open.'
+          : row[2] + ' held in ' + row[6].toLowerCase() + ' ' + picked + ' for 48 hours after launch.';
+        clearTimeout(this._rsvT);
+        this.setState({ reserved: msg });
+        this._rsvT = setTimeout(() => this.setState({ reserved: '' }), 3200);
+      },
       toggleSchTag: e => {
         const k = e.currentTarget.dataset.sw;
         this.setState(st => {
