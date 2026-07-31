@@ -266,7 +266,7 @@ button{font-family:inherit}
 
       <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
       <section style="position:relative;overflow:hidden;background:#0B1F3A;color:#fff;padding:clamp(30px,7cqw,72px) clamp(16px,4cqw,40px) clamp(26px,5cqw,54px);min-height:min(76cqh,660px);display:flex;align-items:center">
-        <div ref="{{ heroRef }}" aria-hidden="true" style="position:absolute;inset:-8% 0;will-change:transform"><image-slot id="aces-hero-group" shape="rect" src="https://res.cloudinary.com/dmgk37i6y/image/upload/v1756508620/aces-group-photo_zoxsvy.png" placeholder="Drop the ACES group photo"></image-slot></div>
+        <div ref="{{ heroRef }}" aria-hidden="true" style="position:absolute;inset:-8% 0;will-change:transform"><image-slot id="aces-hero-group" shape="rect" src="assets/remote/aces-students-hero.webp" placeholder="ACES members in association shirts"></image-slot></div>
         <!-- The photo is the field now, not the subject: heavier, flatter scrim so
              oversized type can sit anywhere on it and still clear 4.5:1. -->
         <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(6,17,36,.82) 0%,rgba(6,17,36,.66) 38%,rgba(6,17,36,.72) 68%,rgba(6,17,36,.93) 100%)"></div>
@@ -846,40 +846,51 @@ button{font-family:inherit}
           <h2 data-rv="1" style="animation:acRight .8s cubic-bezier(.16,1,.3,1) .06s both;animation-play-state:paused;margin:0 0 10px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(19px,5cqw,26px);letter-spacing:-.02em;color:#0B1F3A">Meet Your Leaders</h2>
           <p data-rv="1" style="animation:acRight .85s cubic-bezier(.16,1,.3,1) .14s both;animation-play-state:paused;margin:0 0 20px;font-size:15px;line-height:1.65;color:#5B6B7E;max-width:62ch;text-wrap:pretty">A student-led association built so every Computer Engineering student has somewhere to grow. These are the officers you elected, and the fastest way to reach any of them.</p>
 
-          <div data-rv="1" style="animation:acRise .7s cubic-bezier(.16,1,.3,1) .2s both;animation-play-state:paused;display:flex;align-items:center;gap:9px;margin-bottom:18px">
-            <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#5B6B7E;font-weight:600">{{ execYearT }}</span>
-            <span style="height:1px;flex:1;background:rgba(11,31,58,.12)"></span>
-            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;color:#5B6B7E">{{ execCountT }}</span>
+          <div data-rv="1" style="animation:acRise .7s cubic-bezier(.16,1,.3,1) .2s both;animation-play-state:paused;display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:14px;border-radius:16px;background:#F3F7FF;border:1px solid rgba(11,31,58,.1);margin-bottom:18px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#5B6B7E;font-weight:600">Academic year</span>
+            <select value="{{ execYear }}" onChange="{{ setExecYear }}" aria-label="Choose an academic year" style="flex:1 1 180px;min-height:48px;padding:0 12px;border-radius:12px;border:1px solid rgba(11,31,58,.16);background:#fff;font-family:inherit;font-size:15px;color:#0B1F3A">
+              <option value="2025/26">2025 / 2026</option>
+              <option value="2024/25">2024 / 2025</option>
+              <option value="2023/24">2023 / 2024</option>
+            </select>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;color:#5B6B7E">{{ execCountT }}</span>
           </div>
 
           <sc-if value="{{ hasExecs }}" hint-placeholder-val="{{ true }}">
             <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px">
               <sc-for list="{{ execs }}" as="ex" hint-placeholder-count="6">
-                <div data-rv="1" style="animation:acRise .7s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;animation-delay:{{ ex.delay }};display:flex;flex-direction:column;padding:18px;border-radius:20px;background:#fff;border:1px solid rgba(11,31,58,.1);box-shadow:0 4px 18px -12px rgba(11,31,58,.5);transition:box-shadow .28s ease,border-color .28s ease,transform .28s cubic-bezier(.16,1,.3,1)" style-hover="box-shadow:0 22px 44px -26px rgba(11,31,58,.65);border-color:rgba(11,95,255,.4);transform:translateY(-3px)">
-                  <span style="position:relative;display:block;width:82px;height:82px;margin-bottom:14px">
+                <div data-rv="1" style="animation:acRise .7s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;animation-delay:{{ ex.delay }};display:flex;flex-direction:column;border-radius:22px;background:#fff;border:1px solid rgba(11,31,58,.1);box-shadow:0 4px 18px -12px rgba(11,31,58,.5);overflow:hidden;transition:box-shadow .28s ease,border-color .28s ease,transform .28s cubic-bezier(.16,1,.3,1)" style-hover="box-shadow:0 22px 44px -26px rgba(11,31,58,.65);border-color:rgba(11,95,255,.4);transform:translateY(-3px)">
+                  <!-- Portrait leads the card. Where no photo exists the initials
+                       fill the same frame, so the card keeps its shape either way. -->
+                  <span class="acZ" style="position:relative;display:block;aspect-ratio:4/5;background:#EAF4FF">
                     <sc-if value="{{ ex.hasPhoto }}" hint-placeholder-val="{{ false }}">
-                      <img data-src="{{ ex.photo }}" alt="{{ ex.name }}" style="width:82px;height:82px;border-radius:24px;object-fit:cover;display:block" />
+                      <img data-src="{{ ex.photo }}" alt="{{ ex.name }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block" />
                     </sc-if>
                     <sc-if value="{{ ex.noPhoto }}" hint-placeholder-val="{{ true }}">
-                      <span style="width:82px;height:82px;border-radius:24px;background:linear-gradient(150deg,#0B5FFF,#0B1F3A);color:#fff;display:grid;place-items:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:28px;letter-spacing:-.02em;box-shadow:0 12px 26px -14px rgba(11,95,255,.9)">{{ ex.ini }}</span>
+                      <span aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(150deg,{{ ex.tintA }},{{ ex.tintB }});color:#fff;display:grid;place-items:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(38px,11cqw,54px);letter-spacing:-.03em">{{ ex.ini }}</span>
                     </sc-if>
-                    <span style="position:absolute;right:-4px;bottom:-4px;width:26px;height:26px;border-radius:9999px;background:#fff;border:2px solid #fff;display:grid;place-items:center;box-shadow:0 4px 10px -4px rgba(11,31,58,.6)">
-                      <span style="width:100%;height:100%;border-radius:9999px;background:#DCFCE7;color:#046C4E;display:grid;place-items:center">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
-                      </span>
+                    <span aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(6,17,36,0) 46%,rgba(6,17,36,.82) 100%)"></span>
+                    <span style="position:absolute;left:12px;top:12px;display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border-radius:9px;background:rgba(255,255,255,.94);color:#0B5FFF;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg>
+                      {{ ex.role }}
+                    </span>
+                    <span style="position:absolute;left:14px;right:14px;bottom:12px">
+                      <span style="display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17.5px;letter-spacing:-.02em;color:#fff;line-height:1.18;text-shadow:0 2px 12px rgba(6,17,36,.7)">{{ ex.name }}</span>
+                      <span style="display:block;margin-top:3px;font-size:12.5px;color:rgba(255,255,255,.88);text-shadow:0 1px 8px rgba(6,17,36,.7)">{{ ex.level }}</span>
                     </span>
                   </span>
 
-                  <span style="display:inline-flex;align-self:flex-start;align-items:center;padding:4px 10px;border-radius:8px;background:#EAF4FF;color:#0B5FFF;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:9px">{{ ex.role }}</span>
-
-                  <span style="display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17.5px;letter-spacing:-.02em;color:#0B1F3A;line-height:1.2">{{ ex.name }}</span>
-                  <span style="display:block;margin-top:5px;font-size:13.5px;color:#5B6B7E">{{ ex.level }}</span>
-                  <span style="display:block;margin-top:2px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;color:#8A9AAC">Session {{ ex.year }}</span>
-
-                  <a href="mailto:{{ ex.mail }}" style="display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;margin-top:14px;border-radius:13px;background:#F7FAFF;border:1px solid rgba(11,31,58,.1);color:#0B1F3A;font-size:14px;font-weight:700" style-hover="background:#0B5FFF;color:#fff;border-color:#0B5FFF">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"></rect><path d="M3.5 7l8.5 6 8.5-6"></path></svg>
-                    Contact
-                  </a>
+                  <span style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:12px">
+                    <a href="tel:{{ ex.telHref }}" aria-label="Call {{ ex.name }}" style="display:flex;align-items:center;justify-content:center;min-height:44px;border-radius:12px;background:#F7FAFF;border:1px solid rgba(11,31,58,.1);color:#0B1F3A;transition:background .22s ease,color .22s ease,border-color .22s ease" style-hover="background:#0B5FFF;color:#fff;border-color:#0B5FFF">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"></path></svg>
+                    </a>
+                    <a href="{{ ex.li }}" aria-label="{{ ex.name }} on LinkedIn" style="display:flex;align-items:center;justify-content:center;min-height:44px;border-radius:12px;background:#F7FAFF;border:1px solid rgba(11,31,58,.1);color:#0B1F3A;transition:background .22s ease,color .22s ease,border-color .22s ease" style-hover="background:#0B5FFF;color:#fff;border-color:#0B5FFF">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    </a>
+                    <a href="mailto:{{ ex.mail }}" aria-label="Email {{ ex.name }}" style="display:flex;align-items:center;justify-content:center;min-height:44px;border-radius:12px;background:#F7FAFF;border:1px solid rgba(11,31,58,.1);color:#0B1F3A;transition:background .22s ease,color .22s ease,border-color .22s ease" style-hover="background:#0B5FFF;color:#fff;border-color:#0B5FFF">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"></rect><path d="M3.5 7l8.5 6 8.5-6"></path></svg>
+                    </a>
+                  </span>
                 </div>
               </sc-for>
             </div>
@@ -926,12 +937,12 @@ button{font-family:inherit}
             <sc-for list="{{ staffList }}" as="st" hint-placeholder-count="6">
               <div data-rv="1" style="animation:acRise .7s cubic-bezier(.16,1,.3,1) both;animation-play-state:paused;animation-delay:{{ st.delay }};display:flex;flex-direction:column;padding:18px;border-radius:20px;background:#fff;border:1px solid rgba(11,31,58,.1);box-shadow:0 4px 18px -12px rgba(11,31,58,.5);transition:box-shadow .28s ease,border-color .28s ease,transform .28s cubic-bezier(.16,1,.3,1)" style-hover="box-shadow:0 22px 44px -26px rgba(11,31,58,.65);border-color:rgba(11,95,255,.4);transform:translateY(-3px)">
                 <span style="display:flex;align-items:center;gap:13px;margin-bottom:14px">
-                  <span style="position:relative;display:block;width:64px;height:64px;flex:0 0 64px">
+                  <span style="position:relative;display:block;width:76px;height:76px;flex:0 0 76px">
                     <sc-if value="{{ st.hasPhoto }}" hint-placeholder-val="{{ false }}">
-                      <img data-src="{{ st.photo }}" alt="{{ st.name }}" style="width:64px;height:64px;border-radius:20px;object-fit:cover;display:block" />
+                      <img data-src="{{ st.photo }}" alt="{{ st.name }}" style="width:76px;height:76px;border-radius:22px;object-fit:cover;display:block" />
                     </sc-if>
                     <sc-if value="{{ st.noPhoto }}" hint-placeholder-val="{{ true }}">
-                      <span style="width:64px;height:64px;border-radius:20px;background:linear-gradient(150deg,{{ st.tint }});color:#fff;display:grid;place-items:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:21px;letter-spacing:-.02em">{{ st.ini }}</span>
+                      <span style="width:76px;height:76px;border-radius:22px;background:linear-gradient(150deg,{{ st.tint }});color:#fff;display:grid;place-items:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:21px;letter-spacing:-.02em">{{ st.ini }}</span>
                     </sc-if>
                   </span>
                   <span style="flex:1;min-width:0">
@@ -951,10 +962,7 @@ button{font-family:inherit}
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A9AAC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 16px"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5V12l3 1.8"></path></svg>
                     {{ st.hours }}
                   </span>
-                  <a href="mailto:{{ st.mail }}" style="display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;margin-top:4px;border-radius:13px;background:#F7FAFF;border:1px solid rgba(11,31,58,.1);color:#0B1F3A;font-size:14px;font-weight:700" style-hover="background:#0B5FFF;color:#fff;border-color:#0B5FFF">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"></rect><path d="M3.5 7l8.5 6 8.5-6"></path></svg>
-                    Email
-                  </a>
+                  <span style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:4px"><a href="tel:{{ st.telHref }}" aria-label="Call the department office about {{ st.name }}" style="display:flex;align-items:center;justify-content:center;min-height:44px;border-radius:12px;background:#F7FAFF;border:1px solid rgba(11,31,58,.1);color:#0B1F3A;transition:background .22s ease,color .22s ease,border-color .22s ease" style-hover="background:#0B5FFF;color:#fff;border-color:#0B5FFF"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"></path></svg></a><a href="{{ st.li }}" aria-label="{{ st.name }} department page on LinkedIn" style="display:flex;align-items:center;justify-content:center;min-height:44px;border-radius:12px;background:#F7FAFF;border:1px solid rgba(11,31,58,.1);color:#0B1F3A;transition:background .22s ease,color .22s ease,border-color .22s ease" style-hover="background:#0B5FFF;color:#fff;border-color:#0B5FFF"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a><a href="mailto:{{ st.mail }}" aria-label="Email {{ st.name }}" style="display:flex;align-items:center;justify-content:center;min-height:44px;border-radius:12px;background:#F7FAFF;border:1px solid rgba(11,31,58,.1);color:#0B1F3A;transition:background .22s ease,color .22s ease,border-color .22s ease" style-hover="background:#0B5FFF;color:#fff;border-color:#0B5FFF"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"></rect><path d="M3.5 7l8.5 6 8.5-6"></path></svg></a></span>
                 </span>
               </div>
             </sc-for>
@@ -3322,6 +3330,8 @@ class Component extends DCLogic {
       staffList: STAFF.filter(x => (s.staffGroup || 'All') === 'All' || x[0] === (s.staffGroup || 'All'))
         .map((x, i) => ({
           name: x[1], role: x[2], area: x[3], office: x[4], hours: x[5], tint: x[6],
+          // Department line and department page — no personal numbers invented.
+          telHref: '+233322060331', li: 'https://www.linkedin.com/company/aces-knust/',
           ini: x[1].replace(/^(Prof\.|Dr\.|Ing\.|Mr\.|Mrs\.|Ms\.)\s*/, '').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase(),
           mail: slug(x[1].replace(/^(Prof\.|Dr\.|Ing\.|Mr\.|Mrs\.|Ms\.)\s*/, '').split(' ')[0]) + '.ce@knust.edu.gh',
           photo: '', hasPhoto: false, noPhoto: true,
@@ -3330,13 +3340,27 @@ class Component extends DCLogic {
 
       execYear: s.execYear || '2025/26',
       execYearT: (s.execYear || '2025/26').replace('/', ' / 20'),
-      execs: EXECS.filter(e => e[0] === (s.execYear || '2025/26')).map((e, i) => ({
-        year: e[0], name: e[1], role: e[2], level: e[3],
-        ini: e[1].split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase(),
-        mail: slug(e[1].split(' ')[0]) + '.aces@st.knust.edu.gh',
-        photo: '', hasPhoto: false, noPhoto: true,
-        delay: (0.06 + i * 0.05).toFixed(2) + 's'
-      })),
+      // Portraits are placeholders until officers submit real ones. Deliberately
+      // initials on a tint rather than stock faces — putting a stranger's photo
+      // beside a named officer would be inventing a record of a real person.
+      // The tint pair varies by index so a grid of six does not read as one block.
+      execs: EXECS.filter(e => e[0] === (s.execYear || '2025/26')).map((e, i) => {
+        const tints = [
+          ['#0B5FFF', '#0B1F3A'], ['#12855A', '#062E1B'], ['#C2660A', '#3A1D02'],
+          ['#6D3BD1', '#241046'], ['#0B7FA8', '#052736'], ['#B03060', '#37101F']
+        ][i % 6];
+        return {
+          year: e[0], name: e[1], role: e[2], level: e[3],
+          ini: e[1].split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase(),
+          mail: slug(e[1].split(' ')[0]) + '.aces@st.knust.edu.gh',
+          // The association's own line and page — no personal numbers invented.
+          telHref: '+233322060331',
+          li: 'https://www.linkedin.com/company/aces-knust/',
+          tintA: tints[0], tintB: tints[1],
+          photo: '', hasPhoto: false, noPhoto: true,
+          delay: (0.06 + i * 0.05).toFixed(2) + 's'
+        };
+      }),
       execCountT: (() => {
         const n = EXECS.filter(e => e[0] === (s.execYear || '2025/26')).length;
         return n + (n === 1 ? ' officer' : ' officers');
