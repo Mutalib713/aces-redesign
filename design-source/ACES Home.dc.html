@@ -15,7 +15,7 @@
 <style>
 *{box-sizing:border-box}
 :root{--vr:0deg}
-body{margin:0;background:#E7EDF6;font-family:'Public Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body{margin:0;background:#fff;font-family:'Public Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 a{color:#0B5FFF;text-decoration:none}
 a:hover{color:#0940B8}
 button{font-family:inherit}
@@ -112,15 +112,11 @@ button{font-family:inherit}
 }
 </style>
 </helmet>
-<div data-screen-label="Home" style="min-height:100vh;display:flex;flex-direction:column;align-items:center;background:#E7EDF6">
+<div data-screen-label="Home" style="min-height:100vh;display:flex;flex-direction:column;background:#fff">
 
-  <div ref="{{ vpRef }}" style="position:fixed;right:14px;bottom:14px;z-index:120;display:flex;gap:3px;padding:4px;border-radius:16px;background:rgba(11,31,58,.94);box-shadow:0 16px 36px -12px rgba(11,31,58,.65);backdrop-filter:blur(10px)">
-    <button data-v="mobile" onClick="{{ setView }}" style="border:none;cursor:pointer;padding:8px 13px;border-radius:12px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:#0B5FFF;color:#fff">Mobile</button>
-    <button data-v="tablet" onClick="{{ setView }}" style="border:none;cursor:pointer;padding:8px 13px;border-radius:12px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:transparent;color:rgba(255,255,255,.62)">Tablet</button>
-    <button data-v="desktop" onClick="{{ setView }}" style="border:none;cursor:pointer;padding:8px 13px;border-radius:12px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:transparent;color:rgba(255,255,255,.62)">Desktop</button>
-  </div>
+  
 
-  <div ref="{{ pageRef }}" style="container-type:inline-size;container-name:page;width:390px;max-width:100%;min-height:100vh;background:#fff;color:#111827;position:relative;box-shadow:0 0 0 1px rgba(11,31,58,.08),0 34px 90px -34px rgba(11,31,58,.5)">
+  <div ref="{{ pageRef }}" style="container-type:inline-size;container-name:page;width:100%;min-height:100vh;background:#fff;color:#111827;position:relative">
 
     <div class="acHd" data-hide="0" data-menu="{{ menuOn }}" style="position:sticky;top:0;z-index:{{ barZ }}">
     <sc-if value="{{ showBar }}" hint-placeholder-val="{{ true }}">
@@ -2599,7 +2595,6 @@ const COURSES = [
 class Component extends DCLogic {
   state = { bar: true, menu: false, galPaused: false, openSems: {}, gq: '', search: false, rtab: 'vendor', reg: { name: '', mail: '', index: '', year: 'Y1', shop: '', cat: 'Food & Beverages', phone: '', pass: '', pass2: '', agree: false }, regDone: false, regErr: '', route: 'home', pid: null, cart: {}, q: '', cat: 'All', cyear: 'All', lb: -1, sent: false, store: '', sort: '', csem: 'All', ptype: 'All', filters: false, favs: {}, revStar: 0, revText: '', revSent: false, cond: '', pmin: '', pmax: '', acc: '', execYear: '2025/26', staffGroup: 'All', shopTab: 'All', merchVar: {}, reserved: '', sch: '', schMail: '', schWants: [], schErr: '', sub: '', subMail: '', liMail: '', liPass: '', liErr: '', pwShow: false, user: '', shop: '', bizName: '', bizCat: 'Food & Beverages', bizPhone: '', bizDesc: '', bizErr: '', np: '', npName: '', npCat: 'Food & Beverages', npPrice: '', npDesc: '', npErr: '', listings: [] };
   pageRef = React.createRef();
-  vpRef = React.createRef();
   hdrRef = React.createRef();
   wheelRef = React.createRef();
   wheelSecRef = React.createRef();
@@ -2614,11 +2609,9 @@ class Component extends DCLogic {
   expImgRef = React.createRef();
   liveRef = React.createRef();
   galRef = React.createRef();
-  vi = 0; rot = 0; view = 'mobile'; touched = false; inView = false; galDir = 1; galOn = true;
+  vi = 0; rot = 0; touched = false; inView = false; galDir = 1; galOn = true;
 
   componentDidMount() {
-    this.view = this.props.viewport || 'mobile';
-    this._pv = this.props.viewport;
     this.paint();
     this.tick();
     this.cdT = setInterval(() => this.tick(), 1000);
@@ -2714,7 +2707,6 @@ class Component extends DCLogic {
   }
 
   componentDidUpdate() {
-    if (this.props.viewport !== this._pv) { this._pv = this.props.viewport; this.view = this.props.viewport || 'mobile'; }
     this.paint();
     this.splitHeads();
     this.observeReveals();
@@ -2887,14 +2879,6 @@ class Component extends DCLogic {
   }
 
   paint() {
-    const pg = this.pageRef.current;
-    if (pg) pg.style.width = this.view === 'mobile' ? '390px' : this.view === 'tablet' ? '820px' : '100%';
-    const vp = this.vpRef.current;
-    if (vp) Array.prototype.forEach.call(vp.children, b => {
-      const on = b.dataset.v === this.view;
-      b.style.background = on ? '#0B5FFF' : 'transparent';
-      b.style.color = on ? '#fff' : 'rgba(255,255,255,.62)';
-    });
     const w = this.wheelRef.current;
     if (w) w.style.setProperty('--vr', this.rot + 'deg');
     const t = this.trackRef.current;
@@ -3201,8 +3185,7 @@ class Component extends DCLogic {
     }));
     const r = s.route;
     return {
-      pageRef: this.pageRef, vpRef: this.vpRef, hdrRef: this.hdrRef, wheelRef: this.wheelRef,
-      pageRef: this.pageRef, vpRef: this.vpRef, hdrRef: this.hdrRef, wheelRef: this.wheelRef,
+      pageRef: this.pageRef, hdrRef: this.hdrRef, wheelRef: this.wheelRef,
       wheelSecRef: this.wheelSecRef, heroRef: this.heroRef, discRef: this.discRef, labRef: this.labRef, trackRef: this.trackRef,
       dotsRef: this.dotsRef, hubRef: this.hubRef, expRef: this.expRef, expImgRef: this.expImgRef, liveRef: this.liveRef, galRef: this.galRef,
 
@@ -3721,7 +3704,6 @@ class Component extends DCLogic {
       openMenu: () => this.setState(s => ({ menu: !s.menu }), () => this.measureChrome()),
       closeMenu: () => this.setState({ menu: false }),
       menuKey: e => { if (e.key === 'Escape') this.setState({ menu: false }); },
-      setView: e => { this.view = e.currentTarget.dataset.v; this.paint(); },
       goPrev: () => { this.touched = true; this.lastTouch = Date.now(); this.setIndex(this.vi - 1); },
       goNext: () => { this.touched = true; this.lastTouch = Date.now(); this.setIndex(this.vi + 1); },
       onDot: e => { this.touched = true; this.lastTouch = Date.now(); this.setIndex(Number(e.currentTarget.dataset.i)); },
