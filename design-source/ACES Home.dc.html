@@ -116,20 +116,24 @@ button{font-family:inherit}
 /* Stacked event cards. Each one sticks a little lower than the last, so scrolling
    piles them up rather than sliding them away. Sticky only — no scroll listener,
    no rAF, nothing to jank on a low-end phone. */
-.acStack{display:grid;gap:clamp(14px,3cqw,22px)}
+/* Block, not grid: a grid row sizes to its item, which leaves sticky no travel.
+   The margin below each card IS the scroll runway — with the old 14px gap the
+   next card was already 222px on screen the moment this one stuck, so you were
+   reading a card that was being covered. 26vh puts the next one just off the
+   fold and gives a screenful of reading before it starts to climb. */
+.acStack{display:block}
 /* Offsets come from nth-child rather than a --i custom property: inline custom
-   properties do not reliably survive the template's style handling, and this
-   needs no per-card data at all. */
-.acStackItem{position:sticky;top:calc(var(--achh,92px) + 10px)}
+   properties do not reliably survive the template's style handling. */
+.acStackItem{position:sticky;top:calc(var(--achh,92px) + 10px);margin-bottom:clamp(150px,26vh,280px)}
+.acStackItem:last-child{margin-bottom:0}
 .acStackItem:nth-child(2){top:calc(var(--achh,92px) + 22px)}
 .acStackItem:nth-child(3){top:calc(var(--achh,92px) + 34px)}
 .acStackItem:nth-child(4){top:calc(var(--achh,92px) + 46px)}
 .acStackItem:nth-child(n+5){top:calc(var(--achh,92px) + 58px)}
 .acStackItem > a{display:flex}
-/* The pile only reads as a pile when there is room to scroll past it. */
-@container page (min-width:760px){
-  .acStack{gap:clamp(18px,2.4cqw,30px)}
-}
+/* A long blurb must not push the card past the fold, or its bottom is cut off
+   from the moment it sticks. */
+.acStackBlurb{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 @media (prefers-reduced-motion:reduce){
   .acStackItem{position:static}
 }
@@ -479,7 +483,7 @@ button{font-family:inherit}
                     </span>
 
                     <span style="display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(20px,5cqw,27px);letter-spacing:-.025em;line-height:1.15;margin-bottom:7px">{{ ev.t }}</span>
-                    <span style="display:block;font-size:14.5px;line-height:1.55;color:{{ ev.bodyFg }};text-wrap:pretty;margin-bottom:14px">{{ ev.blurb }}</span>
+                    <span class="acStackBlurb" style="font-size:14.5px;line-height:1.55;color:{{ ev.bodyFg }};text-wrap:pretty;margin-bottom:14px">{{ ev.blurb }}</span>
 
                     <span style="display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 20px;border-radius:14px;background:{{ ev.ctaBg }};color:{{ ev.ctaFg }};font-size:15px;font-weight:700">
                       View details <span aria-hidden="true">→</span>
