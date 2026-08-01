@@ -2837,7 +2837,11 @@ const LAB_DIR = [[0, -1], [0.951, -0.309], [0.588, 0.809], [-0.588, 0.809], [-0.
 const WHEEL_IMGS = ['https://www.acesknust.com/images/Gallery/Trip.jpg','https://www.acesknust.com/images/club_images/coding.webp','https://www.acesknust.com/images/Gallery/Acesshirt.jpg','https://www.acesknust.com/images/club_images/robotics_image.webp','https://www.acesknust.com/images/Gallery/codefest.jpg'];
 // CodeFest 2026: 31 July 2026, 6pm. Ghana is UTC+0 all year, so 18:00Z is 6pm Accra.
 const TARGET = new Date('2026-07-31T18:00:00Z').getTime();
-// An event is "happening" for three hours from its start, then it has ended.
+// It runs to midnight — confirmed on the night, by someone who was there. The
+// three-hour figure below is only the fallback for an event with no stated end;
+// it had CodeFest reading "Ended" at 21:00 while the room was still full, which
+// is the one thing this page must never do.
+const TARGET_END = new Date('2026-08-01T00:00:00Z').getTime();
 const RUNS_FOR = 3 * 60 * 60 * 1000;
 
 // Only CodeFest carries a real date. The rest are confirmed events with dates
@@ -2846,7 +2850,7 @@ const RUNS_FOR = 3 * 60 * 60 * 1000;
 const EVENTS = [
   {
     id: 'codefest', t: 'CodeFest 2026', img: 'https://res.cloudinary.com/dmgk37i6y/image/upload/v1756508481/codefest_erdhpl.jpg',
-    start: '2026-07-31T18:00:00Z', when: 'Friday 31 July 2026 · 6:00pm',
+    start: '2026-07-31T18:00:00Z', end: '2026-08-01T00:00:00Z', when: 'Friday 31 July 2026 · 6:00pm till midnight',
     venue: 'College of Engineering, KNUST', status: 'Registration open', tone: 'live',
     reg: 'https://forms.gle/p5789Kabjyah6wq59', regLabel: 'Register now',
     blurb: 'A full day of coding challenges, workshops and networking with tech enthusiasts across the college.',
@@ -3375,7 +3379,7 @@ class Component extends DCLogic {
       state = 'before';
       txt = (s >= 86400 ? p(Math.floor(s / 86400)) + 'd ' : '') +
             p(Math.floor(s / 3600) % 24) + 'h ' + p(Math.floor(s / 60) % 60) + 'm ' + p(s % 60) + 's';
-    } else if (-ms < RUNS_FOR) {
+    } else if (Date.now() < TARGET_END) {
       state = 'now'; txt = 'Happening now';
     } else {
       state = 'ended'; txt = 'This event has ended';
@@ -3704,7 +3708,11 @@ class Component extends DCLogic {
     const DAY_L = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const p2 = n => String(n).padStart(2, '0');
     const started = e => e.start ? new Date(e.start).getTime() : 0;
-    const isOver = e => !!e.start && (NOW - started(e)) > RUNS_FOR;
+    // An explicit end always wins. RUNS_FOR is the fallback for an event whose
+    // finish nobody has stated — guessing three hours for one that runs all
+    // evening is how a live event ends up labelled "Ended" in front of a room.
+    const endsAt = e => e.end ? new Date(e.end).getTime() : (e.start ? started(e) + RUNS_FOR : 0);
+    const isOver = e => !!e.start && NOW > endsAt(e);
     const isLive = e => !!e.start && !isOver(e) && started(e) <= NOW;
 
     // An .ics so the date lands in the phone's own calendar app instead of a
@@ -3718,7 +3726,7 @@ class Component extends DCLogic {
       return 'data:text/calendar;charset=utf-8,' + encodeURIComponent([
         'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//ACES KNUST//Events//EN', 'CALSCALE:GREGORIAN',
         'BEGIN:VEVENT', 'UID:' + e.id + '-aces@acesknust.com', 'DTSTAMP:' + z(new Date(NOW)),
-        'DTSTART:' + z(st), 'DTEND:' + z(new Date(started(e) + RUNS_FOR)),
+        'DTSTART:' + z(st), 'DTEND:' + z(new Date(endsAt(e))),
         'SUMMARY:' + q(e.t), 'LOCATION:' + q(e.venue), 'DESCRIPTION:' + q(e.blurb),
         'END:VEVENT', 'END:VCALENDAR'
       ].join('\r\n'));
