@@ -10,7 +10,7 @@ const fs = require('fs');
 const path = require('path');
 
 const SITE = path.join(__dirname, '..', 'site');
-const PAGES = ['index.html', 'prototype.html', 'case-study.html'];
+const PAGES = ['index.html', 'case-study.html'];
 
 // Total transfer budget for a first visit on the heaviest route, in KB.
 const BUDGET_KB = 2600;

@@ -29,13 +29,15 @@ npm start              # build, then serve site/ on :8123
   runtime by `support.js`, which needs `window.React` before it boots on `DOMContentLoaded`. The
   build injects vendored React ahead of it. React lives in `vendor-cache/`, committed, so builds
   work offline.
-- The case study embeds the prototype with `<dc-import name="AcesPrototype">`, resolved at runtime
-  by fetching `./AcesPrototype.dc.html` **as a sibling**. The prototype is therefore written out
-  twice — once as `prototype.html`, once under its original name. Renaming it breaks section 03.
+- The case study runs the **real site** in its phone frame, via `<iframe src="./index.html">`.
+  A broken src renders as an empty white box, so `npm run check` resolves it. The separate mobile
+  prototype it used to embed was retired once the iframe replaced it.
 - Two marketplace product photos (`x1785230796086-1`, `1785230910153-2`) never made it out of the
   Claude Design project. The build detects absent files and blanks `img`, so `hasImg: !!p.img`
   goes false and the design's own placeholder tile renders. Do not "fix" this with a broken `<img>`.
-- Don't add `cleanUrls` to `vercel.json` — it would mangle `AcesPrototype.dc.html`.
+- `image-slot.js` fetches a `.image-slots.state.json` sidecar that only exists inside Claude
+  Design — a guaranteed 404 on every page load. `build.js` patches the loader out. Don't "fix"
+  it in `design-source/`; the patch lives in the build so a re-pull can't reintroduce it.
 - **Never edit `design-source/*.dc.html` with PowerShell `Set-Content` / `Out-File`.** They re-save
   UTF-8 as CP1252, which turned every `—` into `â€”` and every `→` into `â†’` across the whole page
   (98 occurrences before it was caught). Use the Edit tool or `node -e` with explicit `'utf8'`.

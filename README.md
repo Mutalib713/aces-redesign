@@ -14,20 +14,11 @@ and nothing on the page claiming a fact we cannot back.
 
 | Page | |
 |---|---|
-| [Home](https://aces-redesign.vercel.app) | the redesigned site |
-| [Prototype](https://aces-redesign.vercel.app/prototype.html) | the same product as a mobile app |
-| [Case study](https://aces-redesign.vercel.app/case-study.html) | the argument, with the findings and the rubric map |
+| [Home](https://aces-redesign.vercel.app) | the redesigned site — ten pages behind one hash router |
+| [Case study](https://aces-redesign.vercel.app/case-study.html) | the argument, with the findings and the rubric map. Runs the real site live in a phone frame. |
 
 > Search engines are blocked (`noindex`) until ACES chooses to launch it. The site works
 > normally — it just will not show up in Google yet.
-
-Three deliverables, all interactive:
-
-| | What it is |
-|---|---|
-| **Home** | The redesigned website — ten pages behind one hash router, responsive from 320px up |
-| **Prototype** | The same product as a mobile app: bottom tab bar, cart, checkout, filters, lightbox, dark mode |
-| **Case study** | The argument — ten findings measured on the live site, the IA rework, the design system, and a rubric map |
 
 ## Running it locally
 

@@ -20,13 +20,11 @@ const ROOT = path.join(__dirname, '..');
 const SRC = path.join(ROOT, 'design-source');
 const SITE = path.join(ROOT, 'site');
 
-// Each design file is written out under a clean URL. The prototype is ALSO written under its
-// original filename, because the case study embeds it live via <dc-import name="AcesPrototype">
-// and the runtime resolves that by fetching ./AcesPrototype.dc.html as a sibling. That embed is
-// section 03 of the case study — dropping it would gut the "try it, everything works" section.
+// Each design file is written out under a clean URL. The separate mobile prototype was retired
+// once the case study started running the real site in its phone frame via an iframe — a second
+// build of the same product was one more thing to keep in step with the first, for no gain.
 const PAGES = [
   ['ACES Home.dc.html', ['index.html']],
-  ['AcesPrototype.dc.html', ['prototype.html', 'AcesPrototype.dc.html']],
   ['ACES Redesign Case Study.dc.html', ['case-study.html']],
 ];
 
@@ -39,10 +37,6 @@ const META = {
   'index.html': {
     title: 'ACES KNUST — Association of Computer Engineering Students',
     desc: 'The student association for Computer Engineering at KNUST. Events, course materials by year and semester, and a marketplace run by students.',
-  },
-  'prototype.html': {
-    title: 'ACES KNUST — Mobile Prototype',
-    desc: 'The redesigned ACES site as a working mobile app. Tabs, search, cart, checkout and dark mode all work.',
   },
   'case-study.html': {
     title: 'ACES Redesign — CodeFest 2026 UI/UX Challenge',
@@ -76,18 +70,43 @@ function injectMeta(html, outName) {
 }
 
 /**
- * The prototype sets document.title in componentDidMount. That is right when it stands alone and
- * wrong when the case study embeds it, where it overwrites the host page's own title. Strip the
- * side-effect from the embedded copy only.
+ * image-slot.js fetches a .image-slots.state.json sidecar on every page load. That file only
+ * exists inside the Claude Design runtime, where it stores images a designer dragged onto a
+ * slot. On a real host it is a guaranteed 404 on every visit — a wasted round trip, which on a
+ * 3G phone costs a few hundred milliseconds of latency for a response we discard, and a failed
+ * request sitting in the network tab of a site whose whole argument is weight.
+ *
+ * The loader is `fetch(STATE_FILE).then(r => r.ok ? r.json() : null)`. Handing it a stand-in
+ * response with ok:false takes the exact branch a 404 took, so behaviour is unchanged and the
+ * request never leaves the browser. Patched at build time rather than in design-source, so
+ * re-pulling image-slot.js from Claude Design cannot silently reintroduce it.
  */
-function suppressEmbedTitle(html) {
-  const before = html;
-  html = html.replace(
-    /componentDidMount\(\) \{ document\.title = '[^']*'; \}/,
-    'componentDidMount() { /* title suppressed: this copy is embedded in the case study */ }'
+function dropStateSidecar(js) {
+  const before = js;
+  js = js.replace('loadP = fetch(STATE_FILE)', 'loadP = Promise.resolve({ ok: false })');
+  if (js === before) throw new Error('build: image-slot state fetch not found — did image-slot.js change?');
+  return js;
+}
+
+/**
+ * <image-slot> is a custom element, so it upgrades and reads its `src` the moment the parser
+ * reaches it — before support.js has compiled the template. A slot inside an sc-for therefore
+ * sees the literal string "{{ ev.img }}" and requests it as a URL, which 404s once per slot on
+ * every page load. The real image still arrives: React sets the compiled src a moment later and
+ * attributeChangedCallback re-renders.
+ *
+ * So the fix is only to stop the doomed first request. An uncompiled placeholder counts as no
+ * src at all, and the slot shows the design's own placeholder tile for those few milliseconds.
+ * The page's inline lazy-image script already guards `data-src` this exact way.
+ */
+function ignoreUncompiledSrc(js) {
+  const before = js;
+  js = js.replace(
+    "const srcAttr = this.getAttribute('src') || '';",
+    "const srcAttr = (v => v.indexOf('{{') === -1 ? v : '')(this.getAttribute('src') || '');"
   );
-  if (html === before) throw new Error('build: prototype title side-effect not found — did the design change?');
-  return html;
+  if (js === before) throw new Error('build: image-slot src read not found — did image-slot.js change?');
+  return js;
 }
 
 const REACT_TAGS =
@@ -175,9 +194,11 @@ function blankMissingProducts(html, converted) {
     if (fs.existsSync(cached)) fs.copyFileSync(cached, path.join(vendor, f));
   }
 
-  for (const f of ['support.js', 'image-slot.js']) {
-    fs.copyFileSync(path.join(SRC, f), path.join(SITE, f));
-  }
+  fs.copyFileSync(path.join(SRC, 'support.js'), path.join(SITE, 'support.js'));
+  fs.writeFileSync(
+    path.join(SITE, 'image-slot.js'),
+    ignoreUncompiledSrc(dropStateSidecar(fs.readFileSync(path.join(SRC, 'image-slot.js'), 'utf8')))
+  );
 
   console.log('Converting product images to WebP...');
   const { before, after, converted } = await convertProductImages();
@@ -212,14 +233,9 @@ function blankMissingProducts(html, converted) {
       .replace(/assets\/shop\/codefest-shirt\.png/g, 'assets/shop/codefest-shirt.webp');
 
     for (const outName of outNames) {
-      // The .dc.html output is the embed copy the case study fetches, not a page of its own.
-      const isEmbedCopy = outName.endsWith('.dc.html');
-      const out = isEmbedCopy ? suppressEmbedTitle(html) : injectMeta(html, outName);
+      const out = injectMeta(html, outName);
       fs.writeFileSync(path.join(SITE, outName), out);
-      console.log(
-        `  ${outName.padEnd(24)} ${kb(Buffer.byteLength(out))}  ` +
-          `(${remoteHits} remote refs localised${isEmbedCopy ? ', embed copy' : ''})`
-      );
+      console.log(`  ${outName.padEnd(24)} ${kb(Buffer.byteLength(out))}  (${remoteHits} remote refs localised)`);
     }
   }
 
