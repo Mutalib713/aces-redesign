@@ -13,6 +13,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
 *{box-sizing:border-box}
+html,body{overflow-x:clip}
+section{overflow-x:clip}
 body{margin:0;background:#F4F7FC;font-family:'Public Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;color:#111827}
 a{color:#0B5FFF;text-decoration:none}
 a:hover{color:#0940B8;text-decoration:underline}
@@ -85,7 +87,7 @@ a:hover{color:#0940B8;text-decoration:underline}
     <div data-progress="" style="height:100%;width:100%;background:linear-gradient(90deg,#0B5FFF,#5BE9B9)"></div>
   </div>
 
-  <div style="position:relative;overflow:hidden;background:linear-gradient(160deg,#0B1F3A 0%,#0B2E63 50%,#0B5FFF 125%);color:#EAF4FF;padding:88px 40px 0">
+  <div style="position:relative;overflow:hidden;background:linear-gradient(160deg,#0B1F3A 0%,#0B2E63 50%,#0B5FFF 125%);color:#EAF4FF;padding:clamp(40px,9vw,88px) clamp(16px,4.5vw,40px) 0">
     <div style="position:absolute;inset:0;overflow:hidden">
       <img data-parallax="" src="assets/remote/aces-students-hero.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.17;mix-blend-mode:luminosity;will-change:transform" />
       <div data-orb="" style="position:absolute;top:-18%;right:-8%;width:640px;height:640px;border-radius:50%;background:radial-gradient(circle,rgba(91,233,185,.30),rgba(91,233,185,0) 65%);filter:blur(28px);will-change:transform"></div>
@@ -94,17 +96,17 @@ a:hover{color:#0940B8;text-decoration:underline}
     <div aria-hidden="true" style="position:absolute;left:0;right:0;bottom:0;height:3px;display:flex;z-index:2"><span style="flex:1;background:#0B5FFF"></span><span style="flex:1;background:#12855A"></span><span style="flex:1;background:#C2660A"></span><span style="flex:1;background:#6D3BD1"></span></div>
     <div style="position:relative;max-width:1100px;margin:0 auto;padding-bottom:64px">
       <div style="overflow:hidden;margin-bottom:26px"><div data-line="1" style="display:inline-flex;align-items:center;gap:9px;padding:6px 13px;border-radius:999px;background:rgba(255,255,255,.13);font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.11em;text-transform:uppercase;font-weight:600">CodeFest 2026 · UI/UX Challenge</div></div>
-      <h1 style="margin:0 0 22px;font-family:'Space Grotesk',sans-serif;font-size:62px;line-height:1.04;letter-spacing:-.035em;font-weight:700;color:#fff;max-width:23ch;text-wrap:pretty">
+      <h1 style="margin:0 0 22px;font-family:'Space Grotesk',sans-serif;font-size:clamp(30px,8.4vw,62px);line-height:1.04;letter-spacing:-.035em;font-weight:700;color:#fff;max-width:23ch;text-wrap:pretty">
         <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-line="1">A student website</span></span>
         <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-line="2">that finally does</span></span>
         <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-line="3" data-sheen="">the student's job.</span></span>
       </h1>
       <div style="overflow:hidden"><p data-line="4" style="margin:0 0 36px;font-size:19px;line-height:1.6;max-width:60ch;color:rgba(234,244,255,.85);text-wrap:pretty">A mobile-first redesign of acesknust.com. Nine pages rebuilt around four things students actually open the site to do — find course materials, buy from other students, catch an event, and know who to ask.</p></div>
       <div style="display:flex;flex-wrap:wrap;gap:38px;padding-top:32px;border-top:1px solid rgba(255,255,255,.18)">
-        <div><div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:rgba(234,244,255,.55);margin-bottom:8px">Pages redesigned</div><div data-count="2" style="font-family:'Space Grotesk',sans-serif;font-size:38px;font-weight:700;color:#fff;letter-spacing:-.03em;line-height:1"></div></div>
-        <div><div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:rgba(234,244,255,.55);margin-bottom:8px">Screens built</div><div data-count="3" style="font-family:'Space Grotesk',sans-serif;font-size:38px;font-weight:700;color:#fff;letter-spacing:-.03em;line-height:1"></div></div>
-        <div><div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:rgba(234,244,255,.55);margin-bottom:8px">Students served</div><div data-count="1" style="font-family:'Space Grotesk',sans-serif;font-size:38px;font-weight:700;color:#fff;letter-spacing:-.03em;line-height:1"></div></div>
-        <div><div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:rgba(234,244,255,.55);margin-bottom:8px">Brand</div><div style="font-family:'Space Grotesk',sans-serif;font-size:38px;font-weight:700;color:#fff;letter-spacing:-.03em;line-height:1">Kept</div></div>
+        <div><div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:rgba(234,244,255,.55);margin-bottom:8px">Pages redesigned</div><div data-count="2" style="font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,6.2vw,42px);font-weight:700;color:#fff;letter-spacing:-.03em;line-height:1"></div></div>
+        <div><div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:rgba(234,244,255,.55);margin-bottom:8px">Screens built</div><div data-count="3" style="font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,7vw,50px);font-weight:700;color:#fff;letter-spacing:-.03em;line-height:1"></div></div>
+        <div><div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:rgba(234,244,255,.55);margin-bottom:8px">Students served</div><div data-count="1" style="font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,6.2vw,42px);font-weight:700;color:#fff;letter-spacing:-.03em;line-height:1"></div></div>
+        <div><div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:rgba(234,244,255,.55);margin-bottom:8px">Brand</div><div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(22px,5.6vw,36px);font-weight:700;color:#fff;letter-spacing:-.03em;line-height:1">Kept</div></div>
       </div>
     </div>
   </div>
@@ -120,13 +122,13 @@ a:hover{color:#0940B8;text-decoration:underline}
     </div>
   </div>
 
-  <div style="max-width:1100px;margin:0 auto;padding:72px 40px 0">
+  <div style="max-width:1100px;margin:0 auto;padding:clamp(38px,8vw,72px) clamp(16px,4.5vw,40px) 0">
     <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:#0B5FFF;font-weight:700;margin-bottom:14px" data-anim="fade">01 · Audit</div>
-    <h2 data-headline="" style="margin:0 0 14px;font-family:'Space Grotesk',sans-serif;font-size:38px;line-height:1.14;letter-spacing:-.03em;font-weight:700;color:#0B1F3A;max-width:26ch">
+    <h2 data-headline="" style="margin:0 0 14px;font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,6.2vw,44px);line-height:1.14;letter-spacing:-.03em;font-weight:700;color:#0B1F3A;max-width:26ch">
       <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="1">What we found on</span></span>
       <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="2">the live site</span></span>
     </h2>
-    <p data-anim="rise" style="margin:0 0 38px;font-size:17px;line-height:1.65;color:#5B6B7E;max-width:68ch;text-wrap:pretty">Ten findings, each one traced to a real page and measured on the live site. Every fix later in this document points back to a numbered finding here.</p>
+    <p data-anim="rise" style="margin:0 0 38px;font-size:clamp(15px,4vw,17px);line-height:1.65;color:#5B6B7E;max-width:68ch;text-wrap:pretty">Ten findings, each one traced to a real page and measured on the live site. Every fix later in this document points back to a numbered finding here.</p>
 
     <div data-stagger="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px">
       <sc-for list="{{ findings }}" as="f" hint-placeholder-count="8">
@@ -147,14 +149,14 @@ a:hover{color:#0940B8;text-decoration:underline}
     </div>
   </div>
 
-  <div style="max-width:1100px;margin:0 auto;padding:72px 40px 0">
+  <div style="max-width:1100px;margin:0 auto;padding:clamp(38px,8vw,72px) clamp(16px,4.5vw,40px) 0">
     <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:#0B5FFF;font-weight:700;margin-bottom:14px" data-anim="fade">02 · Information architecture</div>
-    <h2 data-headline="" style="margin:0 0 14px;font-family:'Space Grotesk',sans-serif;font-size:38px;line-height:1.14;letter-spacing:-.03em;font-weight:700;color:#0B1F3A;max-width:26ch">
+    <h2 data-headline="" style="margin:0 0 14px;font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,7vw,52px);line-height:1.14;letter-spacing:-.03em;font-weight:700;color:#0B1F3A;max-width:26ch">
       <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="1">Fourteen flat links</span></span>
       <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="2">became five tabs</span></span>
     </h2>
-    <p data-anim="rise" style="margin:0 0 34px;font-size:17px;line-height:1.65;color:#5B6B7E;max-width:68ch;text-wrap:pretty">The old footer navigation grouped pages by how the site was built (Explore / Marketplace / Resources), not by what a student wants. We regrouped around intent, and gave the two commercial journeys their own tabs because they carry the most steps.</p>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <p data-anim="rise" style="margin:0 0 34px;font-size:clamp(15px,4vw,17px);line-height:1.65;color:#5B6B7E;max-width:68ch;text-wrap:pretty">The old footer navigation grouped pages by how the site was built (Explore / Marketplace / Resources), not by what a student wants. We regrouped around intent, and gave the two commercial journeys their own tabs because they carry the most steps.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:16px">
       <div style="padding:26px;border-radius:22px;background:#fff;border:1px solid #DDE6F2">
         <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:#E5484D;font-weight:700;margin-bottom:16px">Before · 14 links, 3 groups</div>
         <div data-stagger="" style="display:flex;flex-wrap:wrap;gap:7px">
@@ -179,13 +181,13 @@ a:hover{color:#0940B8;text-decoration:underline}
     </div>
   </div>
 
-  <div style="max-width:1300px;margin:0 auto;padding:72px 40px 0">
+  <div style="max-width:1300px;margin:0 auto;padding:clamp(38px,8vw,72px) clamp(16px,4.5vw,40px) 0">
     <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:#0B5FFF;font-weight:700;margin-bottom:14px" data-anim="fade">03 · Live prototype</div>
-    <h2 data-headline="" style="margin:0 0 14px;font-family:'Space Grotesk',sans-serif;font-size:38px;line-height:1.14;letter-spacing:-.03em;font-weight:700;color:#0B1F3A;max-width:26ch">
+    <h2 data-headline="" style="margin:0 0 14px;font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,6.2vw,44px);line-height:1.14;letter-spacing:-.03em;font-weight:700;color:#0B1F3A;max-width:26ch">
       <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="1">Try it —</span></span>
       <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="2">everything works</span></span>
     </h2>
-    <p data-anim="rise" style="margin:0 0 34px;font-size:17px;line-height:1.65;color:#5B6B7E;max-width:68ch;text-wrap:pretty">Not a mockup and not a separate demo — the phone below is running the shipped site itself. Scroll it, open the menu, filter the courses, tap an event. Whatever works here works at the live URL, because it is the same build.</p>
+    <p data-anim="rise" style="margin:0 0 34px;font-size:clamp(15px,4vw,17px);line-height:1.65;color:#5B6B7E;max-width:68ch;text-wrap:pretty">Not a mockup and not a separate demo — the phone below is running the shipped site itself. Scroll it, open the menu, filter the courses, tap an event. Whatever works here works at the live URL, because it is the same build.</p>
     <div style="display:flex;gap:34px;align-items:flex-start;flex-wrap:wrap">
       <div data-anim="scale" style="flex:0 0 auto;position:sticky;top:36px">
         <!-- The frame is cosmetic; the content is the real site in an iframe, so
@@ -215,13 +217,13 @@ a:hover{color:#0940B8;text-decoration:underline}
     </div>
   </div>
 
-  <div style="max-width:1100px;margin:0 auto;padding:72px 40px 0">
+  <div style="max-width:1100px;margin:0 auto;padding:clamp(38px,8vw,72px) clamp(16px,4.5vw,40px) 0">
     <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:#0B5FFF;font-weight:700;margin-bottom:14px" data-anim="fade">04 · Design system</div>
-    <h2 data-headline="" style="margin:0 0 14px;font-family:'Space Grotesk',sans-serif;font-size:38px;line-height:1.14;letter-spacing:-.03em;font-weight:700;color:#0B1F3A;max-width:26ch">
+    <h2 data-headline="" style="margin:0 0 14px;font-family:'Space Grotesk',sans-serif;font-size:clamp(22px,5.6vw,36px);line-height:1.14;letter-spacing:-.03em;font-weight:700;color:#0B1F3A;max-width:26ch">
       <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="1">Tokens the web</span></span>
       <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="2">team can ship</span></span>
     </h2>
-    <p data-anim="rise" style="margin:0 0 34px;font-size:17px;line-height:1.65;color:#5B6B7E;max-width:68ch;text-wrap:pretty">The brand palette is the brief's, unchanged. We added the semantic and neutral steps the palette was missing, plus one dark surface ramp — nothing here needs a designer to interpret it.</p>
+    <p data-anim="rise" style="margin:0 0 34px;font-size:clamp(15px,4vw,17px);line-height:1.65;color:#5B6B7E;max-width:68ch;text-wrap:pretty">The brand palette is the brief's, unchanged. We added the semantic and neutral steps the palette was missing, plus one dark surface ramp — nothing here needs a designer to interpret it.</p>
 
     <div data-stagger="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px">
       <sc-for list="{{ colors }}" as="c" hint-placeholder-count="7">
@@ -236,12 +238,12 @@ a:hover{color:#0940B8;text-decoration:underline}
       </sc-for>
     </div>
 
-    <div style="display:grid;grid-template-columns:1.15fr 1fr;gap:16px;margin-bottom:16px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px;margin-bottom:16px">
       <div style="padding:26px;border-radius:22px;background:#fff;border:1px solid #DDE6F2">
         <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:#5B6B7E;font-weight:700;margin-bottom:20px">Type scale</div>
         <div style="display:grid;gap:18px">
-          <div><div style="font-family:'Space Grotesk',sans-serif;font-size:31px;font-weight:700;letter-spacing:-.03em;color:#0B1F3A;line-height:1.1">Space Grotesk 700</div><div style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#5B6B7E;margin-top:6px">Display · 31/25/22/19/15 · tracking −3%</div></div>
-          <div><div style="font-size:16px;line-height:1.6;color:#111827">Public Sans 400 — body copy set at 14–15px on mobile with 1.6 line height, never below 12.5px for metadata.</div><div style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#5B6B7E;margin-top:6px">Body · 15/14/13.5/12.5</div></div>
+          <div><div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(22px,5.4vw,31px);font-weight:700;letter-spacing:-.03em;color:#0B1F3A;line-height:1.1">Space Grotesk 700</div><div style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#5B6B7E;margin-top:6px">Display · 31/25/22/19/15 · tracking −3%</div></div>
+          <div><div style="font-size:clamp(14.5px,3.8vw,16px);line-height:1.6;color:#111827">Public Sans 400 — body copy set at 14–15px on mobile with 1.6 line height, never below 12.5px for metadata.</div><div style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#5B6B7E;margin-top:6px">Body · 15/14/13.5/12.5</div></div>
           <div><div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#0B5FFF;letter-spacing:.06em">IBM PLEX MONO · CE 353 · GH₵ 120 · AUG 14</div><div style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#5B6B7E;margin-top:6px">Labels, course codes, prices, dates, IDs</div></div>
         </div>
       </div>
@@ -275,13 +277,13 @@ a:hover{color:#0940B8;text-decoration:underline}
     </div>
   </div>
 
-  <div style="max-width:1100px;margin:0 auto;padding:72px 40px 0">
+  <div style="max-width:1100px;margin:0 auto;padding:clamp(38px,8vw,72px) clamp(16px,4.5vw,40px) 0">
     <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:#0B5FFF;font-weight:700;margin-bottom:14px" data-anim="fade">05 · Responsive scaling</div>
-    <h2 data-headline="" style="margin:0 0 14px;font-family:'Space Grotesk',sans-serif;font-size:38px;line-height:1.14;letter-spacing:-.03em;font-weight:700;color:#0B1F3A;max-width:26ch">
+    <h2 data-headline="" style="margin:0 0 14px;font-family:'Space Grotesk',sans-serif;font-size:clamp(21px,5.2vw,32px);line-height:1.14;letter-spacing:-.03em;font-weight:700;color:#0B1F3A;max-width:26ch">
       <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="1">How the mobile system</span></span>
       <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="2">grows to desktop</span></span>
     </h2>
-    <p data-anim="rise" style="margin:0 0 34px;font-size:17px;line-height:1.65;color:#5B6B7E;max-width:68ch;text-wrap:pretty">Optional per the brief, included to prove the tokens hold. The bottom tab bar becomes a horizontal nav, cards keep their radius and spacing, and the grid goes from 2 to 4 columns.</p>
+    <p data-anim="rise" style="margin:0 0 34px;font-size:clamp(15px,4vw,17px);line-height:1.65;color:#5B6B7E;max-width:68ch;text-wrap:pretty">Optional per the brief, included to prove the tokens hold. The bottom tab bar becomes a horizontal nav, cards keep their radius and spacing, and the grid goes from 2 to 4 columns.</p>
     <div style="display:grid;gap:20px">
       <div data-anim="scale" style="border-radius:20px;overflow:hidden;border:1px solid #DDE6F2;background:#fff;box-shadow:0 8px 30px -12px rgba(11,31,58,.2)">
         <div style="height:38px;display:flex;align-items:center;gap:7px;padding:0 15px;background:#EDF2F8;border-bottom:1px solid #DDE6F2">
@@ -297,14 +299,14 @@ a:hover{color:#0940B8;text-decoration:underline}
           <img src="assets/remote/aces-students-hero.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.2;mix-blend-mode:luminosity" />
           <div style="position:relative;max-width:52ch">
             <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:rgba(234,244,255,.7);margin-bottom:14px">Technology for our age</div>
-            <div style="font-family:'Space Grotesk',sans-serif;font-size:42px;line-height:1.05;letter-spacing:-.035em;font-weight:700;color:#fff;margin-bottom:14px">The home base for Computer Engineering at KNUST.</div>
-            <div style="font-size:16px;line-height:1.6;color:rgba(234,244,255,.85);margin-bottom:22px;max-width:46ch">Course materials, a student marketplace and every ACES event — in one place.</div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,6.6vw,42px);line-height:1.05;letter-spacing:-.035em;font-weight:700;color:#fff;margin-bottom:14px">The home base for Computer Engineering at KNUST.</div>
+            <div style="font-size:clamp(14.5px,3.8vw,16px);line-height:1.6;color:rgba(234,244,255,.85);margin-bottom:22px;max-width:46ch">Course materials, a student marketplace and every ACES event — in one place.</div>
             <div style="display:flex;gap:10px"><span style="padding:13px 20px;border-radius:12px;background:#fff;color:#0B1F3A;font-weight:700;font-size:14.5px">Get course materials</span><span style="padding:13px 20px;border-radius:12px;border:1px solid rgba(255,255,255,.35);color:#fff;font-weight:600;font-size:14.5px">What is ACES?</span></div>
           </div>
         </div>
         <div style="padding:26px">
           <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:#5B6B7E;font-weight:700;margin-bottom:14px">Marketplace · 4-up grid</div>
-          <div data-stagger="" style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px">
+          <div data-stagger="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,130px),1fr));gap:14px">
             <sc-for list="{{ deskCards }}" as="d" hint-placeholder-count="4">
               <div style="border:1px solid #DDE6F2;border-radius:16px;overflow:hidden;background:#fff">
                 <img src="{{ d.img }}" alt="{{ d.name }}" style="width:100%;height:104px;object-fit:cover;display:block" />
@@ -321,9 +323,9 @@ a:hover{color:#0940B8;text-decoration:underline}
     </div>
   </div>
 
-  <div style="max-width:1100px;margin:0 auto;padding:72px 40px 0">
+  <div style="max-width:1100px;margin:0 auto;padding:clamp(38px,8vw,72px) clamp(16px,4.5vw,40px) 0">
     <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:#0B5FFF;font-weight:700;margin-bottom:14px" data-anim="fade">06 · Coverage</div>
-    <h2 data-headline="" style="margin:0 0 34px;font-family:'Space Grotesk',sans-serif;font-size:38px;line-height:1.14;letter-spacing:-.03em;font-weight:700;color:#0B1F3A;max-width:26ch">
+    <h2 data-headline="" style="margin:0 0 34px;font-family:'Space Grotesk',sans-serif;font-size:clamp(22px,5.6vw,36px);line-height:1.14;letter-spacing:-.03em;font-weight:700;color:#0B1F3A;max-width:26ch">
       <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="1">All nine pages, and</span></span>
       <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="2">what each one now does</span></span>
     </h2>
@@ -331,7 +333,7 @@ a:hover{color:#0940B8;text-decoration:underline}
       <sc-for list="{{ pages }}" as="p" hint-placeholder-count="9">
         <div style="display:flex;gap:20px;align-items:flex-start;padding:20px 24px;border-bottom:1px solid #EDF2F8;transition:background .25s,padding-left .25s" style-hover="background:#F7FAFE;padding-left:32px">
           <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:700;color:#0B5FFF;min-width:26px;padding-top:3px">{{ p.no }}</span>
-          <span style="min-width:150px;font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:700;letter-spacing:-.02em;color:#0B1F3A">{{ p.name }}</span>
+          <span style="min-width:150px;font-family:'Space Grotesk',sans-serif;font-size:clamp(15px,4vw,17px);font-weight:700;letter-spacing:-.02em;color:#0B1F3A">{{ p.name }}</span>
           <span style="flex:1;font-size:14.5px;line-height:1.6;color:#5B6B7E;text-wrap:pretty">{{ p.what }}</span>
           <span style="{{ p.stateStyle }}">{{ p.state }}</span>
         </div>
@@ -339,13 +341,13 @@ a:hover{color:#0940B8;text-decoration:underline}
     </div>
   </div>
 
-  <div style="max-width:1100px;margin:0 auto;padding:72px 40px 0">
+  <div style="max-width:1100px;margin:0 auto;padding:clamp(38px,8vw,72px) clamp(16px,4.5vw,40px) 0">
     <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:#0B5FFF;font-weight:700;margin-bottom:14px" data-anim="fade">07 · Motion</div>
-    <h2 data-headline="" style="margin:0 0 14px;font-family:'Space Grotesk',sans-serif;font-size:38px;line-height:1.14;letter-spacing:-.03em;font-weight:700;color:#0B1F3A;max-width:26ch">
+    <h2 data-headline="" style="margin:0 0 14px;font-family:'Space Grotesk',sans-serif;font-size:clamp(21px,5.2vw,32px);line-height:1.14;letter-spacing:-.03em;font-weight:700;color:#0B1F3A;max-width:26ch">
       <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="1">Motion that does</span></span>
       <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="2">a job</span></span>
     </h2>
-    <p data-anim="rise" style="margin:0 0 34px;font-size:17px;line-height:1.65;color:#5B6B7E;max-width:68ch;text-wrap:pretty">Every animation here is CSS-only — scroll-driven timelines (<span style="font-family:'IBM Plex Mono',monospace;font-size:15px;color:#0B5FFF">animation-timeline: view()</span>) rather than scroll listeners, so nothing costs a frame on a mid-range Android. All of it collapses under <span style="font-family:'IBM Plex Mono',monospace;font-size:15px;color:#0B5FFF">prefers-reduced-motion</span>.</p>
+    <p data-anim="rise" style="margin:0 0 34px;font-size:clamp(15px,4vw,17px);line-height:1.65;color:#5B6B7E;max-width:68ch;text-wrap:pretty">Every animation here is CSS-only — scroll-driven timelines (<span style="font-family:'IBM Plex Mono',monospace;font-size:15px;color:#0B5FFF">animation-timeline: view()</span>) rather than scroll listeners, so nothing costs a frame on a mid-range Android. All of it collapses under <span style="font-family:'IBM Plex Mono',monospace;font-size:15px;color:#0B5FFF">prefers-reduced-motion</span>.</p>
     <div data-stagger="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px">
       <sc-for list="{{ motion }}" as="m" hint-placeholder-count="6">
         <div style="padding:20px;border-radius:18px;background:#fff;border:1px solid #DDE6F2;transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s" style-hover="transform:translateY(-6px);box-shadow:0 18px 40px -14px rgba(11,31,58,.24)">
@@ -360,7 +362,7 @@ a:hover{color:#0940B8;text-decoration:underline}
   <div style="max-width:1100px;margin:0 auto;padding:72px 40px 90px">
     <div style="padding:44px;border-radius:26px;background:linear-gradient(150deg,#0B1F3A,#0B2E63 70%,#0B5FFF 140%);color:#EAF4FF">
       <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:#5BE9B9;font-weight:700;margin-bottom:16px">Against the rubric</div>
-      <h2 data-headline="" style="margin:0 0 30px;font-family:'Space Grotesk',sans-serif;font-size:34px;line-height:1.14;letter-spacing:-.03em;font-weight:700;color:#fff;max-width:24ch">
+      <h2 data-headline="" style="margin:0 0 30px;font-family:'Space Grotesk',sans-serif;font-size:clamp(23px,6vw,40px);line-height:1.14;letter-spacing:-.03em;font-weight:700;color:#fff;max-width:24ch">
         <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="1">Where to find</span></span>
         <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="2">each scored item</span></span>
       </h2>
@@ -368,7 +370,7 @@ a:hover{color:#0940B8;text-decoration:underline}
         <sc-for list="{{ rubric }}" as="r" hint-placeholder-count="5">
           <div style="display:flex;gap:20px;align-items:baseline;padding:17px 20px;border-radius:15px;background:rgba(255,255,255,.07)">
             <span style="font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:600;color:#5BE9B9;min-width:52px">{{ r.pts }}</span>
-            <span style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;color:#fff;min-width:280px">{{ r.item }}</span>
+            <span style="font-family:'Space Grotesk',sans-serif;font-size:clamp(14.5px,3.8vw,16px);font-weight:600;color:#fff;min-width:280px">{{ r.item }}</span>
             <span style="flex:1;font-size:14.5px;line-height:1.55;color:rgba(234,244,255,.78);text-wrap:pretty">{{ r.where }}</span>
           </div>
         </sc-for>
