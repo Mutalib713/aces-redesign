@@ -138,7 +138,7 @@ Fork it, read `scripts/`, take what helps.
 keep the copyright notice.
 
 The licence stops at the code, because the rest was never ours to give away.
-`LICENSE` spells out the four carve-outs; the short version:
+[`NOTICE`](NOTICE) spells out the four carve-outs; the short version:
 
 - **ACES branding** — the name, the crest, the blue-and-white identity. That
   belongs to the Association of Computer Engineering Students, KNUST.
