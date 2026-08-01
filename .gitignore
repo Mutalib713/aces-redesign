@@ -11,3 +11,6 @@ Thumbs.db
 site/
 
 .vercel
+
+# Claude Code local tooling config
+.claude/
