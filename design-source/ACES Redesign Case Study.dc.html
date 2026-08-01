@@ -33,7 +33,7 @@ a:hover{color:#0940B8;text-decoration:underline}
 @keyframes csSheen{0%{background-position:-140% 0}55%,100%{background-position:240% 0}}
 @keyframes csOrb{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(4%,-6%,0) scale(1.12)}}
 @keyframes csC1{to{--n1:600}}
-@keyframes csC2{to{--n2:9}}
+@keyframes csC2{to{--n2:10}}
 @keyframes csC3{to{--n3:17}}
 
 [data-marquee]{animation:csMarquee 26s linear infinite}
@@ -101,7 +101,7 @@ a:hover{color:#0940B8;text-decoration:underline}
         <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-line="2">that finally does</span></span>
         <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-line="3" data-sheen="">the student's job.</span></span>
       </h1>
-      <div style="overflow:hidden"><p data-line="4" style="margin:0 0 36px;font-size:19px;line-height:1.6;max-width:60ch;color:rgba(234,244,255,.85);text-wrap:pretty">A mobile-first redesign of acesknust.com. Nine pages rebuilt around four things students actually open the site to do — find course materials, buy from other students, catch an event, and know who to ask.</p></div>
+      <div style="overflow:hidden"><p data-line="4" style="margin:0 0 36px;font-size:19px;line-height:1.6;max-width:60ch;color:rgba(234,244,255,.85);text-wrap:pretty">A mobile-first redesign of acesknust.com. Ten pages rebuilt around four things students actually open the site to do — find course materials, buy from other students, catch an event, and know who to ask.</p></div>
       <div style="display:flex;flex-wrap:wrap;gap:38px;padding-top:32px;border-top:1px solid rgba(255,255,255,.18)">
         <div><div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:rgba(234,244,255,.55);margin-bottom:8px">Pages redesigned</div><div data-count="2" style="font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,6.2vw,42px);font-weight:700;color:#fff;letter-spacing:-.03em;line-height:1"></div></div>
         <div><div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:rgba(234,244,255,.55);margin-bottom:8px">Screens built</div><div data-count="3" style="font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,7vw,50px);font-weight:700;color:#fff;letter-spacing:-.03em;line-height:1"></div></div>
@@ -300,11 +300,11 @@ a:hover{color:#0940B8;text-decoration:underline}
   <div style="max-width:1100px;margin:0 auto;padding:clamp(38px,8vw,72px) clamp(16px,4.5vw,40px) 0">
     <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:#0B5FFF;font-weight:700;margin-bottom:14px" data-anim="fade">06 · Coverage</div>
     <h2 data-headline="" style="margin:0 0 34px;font-family:'Space Grotesk',sans-serif;font-size:clamp(22px,5.6vw,36px);line-height:1.14;letter-spacing:-.03em;font-weight:700;color:#0B1F3A;max-width:26ch">
-      <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="1">All nine pages, and</span></span>
+      <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="1">All ten pages, and</span></span>
       <span style="display:block;overflow:hidden;padding-bottom:.05em"><span data-line="2">what each one now does</span></span>
     </h2>
     <div data-stagger="" style="border-radius:22px;overflow:hidden;border:1px solid #DDE6F2;background:#fff">
-      <sc-for list="{{ pages }}" as="p" hint-placeholder-count="9">
+      <sc-for list="{{ pages }}" as="p" hint-placeholder-count="10">
         <div style="display:flex;gap:20px;align-items:flex-start;padding:20px 24px;border-bottom:1px solid #EDF2F8;transition:background .25s,padding-left .25s" style-hover="background:#F7FAFE;padding-left:32px">
           <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:700;color:#0B5FFF;min-width:26px;padding-top:3px">{{ p.no }}</span>
           <span style="min-width:150px;font-family:'Space Grotesk',sans-serif;font-size:clamp(15px,4vw,17px);font-weight:700;letter-spacing:-.02em;color:#0B1F3A">{{ p.name }}</span>
@@ -475,20 +475,21 @@ class Component extends DCLogic {
       pages: [
         {no:'01', name:'Home', what:'Purpose-first hero, four quick actions, a real “Next up” event, club rail, newsletter and a complete footer with address, hours and live policy links.', state:'Live', stateStyle:ST.live},
         {no:'02', name:'About', what:'Mission and vision as separate cards, the five pillars as a scannable list, and the logo section stating explicitly that the mark is unchanged.', state:'Live', stateStyle:ST.live},
-        {no:'03', name:'Executives', what:'Six profile cards with role pill, session year, level and a 44pt contact button. Initials render where no photo exists.', state:'Live', stateStyle:ST.live},
-        {no:'04', name:'Staff / Department', what:'Role, research area, office room and a tappable email row per person, plus stated office hours.', state:'Live', stateStyle:ST.live},
-        {no:'05', name:'Gallery', what:'Six filter chips, a square 2-up grid with captions, and a full-screen lightbox with position counter and large prev/next.', state:'Live', stateStyle:ST.live},
-        {no:'06', name:'Marketplace', what:'Search, six category chips, product grid with quick-add, product detail with variants and quantity, cart, 3-step checkout, seller onboarding and a vendor dashboard.', state:'Live', stateStyle:ST.live},
-        {no:'07', name:'Scholarships', what:'A designed empty state: what is happening, when to expect the next round, a working alert sign-up, and a skeleton of the future card.', state:'Empty by design', stateStyle:ST.empty},
-        {no:'08', name:'Courses', what:'Filter by year and semester, search by course code, per-course file counts and a download action. CE 451 shows the per-item empty state.', state:'Live', stateStyle:ST.live},
-        {no:'09', name:'ACES Shop', what:'A confident coming-soon: launch date, real prices and sizes, per-item notify actions and a size-reservation flow.', state:'Coming soon', stateStyle:ST.soon}
+        {no:'03', name:'Events', what:'A month calendar with dated events marked, status tabs for what is open, and a per-event detail page with when, where, host and what to bring. Undated events say so rather than inventing a date.', state:'Live', stateStyle:ST.live},
+        {no:'04', name:'Executives', what:'Six portrait cards with role pill, name and level over the photo, and phone, LinkedIn and email as three 44pt actions. Initials render where no photo exists yet.', state:'Live', stateStyle:ST.live},
+        {no:'05', name:'Staff / Department', what:'Role, research area, office room and a tappable email row per person, plus stated office hours.', state:'Live', stateStyle:ST.live},
+        {no:'06', name:'Gallery', what:'Six filter chips, a square 2-up grid with captions, and a full-screen lightbox with position counter and large prev/next.', state:'Live', stateStyle:ST.live},
+        {no:'07', name:'Marketplace', what:'Search, six category chips, product grid with quick-add, product detail with variants and quantity, cart, 3-step checkout, seller onboarding and a vendor dashboard.', state:'Live', stateStyle:ST.live},
+        {no:'08', name:'Scholarships', what:'A designed empty state: what is happening, when to expect the next round, a working alert sign-up, and a skeleton of the future card.', state:'Empty by design', stateStyle:ST.empty},
+        {no:'09', name:'Courses', what:'Filter by year and semester, search by course code, per-course file counts and a download action. CE 451 shows the per-item empty state.', state:'Live', stateStyle:ST.live},
+        {no:'10', name:'ACES Shop', what:'A confident coming-soon: launch date, real prices and sizes, per-item notify actions and a size-reservation flow.', state:'Coming soon', stateStyle:ST.soon}
       ],
       rubric: [
         {pts:'15 pts', item:'Website analysis & problem framing', where:'Section 01 — ten findings, each traced to a live page and severity-rated, each linked to its fix.'},
         {pts:'30 pts', item:'Mobile-first UX & information architecture', where:'Section 02 — the 14-link footer regrouped into five intent-based tabs, plus the four journeys in section 03.'},
         {pts:'20 pts', item:'Visual design & ACES brand alignment', where:'Section 04 — the brief\u2019s exact palette as the base, crest and name untouched, blue-and-white direction held in light and dark.'},
         {pts:'20 pts', item:'Prototype quality & interaction flow', where:'Section 03 — a working prototype: real search, filters, cart, checkout, lightbox, toasts and dark mode.'},
-        {pts:'15 pts', item:'Creativity, feasibility & completeness', where:'Section 06 — all nine pages plus eight sub-screens, built in plain HTML and CSS on the team\u2019s existing stack.'}
+        {pts:'15 pts', item:'Creativity, feasibility & completeness', where:'Section 06 — all ten pages plus eight sub-screens, built in plain HTML and CSS on the team\u2019s existing stack.'}
       ]
     };
   }
