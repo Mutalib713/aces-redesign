@@ -1,9 +1,25 @@
 # ACES Redesign — CodeFest 2026 UI/UX Challenge
 
 A mobile-first redesign of [acesknust.com](https://www.acesknust.com), the website of the
-Association of Computer Engineering Students at KNUST.
+Association of Computer Engineering Students at KNUST. Built for the CodeFest 2026 UI/UX
+Challenge.
 
-**Live:** <https://aces-redesign.vercel.app> · `/` home · `/prototype.html` · `/case-study.html`
+The brief was a redesign. The problem underneath it was that the existing site had stopped being
+usable on the device students actually own: 12 MB of photographs, a 4.2 MB hero, four event
+countdowns frozen at 00:00, an events page nothing linked to, and a gallery carousel holding five
+slides that its own arrows could not move. This is the rebuild — under 1 MB, everything self-hosted,
+and nothing on the page claiming a fact we cannot back.
+
+**Live:** <https://aces-redesign.vercel.app>
+
+| Page | |
+|---|---|
+| [Home](https://aces-redesign.vercel.app) | the redesigned site |
+| [Prototype](https://aces-redesign.vercel.app/prototype.html) | the same product as a mobile app |
+| [Case study](https://aces-redesign.vercel.app/case-study.html) | the argument, with the findings and the rubric map |
+
+> Search engines are blocked (`noindex`) until ACES chooses to launch it. The site works
+> normally — it just will not show up in Google yet.
 
 Three deliverables, all interactive:
 
@@ -85,3 +101,45 @@ npx vercel deploy --prod
 ```
 
 `noindex` ships on every page and stays until launch.
+
+## References
+
+The site we redesigned, and the three we studied while building it:
+
+| Link | What we took from it |
+|---|---|
+| [acesknust.com](https://www.acesknust.com) | The site being redesigned. Every finding in the case study was measured on it. |
+| [lenol.co](https://lenol.co) | The expanding-panel accordion on the clubs section — collapsed slabs with the label reading downward, and the same accordion stacked on mobile. Ratios measured from their Powershop section. |
+| [lu.ma](https://lu.ma) | The events model: a month calendar next to an upcoming/past list, grouped by day. |
+| [thecssknust.com](https://www.thecssknust.com) | Computer Science Society KNUST. Status filters carrying live counts, and the idea of syncing events to a phone calendar. |
+
+Principles, not screenshots. Where a reference does something we think is wrong,
+we did not copy it — Lenol keeps a photo behind its collapsed panels and Luma
+assumes every event has a date, and neither survived contact with our content.
+
+## Reusing this
+
+Another student association is welcome to take the parts that transfer. The
+patterns worth stealing are the honest ones:
+
+- an events page that separates *dated* from *confirmed but undated* instead of
+  inventing a date to fill a calendar cell
+- a build gate (`npm run check`) that fails the deploy when an image starts
+  pointing off-site, or when a page grows past its KB budget
+- self-hosted WebP with year-long immutable caching, because mobile data is the
+  real constraint
+- one HTML file with hash routing, so navigating costs nothing after first load
+
+Fork it, read `scripts/`, take what helps.
+
+**On rights, plainly:** the code here is ours to share. The rest of it is not.
+The ACES name, crest and blue-and-white palette belong to the Association of
+Computer Engineering Students; the photographs belong to ACES and its
+photographers; the marketplace listings, staff directory and executive names are
+real people's, republished here only because ACES already publishes them. Take
+the code and the ideas. **Do not ship the ACES branding, photographs or personal
+data as part of anything else.** Swap in your own before you deploy.
+
+If you want a formal licence on the code, open an issue and we will add one —
+there is deliberately no blanket `LICENSE` file, because a single licence across
+this repo would claim rights over assets that are not ours to give.
