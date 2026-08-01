@@ -285,43 +285,17 @@ a:hover{color:#0940B8;text-decoration:underline}
     </h2>
     <p data-anim="rise" style="margin:0 0 34px;font-size:clamp(15px,4vw,17px);line-height:1.65;color:#5B6B7E;max-width:68ch;text-wrap:pretty">Optional per the brief, included to prove the tokens hold. The bottom tab bar becomes a horizontal nav, cards keep their radius and spacing, and the grid goes from 2 to 4 columns.</p>
     <div style="display:grid;gap:20px">
-      <div data-anim="scale" style="border-radius:20px;overflow:hidden;border:1px solid #DDE6F2;background:#fff;box-shadow:0 8px 30px -12px rgba(11,31,58,.2)">
-        <div style="height:38px;display:flex;align-items:center;gap:7px;padding:0 15px;background:#EDF2F8;border-bottom:1px solid #DDE6F2">
-          <span style="width:11px;height:11px;border-radius:6px;background:#E5484D"></span><span style="width:11px;height:11px;border-radius:6px;background:#F59E0B"></span><span style="width:11px;height:11px;border-radius:6px;background:#22C55E"></span>
-          <span style="margin-left:14px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#5B6B7E">acesknust.com</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:26px;padding:16px 26px;border-bottom:1px solid #DDE6F2">
-          <div style="display:flex;align-items:center;gap:9px"><span style="width:30px;height:30px;border-radius:9px;background:linear-gradient(145deg,#0B5FFF,#0B1F3A);display:grid;place-items:center;font-family:'Space Grotesk',sans-serif;font-weight:700;color:#fff;font-size:13px">A</span><span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;color:#0B1F3A">ACES KNUST</span></div>
-          <div style="display:flex;gap:20px;font-size:13.5px;font-weight:600;color:#5B6B7E"><span style="color:#0B5FFF">Home</span><span>Association</span><span>Marketplace</span><span>Resources</span></div>
-          <div style="margin-left:auto;display:flex;gap:9px;align-items:center"><span style="padding:8px 14px;border-radius:10px;background:#F4F7FC;border:1px solid #DDE6F2;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#5B6B7E">Search…</span><span style="padding:9px 16px;border-radius:10px;background:#0B5FFF;color:#fff;font-size:13px;font-weight:700">Join ACES</span></div>
-        </div>
-        <div style="position:relative;padding:52px 26px;background:linear-gradient(150deg,#0B1F3A,#0B2E63 60%,#0B5FFF 130%);overflow:hidden">
-          <img src="assets/remote/aces-students-hero.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.2;mix-blend-mode:luminosity" />
-          <div style="position:relative;max-width:52ch">
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:rgba(234,244,255,.7);margin-bottom:14px">Technology for our age</div>
-            <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,6.6vw,42px);line-height:1.05;letter-spacing:-.035em;font-weight:700;color:#fff;margin-bottom:14px">The home base for Computer Engineering at KNUST.</div>
-            <div style="font-size:clamp(14.5px,3.8vw,16px);line-height:1.6;color:rgba(234,244,255,.85);margin-bottom:22px;max-width:46ch">Course materials, a student marketplace and every ACES event — in one place.</div>
-            <div style="display:flex;gap:10px"><span style="padding:13px 20px;border-radius:12px;background:#fff;color:#0B1F3A;font-weight:700;font-size:14.5px">Get course materials</span><span style="padding:13px 20px;border-radius:12px;border:1px solid rgba(255,255,255,.35);color:#fff;font-weight:600;font-size:14.5px">What is ACES?</span></div>
-          </div>
-        </div>
-        <div style="padding:26px">
-          <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:#5B6B7E;font-weight:700;margin-bottom:14px">Marketplace · 4-up grid</div>
-          <div data-stagger="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,130px),1fr));gap:14px">
-            <sc-for list="{{ deskCards }}" as="d" hint-placeholder-count="4">
-              <div style="border:1px solid #DDE6F2;border-radius:16px;overflow:hidden;background:#fff">
-                <img src="{{ d.img }}" alt="{{ d.name }}" style="width:100%;height:104px;object-fit:cover;display:block" />
-                <div style="padding:12px 13px 14px">
-                  <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13.5px;color:#0B1F3A;line-height:1.3">{{ d.name }}</div>
-                  <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#5B6B7E;margin-top:4px">{{ d.vendor }}</div>
-                  <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:600;color:#0B5FFF;margin-top:8px">{{ d.priceStr }}</div>
-                </div>
+            <div data-anim="scale" style="border-radius:20px;overflow:hidden;border:1px solid #DDE6F2;background:#fff;box-shadow:0 8px 30px -12px rgba(11,31,58,.28)">
+              <div style="height:38px;display:flex;align-items:center;gap:7px;padding:0 15px;background:#EDF2F8;border-bottom:1px solid #DDE6F2">
+                <span style="width:11px;height:11px;border-radius:6px;background:#E5484D"></span><span style="width:11px;height:11px;border-radius:6px;background:#F5A524"></span><span style="width:11px;height:11px;border-radius:6px;background:#46A758"></span>
+                <span style="margin-left:14px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#5B6B7E">acesknust.com</span>
               </div>
-            </sc-for>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+              <!-- The real page at 1440px, scaled to whatever width this column
+                   happens to be. A screenshot would go stale; this cannot. -->
+              <div data-fitframe="" data-w="1440" data-h="900" style="position:relative;width:100%;aspect-ratio:1440/900;overflow:hidden;background:#fff">
+                <iframe src="./index.html" title="The redesigned ACES site at desktop width" loading="lazy" scrolling="no" style="position:absolute;top:0;left:0;width:1440px;height:900px;border:0;transform-origin:top left"></iframe>
+              </div>
+            </div>
 
   <div style="max-width:1100px;margin:0 auto;padding:clamp(38px,8vw,72px) clamp(16px,4.5vw,40px) 0">
     <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:#0B5FFF;font-weight:700;margin-bottom:14px" data-anim="fade">06 · Coverage</div>
@@ -381,6 +355,35 @@ a:hover{color:#0940B8;text-decoration:underline}
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
+// Fit any [data-fitframe] to its column: the iframe renders at its true width
+// (1440) and is scaled down, so the case study always shows the real desktop
+// layout rather than a screenshot that goes stale.
+(function(){
+  var fit = function(){
+    var boxes = document.querySelectorAll('[data-fitframe]');
+    for (var i = 0; i < boxes.length; i++) {
+      var box = boxes[i], f = box.querySelector('iframe');
+      if (!f) continue;
+      var w = parseFloat(box.getAttribute('data-w')) || 1440;
+      var h = parseFloat(box.getAttribute('data-h')) || 900;
+      var k = box.clientWidth / w;
+      f.style.transform = 'scale(' + k + ')';
+      box.style.height = Math.round(h * k) + 'px';
+    }
+  };
+  // The template renders after this script is evaluated, so one pass on load
+  // finds nothing. Retry briefly until the box exists, then stop.
+  var tries = 0;
+  var poll = setInterval(function(){
+    tries++;
+    var box = document.querySelector('[data-fitframe]');
+    if (box && box.clientWidth) { fit(); if (box.clientHeight > 0 || tries > 40) clearInterval(poll); }
+    else if (tries > 40) clearInterval(poll);
+  }, 150);
+  window.addEventListener('resize', fit, { passive: true });
+  window.addEventListener('load', fit);
+})();
+
 const SEV = {
   high: 'display:inline-flex;padding:3px 9px;border-radius:7px;background:#FEE2E2;color:#B91C1C;font-family:\'IBM Plex Mono\',monospace;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;',
   med: 'display:inline-flex;padding:3px 9px;border-radius:7px;background:#FEF3C7;color:#92400E;font-family:\'IBM Plex Mono\',monospace;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;'
