@@ -132,14 +132,22 @@ patterns worth stealing are the honest ones:
 
 Fork it, read `scripts/`, take what helps.
 
-**On rights, plainly:** the code here is ours to share. The rest of it is not.
-The ACES name, crest and blue-and-white palette belong to the Association of
-Computer Engineering Students; the photographs belong to ACES and its
-photographers; the marketplace listings, staff directory and executive names are
-real people's, republished here only because ACES already publishes them. Take
-the code and the ideas. **Do not ship the ACES branding, photographs or personal
-data as part of anything else.** Swap in your own before you deploy.
+## Licence
 
-If you want a formal licence on the code, open an issue and we will add one —
-there is deliberately no blanket `LICENSE` file, because a single licence across
-this repo would claim rights over assets that are not ours to give.
+**The code is [MIT](LICENSE).** Use it, change it, ship it commercially — just
+keep the copyright notice.
+
+The licence stops at the code, because the rest was never ours to give away.
+`LICENSE` spells out the four carve-outs; the short version:
+
+- **ACES branding** — the name, the crest, the blue-and-white identity. That
+  belongs to the Association of Computer Engineering Students, KNUST.
+- **Photographs** — everything under `design-source/assets/`, including the
+  marketplace product photos, which belong to the student vendors who shot them.
+- **Personal data** — the staff directory, the executive listings, the shop and
+  vendor names. Real people. They are here only because ACES already publishes
+  them on acesknust.com, and that is not a licence to republish them elsewhere.
+- **Third-party code** — React is Meta's, under its own MIT licence.
+  `support.js` and `image-slot.js` are Claude Design's.
+
+**Replace the first three with your own before you deploy anything.**
